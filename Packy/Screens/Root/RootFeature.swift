@@ -23,6 +23,7 @@ struct RootFeature: Reducer {
 
         // MARK: Inner Business Action
         case _onAppear
+        case _changeScreen(State)
 
         // MARK: Inner SetState Action
 
@@ -31,12 +32,16 @@ struct RootFeature: Reducer {
         case home(HomeFeature.Action)
     }
 
-
     var body: some Reducer<State, Action> {
         Reduce<State, Action> { state, action in
             switch action {
             case ._onAppear:
                 return .none
+
+            case let ._changeScreen(newState):
+                state = newState
+                return .none
+
             default:
                 return .none
             }

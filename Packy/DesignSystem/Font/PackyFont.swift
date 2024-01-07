@@ -67,9 +67,3 @@ enum PackyFont {
         }
     }
 }
-// 
-// extension Font {
-//     static func packy(_ font: PackyFont, size: CGFloat? = nil) -> Font {
-//         return .custom(type.rawValue, size: size ?? <#default value#>)
-//     }
-// }

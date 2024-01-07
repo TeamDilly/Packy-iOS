@@ -12,26 +12,47 @@ import ComposableArchitecture
 struct OnboardingFeature: Reducer {
 
     struct State: Equatable {
+        @BindingState var currentPage: OnboardingPage = .makeBox
     }
 
-    enum Action {
+    enum Action: BindableAction {
         // MARK: User Action
+        case bottomButtonTapped
+        case binding(BindingAction<State>)
 
         // MARK: Inner Business Action
         case _onAppear
 
-        // MARK: Inner SetState Action
+        // MARK: Delegate Action
+        case delegate(Delegate)
 
-        // MARK: Child Action
+        enum Delegate {
+            case didFinishOnboarding
+        }
     }
 
+    @Dependency(\.userDefaults) var userDefaults
 
     var body: some Reducer<State, Action> {
+        BindingReducer()
+        
         Reduce<State, Action> { state, action in
             switch action {
-            case ._onAppear:
+            case .bottomButtonTapped:
+                guard state.currentPage != OnboardingPage.allCases.last else {
+                    return .run { send in
+                        await userDefaults.setBool(true, .hasOnboarded)
+                        await send(.delegate(.didFinishOnboarding))
+                    }
+                }
+
+                state.currentPage = .rememberEvent
+                return .none
+
+            default:
                 return .none
             }
+
         }
     }
 }

@@ -16,7 +16,7 @@ struct IntroFeature: Reducer {
         case login(LoginFeature.State = .init())
         case termsAgreement(TermsAgreementFeature.State = .init())
 
-        init() { self = .login() }
+        init() { self = .onboarding() }
     }
 
     enum Action {
@@ -26,6 +26,7 @@ struct IntroFeature: Reducer {
         case _onAppear
 
         // MARK: Inner SetState Action
+        case _changeScreen(State)
 
         // MARK: Child Action
         case onboarding(OnboardingFeature.Action)
@@ -33,12 +34,26 @@ struct IntroFeature: Reducer {
         case termsAgreement(TermsAgreementFeature.Action)
     }
 
+    @Dependency(\.userDefaults) var userDefaults
 
     var body: some Reducer<State, Action> {
         Reduce<State, Action> { state, action in
             switch action {
             case ._onAppear:
+                if userDefaults.boolForKey(.hasOnboarded) {
+                    return .run { send in await send(._changeScreen(.login())) }
+                }
                 return .none
+
+            case let ._changeScreen(newState):
+                state = newState
+                return .none
+
+            case .onboarding(.delegate(.didFinishOnboarding)):
+                return .run { send in
+                    await send(._changeScreen(.login()), animation: .spring)
+                }
+
             default:
                 return .none
             }
