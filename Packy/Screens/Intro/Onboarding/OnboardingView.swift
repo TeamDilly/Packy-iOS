@@ -20,13 +20,52 @@ struct OnboardingView: View {
     }
 
     var body: some View {
-        List {
-            Text("Hello, Onboarding!")
+        VStack(spacing: 0) {
+            Spacer()
+
+            TabView(selection: viewStore.$currentPage) {
+                ForEach(OnboardingPage.allCases, id: \.self) {
+                    pageView($0)
+                }
+            }
+            .tabViewStyle(.page)
+
+            Spacer()
+
+            PackyButton(title: viewStore.currentPage.buttonTitle) {
+                viewStore.send(.bottomButtonTapped)
+            }
         }
+        .animation(.spring, value: viewStore.currentPage)
+        .transition(.slide)
         .task {
             await viewStore
                 .send(._onAppear)
                 .finish()
+        }
+    }
+}
+
+// MARK: - Inner Views
+
+private extension OnboardingView {
+    func pageView(_ page: OnboardingPage) -> some View {
+        VStack(spacing: 0) {
+            Text(page.title)
+                .multilineTextAlignment(.center)
+                .packyFont(.heading1)
+                .padding(.horizontal)
+                .padding(.bottom, 44)
+
+            page.image
+                .resizable()
+                .frame(width: 300, height: 300)
+
+            PageIndicator(
+                totalPages: OnboardingPage.allCases.count,
+                currentPage: page.rawValue
+            )
+            .padding(.top, 24)
         }
     }
 }
