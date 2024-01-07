@@ -37,7 +37,6 @@ struct OnboardingView: View {
             }
         }
         .animation(.spring, value: viewStore.currentPage)
-        .transition(.slide)
         .task {
             await viewStore
                 .send(._onAppear)

@@ -22,13 +22,16 @@ struct OnboardingFeature: Reducer {
 
         // MARK: Inner Business Action
         case _onAppear
-        case _finishOnboarding
 
-        // MARK: Inner SetState Action
+        // MARK: Delegate Action
+        case delegate(Delegate)
 
-        // MARK: Child Action
+        enum Delegate {
+            case didFinishOnboarding
+        }
     }
 
+    @Dependency(\.userDefaults) var userDefaults
 
     var body: some Reducer<State, Action> {
         BindingReducer()
@@ -37,7 +40,10 @@ struct OnboardingFeature: Reducer {
             switch action {
             case .bottomButtonTapped:
                 guard state.currentPage != OnboardingPage.allCases.last else {
-                    return .send(._finishOnboarding)
+                    return .run { send in
+                        await userDefaults.setBool(true, .hasOnboarded)
+                        await send(.delegate(.didFinishOnboarding))
+                    }
                 }
 
                 state.currentPage = .rememberEvent
