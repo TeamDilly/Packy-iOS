@@ -42,6 +42,8 @@
 		E5D749EC2B4AE3D900213F63 /* PageIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D749EB2B4AE3D900213F63 /* PageIndicator.swift */; };
 		E5D749EE2B4AE5F500213F63 /* OnboardingPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D749ED2B4AE5F500213F63 /* OnboardingPage.swift */; };
 		E5D749F02B4AEA4100213F63 /* PackyButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D749EF2B4AEA4100213F63 /* PackyButton.swift */; };
+		E5D749F32B4AF34600213F63 /* UserDefaultsKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D749F22B4AF34600213F63 /* UserDefaultsKey.swift */; };
+		E5D749F52B4AF37800213F63 /* UserDefaultsClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D749F42B4AF37800213F63 /* UserDefaultsClient.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -80,6 +82,8 @@
 		E5D749EB2B4AE3D900213F63 /* PageIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageIndicator.swift; sourceTree = "<group>"; };
 		E5D749ED2B4AE5F500213F63 /* OnboardingPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingPage.swift; sourceTree = "<group>"; };
 		E5D749EF2B4AEA4100213F63 /* PackyButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackyButton.swift; sourceTree = "<group>"; };
+		E5D749F22B4AF34600213F63 /* UserDefaultsKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsKey.swift; sourceTree = "<group>"; };
+		E5D749F42B4AF37800213F63 /* UserDefaultsClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsClient.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,6 +121,7 @@
 			children = (
 				E5D749802B4A7DA700213F63 /* App */,
 				E5D7497E2B4A7D8100213F63 /* Screens */,
+				E5D749F12B4AF32200213F63 /* Data */,
 				E5D749A62B4AB64000213F63 /* DesignSystem */,
 				E5D749C82B4AD0A500213F63 /* Core */,
 				E5D7497F2B4A7D8400213F63 /* Resources */,
@@ -305,6 +310,15 @@
 			path = Intro;
 			sourceTree = "<group>";
 		};
+		E5D749F12B4AF32200213F63 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				E5D749F22B4AF34600213F63 /* UserDefaultsKey.swift */,
+				E5D749F42B4AF37800213F63 /* UserDefaultsClient.swift */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -404,11 +418,13 @@
 				E5D749E42B4AD28D00213F63 /* IntroFeature.swift in Sources */,
 				E5D749D32B4AD17700213F63 /* OnboardingView.swift in Sources */,
 				E5D749AD2B4AC71900213F63 /* Font+Pretendard.swift in Sources */,
+				E5D749F32B4AF34600213F63 /* UserDefaultsKey.swift in Sources */,
 				E5D749EC2B4AE3D900213F63 /* PageIndicator.swift in Sources */,
 				E5D749D42B4AD17700213F63 /* OnboardingFeature.swift in Sources */,
 				E5D749F02B4AEA4100213F63 /* PackyButton.swift in Sources */,
 				E5D749CF2B4AD0D500213F63 /* RootFeature.swift in Sources */,
 				E5D749DF2B4AD25700213F63 /* TermsAgreementFeature.swift in Sources */,
+				E5D749F52B4AF37800213F63 /* UserDefaultsClient.swift in Sources */,
 				E5D749CE2B4AD0D500213F63 /* RootView.swift in Sources */,
 				E5D749D72B4AD17D00213F63 /* LoginView.swift in Sources */,
 				E5D749612B4A72E100213F63 /* PackyApp.swift in Sources */,
