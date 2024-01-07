@@ -11,6 +11,9 @@
 		E5D749632B4A72E100213F63 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D749622B4A72E100213F63 /* ContentView.swift */; };
 		E5D749652B4A72E300213F63 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E5D749642B4A72E300213F63 /* Assets.xcassets */; };
 		E5D749682B4A72E300213F63 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E5D749672B4A72E300213F63 /* Preview Assets.xcassets */; };
+		E5D749762B4A7B9200213F63 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = E5D749752B4A7B9200213F63 /* Alamofire */; };
+		E5D749792B4A7C1A00213F63 /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = E5D749782B4A7C1A00213F63 /* ComposableArchitecture */; };
+		E5D7497C2B4A7C3300213F63 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = E5D7497B2B4A7C3300213F63 /* Kingfisher */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +22,7 @@
 		E5D749622B4A72E100213F63 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		E5D749642B4A72E300213F63 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E5D749672B4A72E300213F63 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		E5D7497D2B4A7D5800213F63 /* Packy.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Packy.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -26,6 +30,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E5D7497C2B4A7C3300213F63 /* Kingfisher in Frameworks */,
+				E5D749792B4A7C1A00213F63 /* ComposableArchitecture in Frameworks */,
+				E5D749762B4A7B9200213F63 /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -51,10 +58,9 @@
 		E5D7495F2B4A72E100213F63 /* Packy */ = {
 			isa = PBXGroup;
 			children = (
-				E5D749602B4A72E100213F63 /* PackyApp.swift */,
-				E5D749622B4A72E100213F63 /* ContentView.swift */,
-				E5D749642B4A72E300213F63 /* Assets.xcassets */,
-				E5D749662B4A72E300213F63 /* Preview Content */,
+				E5D749802B4A7DA700213F63 /* App */,
+				E5D7497E2B4A7D8100213F63 /* Screens */,
+				E5D7497F2B4A7D8400213F63 /* Resources */,
 			);
 			path = Packy;
 			sourceTree = "<group>";
@@ -65,6 +71,40 @@
 				E5D749672B4A72E300213F63 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		E5D7497E2B4A7D8100213F63 /* Screens */ = {
+			isa = PBXGroup;
+			children = (
+				E5D749812B4A7DB500213F63 /* Main */,
+			);
+			path = Screens;
+			sourceTree = "<group>";
+		};
+		E5D7497F2B4A7D8400213F63 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				E5D749662B4A72E300213F63 /* Preview Content */,
+				E5D7497D2B4A7D5800213F63 /* Packy.entitlements */,
+				E5D749642B4A72E300213F63 /* Assets.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		E5D749802B4A7DA700213F63 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				E5D749602B4A72E100213F63 /* PackyApp.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		E5D749812B4A7DB500213F63 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				E5D749622B4A72E100213F63 /* ContentView.swift */,
+			);
+			path = Main;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -83,6 +123,11 @@
 			dependencies = (
 			);
 			name = Packy;
+			packageProductDependencies = (
+				E5D749752B4A7B9200213F63 /* Alamofire */,
+				E5D749782B4A7C1A00213F63 /* ComposableArchitecture */,
+				E5D7497B2B4A7C3300213F63 /* Kingfisher */,
+			);
 			productName = Packy;
 			productReference = E5D7495D2B4A72E100213F63 /* Packy.app */;
 			productType = "com.apple.product-type.application";
@@ -111,6 +156,11 @@
 				Base,
 			);
 			mainGroup = E5D749542B4A72E100213F63;
+			packageReferences = (
+				E5D749742B4A7B9200213F63 /* XCRemoteSwiftPackageReference "Alamofire" */,
+				E5D749772B4A7C1A00213F63 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */,
+				E5D7497A2B4A7C3300213F63 /* XCRemoteSwiftPackageReference "Kingfisher" */,
+			);
 			productRefGroup = E5D7495E2B4A72E100213F63 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -269,9 +319,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Packy/Resources/Packy.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"Packy/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"Packy/Resources/Preview Content\"";
 				DEVELOPMENT_TEAM = TZ3VZ8CUCV;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -302,9 +353,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Packy/Resources/Packy.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"Packy/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"Packy/Resources/Preview Content\"";
 				DEVELOPMENT_TEAM = TZ3VZ8CUCV;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -352,6 +404,51 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		E5D749742B4A7B9200213F63 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "git@github.com:Alamofire/Alamofire.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.8.1;
+			};
+		};
+		E5D749772B4A7C1A00213F63 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "git@github.com:pointfreeco/swift-composable-architecture.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.5.6;
+			};
+		};
+		E5D7497A2B4A7C3300213F63 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "git@github.com:onevcat/Kingfisher.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.10.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		E5D749752B4A7B9200213F63 /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E5D749742B4A7B9200213F63 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+		E5D749782B4A7C1A00213F63 /* ComposableArchitecture */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E5D749772B4A7C1A00213F63 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */;
+			productName = ComposableArchitecture;
+		};
+		E5D7497B2B4A7C3300213F63 /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E5D7497A2B4A7C3300213F63 /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = E5D749552B4A72E100213F63 /* Project object */;
 }
