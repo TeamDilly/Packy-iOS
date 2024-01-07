@@ -26,6 +26,7 @@ struct IntroFeature: Reducer {
         case _onAppear
 
         // MARK: Inner SetState Action
+        case _changeScreen(State)
 
         // MARK: Child Action
         case onboarding(OnboardingFeature.Action)
@@ -33,12 +34,16 @@ struct IntroFeature: Reducer {
         case termsAgreement(TermsAgreementFeature.Action)
     }
 
-
     var body: some Reducer<State, Action> {
         Reduce<State, Action> { state, action in
             switch action {
             case ._onAppear:
                 return .none
+
+            case let ._changeScreen(newState):
+                state = newState
+                return .none
+
             default:
                 return .none
             }
