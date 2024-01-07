@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "dot.vertical.svg",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}
