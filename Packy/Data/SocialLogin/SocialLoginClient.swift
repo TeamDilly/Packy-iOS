@@ -20,6 +20,8 @@ extension DependencyValues {
 // MARK: - SocialLoginClient Client
 
 struct SocialLoginClient {
+    var initKakaoSDK: @Sendable () -> Void
+    var handleKakaoUrlIfNeeded: @Sendable (URL) -> Void
     var appleLogin: @Sendable () async throws -> SocialLoginInfo
     var kakaoLogin: @Sendable () async throws -> SocialLoginInfo
 }
@@ -27,20 +29,28 @@ struct SocialLoginClient {
 extension SocialLoginClient: DependencyKey {
     static let liveValue: Self = {
         let appleLoginController = AppleLoginController()
+        let kakaoLoginController = KakaoLoginController()
 
         return Self(
+            initKakaoSDK: {
+                kakaoLoginController.initSDK()
+            },
+            handleKakaoUrlIfNeeded: {
+                kakaoLoginController.handle(url: $0)
+            },
             appleLogin: {
                 try await appleLoginController.login()
             },
             kakaoLogin: {
-                // TODO: 수정
-                try await appleLoginController.login()
+                try await kakaoLoginController.login()
             }
         )
     }()
 
-    static let testValue: Self = {
+    static let previewValue: Self = {
         Self(
+            initKakaoSDK: {},
+            handleKakaoUrlIfNeeded: { _ in },
             appleLogin: { .mock },
             kakaoLogin: { .mock }
         )

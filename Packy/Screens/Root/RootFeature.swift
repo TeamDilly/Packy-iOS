@@ -32,10 +32,13 @@ struct RootFeature: Reducer {
         case home(HomeFeature.Action)
     }
 
+    @Dependency(\.socialLogin) var socialLogin
+
     var body: some Reducer<State, Action> {
         Reduce<State, Action> { state, action in
             switch action {
             case ._onAppear:
+                socialLogin.initKakaoSDK()
                 return .none
 
             case let ._changeScreen(newState):

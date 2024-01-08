@@ -10,8 +10,8 @@ import Foundation
 struct SocialLoginInfo {
     let id: String
     let token: String
-    let name: String
-    let email: String
+    let name: String?
+    let email: String?
     let loginType: SocialLoginType
 }
 

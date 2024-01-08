@@ -68,6 +68,7 @@ struct KakaoLoginController {
     }
 
     private func fetchUserInfo(_ continuation: CheckedContinuation<SocialLoginInfo, Error>, accessToken: String) {
+        // TODO: 차후 서버 스펙에 따라 변경 필요
         UserApi.shared.me { user, error in
             if let error {
                 continuation.resume(throwing: error)

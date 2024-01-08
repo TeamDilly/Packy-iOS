@@ -33,7 +33,10 @@ struct LoginFeature: Reducer {
         Reduce<State, Action> { state, action in
             switch action {
             case .kakaoLoginButtonTapped:
-                return .none
+                return .run { send in
+                    let info = try await socialLogin.kakaoLogin()
+                    print(info)
+                }
 
             case .appleLoginButtonTapped:
                 return .run { send in

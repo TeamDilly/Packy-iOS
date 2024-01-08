@@ -10,6 +10,12 @@ import ComposableArchitecture
 
 @main
 struct PackyApp: App {
+    @Dependency(\.socialLogin) var socialLogin
+
+    init() {
+        socialLogin.initKakaoSDK()
+    }
+
     var body: some Scene {
         WindowGroup {
             RootView(
@@ -17,6 +23,9 @@ struct PackyApp: App {
                     RootFeature()
                 }
             )
+            .onOpenURL { url in
+                socialLogin.handleKakaoUrlIfNeeded(url)
+            }
         }
     }
 }
