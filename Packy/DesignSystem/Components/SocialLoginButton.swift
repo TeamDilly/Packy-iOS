@@ -17,23 +17,22 @@ struct SocialLoginButton: View {
     let action: () -> Void
 
     var body: some View {
-        // TODO: 아직 상세 디자인 가이드가 안나와서, 차후 padding 등 변경해야 함
         Button(action: action) {
-            HStack(spacing: 0) {
+            HStack(spacing: 8) {
                 logoImage
                     .resizable()
-                    .frame(width: 24, height: 24)
+                    .scaledToFit()
+                    .frame(width: 22, height: 22)
 
                 Text(title)
                     .packyFont(.body2)
                     .foregroundStyle(textColor)
-                    .frame(maxWidth: .infinity, alignment: .center)
             }
             .padding(.vertical, 16)
             .padding(.horizontal, 12)
             .frame(maxWidth: .infinity)
             .background(backgroundColor)
-            .clipShape(RoundedRectangle(cornerRadius: 12))
+            .clipShape(RoundedRectangle(cornerRadius: 16))
         }
     }
 }
@@ -44,22 +43,22 @@ private extension SocialLoginButton {
     // TODO: 아직 상세 디자인 가이드가 안나와서, 차후 변경해야 함
     var logoImage: Image {
         switch loginType {
-        case .apple:    return Image(.bell)
-        case .kakao:    return Image(.bell)
+        case .apple:    return Image(.apple)
+        case .kakao:    return Image(.kakao)
         }
     }
 
     var title: String {
         switch loginType {
-        case .apple:    return "애플 로그인"
-        case .kakao:    return "카카오 로그인"
+        case .apple:    return "Apple로 로그인"
+        case .kakao:    return "카카오로 로그인"
         }
     }
 
     var backgroundColor: Color {
         switch loginType {
         case .apple:    return .black
-        case .kakao:    return .yellow
+        case .kakao:    return .init(hex: 0xFEE500)
         }
     }
 
@@ -72,5 +71,9 @@ private extension SocialLoginButton {
 }
 
 #Preview {
-    SocialLoginButton(loginType: .apple) {}
+    VStack(spacing: 8) {
+        SocialLoginButton(loginType: .kakao) {}
+        SocialLoginButton(loginType: .apple) {}
+    }
+    .padding(.horizontal, 24)
 }

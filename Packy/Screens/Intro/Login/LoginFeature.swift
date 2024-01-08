@@ -16,6 +16,8 @@ struct LoginFeature: Reducer {
 
     enum Action {
         // MARK: User Action
+        case kakaoLoginButtonTapped
+        case appleLoginButtonTapped
 
         // MARK: Inner Business Action
         case _onAppear
@@ -25,10 +27,23 @@ struct LoginFeature: Reducer {
         // MARK: Child Action
     }
 
+    @Dependency(\.socialLogin) var socialLogin
 
     var body: some Reducer<State, Action> {
         Reduce<State, Action> { state, action in
             switch action {
+            case .kakaoLoginButtonTapped:
+                return .run { send in
+                    let info = try await socialLogin.kakaoLogin()
+                    print(info)
+                }
+
+            case .appleLoginButtonTapped:
+                return .run { send in
+                    let info = try await socialLogin.appleLogin()
+                    print(info)
+                }
+
             case ._onAppear:
                 return .none
             }

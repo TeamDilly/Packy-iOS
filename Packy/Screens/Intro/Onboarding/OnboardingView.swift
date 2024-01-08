@@ -28,7 +28,7 @@ struct OnboardingView: View {
                     pageView($0)
                 }
             }
-            .tabViewStyle(.page)
+            .tabViewStyle(.page(indexDisplayMode: .never))
 
             Spacer()
 
