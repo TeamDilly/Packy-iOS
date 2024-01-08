@@ -19,3 +19,9 @@ enum SocialLoginType {
     case apple
     case kakao
 }
+
+// MARK: - Mock Data
+
+extension SocialLoginInfo {
+    static let mock = SocialLoginInfo(id: "", token: "", name: "mason", email: "packy@dilly.com", loginType: .apple)
+}

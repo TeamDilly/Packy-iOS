@@ -44,9 +44,13 @@
 		E5D749F02B4AEA4100213F63 /* PackyButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D749EF2B4AEA4100213F63 /* PackyButton.swift */; };
 		E5D749F32B4AF34600213F63 /* UserDefaultsKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D749F22B4AF34600213F63 /* UserDefaultsKey.swift */; };
 		E5D749F52B4AF37800213F63 /* UserDefaultsClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D749F42B4AF37800213F63 /* UserDefaultsClient.swift */; };
+		E5E593B92B4C2AB800C5A733 /* KakaoSDKAuth in Frameworks */ = {isa = PBXBuildFile; productRef = E5E593B82B4C2AB800C5A733 /* KakaoSDKAuth */; };
+		E5E593BB2B4C2AB800C5A733 /* KakaoSDKUser in Frameworks */ = {isa = PBXBuildFile; productRef = E5E593BA2B4C2AB800C5A733 /* KakaoSDKUser */; };
 		E5F2C7CC2B4C183B007387BC /* Color+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F2C7CB2B4C183B007387BC /* Color+Hex.swift */; };
 		E5F2C7D72B4C1C96007387BC /* SocialLoginClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F2C7D62B4C1C96007387BC /* SocialLoginClient.swift */; };
 		E5F2C7D92B4C253C007387BC /* SocialLoginInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F2C7D82B4C253C007387BC /* SocialLoginInfo.swift */; };
+		E5F2C7DB2B4C2759007387BC /* AppleLoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F2C7DA2B4C2759007387BC /* AppleLoginController.swift */; };
+		E5F2C7DE2B4C281A007387BC /* KakaoLoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F2C7DD2B4C281A007387BC /* KakaoLoginController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -90,6 +94,8 @@
 		E5F2C7CB2B4C183B007387BC /* Color+Hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Hex.swift"; sourceTree = "<group>"; };
 		E5F2C7D62B4C1C96007387BC /* SocialLoginClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialLoginClient.swift; sourceTree = "<group>"; };
 		E5F2C7D82B4C253C007387BC /* SocialLoginInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialLoginInfo.swift; sourceTree = "<group>"; };
+		E5F2C7DA2B4C2759007387BC /* AppleLoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleLoginController.swift; sourceTree = "<group>"; };
+		E5F2C7DD2B4C281A007387BC /* KakaoLoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoLoginController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,6 +106,8 @@
 				E5D7497C2B4A7C3300213F63 /* Kingfisher in Frameworks */,
 				E5D749792B4A7C1A00213F63 /* ComposableArchitecture in Frameworks */,
 				E5D749762B4A7B9200213F63 /* Alamofire in Frameworks */,
+				E5E593BB2B4C2AB800C5A733 /* KakaoSDKUser in Frameworks */,
+				E5E593B92B4C2AB800C5A733 /* KakaoSDKAuth in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -111,6 +119,7 @@
 			children = (
 				E5D7495F2B4A72E100213F63 /* Packy */,
 				E5D7495E2B4A72E100213F63 /* Products */,
+				E5E593B72B4C2AB800C5A733 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -327,6 +336,13 @@
 			path = Data;
 			sourceTree = "<group>";
 		};
+		E5E593B72B4C2AB800C5A733 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		E5F2C7CD2B4C1B29007387BC /* Storage */ = {
 			isa = PBXGroup;
 			children = (
@@ -348,8 +364,18 @@
 			children = (
 				E5F2C7D62B4C1C96007387BC /* SocialLoginClient.swift */,
 				E5F2C7D82B4C253C007387BC /* SocialLoginInfo.swift */,
+				E5F2C7DC2B4C277A007387BC /* Controller */,
 			);
 			path = SocialLogin;
+			sourceTree = "<group>";
+		};
+		E5F2C7DC2B4C277A007387BC /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				E5F2C7DA2B4C2759007387BC /* AppleLoginController.swift */,
+				E5F2C7DD2B4C281A007387BC /* KakaoLoginController.swift */,
+			);
+			path = Controller;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -372,6 +398,8 @@
 				E5D749752B4A7B9200213F63 /* Alamofire */,
 				E5D749782B4A7C1A00213F63 /* ComposableArchitecture */,
 				E5D7497B2B4A7C3300213F63 /* Kingfisher */,
+				E5E593B82B4C2AB800C5A733 /* KakaoSDKAuth */,
+				E5E593BA2B4C2AB800C5A733 /* KakaoSDKUser */,
 			);
 			productName = Packy;
 			productReference = E5D7495D2B4A72E100213F63 /* Packy.app */;
@@ -405,6 +433,7 @@
 				E5D749742B4A7B9200213F63 /* XCRemoteSwiftPackageReference "Alamofire" */,
 				E5D749772B4A7C1A00213F63 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */,
 				E5D7497A2B4A7C3300213F63 /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				E5F2C7E02B4C2A21007387BC /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */,
 			);
 			productRefGroup = E5D7495E2B4A72E100213F63 /* Products */;
 			projectDirPath = "";
@@ -446,6 +475,7 @@
 				E5D749AB2B4AC45400213F63 /* PackyFont.swift in Sources */,
 				E5D749E32B4AD28D00213F63 /* IntroView.swift in Sources */,
 				E5F2C7D72B4C1C96007387BC /* SocialLoginClient.swift in Sources */,
+				E5F2C7DB2B4C2759007387BC /* AppleLoginController.swift in Sources */,
 				E5D749E82B4AD3B100213F63 /* HomeFeature.swift in Sources */,
 				E5D749D82B4AD17D00213F63 /* LoginFeature.swift in Sources */,
 				E5D749DE2B4AD25700213F63 /* TermsAgreementView.swift in Sources */,
@@ -461,6 +491,7 @@
 				E5D749DF2B4AD25700213F63 /* TermsAgreementFeature.swift in Sources */,
 				E5D749F52B4AF37800213F63 /* UserDefaultsClient.swift in Sources */,
 				E5F2C7CC2B4C183B007387BC /* Color+Hex.swift in Sources */,
+				E5F2C7DE2B4C281A007387BC /* KakaoLoginController.swift in Sources */,
 				E5D749CE2B4AD0D500213F63 /* RootView.swift in Sources */,
 				E5D749D72B4AD17D00213F63 /* LoginView.swift in Sources */,
 				E5D749612B4A72E100213F63 /* PackyApp.swift in Sources */,
@@ -611,6 +642,7 @@
 				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleLightContent;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -646,6 +678,7 @@
 				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleLightContent;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -710,6 +743,14 @@
 				minimumVersion = 7.10.1;
 			};
 		};
+		E5F2C7E02B4C2A21007387BC /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/kakao/kakao-ios-sdk";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -727,6 +768,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = E5D7497A2B4A7C3300213F63 /* XCRemoteSwiftPackageReference "Kingfisher" */;
 			productName = Kingfisher;
+		};
+		E5E593B82B4C2AB800C5A733 /* KakaoSDKAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E5F2C7E02B4C2A21007387BC /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */;
+			productName = KakaoSDKAuth;
+		};
+		E5E593BA2B4C2AB800C5A733 /* KakaoSDKUser */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E5F2C7E02B4C2A21007387BC /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */;
+			productName = KakaoSDKUser;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
