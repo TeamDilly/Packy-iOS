@@ -51,6 +51,7 @@
 		E5F2C7D92B4C253C007387BC /* SocialLoginInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F2C7D82B4C253C007387BC /* SocialLoginInfo.swift */; };
 		E5F2C7DB2B4C2759007387BC /* AppleLoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F2C7DA2B4C2759007387BC /* AppleLoginController.swift */; };
 		E5F2C7DE2B4C281A007387BC /* KakaoLoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F2C7DD2B4C281A007387BC /* KakaoLoginController.swift */; };
+		E5FF94D32B4C3106002AF035 /* APIKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FF94D22B4C3106002AF035 /* APIKey.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -96,6 +97,8 @@
 		E5F2C7D82B4C253C007387BC /* SocialLoginInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialLoginInfo.swift; sourceTree = "<group>"; };
 		E5F2C7DA2B4C2759007387BC /* AppleLoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleLoginController.swift; sourceTree = "<group>"; };
 		E5F2C7DD2B4C281A007387BC /* KakaoLoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoLoginController.swift; sourceTree = "<group>"; };
+		E5FF94D12B4C2EDC002AF035 /* APIKeys.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = APIKeys.xcconfig; sourceTree = "<group>"; };
+		E5FF94D22B4C3106002AF035 /* APIKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKey.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -178,6 +181,7 @@
 			isa = PBXGroup;
 			children = (
 				E5D749602B4A72E100213F63 /* PackyApp.swift */,
+				E5FF94D12B4C2EDC002AF035 /* APIKeys.xcconfig */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -259,6 +263,7 @@
 		E5D749C92B4AD0A800213F63 /* Util */ = {
 			isa = PBXGroup;
 			children = (
+				E5FF94D22B4C3106002AF035 /* APIKey.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -489,6 +494,7 @@
 				E5D749F02B4AEA4100213F63 /* PackyButton.swift in Sources */,
 				E5D749CF2B4AD0D500213F63 /* RootFeature.swift in Sources */,
 				E5D749DF2B4AD25700213F63 /* TermsAgreementFeature.swift in Sources */,
+				E5FF94D32B4C3106002AF035 /* APIKey.swift in Sources */,
 				E5D749F52B4AF37800213F63 /* UserDefaultsClient.swift in Sources */,
 				E5F2C7CC2B4C183B007387BC /* Color+Hex.swift in Sources */,
 				E5F2C7DE2B4C281A007387BC /* KakaoLoginController.swift in Sources */,
@@ -625,6 +631,7 @@
 		};
 		E5D7496C2B4A72E300213F63 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E5FF94D12B4C2EDC002AF035 /* APIKeys.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -661,6 +668,7 @@
 		};
 		E5D7496D2B4A72E300213F63 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E5FF94D12B4C2EDC002AF035 /* APIKeys.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
