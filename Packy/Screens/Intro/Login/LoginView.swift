@@ -20,8 +20,23 @@ struct LoginView: View {
     }
 
     var body: some View {
-        List {
-            Text("Hello, Login!")
+        VStack(spacing: 0) {
+            Spacer()
+
+            Image(.packyLogo)
+                .padding(.bottom, 24)
+                .padding(.top, 24)
+            Text("마음으로 채우는 특별한 선물박스")
+                .packyFont(.title3)
+
+            Spacer()
+
+            VStack(spacing: 8) {
+                SocialLoginButton(loginType: .kakao) {}
+                SocialLoginButton(loginType: .apple) {}
+            }
+            .padding(.horizontal, 24)
+            .padding(.bottom, 120)
         }
         .task {
             await viewStore
