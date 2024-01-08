@@ -45,6 +45,8 @@
 		E5D749F32B4AF34600213F63 /* UserDefaultsKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D749F22B4AF34600213F63 /* UserDefaultsKey.swift */; };
 		E5D749F52B4AF37800213F63 /* UserDefaultsClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D749F42B4AF37800213F63 /* UserDefaultsClient.swift */; };
 		E5F2C7CC2B4C183B007387BC /* Color+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F2C7CB2B4C183B007387BC /* Color+Hex.swift */; };
+		E5F2C7D72B4C1C96007387BC /* SocialLoginClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F2C7D62B4C1C96007387BC /* SocialLoginClient.swift */; };
+		E5F2C7D92B4C253C007387BC /* SocialLoginInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F2C7D82B4C253C007387BC /* SocialLoginInfo.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -86,6 +88,8 @@
 		E5D749F22B4AF34600213F63 /* UserDefaultsKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsKey.swift; sourceTree = "<group>"; };
 		E5D749F42B4AF37800213F63 /* UserDefaultsClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsClient.swift; sourceTree = "<group>"; };
 		E5F2C7CB2B4C183B007387BC /* Color+Hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Hex.swift"; sourceTree = "<group>"; };
+		E5F2C7D62B4C1C96007387BC /* SocialLoginClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialLoginClient.swift; sourceTree = "<group>"; };
+		E5F2C7D82B4C253C007387BC /* SocialLoginInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialLoginInfo.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -123,8 +127,8 @@
 			children = (
 				E5D749802B4A7DA700213F63 /* App */,
 				E5D7497E2B4A7D8100213F63 /* Screens */,
-				E5D749A62B4AB64000213F63 /* DesignSystem */,
 				E5D749F12B4AF32200213F63 /* Data */,
+				E5D749A62B4AB64000213F63 /* DesignSystem */,
 				E5D749C82B4AD0A500213F63 /* Core */,
 				E5D7497F2B4A7D8400213F63 /* Resources */,
 			);
@@ -316,10 +320,36 @@
 		E5D749F12B4AF32200213F63 /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				E5F2C7CE2B4C1B34007387BC /* Network */,
+				E5F2C7CD2B4C1B29007387BC /* Storage */,
+				E5F2C7CF2B4C1B44007387BC /* SocialLogin */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		E5F2C7CD2B4C1B29007387BC /* Storage */ = {
+			isa = PBXGroup;
+			children = (
 				E5D749F22B4AF34600213F63 /* UserDefaultsKey.swift */,
 				E5D749F42B4AF37800213F63 /* UserDefaultsClient.swift */,
 			);
-			path = Data;
+			path = Storage;
+			sourceTree = "<group>";
+		};
+		E5F2C7CE2B4C1B34007387BC /* Network */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		E5F2C7CF2B4C1B44007387BC /* SocialLogin */ = {
+			isa = PBXGroup;
+			children = (
+				E5F2C7D62B4C1C96007387BC /* SocialLoginClient.swift */,
+				E5F2C7D82B4C253C007387BC /* SocialLoginInfo.swift */,
+			);
+			path = SocialLogin;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -411,9 +441,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E5F2C7D92B4C253C007387BC /* SocialLoginInfo.swift in Sources */,
 				E5D749A92B4AB66700213F63 /* PretendardFont.swift in Sources */,
 				E5D749AB2B4AC45400213F63 /* PackyFont.swift in Sources */,
 				E5D749E32B4AD28D00213F63 /* IntroView.swift in Sources */,
+				E5F2C7D72B4C1C96007387BC /* SocialLoginClient.swift in Sources */,
 				E5D749E82B4AD3B100213F63 /* HomeFeature.swift in Sources */,
 				E5D749D82B4AD17D00213F63 /* LoginFeature.swift in Sources */,
 				E5D749DE2B4AD25700213F63 /* TermsAgreementView.swift in Sources */,
