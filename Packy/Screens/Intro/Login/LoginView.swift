@@ -32,8 +32,13 @@ struct LoginView: View {
             Spacer()
 
             VStack(spacing: 8) {
-                SocialLoginButton(loginType: .kakao) {}
-                SocialLoginButton(loginType: .apple) {}
+                SocialLoginButton(loginType: .kakao) {
+                    viewStore.send(.kakaoLoginButtonTapped)
+                }
+
+                SocialLoginButton(loginType: .apple) {
+                    viewStore.send(.appleLoginButtonTapped)
+                }
             }
             .padding(.horizontal, 24)
             .padding(.bottom, 120)
