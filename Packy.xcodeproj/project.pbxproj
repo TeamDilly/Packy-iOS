@@ -52,6 +52,7 @@
 		E5F2C7DB2B4C2759007387BC /* AppleLoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F2C7DA2B4C2759007387BC /* AppleLoginController.swift */; };
 		E5F2C7DE2B4C281A007387BC /* KakaoLoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F2C7DD2B4C281A007387BC /* KakaoLoginController.swift */; };
 		E5FF94D32B4C3106002AF035 /* APIKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FF94D22B4C3106002AF035 /* APIKey.swift */; };
+		E5FF94D62B4C44F6002AF035 /* CloseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FF94D52B4C44F6002AF035 /* CloseButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -99,6 +100,7 @@
 		E5F2C7DD2B4C281A007387BC /* KakaoLoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoLoginController.swift; sourceTree = "<group>"; };
 		E5FF94D12B4C2EDC002AF035 /* APIKeys.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = APIKeys.xcconfig; sourceTree = "<group>"; };
 		E5FF94D22B4C3106002AF035 /* APIKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKey.swift; sourceTree = "<group>"; };
+		E5FF94D52B4C44F6002AF035 /* CloseButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloseButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -237,6 +239,7 @@
 				E5D749E92B4AD85600213F63 /* SocialLoginButton.swift */,
 				E5D749EB2B4AE3D900213F63 /* PageIndicator.swift */,
 				E5D749EF2B4AEA4100213F63 /* PackyButton.swift */,
+				E5FF94D52B4C44F6002AF035 /* CloseButton.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -475,6 +478,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E5FF94D62B4C44F6002AF035 /* CloseButton.swift in Sources */,
 				E5F2C7D92B4C253C007387BC /* SocialLoginInfo.swift in Sources */,
 				E5D749A92B4AB66700213F63 /* PretendardFont.swift in Sources */,
 				E5D749AB2B4AC45400213F63 /* PackyFont.swift in Sources */,
