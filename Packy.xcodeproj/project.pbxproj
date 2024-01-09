@@ -13,6 +13,8 @@
 		E560D4C42B4D81630098D603 /* SignUpProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E560D4C22B4D81630098D603 /* SignUpProfileView.swift */; };
 		E560D4C52B4D81630098D603 /* SignUpProfileFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = E560D4C32B4D81630098D603 /* SignUpProfileFeature.swift */; };
 		E560D4CD2B4D8B490098D603 /* PackyNavigationLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = E560D4CC2B4D8B490098D603 /* PackyNavigationLink.swift */; };
+		E560D4CF2B4D9A910098D603 /* TextField+LimitInputLength.swift in Sources */ = {isa = PBXBuildFile; fileRef = E560D4CE2B4D9A910098D603 /* TextField+LimitInputLength.swift */; };
+		E560D4D12B4D9CEB0098D603 /* View+HideKeyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = E560D4D02B4D9CEB0098D603 /* View+HideKeyboard.swift */; };
 		E5A457292B4D7BEC0077EA61 /* Radio.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A457282B4D7BEC0077EA61 /* Radio.swift */; };
 		E5A4572B2B4D7C570077EA61 /* Checkbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A4572A2B4D7C570077EA61 /* Checkbox.swift */; };
 		E5D749612B4A72E100213F63 /* PackyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D749602B4A72E100213F63 /* PackyApp.swift */; };
@@ -73,6 +75,8 @@
 		E560D4C22B4D81630098D603 /* SignUpProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpProfileView.swift; sourceTree = "<group>"; };
 		E560D4C32B4D81630098D603 /* SignUpProfileFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpProfileFeature.swift; sourceTree = "<group>"; };
 		E560D4CC2B4D8B490098D603 /* PackyNavigationLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackyNavigationLink.swift; sourceTree = "<group>"; };
+		E560D4CE2B4D9A910098D603 /* TextField+LimitInputLength.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TextField+LimitInputLength.swift"; sourceTree = "<group>"; };
+		E560D4D02B4D9CEB0098D603 /* View+HideKeyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+HideKeyboard.swift"; sourceTree = "<group>"; };
 		E5A457282B4D7BEC0077EA61 /* Radio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Radio.swift; sourceTree = "<group>"; };
 		E5A4572A2B4D7C570077EA61 /* Checkbox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Checkbox.swift; sourceTree = "<group>"; };
 		E5D7495D2B4A72E100213F63 /* Packy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Packy.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -332,6 +336,8 @@
 			children = (
 				E5E25DB62B4D712A00125DCE /* View+GetSize.swift */,
 				E5F2C7CB2B4C183B007387BC /* Color+Hex.swift */,
+				E560D4CE2B4D9A910098D603 /* TextField+LimitInputLength.swift */,
+				E560D4D02B4D9CEB0098D603 /* View+HideKeyboard.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -539,6 +545,7 @@
 				E5F2C7D92B4C253C007387BC /* SocialLoginInfo.swift in Sources */,
 				E560D4C52B4D81630098D603 /* SignUpProfileFeature.swift in Sources */,
 				E5D749A92B4AB66700213F63 /* PretendardFont.swift in Sources */,
+				E560D4CF2B4D9A910098D603 /* TextField+LimitInputLength.swift in Sources */,
 				E5D749AB2B4AC45400213F63 /* PackyFont.swift in Sources */,
 				E5A4572B2B4D7C570077EA61 /* Checkbox.swift in Sources */,
 				E5E25DB52B4D69ED00125DCE /* PackyTextArea.swift in Sources */,
@@ -576,6 +583,7 @@
 				E5D749EA2B4AD85600213F63 /* SocialLoginButton.swift in Sources */,
 				E5D749AF2B4AC73100213F63 /* Font+Packy.swift in Sources */,
 				E5D749EE2B4AE5F500213F63 /* OnboardingPage.swift in Sources */,
+				E560D4D12B4D9CEB0098D603 /* View+HideKeyboard.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -62,13 +62,15 @@ private extension SignUpNicknameView {
 
             PackyTextField(
                 text: viewStore.$nickname,
-                placeholder: "닉네임"
+                placeholder: "6자 이내로 입력해주세요"
             )
+            .limitTextLength(text: viewStore.$nickname, length: 6)
 
             Spacer()
 
             PackyNavigationLink(title: "저장", pathState: SignUpNavigationPath.State.profile())
                 .disabled(viewStore.nickname.isEmpty)
+                .padding(.bottom, 16)
         }
         .animation(.spring, value: viewStore.nickname)
         .padding(.horizontal, 24)
