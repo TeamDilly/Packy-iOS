@@ -16,6 +16,7 @@
 		E560D4CF2B4D9A910098D603 /* TextField+LimitInputLength.swift in Sources */ = {isa = PBXBuildFile; fileRef = E560D4CE2B4D9A910098D603 /* TextField+LimitInputLength.swift */; };
 		E560D4D12B4D9CEB0098D603 /* View+HideKeyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = E560D4D02B4D9CEB0098D603 /* View+HideKeyboard.swift */; };
 		E560D4D62B4DA0E70098D603 /* NavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = E560D4D52B4DA0E70098D603 /* NavigationBar.swift */; };
+		E560D4D82B4DA9090098D603 /* UINavigationController+PopGesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = E560D4D72B4DA9090098D603 /* UINavigationController+PopGesture.swift */; };
 		E5A457292B4D7BEC0077EA61 /* Radio.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A457282B4D7BEC0077EA61 /* Radio.swift */; };
 		E5A4572B2B4D7C570077EA61 /* Checkbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A4572A2B4D7C570077EA61 /* Checkbox.swift */; };
 		E5D749612B4A72E100213F63 /* PackyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D749602B4A72E100213F63 /* PackyApp.swift */; };
@@ -79,6 +80,7 @@
 		E560D4CE2B4D9A910098D603 /* TextField+LimitInputLength.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TextField+LimitInputLength.swift"; sourceTree = "<group>"; };
 		E560D4D02B4D9CEB0098D603 /* View+HideKeyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+HideKeyboard.swift"; sourceTree = "<group>"; };
 		E560D4D52B4DA0E70098D603 /* NavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBar.swift; sourceTree = "<group>"; };
+		E560D4D72B4DA9090098D603 /* UINavigationController+PopGesture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+PopGesture.swift"; sourceTree = "<group>"; };
 		E5A457282B4D7BEC0077EA61 /* Radio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Radio.swift; sourceTree = "<group>"; };
 		E5A4572A2B4D7C570077EA61 /* Checkbox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Checkbox.swift; sourceTree = "<group>"; };
 		E5D7495D2B4A72E100213F63 /* Packy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Packy.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -341,6 +343,7 @@
 				E5F2C7CB2B4C183B007387BC /* Color+Hex.swift */,
 				E560D4CE2B4D9A910098D603 /* TextField+LimitInputLength.swift */,
 				E560D4D02B4D9CEB0098D603 /* View+HideKeyboard.swift */,
+				E560D4D72B4DA9090098D603 /* UINavigationController+PopGesture.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -574,6 +577,7 @@
 				E560D4D62B4DA0E70098D603 /* NavigationBar.swift in Sources */,
 				E5FF94D32B4C3106002AF035 /* APIKey.swift in Sources */,
 				E5D749F52B4AF37800213F63 /* UserDefaultsClient.swift in Sources */,
+				E560D4D82B4DA9090098D603 /* UINavigationController+PopGesture.swift in Sources */,
 				E5F2C7CC2B4C183B007387BC /* Color+Hex.swift in Sources */,
 				E5FF94D82B4C4A6A002AF035 /* PackyTextField.swift in Sources */,
 				E5F2C7DE2B4C281A007387BC /* KakaoLoginController.swift in Sources */,

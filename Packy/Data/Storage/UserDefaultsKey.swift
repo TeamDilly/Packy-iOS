@@ -11,6 +11,7 @@ import Foundation
 enum UserDefaultsKey {
     enum BoolKey: String {
         case hasOnboarded
+        case isPopGestureEnabled
     }
 
     enum StringKey: String {
