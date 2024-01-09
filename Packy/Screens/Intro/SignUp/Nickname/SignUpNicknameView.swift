@@ -68,10 +68,9 @@ private extension SignUpNicknameView {
             Spacer()
 
             PackyNavigationLink(title: "저장", pathState: SignUpNavigationPath.State.profile())
-
-            NavigationLink("저장", state: SignUpNavigationPath.State.profile())
-                .buttonStyle(PackyButtonStyle())
+                .disabled(viewStore.nickname.isEmpty)
         }
+        .animation(.spring, value: viewStore.nickname)
         .padding(.horizontal, 24)
         .task {
             await viewStore
