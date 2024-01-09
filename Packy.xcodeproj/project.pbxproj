@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E5A457292B4D7BEC0077EA61 /* Radio.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A457282B4D7BEC0077EA61 /* Radio.swift */; };
+		E5A4572B2B4D7C570077EA61 /* Checkbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A4572A2B4D7C570077EA61 /* Checkbox.swift */; };
 		E5D749612B4A72E100213F63 /* PackyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D749602B4A72E100213F63 /* PackyApp.swift */; };
 		E5D749652B4A72E300213F63 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E5D749642B4A72E300213F63 /* Assets.xcassets */; };
 		E5D749682B4A72E300213F63 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E5D749672B4A72E300213F63 /* Preview Assets.xcassets */; };
@@ -59,6 +61,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		E5A457282B4D7BEC0077EA61 /* Radio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Radio.swift; sourceTree = "<group>"; };
+		E5A4572A2B4D7C570077EA61 /* Checkbox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Checkbox.swift; sourceTree = "<group>"; };
 		E5D7495D2B4A72E100213F63 /* Packy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Packy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E5D749602B4A72E100213F63 /* PackyApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackyApp.swift; sourceTree = "<group>"; };
 		E5D749642B4A72E300213F63 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -248,6 +252,8 @@
 				E5FF94D52B4C44F6002AF035 /* CloseButton.swift */,
 				E5FF94D72B4C4A6A002AF035 /* PackyTextField.swift */,
 				E5E25DB42B4D69ED00125DCE /* PackyTextArea.swift */,
+				E5A457282B4D7BEC0077EA61 /* Radio.swift */,
+				E5A4572A2B4D7C570077EA61 /* Checkbox.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -491,6 +497,7 @@
 				E5F2C7D92B4C253C007387BC /* SocialLoginInfo.swift in Sources */,
 				E5D749A92B4AB66700213F63 /* PretendardFont.swift in Sources */,
 				E5D749AB2B4AC45400213F63 /* PackyFont.swift in Sources */,
+				E5A4572B2B4D7C570077EA61 /* Checkbox.swift in Sources */,
 				E5E25DB52B4D69ED00125DCE /* PackyTextArea.swift in Sources */,
 				E5D749E32B4AD28D00213F63 /* IntroView.swift in Sources */,
 				E5F2C7D72B4C1C96007387BC /* SocialLoginClient.swift in Sources */,
@@ -514,6 +521,7 @@
 				E5F2C7CC2B4C183B007387BC /* Color+Hex.swift in Sources */,
 				E5FF94D82B4C4A6A002AF035 /* PackyTextField.swift in Sources */,
 				E5F2C7DE2B4C281A007387BC /* KakaoLoginController.swift in Sources */,
+				E5A457292B4D7BEC0077EA61 /* Radio.swift in Sources */,
 				E5D749CE2B4AD0D500213F63 /* RootView.swift in Sources */,
 				E5D749D72B4AD17D00213F63 /* LoginView.swift in Sources */,
 				E5D749612B4A72E100213F63 /* PackyApp.swift in Sources */,
