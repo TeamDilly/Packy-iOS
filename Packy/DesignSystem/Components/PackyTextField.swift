@@ -38,6 +38,7 @@ struct PackyTextField: View {
                     if !text.isEmpty && !isCompleted {
                         Button {
                             text = ""
+                            textFieldFocused = true
                         } label: {
                             Image(.xmarkCircleFill)
                                 .resizable()
