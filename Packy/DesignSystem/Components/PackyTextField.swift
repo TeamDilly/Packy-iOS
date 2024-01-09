@@ -15,6 +15,8 @@ struct PackyTextField: View {
     var errorMessage: String? = nil
     var isCompleted: Bool = false
 
+    @FocusState private var textFieldFocused: Bool
+
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {
             if let label {
@@ -52,6 +54,9 @@ struct PackyTextField: View {
                     .foregroundStyle(Color(hex: 0xF34248))
             }
         }
+        .onTapGesture {
+            textFieldFocused = true
+        }
     }
 
     private var textField: some View {
@@ -65,6 +70,7 @@ struct PackyTextField: View {
             .packyFont(.body4)
             .padding()
             .disabled(isCompleted)
+            .focused($textFieldFocused)
     }
 }
 
