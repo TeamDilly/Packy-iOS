@@ -44,6 +44,8 @@
 		E5D749F02B4AEA4100213F63 /* PackyButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D749EF2B4AEA4100213F63 /* PackyButton.swift */; };
 		E5D749F32B4AF34600213F63 /* UserDefaultsKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D749F22B4AF34600213F63 /* UserDefaultsKey.swift */; };
 		E5D749F52B4AF37800213F63 /* UserDefaultsClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D749F42B4AF37800213F63 /* UserDefaultsClient.swift */; };
+		E5E25DB52B4D69ED00125DCE /* PackyTextArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E25DB42B4D69ED00125DCE /* PackyTextArea.swift */; };
+		E5E25DB72B4D712A00125DCE /* View+GetSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E25DB62B4D712A00125DCE /* View+GetSize.swift */; };
 		E5E593B92B4C2AB800C5A733 /* KakaoSDKAuth in Frameworks */ = {isa = PBXBuildFile; productRef = E5E593B82B4C2AB800C5A733 /* KakaoSDKAuth */; };
 		E5E593BB2B4C2AB800C5A733 /* KakaoSDKUser in Frameworks */ = {isa = PBXBuildFile; productRef = E5E593BA2B4C2AB800C5A733 /* KakaoSDKUser */; };
 		E5F2C7CC2B4C183B007387BC /* Color+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F2C7CB2B4C183B007387BC /* Color+Hex.swift */; };
@@ -94,6 +96,8 @@
 		E5D749EF2B4AEA4100213F63 /* PackyButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackyButton.swift; sourceTree = "<group>"; };
 		E5D749F22B4AF34600213F63 /* UserDefaultsKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsKey.swift; sourceTree = "<group>"; };
 		E5D749F42B4AF37800213F63 /* UserDefaultsClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsClient.swift; sourceTree = "<group>"; };
+		E5E25DB42B4D69ED00125DCE /* PackyTextArea.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackyTextArea.swift; sourceTree = "<group>"; };
+		E5E25DB62B4D712A00125DCE /* View+GetSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+GetSize.swift"; sourceTree = "<group>"; };
 		E5F2C7CB2B4C183B007387BC /* Color+Hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Hex.swift"; sourceTree = "<group>"; };
 		E5F2C7D62B4C1C96007387BC /* SocialLoginClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialLoginClient.swift; sourceTree = "<group>"; };
 		E5F2C7D82B4C253C007387BC /* SocialLoginInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialLoginInfo.swift; sourceTree = "<group>"; };
@@ -243,6 +247,7 @@
 				E5D749EF2B4AEA4100213F63 /* PackyButton.swift */,
 				E5FF94D52B4C44F6002AF035 /* CloseButton.swift */,
 				E5FF94D72B4C4A6A002AF035 /* PackyTextField.swift */,
+				E5E25DB42B4D69ED00125DCE /* PackyTextArea.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -277,6 +282,7 @@
 		E5D749CA2B4AD0AA00213F63 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				E5E25DB62B4D712A00125DCE /* View+GetSize.swift */,
 				E5F2C7CB2B4C183B007387BC /* Color+Hex.swift */,
 			);
 			path = Extensions;
@@ -485,6 +491,7 @@
 				E5F2C7D92B4C253C007387BC /* SocialLoginInfo.swift in Sources */,
 				E5D749A92B4AB66700213F63 /* PretendardFont.swift in Sources */,
 				E5D749AB2B4AC45400213F63 /* PackyFont.swift in Sources */,
+				E5E25DB52B4D69ED00125DCE /* PackyTextArea.swift in Sources */,
 				E5D749E32B4AD28D00213F63 /* IntroView.swift in Sources */,
 				E5F2C7D72B4C1C96007387BC /* SocialLoginClient.swift in Sources */,
 				E5F2C7DB2B4C2759007387BC /* AppleLoginController.swift in Sources */,
@@ -498,6 +505,7 @@
 				E5D749F32B4AF34600213F63 /* UserDefaultsKey.swift in Sources */,
 				E5D749EC2B4AE3D900213F63 /* PageIndicator.swift in Sources */,
 				E5D749D42B4AD17700213F63 /* OnboardingFeature.swift in Sources */,
+				E5E25DB72B4D712A00125DCE /* View+GetSize.swift in Sources */,
 				E5D749F02B4AEA4100213F63 /* PackyButton.swift in Sources */,
 				E5D749CF2B4AD0D500213F63 /* RootFeature.swift in Sources */,
 				E5D749DF2B4AD25700213F63 /* TermsAgreementFeature.swift in Sources */,
