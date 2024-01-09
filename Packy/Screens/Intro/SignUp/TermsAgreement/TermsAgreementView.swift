@@ -23,6 +23,7 @@ struct TermsAgreementView: View {
         List {
             Text("Hello, TermsAgreement!")
         }
+        .navigationBarBackButtonHidden(true)
         .task {
             await viewStore
                 .send(._onAppear)

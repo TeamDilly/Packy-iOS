@@ -18,6 +18,7 @@ struct SignUpProfileFeature: Reducer {
     enum Action: BindableAction {
         // MARK: User Action
         case binding(BindingAction<State>)
+        case backButtonTapped
 
         // MARK: Inner Business Action
         case _onAppear
@@ -28,6 +29,8 @@ struct SignUpProfileFeature: Reducer {
         
     }
 
+    @Dependency(\.dismiss) var dismiss
+
 
     var body: some Reducer<State, Action> {
         BindingReducer()
@@ -36,6 +39,9 @@ struct SignUpProfileFeature: Reducer {
             switch action {
             case .binding:
                 return .none
+
+            case .backButtonTapped:
+                return .run { _ in await dismiss() }
 
             case ._onAppear:
                 return .none

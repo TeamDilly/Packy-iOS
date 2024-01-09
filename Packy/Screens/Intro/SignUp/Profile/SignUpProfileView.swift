@@ -21,12 +21,17 @@ struct SignUpProfileView: View {
 
     var body: some View {
         VStack(spacing: 0) {
+            NavigationBar(leftIcon: Image(.arrowLeft), leftIconAction: {
+                viewStore.send(.backButtonTapped)
+            })
+            .padding(.bottom, 8)
+
             Text("프로필을 선택해주세요")
                 .packyFont(.heading1)
                 .foregroundStyle(.gray900)
                 .frame(maxWidth: .infinity, alignment: .leading)
-                .padding(.top, 64)
                 .padding(.bottom, 80)
+                .padding(.horizontal, 24)
 
             VStack(spacing: 40) {
                 Image(.mock)
@@ -47,9 +52,11 @@ struct SignUpProfileView: View {
             Spacer()
 
             PackyNavigationLink(title: "저장", pathState: SignUpNavigationPath.State.termsAgreement())
+                .padding(.horizontal, 24)
+                .padding(.bottom, 16)
         }
         // .animation(.spring, value: viewStore.nickname) // TODO: 프로필 변경에 따라 애니메이션 부옇!
-        .padding(.horizontal, 24)
+        .navigationBarBackButtonHidden(true)
         .task {
             await viewStore
                 .send(._onAppear)
