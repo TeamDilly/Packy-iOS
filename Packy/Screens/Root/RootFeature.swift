@@ -33,13 +33,16 @@ struct RootFeature: Reducer {
     }
 
     @Dependency(\.socialLogin) var socialLogin
+    @Dependency(\.userDefaults) var userDefaults
 
     var body: some Reducer<State, Action> {
         Reduce<State, Action> { state, action in
             switch action {
             case ._onAppear:
                 socialLogin.initKakaoSDK()
-                return .none
+                return .run { send in
+                    await userDefaults.setBool(true, .isPopGestureEnabled)
+                }
 
             case let ._changeScreen(newState):
                 state = newState

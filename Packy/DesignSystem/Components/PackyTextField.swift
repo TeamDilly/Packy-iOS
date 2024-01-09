@@ -10,16 +10,20 @@ import SwiftUI
 struct PackyTextField: View {
     @Binding var text: String
 
-    let label: String
     let placeholder: String
+    var label: String? = nil
     var errorMessage: String? = nil
     var isCompleted: Bool = false
 
+    @FocusState private var textFieldFocused: Bool
+
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {
-            Text(label)
-                .packyFont(.body4)
-                .foregroundStyle(.gray800)
+            if let label {
+                Text(label)
+                    .packyFont(.body4)
+                    .foregroundStyle(.gray800)
+            }
 
             ZStack {
                 RoundedRectangle(cornerRadius: 8)
@@ -34,6 +38,7 @@ struct PackyTextField: View {
                     if !text.isEmpty && !isCompleted {
                         Button {
                             text = ""
+                            textFieldFocused = true
                         } label: {
                             Image(.xmarkCircleFill)
                                 .resizable()
@@ -50,6 +55,9 @@ struct PackyTextField: View {
                     .foregroundStyle(Color(hex: 0xF34248))
             }
         }
+        .onTapGesture {
+            textFieldFocused = true
+        }
     }
 
     private var textField: some View {
@@ -63,6 +71,7 @@ struct PackyTextField: View {
             .packyFont(.body4)
             .padding()
             .disabled(isCompleted)
+            .focused($textFieldFocused)
     }
 }
 
@@ -75,15 +84,15 @@ struct PackyTextField: View {
             VStack {
                 PackyTextField(
                     text: $text1,
-                    label: "Label",
                     placeholder: "Placeholder",
+                    label: "Label",
                     errorMessage: "Error Message..."
                 )
 
                 PackyTextField(
                     text: $text2,
-                    label: "Label",
                     placeholder: "Placeholder",
+                    label: "Label",
                     isCompleted: true
                 )
             }

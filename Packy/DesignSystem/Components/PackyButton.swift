@@ -41,11 +41,11 @@ struct PackyButton: View {
 
 // MARK: - Button Style
 
-private struct PackyButtonStyle: ButtonStyle {
+struct PackyButtonStyle: ButtonStyle {
     @Environment(\.isEnabled) private var isEnabled
 
-    let sizeType: PackyButton.SizeType
-    let colorType: PackyButton.ColorType
+    var sizeType: PackyButton.SizeType = .large
+    var colorType: PackyButton.ColorType = .purple
 
     func makeBody(configuration: Configuration) -> some View {
         let isPressed = configuration.isPressed

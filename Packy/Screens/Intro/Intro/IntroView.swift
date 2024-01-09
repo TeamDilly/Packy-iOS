@@ -32,9 +32,9 @@ struct IntroView: View {
                     LoginView(store: store)
                 }
 
-            case .termsAgreement:
-                CaseLet(\IntroFeature.State.termsAgreement, action: IntroFeature.Action.termsAgreement) { store in
-                    TermsAgreementView(store: store)
+            case .signUp:
+                CaseLet(\IntroFeature.State.signUp, action: IntroFeature.Action.signUp) { store in
+                    SignUpNicknameView(store: store)
                 }
             }
         }
