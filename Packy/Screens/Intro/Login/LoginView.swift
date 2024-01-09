@@ -27,7 +27,7 @@ struct LoginView: View {
                 .padding(.bottom, 24)
                 .padding(.top, 24)
             Text("마음으로 채우는 특별한 선물박스")
-                .packyFont(.title3)
+                .packyFont(.body2)
 
             Spacer()
 

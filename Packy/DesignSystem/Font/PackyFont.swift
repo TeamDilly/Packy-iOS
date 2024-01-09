@@ -8,23 +8,16 @@
 import SwiftUI
 
 enum PackyFont {
-    case heading1
-    case title1, title2, title3
+    case heading1, heading2
     case body1, body2, body3, body4, body5, body6
 
     var pretendard: Pretendard {
         switch self {
-        case .heading1:
+        case .heading1, .heading2, .body1:
             return .bold
-
-        case .title1, .title2:   
-            return .bold
-        case .title3:   
-            return .regular
-
-        case .body1, .body2:    
-            return .bold
-        case .body3, .body4, .body5, .body6:    
+        case .body3:
+            return .semibold
+        case .body2, .body4, .body5, .body6:
             return .regular
         }
     }
@@ -33,17 +26,12 @@ enum PackyFont {
         switch self {
         case .heading1: 
             return 24
-
-        case .title1:   
-            return 24
-        case .title2, .title3:   
-            return 16
-
-        case .body1:   
+        case .heading2:
             return 18
-        case .body2, .body3:
+
+        case .body1, .body2:
             return 16
-        case .body4, .body5:
+        case .body3, .body4, .body5:
             return 14
         case .body6:
             return 12
@@ -52,13 +40,13 @@ enum PackyFont {
 
     var lineHeight: CGFloat {
         switch self {
-        case .heading1, .title1:
+        case .heading1:
             return 34
-        case .title2, .title3, .body1:
+        case .heading2:
             return 24
-        case .body2, .body3:
+        case .body1, .body2:
             return 26
-        case .body4:
+        case .body3, .body4:
             return 22
         case .body5:
             return 26

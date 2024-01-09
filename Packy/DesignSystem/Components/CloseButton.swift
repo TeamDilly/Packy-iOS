@@ -102,7 +102,7 @@ private extension CloseButtonStyle {
 #Preview {
     VStack {
         Text("Large")
-            .packyFont(.title1)
+            .packyFont(.body1)
 
         HStack {
             CloseButton() {}
@@ -116,7 +116,7 @@ private extension CloseButtonStyle {
         }
 
         Text("Medium")
-            .packyFont(.title1)
+            .packyFont(.body1)
             .padding(.top)
 
         HStack {

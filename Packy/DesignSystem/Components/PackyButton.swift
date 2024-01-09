@@ -108,14 +108,14 @@ private extension PackyButtonStyle {
 #Preview {
     ScrollView {
         VStack {
-            Text("Large").packyFont(.title1)
+            Text("Large").packyFont(.body1)
             PackyButton(title: "Confirm") {}
             PackyButton(title: "Confirm", colorType: .black) {}
             PackyButton(title: "Confirm", colorType: .lightPurple) {}
             PackyButton(title: "Confirm", colorType: .lightPurple) {}
                 .disabled(true)
 
-            Text("Medium").packyFont(.title1)
+            Text("Medium").packyFont(.body1)
                 .padding(.top)
             PackyButton(title: "Confirm", sizeType: .medium) {}
             PackyButton(title: "Confirm", sizeType: .medium, colorType: .black) {}
@@ -123,7 +123,7 @@ private extension PackyButtonStyle {
             PackyButton(title: "Confirm", sizeType: .medium, colorType: .lightPurple) {}
                 .disabled(true)
 
-            Text("Small").packyFont(.title1)
+            Text("Small").packyFont(.body1)
                 .padding(.top)
             PackyButton(title: "Confirm", sizeType: .small) {}
             PackyButton(title: "Confirm", sizeType: .small, colorType: .black) {}
