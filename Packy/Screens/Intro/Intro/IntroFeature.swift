@@ -14,9 +14,9 @@ struct IntroFeature: Reducer {
     enum State: Equatable {
         case onboarding(OnboardingFeature.State = .init())
         case login(LoginFeature.State = .init())
-        case termsAgreement(TermsAgreementFeature.State = .init())
+        case signUp(SignUpNicknameFeature.State = .init())
 
-        init() { self = .onboarding() }
+        init() { self = .signUp() }
     }
 
     enum Action {
@@ -31,7 +31,7 @@ struct IntroFeature: Reducer {
         // MARK: Child Action
         case onboarding(OnboardingFeature.Action)
         case login(LoginFeature.Action)
-        case termsAgreement(TermsAgreementFeature.Action)
+        case signUp(SignUpNicknameFeature.Action)
     }
 
     @Dependency(\.userDefaults) var userDefaults
@@ -41,7 +41,7 @@ struct IntroFeature: Reducer {
             switch action {
             case ._onAppear:
                 if userDefaults.boolForKey(.hasOnboarded) {
-                    return .run { send in await send(._changeScreen(.login())) }
+                    return .run { send in await send(._changeScreen(.signUp())) } // TODO: 원상복귀
                 }
                 return .none
 
@@ -60,6 +60,6 @@ struct IntroFeature: Reducer {
         }
         .ifCaseLet(\.onboarding, action: \.onboarding) { OnboardingFeature() }
         .ifCaseLet(\.login, action: \.login) { LoginFeature() }
-        .ifCaseLet(\.termsAgreement, action: \.termsAgreement) { TermsAgreementFeature() }
+        .ifCaseLet(\.signUp, action: \.signUp) { SignUpNicknameFeature() }
     }
 }
