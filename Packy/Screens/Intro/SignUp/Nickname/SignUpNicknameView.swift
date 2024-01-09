@@ -74,6 +74,7 @@ private extension SignUpNicknameView {
         }
         .animation(.spring, value: viewStore.nickname)
         .padding(.horizontal, 24)
+        .makeTapToHideKeyboard()
         .task {
             await viewStore
                 .send(._onAppear)
