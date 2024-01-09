@@ -54,7 +54,7 @@ private struct CloseButtonStyle: ButtonStyle {
     }
 
     private var iconImage: some View {
-        Image(.cancle)
+        Image(.cancel)
             .renderingMode(.template)
             .resizable()
             .aspectRatio(contentMode: .fit)

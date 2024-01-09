@@ -29,3 +29,9 @@ private struct PackyFontViewModifier: ViewModifier {
             .padding(.vertical, lineSpacing / 2)
     }
 }
+
+extension Font {
+    static func packy(_ packyFont: PackyFont, size: CGFloat? = nil) -> Font {
+        return .custom(packyFont.pretendard.rawValue, size: size ?? packyFont.size)
+    }
+}
