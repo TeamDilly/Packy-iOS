@@ -17,6 +17,7 @@
 		E560D4D12B4D9CEB0098D603 /* View+HideKeyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = E560D4D02B4D9CEB0098D603 /* View+HideKeyboard.swift */; };
 		E560D4D62B4DA0E70098D603 /* NavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = E560D4D52B4DA0E70098D603 /* NavigationBar.swift */; };
 		E560D4D82B4DA9090098D603 /* UINavigationController+PopGesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = E560D4D72B4DA9090098D603 /* UINavigationController+PopGesture.swift */; };
+		E560D4DA2B4DACD30098D603 /* HapticManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E560D4D92B4DACD30098D603 /* HapticManager.swift */; };
 		E5A457292B4D7BEC0077EA61 /* Radio.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A457282B4D7BEC0077EA61 /* Radio.swift */; };
 		E5A4572B2B4D7C570077EA61 /* Checkbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A4572A2B4D7C570077EA61 /* Checkbox.swift */; };
 		E5A7C9DB2B4EBD9D00F19D4A /* Terms.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7C9DA2B4EBD9D00F19D4A /* Terms.swift */; };
@@ -82,6 +83,7 @@
 		E560D4D02B4D9CEB0098D603 /* View+HideKeyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+HideKeyboard.swift"; sourceTree = "<group>"; };
 		E560D4D52B4DA0E70098D603 /* NavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBar.swift; sourceTree = "<group>"; };
 		E560D4D72B4DA9090098D603 /* UINavigationController+PopGesture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+PopGesture.swift"; sourceTree = "<group>"; };
+		E560D4D92B4DACD30098D603 /* HapticManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticManager.swift; sourceTree = "<group>"; };
 		E5A457282B4D7BEC0077EA61 /* Radio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Radio.swift; sourceTree = "<group>"; };
 		E5A4572A2B4D7C570077EA61 /* Checkbox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Checkbox.swift; sourceTree = "<group>"; };
 		E5A7C9DA2B4EBD9D00F19D4A /* Terms.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Terms.swift; sourceTree = "<group>"; };
@@ -343,6 +345,7 @@
 			isa = PBXGroup;
 			children = (
 				E5FF94D22B4C3106002AF035 /* APIKey.swift */,
+				E560D4D92B4DACD30098D603 /* HapticManager.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -599,6 +602,7 @@
 				E560D4B92B4D80F50098D603 /* SignUpNavigation.swift in Sources */,
 				E560D4CD2B4D8B490098D603 /* PackyNavigationLink.swift in Sources */,
 				E5D749D72B4AD17D00213F63 /* LoginView.swift in Sources */,
+				E560D4DA2B4DACD30098D603 /* HapticManager.swift in Sources */,
 				E5D749612B4A72E100213F63 /* PackyApp.swift in Sources */,
 				E5D749EA2B4AD85600213F63 /* SocialLoginButton.swift in Sources */,
 				E5D749AF2B4AC73100213F63 /* Font+Packy.swift in Sources */,
