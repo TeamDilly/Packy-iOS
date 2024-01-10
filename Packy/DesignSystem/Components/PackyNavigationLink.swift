@@ -14,11 +14,19 @@ struct PackyNavigationLink<P>: View {
 
     var sizeType: PackyButton.SizeType = .large
     var colorType: PackyButton.ColorType = .purple
+    var additionalTapAction: (() -> Void)?
 
     var body: some View {
         NavigationLink(title, state: pathState)
             .buttonStyle(
                 PackyButtonStyle(sizeType: sizeType, colorType: colorType)
+            )
+            .simultaneousGesture(
+                TapGesture()
+                    .onEnded { _ in
+                        HapticManager.shared.fireNotification(.success)
+                        additionalTapAction?()
+                    }
             )
     }
 }
