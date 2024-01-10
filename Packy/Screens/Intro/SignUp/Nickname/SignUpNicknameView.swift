@@ -52,7 +52,7 @@ private extension SignUpNicknameView {
                 .foregroundStyle(.gray900)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.top, 64)
-                .padding(.bottom, 16)
+                .padding(.bottom, 8)
 
             Text("친구들이 나를 잘 알아볼 수 있는 닉네임으로 설정해주세요")
                 .packyFont(.body4)

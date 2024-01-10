@@ -49,6 +49,14 @@ struct NavigationBar: View {
     }
 }
 
+extension NavigationBar {
+    static func onlyBackButton(action: @escaping () -> Void) -> Self {
+        NavigationBar(leftIcon: Image(.arrowLeft), leftIconAction: {
+            action()
+        })
+    }
+}
+
 #Preview {
     VStack {
         NavigationBar(title: "Title", leftIcon: Image(.arrowLeft), leftIconAction: { print("back") })

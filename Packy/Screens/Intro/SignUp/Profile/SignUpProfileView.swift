@@ -21,9 +21,9 @@ struct SignUpProfileView: View {
 
     var body: some View {
         VStack(spacing: 0) {
-            NavigationBar(leftIcon: Image(.arrowLeft), leftIconAction: {
+            NavigationBar.onlyBackButton {
                 viewStore.send(.backButtonTapped)
-            })
+            }
             .padding(.bottom, 8)
 
             Text("프로필을 선택해주세요")
@@ -45,6 +45,9 @@ struct SignUpProfileView: View {
                             .resizable()
                             .frame(width: 60, height: 60)
                             .mask(Circle())
+                            .bouncyTapGesture {
+                                HapticManager.shared.fireNotification(.success)
+                            }
                     }
                 }
             }
