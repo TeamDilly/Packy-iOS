@@ -35,6 +35,8 @@ struct OnboardingView: View {
             PackyButton(title: viewStore.currentPage.buttonTitle) {
                 viewStore.send(.bottomButtonTapped)
             }
+            .padding(.horizontal, 24)
+            .padding(.bottom, 16)
         }
         .animation(.spring, value: viewStore.currentPage)
         .task {

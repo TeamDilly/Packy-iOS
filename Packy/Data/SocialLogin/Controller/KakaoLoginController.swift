@@ -17,7 +17,6 @@ enum KakaoLoginError: Error {
 
 struct KakaoLoginController {
     func initSDK() {
-        print(APIKey.kakao)
         KakaoSDK.initSDK(appKey: APIKey.kakao)
     }
 
