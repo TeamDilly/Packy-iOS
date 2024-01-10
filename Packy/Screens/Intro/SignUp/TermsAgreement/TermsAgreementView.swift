@@ -20,8 +20,51 @@ struct TermsAgreementView: View {
     }
 
     var body: some View {
-        List {
-            Text("Hello, TermsAgreement!")
+        VStack {
+            NavigationBar.onlyBackButton {
+                viewStore.send(.backButtonTapped)
+            }
+            .padding(.bottom, 8)
+
+            Text("서비스 사용을 위한\n약관에 동의해주세요")
+                .packyFont(.heading1)
+                .foregroundStyle(.gray900)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(.bottom, 40)
+                .padding(.horizontal, 24)
+
+            VStack(alignment: .leading, spacing: 16) {
+                Button {
+                    viewStore.send(.agreeAllTermsButtonTapped)
+                } label: {
+                    allAgreedView(isChecked: viewStore.isAllTermsAgreed)
+                        .frame(maxWidth: .infinity)
+                        .frame(height: 50)
+                }
+
+                Group {
+                    ForEach(Terms.allCases, id: \.self) { terms in
+                        Button {
+                            viewStore.send(.agreeTermsButtonTapped(terms))
+                        } label: {
+                            Checkbox(isChecked: viewStore.termsStates[terms] ?? false, label: terms.title)
+                                .containerShape(Rectangle())
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                        }
+                    }
+                }
+                .padding(.leading, 12)
+            }
+            .frame(maxWidth: .infinity)
+            .padding(.horizontal, 24)
+
+            Spacer()
+
+            PackyNavigationLink(title: "확인", pathState: SignUpNavigationPath.State.termsAgreement()) // TODO: 다른 화면으로 변경 필요
+                .disabled(!viewStore.isAllRequiredTermsAgreed)
+                .animation(.spring, value: viewStore.isAllRequiredTermsAgreed)
+                .padding(.horizontal, 24)
+                .padding(.bottom, 16)
         }
         .navigationBarBackButtonHidden(true)
         .task {
@@ -29,6 +72,30 @@ struct TermsAgreementView: View {
                 .send(._onAppear)
                 .finish()
         }
+    }
+}
+
+private extension TermsAgreementView {
+    func allAgreedView(isChecked: Bool) -> some View {
+        HStack(spacing: 12) {
+            Image(.check)
+                .renderingMode(.template)
+                .foregroundStyle(isChecked ? .purple500 : .gray400)
+                .animation(.spring, value: isChecked)
+                .padding(.leading, 12)
+
+            Text("전체 동의하기")
+                .packyFont(.body2)
+                .foregroundStyle(.gray800)
+
+            Spacer()
+        }
+        .frame(maxWidth: .infinity)
+        .background(
+            RoundedRectangle(cornerRadius: 8)
+                .fill(.gray100)
+                .frame(height: 50)
+        )
     }
 }
 
