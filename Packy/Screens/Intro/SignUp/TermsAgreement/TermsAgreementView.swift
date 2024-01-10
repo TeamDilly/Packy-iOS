@@ -36,6 +36,7 @@ struct TermsAgreementView: View {
             VStack(alignment: .leading, spacing: 16) {
                 Button {
                     viewStore.send(.agreeAllTermsButtonTapped)
+                    HapticManager.shared.fireFeedback(.medium)
                 } label: {
                     allAgreedView(isChecked: viewStore.isAllTermsAgreed)
                         .frame(maxWidth: .infinity)
@@ -46,6 +47,7 @@ struct TermsAgreementView: View {
                     ForEach(Terms.allCases, id: \.self) { terms in
                         Button {
                             viewStore.send(.agreeTermsButtonTapped(terms))
+                            HapticManager.shared.fireFeedback(.light)
                         } label: {
                             Checkbox(isChecked: viewStore.termsStates[terms] ?? false, label: terms.title)
                                 .containerShape(Rectangle())
