@@ -16,16 +16,14 @@ struct PackyApp: App {
         socialLogin.initKakaoSDK()
     }
 
+    let store = Store(initialState: RootFeature.State()) { RootFeature() }
+
     var body: some Scene {
         WindowGroup {
-            RootView(
-                store: Store(initialState: RootFeature.State()) {
-                    RootFeature()
+            RootView(store: store)
+                .onOpenURL { url in
+                    socialLogin.handleKakaoUrlIfNeeded(url)
                 }
-            )
-            .onOpenURL { url in
-                socialLogin.handleKakaoUrlIfNeeded(url)
-            }
         }
     }
 }
