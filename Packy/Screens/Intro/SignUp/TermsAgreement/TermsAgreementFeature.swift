@@ -38,13 +38,16 @@ struct TermsAgreementFeature: Reducer {
     }
 
     @Dependency(\.dismiss) var dismiss
-
+    @Dependency(\.continuousClock) var clock
 
     var body: some Reducer<State, Action> {
         Reduce<State, Action> { state, action in
             switch action {
             case ._onAppear:
-                return .none
+                return .run { send in
+                    try await clock.sleep(for: .seconds(1))
+                    await ATTManager.requestAuthorization()
+                }
 
             case .backButtonTapped:
                 return .run { _ in
