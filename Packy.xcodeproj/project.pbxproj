@@ -21,6 +21,7 @@
 		E5A457292B4D7BEC0077EA61 /* Radio.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A457282B4D7BEC0077EA61 /* Radio.swift */; };
 		E5A4572B2B4D7C570077EA61 /* Checkbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A4572A2B4D7C570077EA61 /* Checkbox.swift */; };
 		E5A7C9DB2B4EBD9D00F19D4A /* Terms.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7C9DA2B4EBD9D00F19D4A /* Terms.swift */; };
+		E5A7C9DE2B4ECCAB00F19D4A /* BouncyTapGestureModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7C9DD2B4ECCAB00F19D4A /* BouncyTapGestureModifier.swift */; };
 		E5D749612B4A72E100213F63 /* PackyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D749602B4A72E100213F63 /* PackyApp.swift */; };
 		E5D749652B4A72E300213F63 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E5D749642B4A72E300213F63 /* Assets.xcassets */; };
 		E5D749682B4A72E300213F63 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E5D749672B4A72E300213F63 /* Preview Assets.xcassets */; };
@@ -87,6 +88,7 @@
 		E5A457282B4D7BEC0077EA61 /* Radio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Radio.swift; sourceTree = "<group>"; };
 		E5A4572A2B4D7C570077EA61 /* Checkbox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Checkbox.swift; sourceTree = "<group>"; };
 		E5A7C9DA2B4EBD9D00F19D4A /* Terms.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Terms.swift; sourceTree = "<group>"; };
+		E5A7C9DD2B4ECCAB00F19D4A /* BouncyTapGestureModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BouncyTapGestureModifier.swift; sourceTree = "<group>"; };
 		E5D7495D2B4A72E100213F63 /* Packy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Packy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E5D749602B4A72E100213F63 /* PackyApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackyApp.swift; sourceTree = "<group>"; };
 		E5D749642B4A72E300213F63 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -190,6 +192,14 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		E5A7C9DC2B4ECC9500F19D4A /* ViewModifiers */ = {
+			isa = PBXGroup;
+			children = (
+				E5A7C9DD2B4ECCAB00F19D4A /* BouncyTapGestureModifier.swift */,
+			);
+			path = ViewModifiers;
+			sourceTree = "<group>";
+		};
 		E5D749542B4A72E100213F63 = {
 			isa = PBXGroup;
 			children = (
@@ -289,6 +299,7 @@
 			isa = PBXGroup;
 			children = (
 				E5D749C52B4AD05A00213F63 /* Components */,
+				E5A7C9DC2B4ECC9500F19D4A /* ViewModifiers */,
 				E5D749A72B4AB64600213F63 /* Font */,
 			);
 			path = DesignSystem;
@@ -605,6 +616,7 @@
 				E560D4DA2B4DACD30098D603 /* HapticManager.swift in Sources */,
 				E5D749612B4A72E100213F63 /* PackyApp.swift in Sources */,
 				E5D749EA2B4AD85600213F63 /* SocialLoginButton.swift in Sources */,
+				E5A7C9DE2B4ECCAB00F19D4A /* BouncyTapGestureModifier.swift in Sources */,
 				E5D749AF2B4AC73100213F63 /* Font+Packy.swift in Sources */,
 				E5D749EE2B4AE5F500213F63 /* OnboardingPage.swift in Sources */,
 				E560D4D12B4D9CEB0098D603 /* View+HideKeyboard.swift in Sources */,

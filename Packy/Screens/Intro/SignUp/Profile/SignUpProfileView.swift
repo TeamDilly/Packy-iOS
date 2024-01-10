@@ -45,6 +45,9 @@ struct SignUpProfileView: View {
                             .resizable()
                             .frame(width: 60, height: 60)
                             .mask(Circle())
+                            .bouncyTapGesture {
+                                HapticManager.shared.fireNotification(.success)
+                            }
                     }
                 }
             }
