@@ -10,8 +10,27 @@ import SwiftUI
 // MARK: - Typealias
 
 typealias NotificationHaptic = UINotificationFeedbackGenerator.FeedbackType
-typealias FeedbackHaptic = UIImpactFeedbackGenerator.FeedbackStyle
-typealias FeedbackHapticGenerators = [FeedbackHaptic: UIImpactFeedbackGenerator]
+typealias FeedbackHapticGenerators = [FeedbackStyle: UIImpactFeedbackGenerator]
+
+// MARK: - FeedbackStyle
+
+enum FeedbackStyle: CaseIterable {
+    case heavy
+    case medium
+    case light
+    case rigid
+    case soft
+
+    var value: UIImpactFeedbackGenerator.FeedbackStyle {
+        switch self {
+        case .heavy:    return .heavy
+        case .medium:   return .medium
+        case .light:    return .light
+        case .rigid:    return .rigid
+        case .soft:     return .soft
+        }
+    }
+}
 
 // MARK: - HapticManager
 
@@ -27,7 +46,7 @@ final class HapticManager {
     private var feedbackHapticGenerators: FeedbackHapticGenerators = [:]
 
     @MainActor
-    func fireFeedback(_ type: FeedbackHaptic) {
+    func fireFeedback(_ type: FeedbackStyle) {
         feedbackHapticGenerators[type]?.prepare()
         feedbackHapticGenerators[type]?.impactOccurred()
     }
@@ -44,22 +63,8 @@ final class HapticManager {
     }
 
     private func feedbackGenerators() -> FeedbackHapticGenerators {
-        FeedbackHaptic.allCases.reduce(into: FeedbackHapticGenerators()) {
-            $0[$1] = UIImpactFeedbackGenerator(style: $1)
+        FeedbackStyle.allCases.reduce(into: FeedbackHapticGenerators()) {
+            $0[$1] = UIImpactFeedbackGenerator(style: $1.value)
         }
-    }
-}
-
-// MARK: - FeedbackHaptic AllCases
-
-extension FeedbackHaptic {
-    static var allCases: [FeedbackHaptic] {
-        [
-            FeedbackHaptic.heavy,
-            FeedbackHaptic.medium,
-            FeedbackHaptic.light,
-            FeedbackHaptic.rigid,
-            FeedbackHaptic.soft
-        ]
     }
 }
