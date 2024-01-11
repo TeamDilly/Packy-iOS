@@ -20,62 +20,55 @@ struct TermsAgreementView: View {
     }
 
     var body: some View {
-        ZStack {
-            Color.black.ignoresSafeArea().zIndex(1).opacity(
-                viewStore.isAllowNotificationBottomSheetPresented ? 0.6 : 0
-            )
-            .animation(.spring, value: viewStore.isAllowNotificationBottomSheetPresented)
+        VStack {
+            NavigationBar.onlyBackButton {
+                viewStore.send(.backButtonTapped)
+            }
+            .padding(.bottom, 8)
 
-            VStack {
-                NavigationBar.onlyBackButton {
-                    viewStore.send(.backButtonTapped)
+            Text("서비스 사용을 위한\n약관에 동의해주세요")
+                .packyFont(.heading1)
+                .foregroundStyle(.gray900)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(.bottom, 40)
+                .padding(.horizontal, 24)
+
+            VStack(alignment: .leading, spacing: 16) {
+                Button {
+                    viewStore.send(.agreeAllTermsButtonTapped)
+                    HapticManager.shared.fireFeedback(.medium)
+                } label: {
+                    allAgreedView(isChecked: viewStore.isAllTermsAgreed)
+                        .frame(maxWidth: .infinity)
+                        .frame(height: 50)
                 }
-                .padding(.bottom, 8)
 
-                Text("서비스 사용을 위한\n약관에 동의해주세요")
-                    .packyFont(.heading1)
-                    .foregroundStyle(.gray900)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(.bottom, 40)
-                    .padding(.horizontal, 24)
-
-                VStack(alignment: .leading, spacing: 16) {
-                    Button {
-                        viewStore.send(.agreeAllTermsButtonTapped)
-                        HapticManager.shared.fireFeedback(.medium)
-                    } label: {
-                        allAgreedView(isChecked: viewStore.isAllTermsAgreed)
-                            .frame(maxWidth: .infinity)
-                            .frame(height: 50)
-                    }
-
-                    Group {
-                        ForEach(Terms.allCases, id: \.self) { terms in
-                            Button {
-                                viewStore.send(.agreeTermsButtonTapped(terms))
-                                HapticManager.shared.fireFeedback(.light)
-                            } label: {
-                                Checkbox(isChecked: viewStore.termsStates[terms] ?? false, label: terms.title)
-                                    .containerShape(Rectangle())
-                                    .frame(maxWidth: .infinity, alignment: .leading)
-                            }
+                Group {
+                    ForEach(Terms.allCases, id: \.self) { terms in
+                        Button {
+                            viewStore.send(.agreeTermsButtonTapped(terms))
+                            HapticManager.shared.fireFeedback(.light)
+                        } label: {
+                            Checkbox(isChecked: viewStore.termsStates[terms] ?? false, label: terms.title)
+                                .containerShape(Rectangle())
+                                .frame(maxWidth: .infinity, alignment: .leading)
                         }
                     }
-                    .padding(.leading, 12)
                 }
-                .frame(maxWidth: .infinity)
-                .padding(.horizontal, 24)
-
-                Spacer()
-
-                PackyButton(title: "확인") {
-                    viewStore.send(.confirmButtonTapped)
-                }
-                .disabled(!viewStore.isAllRequiredTermsAgreed)
-                .animation(.spring, value: viewStore.isAllRequiredTermsAgreed)
-                .padding(.horizontal, 24)
-                .padding(.bottom, 16)
+                .padding(.leading, 12)
             }
+            .frame(maxWidth: .infinity)
+            .padding(.horizontal, 24)
+
+            Spacer()
+
+            PackyButton(title: "확인") {
+                viewStore.send(.confirmButtonTapped)
+            }
+            .disabled(!viewStore.isAllRequiredTermsAgreed)
+            .animation(.spring, value: viewStore.isAllRequiredTermsAgreed)
+            .padding(.horizontal, 24)
+            .padding(.bottom, 16)
         }
         .bottomSheet(
             isPresented: viewStore.$isAllowNotificationBottomSheetPresented,

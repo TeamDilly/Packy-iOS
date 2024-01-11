@@ -24,7 +24,6 @@
 		E5A7C9DB2B4EBD9D00F19D4A /* Terms.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7C9DA2B4EBD9D00F19D4A /* Terms.swift */; };
 		E5A7C9DE2B4ECCAB00F19D4A /* BouncyTapGestureModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7C9DD2B4ECCAB00F19D4A /* BouncyTapGestureModifier.swift */; };
 		E5A7C9E02B4EE6DC00F19D4A /* ATTManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7C9DF2B4EE6DC00F19D4A /* ATTManager.swift */; };
-		E5C1D72B2B4FF4B50073E575 /* BottomSheetTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C1D72A2B4FF4B50073E575 /* BottomSheetTestView.swift */; };
 		E5C1D72F2B4FFD2B0073E575 /* BottomSheetModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C1D72E2B4FFD2B0073E575 /* BottomSheetModifier.swift */; };
 		E5D749612B4A72E100213F63 /* PackyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D749602B4A72E100213F63 /* PackyApp.swift */; };
 		E5D749652B4A72E300213F63 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E5D749642B4A72E300213F63 /* Assets.xcassets */; };
@@ -95,7 +94,6 @@
 		E5A7C9DA2B4EBD9D00F19D4A /* Terms.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Terms.swift; sourceTree = "<group>"; };
 		E5A7C9DD2B4ECCAB00F19D4A /* BouncyTapGestureModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BouncyTapGestureModifier.swift; sourceTree = "<group>"; };
 		E5A7C9DF2B4EE6DC00F19D4A /* ATTManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ATTManager.swift; sourceTree = "<group>"; };
-		E5C1D72A2B4FF4B50073E575 /* BottomSheetTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetTestView.swift; sourceTree = "<group>"; };
 		E5C1D72E2B4FFD2B0073E575 /* BottomSheetModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetModifier.swift; sourceTree = "<group>"; };
 		E5D7495D2B4A72E100213F63 /* Packy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Packy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E5D749602B4A72E100213F63 /* PackyApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackyApp.swift; sourceTree = "<group>"; };
@@ -183,7 +181,6 @@
 		E560D4B52B4D80960098D603 /* SignUp */ = {
 			isa = PBXGroup;
 			children = (
-				E5C1D7292B4FF4A30073E575 /* Test */,
 				E560D4B62B4D80F50098D603 /* SignUpNavigation.swift */,
 				E560D4C02B4D81210098D603 /* Nickname */,
 				E560D4C12B4D81550098D603 /* Profile */,
@@ -225,14 +222,6 @@
 				E5C1D72E2B4FFD2B0073E575 /* BottomSheetModifier.swift */,
 			);
 			path = ViewModifiers;
-			sourceTree = "<group>";
-		};
-		E5C1D7292B4FF4A30073E575 /* Test */ = {
-			isa = PBXGroup;
-			children = (
-				E5C1D72A2B4FF4B50073E575 /* BottomSheetTestView.swift */,
-			);
-			path = Test;
 			sourceTree = "<group>";
 		};
 		E5D749542B4A72E100213F63 = {
@@ -615,7 +604,6 @@
 				E560D4CF2B4D9A910098D603 /* TextField+LimitInputLength.swift in Sources */,
 				E5D749AB2B4AC45400213F63 /* PackyFont.swift in Sources */,
 				E5A4572B2B4D7C570077EA61 /* Checkbox.swift in Sources */,
-				E5C1D72B2B4FF4B50073E575 /* BottomSheetTestView.swift in Sources */,
 				E5E25DB52B4D69ED00125DCE /* PackyTextArea.swift in Sources */,
 				E5D749E32B4AD28D00213F63 /* IntroView.swift in Sources */,
 				E5F2C7D72B4C1C96007387BC /* SocialLoginClient.swift in Sources */,

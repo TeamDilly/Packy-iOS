@@ -25,22 +25,31 @@ struct BottomSheetModifier<SheetContent: View>: ViewModifier {
     let sheetContent: () -> SheetContent
 
     func body(content baseContent: Content) -> some View {
-        baseContent
-            .sheet(isPresented: $isPresented) {
-                VStack(spacing: 0) {
-                    HStack {
-                        Spacer()
-                        CloseButton(colorType: .light) {
-                            self.isPresented = false
-                        }
-                    }
-                    .padding(.top, 8)
+        ZStack {
+            Color.black
+                .ignoresSafeArea()
+                .zIndex(1)
+                .opacity(isPresented ? 0.6 : 0)
+                .animation(.spring, value: isPresented)
 
-                    self.sheetContent()
+            baseContent
+                .sheet(isPresented: $isPresented) {
+                    VStack(spacing: 0) {
+                        HStack {
+                            Spacer()
+                            CloseButton(colorType: .light) {
+                                isPresented = false
+                            }
+                        }
+                        .padding(.top, 8)
+                        
+                        self.sheetContent()
+                    }
+                    .padding(.horizontal, 24)
+                    .presentationCornerRadius(24)
+                    .presentationDetents(detents)
+                    .interactiveDismissDisabled()
                 }
-                .padding(.horizontal, 24)
-                .presentationCornerRadius(24)
-                .presentationDetents(detents)
-            }
+        }
     }
 }
