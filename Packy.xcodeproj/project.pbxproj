@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E547DD212B502BE300641D6D /* UserNotificationClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = E547DD202B502BE300641D6D /* UserNotificationClient.swift */; };
 		E560D4B92B4D80F50098D603 /* SignUpNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E560D4B62B4D80F50098D603 /* SignUpNavigation.swift */; };
 		E560D4BE2B4D811F0098D603 /* SignUpNicknameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E560D4BC2B4D811F0098D603 /* SignUpNicknameView.swift */; };
 		E560D4BF2B4D811F0098D603 /* SignUpNicknameFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = E560D4BD2B4D811F0098D603 /* SignUpNicknameFeature.swift */; };
@@ -23,6 +24,8 @@
 		E5A7C9DB2B4EBD9D00F19D4A /* Terms.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7C9DA2B4EBD9D00F19D4A /* Terms.swift */; };
 		E5A7C9DE2B4ECCAB00F19D4A /* BouncyTapGestureModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7C9DD2B4ECCAB00F19D4A /* BouncyTapGestureModifier.swift */; };
 		E5A7C9E02B4EE6DC00F19D4A /* ATTManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7C9DF2B4EE6DC00F19D4A /* ATTManager.swift */; };
+		E5C1D72B2B4FF4B50073E575 /* BottomSheetTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C1D72A2B4FF4B50073E575 /* BottomSheetTestView.swift */; };
+		E5C1D72F2B4FFD2B0073E575 /* BottomSheetModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C1D72E2B4FFD2B0073E575 /* BottomSheetModifier.swift */; };
 		E5D749612B4A72E100213F63 /* PackyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D749602B4A72E100213F63 /* PackyApp.swift */; };
 		E5D749652B4A72E300213F63 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E5D749642B4A72E300213F63 /* Assets.xcassets */; };
 		E5D749682B4A72E300213F63 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E5D749672B4A72E300213F63 /* Preview Assets.xcassets */; };
@@ -75,6 +78,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		E547DD202B502BE300641D6D /* UserNotificationClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserNotificationClient.swift; sourceTree = "<group>"; };
 		E560D4B62B4D80F50098D603 /* SignUpNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpNavigation.swift; sourceTree = "<group>"; };
 		E560D4BC2B4D811F0098D603 /* SignUpNicknameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpNicknameView.swift; sourceTree = "<group>"; };
 		E560D4BD2B4D811F0098D603 /* SignUpNicknameFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpNicknameFeature.swift; sourceTree = "<group>"; };
@@ -91,6 +95,8 @@
 		E5A7C9DA2B4EBD9D00F19D4A /* Terms.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Terms.swift; sourceTree = "<group>"; };
 		E5A7C9DD2B4ECCAB00F19D4A /* BouncyTapGestureModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BouncyTapGestureModifier.swift; sourceTree = "<group>"; };
 		E5A7C9DF2B4EE6DC00F19D4A /* ATTManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ATTManager.swift; sourceTree = "<group>"; };
+		E5C1D72A2B4FF4B50073E575 /* BottomSheetTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetTestView.swift; sourceTree = "<group>"; };
+		E5C1D72E2B4FFD2B0073E575 /* BottomSheetModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetModifier.swift; sourceTree = "<group>"; };
 		E5D7495D2B4A72E100213F63 /* Packy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Packy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E5D749602B4A72E100213F63 /* PackyApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackyApp.swift; sourceTree = "<group>"; };
 		E5D749642B4A72E300213F63 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -157,9 +163,27 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		E547DD1E2B502BC300641D6D /* Client */ = {
+			isa = PBXGroup;
+			children = (
+				E547DD1F2B502BD500641D6D /* UserNotification */,
+				E5F2C7CF2B4C1B44007387BC /* SocialLogin */,
+			);
+			path = Client;
+			sourceTree = "<group>";
+		};
+		E547DD1F2B502BD500641D6D /* UserNotification */ = {
+			isa = PBXGroup;
+			children = (
+				E547DD202B502BE300641D6D /* UserNotificationClient.swift */,
+			);
+			path = UserNotification;
+			sourceTree = "<group>";
+		};
 		E560D4B52B4D80960098D603 /* SignUp */ = {
 			isa = PBXGroup;
 			children = (
+				E5C1D7292B4FF4A30073E575 /* Test */,
 				E560D4B62B4D80F50098D603 /* SignUpNavigation.swift */,
 				E560D4C02B4D81210098D603 /* Nickname */,
 				E560D4C12B4D81550098D603 /* Profile */,
@@ -198,8 +222,17 @@
 			isa = PBXGroup;
 			children = (
 				E5A7C9DD2B4ECCAB00F19D4A /* BouncyTapGestureModifier.swift */,
+				E5C1D72E2B4FFD2B0073E575 /* BottomSheetModifier.swift */,
 			);
 			path = ViewModifiers;
+			sourceTree = "<group>";
+		};
+		E5C1D7292B4FF4A30073E575 /* Test */ = {
+			isa = PBXGroup;
+			children = (
+				E5C1D72A2B4FF4B50073E575 /* BottomSheetTestView.swift */,
+			);
+			path = Test;
 			sourceTree = "<group>";
 		};
 		E5D749542B4A72E100213F63 = {
@@ -436,7 +469,7 @@
 			children = (
 				E5F2C7CE2B4C1B34007387BC /* Network */,
 				E5F2C7CD2B4C1B29007387BC /* Storage */,
-				E5F2C7CF2B4C1B44007387BC /* SocialLogin */,
+				E547DD1E2B502BC300641D6D /* Client */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -582,6 +615,7 @@
 				E560D4CF2B4D9A910098D603 /* TextField+LimitInputLength.swift in Sources */,
 				E5D749AB2B4AC45400213F63 /* PackyFont.swift in Sources */,
 				E5A4572B2B4D7C570077EA61 /* Checkbox.swift in Sources */,
+				E5C1D72B2B4FF4B50073E575 /* BottomSheetTestView.swift in Sources */,
 				E5E25DB52B4D69ED00125DCE /* PackyTextArea.swift in Sources */,
 				E5D749E32B4AD28D00213F63 /* IntroView.swift in Sources */,
 				E5F2C7D72B4C1C96007387BC /* SocialLoginClient.swift in Sources */,
@@ -618,10 +652,12 @@
 				E560D4CD2B4D8B490098D603 /* PackyNavigationLink.swift in Sources */,
 				E5D749D72B4AD17D00213F63 /* LoginView.swift in Sources */,
 				E560D4DA2B4DACD30098D603 /* HapticManager.swift in Sources */,
+				E547DD212B502BE300641D6D /* UserNotificationClient.swift in Sources */,
 				E5D749612B4A72E100213F63 /* PackyApp.swift in Sources */,
 				E5D749EA2B4AD85600213F63 /* SocialLoginButton.swift in Sources */,
 				E5A7C9DE2B4ECCAB00F19D4A /* BouncyTapGestureModifier.swift in Sources */,
 				E5D749AF2B4AC73100213F63 /* Font+Packy.swift in Sources */,
+				E5C1D72F2B4FFD2B0073E575 /* BottomSheetModifier.swift in Sources */,
 				E5D749EE2B4AE5F500213F63 /* OnboardingPage.swift in Sources */,
 				E560D4D12B4D9CEB0098D603 /* View+HideKeyboard.swift in Sources */,
 			);
