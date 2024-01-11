@@ -25,14 +25,19 @@ struct TermsAgreementFeature: Reducer {
         }
 
         var isATTCompleted: Bool = false
+
+        @BindingState var isAllowNotificationBottomSheetPresented: Bool = false
     }
 
-    enum Action {
+    enum Action: BindableAction {
         // MARK: User Action
+        case binding(BindingAction<State>)
         case backButtonTapped
         case agreeTermsButtonTapped(Terms)
         case agreeAllTermsButtonTapped
         case confirmButtonTapped
+
+        case allowNotificationButtonTapped
 
         // MARK: Inner Business Action
         case _onAppear
@@ -45,8 +50,11 @@ struct TermsAgreementFeature: Reducer {
 
     @Dependency(\.dismiss) var dismiss
     @Dependency(\.continuousClock) var clock
+    @Dependency(\.userNotification) var userNotification
 
     var body: some Reducer<State, Action> {
+        BindingReducer()
+        
         Reduce<State, Action> { state, action in
             switch action {
             case ._onAppear:
@@ -61,9 +69,9 @@ struct TermsAgreementFeature: Reducer {
 
             case .confirmButtonTapped:
                 return .run { send in
-                    _ = await ATTManager.requestAuthorization()
+                    await ATTManager.requestAuthorization()
 
-                    // 여기서 종료하고, 네비게이팅 하면 됨.
+                    // 여기서 종료되고, 네비게이팅 or 바텀시트 노출.. 등
                     await send(._setATTCompleted)
                 }
 
@@ -72,22 +80,24 @@ struct TermsAgreementFeature: Reducer {
                 return .none
 
             case .agreeAllTermsButtonTapped:
-                if state.isAllTermsAgreed {
-                    Terms.allCases.forEach {
-                        state.termsStates[$0] = false
-                    }
-                } else {
-                    Terms.allCases.forEach {
-                        state.termsStates[$0] = true
-                    }
+                let isAllTermsAgreed = state.isAllTermsAgreed
+                Terms.allCases.forEach {
+                    state.termsStates[$0] = !isAllTermsAgreed
                 }
-                // Terms.allCases.forEach {
-                //     state.termsStates[$0] = isAllTermsAgreed
-                // }
                 return .none
+
+            case .allowNotificationButtonTapped:
+                return .run { _ in
+                    let isGranted = try await userNotification.requestAuthorization([.alert, .badge, .sound])
+                    print("🔔 UserNotification isGranted: \(isGranted)")
+                }
 
             case ._setATTCompleted:
                 state.isATTCompleted = true
+                state.isAllowNotificationBottomSheetPresented = true
+                return .none
+
+            default:
                 return .none
             }
         }

@@ -13,6 +13,7 @@ enum ATTManager {
     
     /// ATT 권한 요청
     @MainActor
+    @discardableResult
     static func requestAuthorization() async -> ATTrackingManager.AuthorizationStatus {
         let status = await ATTrackingManager.requestTrackingAuthorization()
         print("✅ ATT status: \(status), authorized: \(isAuthorized), id: \(advertisingIdentifier?.description ?? "none")")

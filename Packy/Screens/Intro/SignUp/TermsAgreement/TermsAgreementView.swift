@@ -20,53 +20,68 @@ struct TermsAgreementView: View {
     }
 
     var body: some View {
-        VStack {
-            NavigationBar.onlyBackButton {
-                viewStore.send(.backButtonTapped)
-            }
-            .padding(.bottom, 8)
+        ZStack {
+            Color.black.ignoresSafeArea().zIndex(1).opacity(
+                viewStore.isAllowNotificationBottomSheetPresented ? 0.6 : 0
+            )
+            .animation(.spring, value: viewStore.isAllowNotificationBottomSheetPresented)
 
-            Text("서비스 사용을 위한\n약관에 동의해주세요")
-                .packyFont(.heading1)
-                .foregroundStyle(.gray900)
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .padding(.bottom, 40)
-                .padding(.horizontal, 24)
-
-            VStack(alignment: .leading, spacing: 16) {
-                Button {
-                    viewStore.send(.agreeAllTermsButtonTapped)
-                    HapticManager.shared.fireFeedback(.medium)
-                } label: {
-                    allAgreedView(isChecked: viewStore.isAllTermsAgreed)
-                        .frame(maxWidth: .infinity)
-                        .frame(height: 50)
+            VStack {
+                NavigationBar.onlyBackButton {
+                    viewStore.send(.backButtonTapped)
                 }
+                .padding(.bottom, 8)
 
-                Group {
-                    ForEach(Terms.allCases, id: \.self) { terms in
-                        Button {
-                            viewStore.send(.agreeTermsButtonTapped(terms))
-                            HapticManager.shared.fireFeedback(.light)
-                        } label: {
-                            Checkbox(isChecked: viewStore.termsStates[terms] ?? false, label: terms.title)
-                                .containerShape(Rectangle())
-                                .frame(maxWidth: .infinity, alignment: .leading)
+                Text("서비스 사용을 위한\n약관에 동의해주세요")
+                    .packyFont(.heading1)
+                    .foregroundStyle(.gray900)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(.bottom, 40)
+                    .padding(.horizontal, 24)
+
+                VStack(alignment: .leading, spacing: 16) {
+                    Button {
+                        viewStore.send(.agreeAllTermsButtonTapped)
+                        HapticManager.shared.fireFeedback(.medium)
+                    } label: {
+                        allAgreedView(isChecked: viewStore.isAllTermsAgreed)
+                            .frame(maxWidth: .infinity)
+                            .frame(height: 50)
+                    }
+
+                    Group {
+                        ForEach(Terms.allCases, id: \.self) { terms in
+                            Button {
+                                viewStore.send(.agreeTermsButtonTapped(terms))
+                                HapticManager.shared.fireFeedback(.light)
+                            } label: {
+                                Checkbox(isChecked: viewStore.termsStates[terms] ?? false, label: terms.title)
+                                    .containerShape(Rectangle())
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+                            }
                         }
                     }
+                    .padding(.leading, 12)
                 }
-                .padding(.leading, 12)
-            }
-            .frame(maxWidth: .infinity)
-            .padding(.horizontal, 24)
+                .frame(maxWidth: .infinity)
+                .padding(.horizontal, 24)
 
-            Spacer()
+                Spacer()
 
-            PackyButton(title: "확인") {
-                viewStore.send(.confirmButtonTapped)
+                PackyButton(title: "확인") {
+                    viewStore.send(.confirmButtonTapped)
+                }
+                .disabled(!viewStore.isAllRequiredTermsAgreed)
+                .animation(.spring, value: viewStore.isAllRequiredTermsAgreed)
+                .padding(.horizontal, 24)
+                .padding(.bottom, 16)
             }
-            .padding(.horizontal, 24)
-            .padding(.bottom, 16)
+        }
+        .bottomSheet(
+            isPresented: viewStore.$isAllowNotificationBottomSheetPresented,
+            detents: [.height(591)]
+        ) {
+            bottomSheetContent
         }
         .navigationBarBackButtonHidden(true)
         .task {
@@ -76,6 +91,8 @@ struct TermsAgreementView: View {
         }
     }
 }
+
+// MARK: - Inner Views
 
 private extension TermsAgreementView {
     func allAgreedView(isChecked: Bool) -> some View {
@@ -98,6 +115,35 @@ private extension TermsAgreementView {
                 .fill(.gray100)
                 .frame(height: 50)
         )
+    }
+
+    var bottomSheetContent: some View {
+        VStack(spacing: 0) {
+            Text("선물박스가 도착하면\n알려드릴까요?")
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .packyFont(.heading1)
+                .foregroundStyle(.gray900)
+                .padding(.vertical, 8)
+
+            Text("알림을 허용해주시면 선물이 도착하거나\n친구가 선물을 받을 때 알림을 보내드려요.")
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .packyFont(.body4)
+                .foregroundStyle(.gray600)
+
+            Image(.mock)
+                .resizable()
+                .scaledToFill()
+                .frame(width: 300, height: 240)
+                .clipped() // 이미지 사이즈 넘치면 자름
+                .padding(.vertical, 40)
+
+            Spacer()
+
+            PackyButton(title: "허용하기") {
+                viewStore.send(.allowNotificationButtonTapped)
+            }
+            .padding(.bottom, 16)
+        }
     }
 }
 
