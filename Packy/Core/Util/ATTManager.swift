@@ -13,9 +13,10 @@ enum ATTManager {
     
     /// ATT 권한 요청
     @MainActor
-    static func requestAuthorization() async {
+    static func requestAuthorization() async -> ATTrackingManager.AuthorizationStatus {
         let status = await ATTrackingManager.requestTrackingAuthorization()
         print("✅ ATT status: \(status), authorized: \(isAuthorized), id: \(advertisingIdentifier?.description ?? "none")")
+        return status
     }
 
     /// 맞춤형 광고 제공을 위한 기기 ID (UUID from ATT)

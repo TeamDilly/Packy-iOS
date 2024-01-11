@@ -62,11 +62,11 @@ struct TermsAgreementView: View {
 
             Spacer()
 
-            PackyNavigationLink(title: "확인", pathState: SignUpNavigationPath.State.termsAgreement()) // TODO: 다른 화면으로 변경 필요
-                .disabled(!viewStore.isAllRequiredTermsAgreed)
-                .animation(.spring, value: viewStore.isAllRequiredTermsAgreed)
-                .padding(.horizontal, 24)
-                .padding(.bottom, 16)
+            PackyButton(title: "확인") {
+                viewStore.send(.confirmButtonTapped)
+            }
+            .padding(.horizontal, 24)
+            .padding(.bottom, 16)
         }
         .navigationBarBackButtonHidden(true)
         .task {

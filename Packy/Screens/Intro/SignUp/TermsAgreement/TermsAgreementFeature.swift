@@ -23,16 +23,22 @@ struct TermsAgreementFeature: Reducer {
                 .filter { $0.key.isRequired }
                 .allSatisfy { $1 == true }
         }
+
+        var isATTCompleted: Bool = false
     }
 
     enum Action {
-        // MARK: Inner Business Action
-        case _onAppear
+        // MARK: User Action
         case backButtonTapped
         case agreeTermsButtonTapped(Terms)
         case agreeAllTermsButtonTapped
+        case confirmButtonTapped
+
+        // MARK: Inner Business Action
+        case _onAppear
 
         // MARK: Inner SetState Action
+        case _setATTCompleted
 
         // MARK: Child Action
     }
@@ -46,12 +52,19 @@ struct TermsAgreementFeature: Reducer {
             case ._onAppear:
                 return .run { send in
                     try await clock.sleep(for: .seconds(1))
-                    await ATTManager.requestAuthorization()
                 }
 
             case .backButtonTapped:
                 return .run { _ in
                     await dismiss()
+                }
+
+            case .confirmButtonTapped:
+                return .run { send in
+                    _ = await ATTManager.requestAuthorization()
+
+                    // 여기서 종료하고, 네비게이팅 하면 됨.
+                    await send(._setATTCompleted)
                 }
 
             case let .agreeTermsButtonTapped(terms):
@@ -71,6 +84,10 @@ struct TermsAgreementFeature: Reducer {
                 // Terms.allCases.forEach {
                 //     state.termsStates[$0] = isAllTermsAgreed
                 // }
+                return .none
+
+            case ._setATTCompleted:
+                state.isATTCompleted = true
                 return .none
             }
         }
