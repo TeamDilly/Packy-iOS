@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E547DD212B502BE300641D6D /* UserNotificationClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = E547DD202B502BE300641D6D /* UserNotificationClient.swift */; };
 		E560D4B92B4D80F50098D603 /* SignUpNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E560D4B62B4D80F50098D603 /* SignUpNavigation.swift */; };
 		E560D4BE2B4D811F0098D603 /* SignUpNicknameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E560D4BC2B4D811F0098D603 /* SignUpNicknameView.swift */; };
 		E560D4BF2B4D811F0098D603 /* SignUpNicknameFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = E560D4BD2B4D811F0098D603 /* SignUpNicknameFeature.swift */; };
@@ -77,6 +78,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		E547DD202B502BE300641D6D /* UserNotificationClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserNotificationClient.swift; sourceTree = "<group>"; };
 		E560D4B62B4D80F50098D603 /* SignUpNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpNavigation.swift; sourceTree = "<group>"; };
 		E560D4BC2B4D811F0098D603 /* SignUpNicknameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpNicknameView.swift; sourceTree = "<group>"; };
 		E560D4BD2B4D811F0098D603 /* SignUpNicknameFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpNicknameFeature.swift; sourceTree = "<group>"; };
@@ -161,6 +163,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		E547DD1E2B502BC300641D6D /* Client */ = {
+			isa = PBXGroup;
+			children = (
+				E547DD1F2B502BD500641D6D /* UserNotification */,
+				E5F2C7CF2B4C1B44007387BC /* SocialLogin */,
+			);
+			path = Client;
+			sourceTree = "<group>";
+		};
+		E547DD1F2B502BD500641D6D /* UserNotification */ = {
+			isa = PBXGroup;
+			children = (
+				E547DD202B502BE300641D6D /* UserNotificationClient.swift */,
+			);
+			path = UserNotification;
+			sourceTree = "<group>";
+		};
 		E560D4B52B4D80960098D603 /* SignUp */ = {
 			isa = PBXGroup;
 			children = (
@@ -450,7 +469,7 @@
 			children = (
 				E5F2C7CE2B4C1B34007387BC /* Network */,
 				E5F2C7CD2B4C1B29007387BC /* Storage */,
-				E5F2C7CF2B4C1B44007387BC /* SocialLogin */,
+				E547DD1E2B502BC300641D6D /* Client */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -633,6 +652,7 @@
 				E560D4CD2B4D8B490098D603 /* PackyNavigationLink.swift in Sources */,
 				E5D749D72B4AD17D00213F63 /* LoginView.swift in Sources */,
 				E560D4DA2B4DACD30098D603 /* HapticManager.swift in Sources */,
+				E547DD212B502BE300641D6D /* UserNotificationClient.swift in Sources */,
 				E5D749612B4A72E100213F63 /* PackyApp.swift in Sources */,
 				E5D749EA2B4AD85600213F63 /* SocialLoginButton.swift in Sources */,
 				E5A7C9DE2B4ECCAB00F19D4A /* BouncyTapGestureModifier.swift in Sources */,
