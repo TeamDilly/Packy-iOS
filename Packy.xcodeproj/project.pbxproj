@@ -65,6 +65,9 @@
 		E5D749F02B4AEA4100213F63 /* PackyButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D749EF2B4AEA4100213F63 /* PackyButton.swift */; };
 		E5D749F32B4AF34600213F63 /* UserDefaultsKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D749F22B4AF34600213F63 /* UserDefaultsKey.swift */; };
 		E5D749F52B4AF37800213F63 /* UserDefaultsClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D749F42B4AF37800213F63 /* UserDefaultsClient.swift */; };
+		E5D927C92B514AE20064FBA4 /* MusicPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D927C82B514AE20064FBA4 /* MusicPlayerView.swift */; };
+		E5D927CD2B514C9B0064FBA4 /* YouTubePlayerKit in Frameworks */ = {isa = PBXBuildFile; productRef = E5D927CC2B514C9B0064FBA4 /* YouTubePlayerKit */; };
+		E5D927D02B514E280064FBA4 /* SpinningModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D927CF2B514E280064FBA4 /* SpinningModifier.swift */; };
 		E5E25DB52B4D69ED00125DCE /* PackyTextArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E25DB42B4D69ED00125DCE /* PackyTextArea.swift */; };
 		E5E25DB72B4D712A00125DCE /* View+GetSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E25DB62B4D712A00125DCE /* View+GetSize.swift */; };
 		E5E593B92B4C2AB800C5A733 /* KakaoSDKAuth in Frameworks */ = {isa = PBXBuildFile; productRef = E5E593B82B4C2AB800C5A733 /* KakaoSDKAuth */; };
@@ -138,6 +141,8 @@
 		E5D749EF2B4AEA4100213F63 /* PackyButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackyButton.swift; sourceTree = "<group>"; };
 		E5D749F22B4AF34600213F63 /* UserDefaultsKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsKey.swift; sourceTree = "<group>"; };
 		E5D749F42B4AF37800213F63 /* UserDefaultsClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsClient.swift; sourceTree = "<group>"; };
+		E5D927C82B514AE20064FBA4 /* MusicPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicPlayerView.swift; sourceTree = "<group>"; };
+		E5D927CF2B514E280064FBA4 /* SpinningModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpinningModifier.swift; sourceTree = "<group>"; };
 		E5E25DB42B4D69ED00125DCE /* PackyTextArea.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackyTextArea.swift; sourceTree = "<group>"; };
 		E5E25DB62B4D712A00125DCE /* View+GetSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+GetSize.swift"; sourceTree = "<group>"; };
 		E5F2C7CB2B4C183B007387BC /* Color+Hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Hex.swift"; sourceTree = "<group>"; };
@@ -158,6 +163,7 @@
 			files = (
 				E5D7497C2B4A7C3300213F63 /* Kingfisher in Frameworks */,
 				E5D749792B4A7C1A00213F63 /* ComposableArchitecture in Frameworks */,
+				E5D927CD2B514C9B0064FBA4 /* YouTubePlayerKit in Frameworks */,
 				E5D749762B4A7B9200213F63 /* Alamofire in Frameworks */,
 				E5E593BB2B4C2AB800C5A733 /* KakaoSDKUser in Frameworks */,
 				E5E593B92B4C2AB800C5A733 /* KakaoSDKAuth in Frameworks */,
@@ -226,6 +232,7 @@
 			children = (
 				E5A7C9DD2B4ECCAB00F19D4A /* BouncyTapGestureModifier.swift */,
 				E5C1D72E2B4FFD2B0073E575 /* BottomSheetModifier.swift */,
+				E5D927CF2B514E280064FBA4 /* SpinningModifier.swift */,
 			);
 			path = ViewModifiers;
 			sourceTree = "<group>";
@@ -330,6 +337,7 @@
 			children = (
 				E5D749C52B4AD05A00213F63 /* Components */,
 				E5A7C9DC2B4ECC9500F19D4A /* ViewModifiers */,
+				E5D927CE2B514DE50064FBA4 /* Extensions */,
 				E5D749A72B4AB64600213F63 /* Font */,
 			);
 			path = DesignSystem;
@@ -351,15 +359,16 @@
 			children = (
 				E5A4572A2B4D7C570077EA61 /* Checkbox.swift */,
 				E5FF94D52B4C44F6002AF035 /* CloseButton.swift */,
+				E5D927C82B514AE20064FBA4 /* MusicPlayerView.swift */,
 				E560D4D52B4DA0E70098D603 /* NavigationBar.swift */,
 				E5D749EF2B4AEA4100213F63 /* PackyButton.swift */,
 				E560D4CC2B4D8B490098D603 /* PackyNavigationLink.swift */,
 				E5E25DB42B4D69ED00125DCE /* PackyTextArea.swift */,
 				E5FF94D72B4C4A6A002AF035 /* PackyTextField.swift */,
 				E5D749EB2B4AE3D900213F63 /* PageIndicator.swift */,
+				E547DD2F2B51411600641D6D /* PhotoElement.swift */,
 				E5A457282B4D7BEC0077EA61 /* Radio.swift */,
 				E5D749E92B4AD85600213F63 /* SocialLoginButton.swift */,
-				E547DD2F2B51411600641D6D /* PhotoElement.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -396,13 +405,6 @@
 		E5D749CA2B4AD0AA00213F63 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				E5E25DB62B4D712A00125DCE /* View+GetSize.swift */,
-				E5F2C7CB2B4C183B007387BC /* Color+Hex.swift */,
-				E560D4CE2B4D9A910098D603 /* TextField+LimitInputLength.swift */,
-				E560D4D02B4D9CEB0098D603 /* View+HideKeyboard.swift */,
-				E560D4D72B4DA9090098D603 /* UINavigationController+PopGesture.swift */,
-				E547DD312B51460C00641D6D /* Image+ScaleToFillFrame.swift */,
-				E547DD332B51474800641D6D /* View+If.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -472,6 +474,20 @@
 			path = Data;
 			sourceTree = "<group>";
 		};
+		E5D927CE2B514DE50064FBA4 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				E5E25DB62B4D712A00125DCE /* View+GetSize.swift */,
+				E5F2C7CB2B4C183B007387BC /* Color+Hex.swift */,
+				E560D4CE2B4D9A910098D603 /* TextField+LimitInputLength.swift */,
+				E560D4D02B4D9CEB0098D603 /* View+HideKeyboard.swift */,
+				E560D4D72B4DA9090098D603 /* UINavigationController+PopGesture.swift */,
+				E547DD312B51460C00641D6D /* Image+ScaleToFillFrame.swift */,
+				E547DD332B51474800641D6D /* View+If.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		E5E593B72B4C2AB800C5A733 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -536,6 +552,7 @@
 				E5D7497B2B4A7C3300213F63 /* Kingfisher */,
 				E5E593B82B4C2AB800C5A733 /* KakaoSDKAuth */,
 				E5E593BA2B4C2AB800C5A733 /* KakaoSDKUser */,
+				E5D927CC2B514C9B0064FBA4 /* YouTubePlayerKit */,
 			);
 			productName = Packy;
 			productReference = E5D7495D2B4A72E100213F63 /* Packy.app */;
@@ -570,7 +587,7 @@
 				E5D749772B4A7C1A00213F63 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */,
 				E5D7497A2B4A7C3300213F63 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				E5F2C7E02B4C2A21007387BC /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */,
-				E5D927C72B5149F10064FBA4 /* XCRemoteSwiftPackageReference "YouTubePlayerKit" */,
+				E5D927CB2B514BD20064FBA4 /* XCRemoteSwiftPackageReference "YouTubePlayerKit" */,
 			);
 			productRefGroup = E5D7495E2B4A72E100213F63 /* Products */;
 			projectDirPath = "";
@@ -621,12 +638,14 @@
 				E5F2C7DB2B4C2759007387BC /* AppleLoginController.swift in Sources */,
 				E5D749E82B4AD3B100213F63 /* HomeFeature.swift in Sources */,
 				E5D749D82B4AD17D00213F63 /* LoginFeature.swift in Sources */,
+				E5D927D02B514E280064FBA4 /* SpinningModifier.swift in Sources */,
 				E5D749DE2B4AD25700213F63 /* TermsAgreementView.swift in Sources */,
 				E5D749E72B4AD3B100213F63 /* HomeView.swift in Sources */,
 				E5D749E42B4AD28D00213F63 /* IntroFeature.swift in Sources */,
 				E5A7C9DB2B4EBD9D00F19D4A /* Terms.swift in Sources */,
 				E5D749D32B4AD17700213F63 /* OnboardingView.swift in Sources */,
 				E5D749AD2B4AC71900213F63 /* Font+Pretendard.swift in Sources */,
+				E5D927C92B514AE20064FBA4 /* MusicPlayerView.swift in Sources */,
 				E5D749F32B4AF34600213F63 /* UserDefaultsKey.swift in Sources */,
 				E547DD302B51411600641D6D /* PhotoElement.swift in Sources */,
 				E5D749EC2B4AE3D900213F63 /* PageIndicator.swift in Sources */,
@@ -908,7 +927,7 @@
 				minimumVersion = 7.10.1;
 			};
 		};
-		E5D927C72B5149F10064FBA4 /* XCRemoteSwiftPackageReference "YouTubePlayerKit" */ = {
+		E5D927CB2B514BD20064FBA4 /* XCRemoteSwiftPackageReference "YouTubePlayerKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "git@github.com:SvenTiigi/YouTubePlayerKit.git";
 			requirement = {
@@ -941,6 +960,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = E5D7497A2B4A7C3300213F63 /* XCRemoteSwiftPackageReference "Kingfisher" */;
 			productName = Kingfisher;
+		};
+		E5D927CC2B514C9B0064FBA4 /* YouTubePlayerKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E5D927CB2B514BD20064FBA4 /* XCRemoteSwiftPackageReference "YouTubePlayerKit" */;
+			productName = YouTubePlayerKit;
 		};
 		E5E593B82B4C2AB800C5A733 /* KakaoSDKAuth */ = {
 			isa = XCSwiftPackageProductDependency;
