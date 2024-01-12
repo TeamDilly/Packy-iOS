@@ -68,6 +68,7 @@
 		E5D927C92B514AE20064FBA4 /* MusicPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D927C82B514AE20064FBA4 /* MusicPlayerView.swift */; };
 		E5D927CD2B514C9B0064FBA4 /* YouTubePlayerKit in Frameworks */ = {isa = PBXBuildFile; productRef = E5D927CC2B514C9B0064FBA4 /* YouTubePlayerKit */; };
 		E5D927D02B514E280064FBA4 /* SpinningModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D927CF2B514E280064FBA4 /* SpinningModifier.swift */; };
+		E5D927D42B5159B10064FBA4 /* CarouselView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D927D32B5159B10064FBA4 /* CarouselView.swift */; };
 		E5E25DB52B4D69ED00125DCE /* PackyTextArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E25DB42B4D69ED00125DCE /* PackyTextArea.swift */; };
 		E5E25DB72B4D712A00125DCE /* View+GetSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E25DB62B4D712A00125DCE /* View+GetSize.swift */; };
 		E5E593B92B4C2AB800C5A733 /* KakaoSDKAuth in Frameworks */ = {isa = PBXBuildFile; productRef = E5E593B82B4C2AB800C5A733 /* KakaoSDKAuth */; };
@@ -143,6 +144,7 @@
 		E5D749F42B4AF37800213F63 /* UserDefaultsClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsClient.swift; sourceTree = "<group>"; };
 		E5D927C82B514AE20064FBA4 /* MusicPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicPlayerView.swift; sourceTree = "<group>"; };
 		E5D927CF2B514E280064FBA4 /* SpinningModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpinningModifier.swift; sourceTree = "<group>"; };
+		E5D927D32B5159B10064FBA4 /* CarouselView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarouselView.swift; sourceTree = "<group>"; };
 		E5E25DB42B4D69ED00125DCE /* PackyTextArea.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackyTextArea.swift; sourceTree = "<group>"; };
 		E5E25DB62B4D712A00125DCE /* View+GetSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+GetSize.swift"; sourceTree = "<group>"; };
 		E5F2C7CB2B4C183B007387BC /* Color+Hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Hex.swift"; sourceTree = "<group>"; };
@@ -369,6 +371,7 @@
 				E547DD2F2B51411600641D6D /* PhotoElement.swift */,
 				E5A457282B4D7BEC0077EA61 /* Radio.swift */,
 				E5D749E92B4AD85600213F63 /* SocialLoginButton.swift */,
+				E5D927D32B5159B10064FBA4 /* CarouselView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -660,6 +663,7 @@
 				E5FF94D32B4C3106002AF035 /* APIKey.swift in Sources */,
 				E5D749F52B4AF37800213F63 /* UserDefaultsClient.swift in Sources */,
 				E560D4D82B4DA9090098D603 /* UINavigationController+PopGesture.swift in Sources */,
+				E5D927D42B5159B10064FBA4 /* CarouselView.swift in Sources */,
 				E5F2C7CC2B4C183B007387BC /* Color+Hex.swift in Sources */,
 				E5FF94D82B4C4A6A002AF035 /* PackyTextField.swift in Sources */,
 				E547DD322B51460C00641D6D /* Image+ScaleToFillFrame.swift in Sources */,
