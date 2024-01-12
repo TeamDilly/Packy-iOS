@@ -570,6 +570,7 @@
 				E5D749772B4A7C1A00213F63 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */,
 				E5D7497A2B4A7C3300213F63 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				E5F2C7E02B4C2A21007387BC /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */,
+				E5D927C72B5149F10064FBA4 /* XCRemoteSwiftPackageReference "YouTubePlayerKit" */,
 			);
 			productRefGroup = E5D7495E2B4A72E100213F63 /* Products */;
 			projectDirPath = "";
@@ -905,6 +906,14 @@
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 7.10.1;
+			};
+		};
+		E5D927C72B5149F10064FBA4 /* XCRemoteSwiftPackageReference "YouTubePlayerKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "git@github.com:SvenTiigi/YouTubePlayerKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.6.0;
 			};
 		};
 		E5F2C7E02B4C2A21007387BC /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */ = {
