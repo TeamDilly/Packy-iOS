@@ -16,7 +16,7 @@ struct IntroFeature: Reducer {
         case login(LoginFeature.State = .init())
         case signUp(SignUpNicknameFeature.State = .init())
 
-        init() { self = .onboarding() }
+        init() { self = .login() }
     }
 
     enum Action {
