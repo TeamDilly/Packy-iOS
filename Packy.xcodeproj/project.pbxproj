@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		E547DD212B502BE300641D6D /* UserNotificationClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = E547DD202B502BE300641D6D /* UserNotificationClient.swift */; };
+		E547DD302B51411600641D6D /* PhotoElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = E547DD2F2B51411600641D6D /* PhotoElement.swift */; };
+		E547DD322B51460C00641D6D /* Image+ScaleToFillFrame.swift in Sources */ = {isa = PBXBuildFile; fileRef = E547DD312B51460C00641D6D /* Image+ScaleToFillFrame.swift */; };
+		E547DD342B51474800641D6D /* View+If.swift in Sources */ = {isa = PBXBuildFile; fileRef = E547DD332B51474800641D6D /* View+If.swift */; };
 		E560D4B92B4D80F50098D603 /* SignUpNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E560D4B62B4D80F50098D603 /* SignUpNavigation.swift */; };
 		E560D4BE2B4D811F0098D603 /* SignUpNicknameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E560D4BC2B4D811F0098D603 /* SignUpNicknameView.swift */; };
 		E560D4BF2B4D811F0098D603 /* SignUpNicknameFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = E560D4BD2B4D811F0098D603 /* SignUpNicknameFeature.swift */; };
@@ -78,6 +81,9 @@
 
 /* Begin PBXFileReference section */
 		E547DD202B502BE300641D6D /* UserNotificationClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserNotificationClient.swift; sourceTree = "<group>"; };
+		E547DD2F2B51411600641D6D /* PhotoElement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoElement.swift; sourceTree = "<group>"; };
+		E547DD312B51460C00641D6D /* Image+ScaleToFillFrame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Image+ScaleToFillFrame.swift"; sourceTree = "<group>"; };
+		E547DD332B51474800641D6D /* View+If.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+If.swift"; sourceTree = "<group>"; };
 		E560D4B62B4D80F50098D603 /* SignUpNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpNavigation.swift; sourceTree = "<group>"; };
 		E560D4BC2B4D811F0098D603 /* SignUpNicknameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpNicknameView.swift; sourceTree = "<group>"; };
 		E560D4BD2B4D811F0098D603 /* SignUpNicknameFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpNicknameFeature.swift; sourceTree = "<group>"; };
@@ -343,16 +349,17 @@
 		E5D749C52B4AD05A00213F63 /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				E5D749E92B4AD85600213F63 /* SocialLoginButton.swift */,
-				E5D749EB2B4AE3D900213F63 /* PageIndicator.swift */,
+				E5A4572A2B4D7C570077EA61 /* Checkbox.swift */,
+				E5FF94D52B4C44F6002AF035 /* CloseButton.swift */,
+				E560D4D52B4DA0E70098D603 /* NavigationBar.swift */,
 				E5D749EF2B4AEA4100213F63 /* PackyButton.swift */,
 				E560D4CC2B4D8B490098D603 /* PackyNavigationLink.swift */,
-				E5FF94D52B4C44F6002AF035 /* CloseButton.swift */,
-				E5FF94D72B4C4A6A002AF035 /* PackyTextField.swift */,
 				E5E25DB42B4D69ED00125DCE /* PackyTextArea.swift */,
+				E5FF94D72B4C4A6A002AF035 /* PackyTextField.swift */,
+				E5D749EB2B4AE3D900213F63 /* PageIndicator.swift */,
 				E5A457282B4D7BEC0077EA61 /* Radio.swift */,
-				E5A4572A2B4D7C570077EA61 /* Checkbox.swift */,
-				E560D4D52B4DA0E70098D603 /* NavigationBar.swift */,
+				E5D749E92B4AD85600213F63 /* SocialLoginButton.swift */,
+				E547DD2F2B51411600641D6D /* PhotoElement.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -394,6 +401,8 @@
 				E560D4CE2B4D9A910098D603 /* TextField+LimitInputLength.swift */,
 				E560D4D02B4D9CEB0098D603 /* View+HideKeyboard.swift */,
 				E560D4D72B4DA9090098D603 /* UINavigationController+PopGesture.swift */,
+				E547DD312B51460C00641D6D /* Image+ScaleToFillFrame.swift */,
+				E547DD332B51474800641D6D /* View+If.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -618,6 +627,7 @@
 				E5D749D32B4AD17700213F63 /* OnboardingView.swift in Sources */,
 				E5D749AD2B4AC71900213F63 /* Font+Pretendard.swift in Sources */,
 				E5D749F32B4AF34600213F63 /* UserDefaultsKey.swift in Sources */,
+				E547DD302B51411600641D6D /* PhotoElement.swift in Sources */,
 				E5D749EC2B4AE3D900213F63 /* PageIndicator.swift in Sources */,
 				E5D749D42B4AD17700213F63 /* OnboardingFeature.swift in Sources */,
 				E5E25DB72B4D712A00125DCE /* View+GetSize.swift in Sources */,
@@ -632,6 +642,7 @@
 				E560D4D82B4DA9090098D603 /* UINavigationController+PopGesture.swift in Sources */,
 				E5F2C7CC2B4C183B007387BC /* Color+Hex.swift in Sources */,
 				E5FF94D82B4C4A6A002AF035 /* PackyTextField.swift in Sources */,
+				E547DD322B51460C00641D6D /* Image+ScaleToFillFrame.swift in Sources */,
 				E5F2C7DE2B4C281A007387BC /* KakaoLoginController.swift in Sources */,
 				E560D4BF2B4D811F0098D603 /* SignUpNicknameFeature.swift in Sources */,
 				E5A457292B4D7BEC0077EA61 /* Radio.swift in Sources */,
@@ -646,6 +657,7 @@
 				E5A7C9DE2B4ECCAB00F19D4A /* BouncyTapGestureModifier.swift in Sources */,
 				E5D749AF2B4AC73100213F63 /* Font+Packy.swift in Sources */,
 				E5C1D72F2B4FFD2B0073E575 /* BottomSheetModifier.swift in Sources */,
+				E547DD342B51474800641D6D /* View+If.swift in Sources */,
 				E5D749EE2B4AE5F500213F63 /* OnboardingPage.swift in Sources */,
 				E560D4D12B4D9CEB0098D603 /* View+HideKeyboard.swift in Sources */,
 			);
