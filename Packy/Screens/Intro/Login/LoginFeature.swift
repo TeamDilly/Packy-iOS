@@ -22,9 +22,12 @@ struct LoginFeature: Reducer {
         // MARK: Inner Business Action
         case _onAppear
 
-        // MARK: Inner SetState Action
-
-        // MARK: Child Action
+        // MARK: Delegate Action
+        enum Delegate {
+            case completeLogin
+            case moveToSignUp
+        }
+        case delegate(Delegate)
     }
 
     @Dependency(\.socialLogin) var socialLogin
@@ -36,15 +39,32 @@ struct LoginFeature: Reducer {
                 return .run { send in
                     let info = try await socialLogin.kakaoLogin()
                     print(info)
+
+                    // TODO: 서버에서 특정 에러코드 떨어지면 회원가입으로 이동. 일단은 랜덤하게 설정
+                    let needSignup = Bool.random()
+                    if needSignup {
+                        await send(.delegate(.moveToSignUp), animation: .spring)
+                    } else {
+                        await send(.delegate(.completeLogin), animation: .spring)
+                    }
                 }
 
             case .appleLoginButtonTapped:
                 return .run { send in
                     let info = try await socialLogin.appleLogin()
-                    print(info)
+
+                    let needSignup = Bool.random()
+                    if needSignup {
+                        await send(.delegate(.moveToSignUp), animation: .spring)
+                    } else {
+                        await send(.delegate(.completeLogin), animation: .spring)
+                    }
                 }
 
             case ._onAppear:
+                return .none
+
+            default:
                 return .none
             }
         }

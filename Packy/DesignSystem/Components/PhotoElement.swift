@@ -17,20 +17,20 @@ struct PhotoElement: View {
 
     var body: some View {
         VStack(spacing: 16) {
-            KFImage(imageURL)
-                .placeholder {
-                    Color.gray200
-                        .overlay {
-                            Image(.plus)
-                        }
-                }
-                .scaleToFillFrame(width: 280, height: 280)
-                .ifLet(imageTapAction) { view, action in
-                    view.bouncyTapGesture {
-                        action()
+            Button {
+                imageTapAction?()
+            } label: {
+                KFImage(imageURL)
+                    .placeholder {
+                        Color.gray200
+                            .overlay {
+                                Image(.plus)
+                            }
                     }
-                }
-
+                    .scaleToFillFrame(width: 280, height: 280)
+            }
+            .buttonStyle(.bouncy)
+            .disabled(imageURL != nil) 
 
             PhotoTextField(text: $text, placeholder: "사진 속 추억을 적어주세요")
                 .frame(width: 280, height: 46)

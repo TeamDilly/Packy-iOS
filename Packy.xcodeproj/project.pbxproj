@@ -25,7 +25,7 @@
 		E5A457292B4D7BEC0077EA61 /* Radio.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A457282B4D7BEC0077EA61 /* Radio.swift */; };
 		E5A4572B2B4D7C570077EA61 /* Checkbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A4572A2B4D7C570077EA61 /* Checkbox.swift */; };
 		E5A7C9DB2B4EBD9D00F19D4A /* Terms.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7C9DA2B4EBD9D00F19D4A /* Terms.swift */; };
-		E5A7C9DE2B4ECCAB00F19D4A /* BouncyTapGestureModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7C9DD2B4ECCAB00F19D4A /* BouncyTapGestureModifier.swift */; };
+		E5A7C9DE2B4ECCAB00F19D4A /* BouncyButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7C9DD2B4ECCAB00F19D4A /* BouncyButtonStyle.swift */; };
 		E5A7C9E02B4EE6DC00F19D4A /* ATTManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7C9DF2B4EE6DC00F19D4A /* ATTManager.swift */; };
 		E5C1D72F2B4FFD2B0073E575 /* BottomSheetModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C1D72E2B4FFD2B0073E575 /* BottomSheetModifier.swift */; };
 		E5D749612B4A72E100213F63 /* PackyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D749602B4A72E100213F63 /* PackyApp.swift */; };
@@ -102,7 +102,7 @@
 		E5A457282B4D7BEC0077EA61 /* Radio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Radio.swift; sourceTree = "<group>"; };
 		E5A4572A2B4D7C570077EA61 /* Checkbox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Checkbox.swift; sourceTree = "<group>"; };
 		E5A7C9DA2B4EBD9D00F19D4A /* Terms.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Terms.swift; sourceTree = "<group>"; };
-		E5A7C9DD2B4ECCAB00F19D4A /* BouncyTapGestureModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BouncyTapGestureModifier.swift; sourceTree = "<group>"; };
+		E5A7C9DD2B4ECCAB00F19D4A /* BouncyButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BouncyButtonStyle.swift; sourceTree = "<group>"; };
 		E5A7C9DF2B4EE6DC00F19D4A /* ATTManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ATTManager.swift; sourceTree = "<group>"; };
 		E5C1D72E2B4FFD2B0073E575 /* BottomSheetModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetModifier.swift; sourceTree = "<group>"; };
 		E5D7495D2B4A72E100213F63 /* Packy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Packy.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -175,6 +175,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		E51AB7672B52935400F4507C /* Style */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Style;
+			sourceTree = "<group>";
+		};
 		E547DD1E2B502BC300641D6D /* Client */ = {
 			isa = PBXGroup;
 			children = (
@@ -232,7 +239,7 @@
 		E5A7C9DC2B4ECC9500F19D4A /* ViewModifiers */ = {
 			isa = PBXGroup;
 			children = (
-				E5A7C9DD2B4ECCAB00F19D4A /* BouncyTapGestureModifier.swift */,
+				E5A7C9DD2B4ECCAB00F19D4A /* BouncyButtonStyle.swift */,
 				E5C1D72E2B4FFD2B0073E575 /* BottomSheetModifier.swift */,
 				E5D927CF2B514E280064FBA4 /* SpinningModifier.swift */,
 			);
@@ -337,6 +344,7 @@
 		E5D749A62B4AB64000213F63 /* DesignSystem */ = {
 			isa = PBXGroup;
 			children = (
+				E51AB7672B52935400F4507C /* Style */,
 				E5D749C52B4AD05A00213F63 /* Components */,
 				E5A7C9DC2B4ECC9500F19D4A /* ViewModifiers */,
 				E5D927CE2B514DE50064FBA4 /* Extensions */,
@@ -678,7 +686,7 @@
 				E547DD212B502BE300641D6D /* UserNotificationClient.swift in Sources */,
 				E5D749612B4A72E100213F63 /* PackyApp.swift in Sources */,
 				E5D749EA2B4AD85600213F63 /* SocialLoginButton.swift in Sources */,
-				E5A7C9DE2B4ECCAB00F19D4A /* BouncyTapGestureModifier.swift in Sources */,
+				E5A7C9DE2B4ECCAB00F19D4A /* BouncyButtonStyle.swift in Sources */,
 				E5D749AF2B4AC73100213F63 /* Font+Packy.swift in Sources */,
 				E5C1D72F2B4FFD2B0073E575 /* BottomSheetModifier.swift in Sources */,
 				E547DD342B51474800641D6D /* View+If.swift in Sources */,

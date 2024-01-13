@@ -41,13 +41,15 @@ struct SignUpProfileView: View {
 
                 HStack(spacing: 16) {
                     ForEach(0..<4, id: \.self) { _ in
-                        Image(.mock)
-                            .resizable()
-                            .frame(width: 60, height: 60)
-                            .mask(Circle())
-                            .bouncyTapGesture {
-                                HapticManager.shared.fireNotification(.success)
-                            }
+                        Button {
+                            HapticManager.shared.fireNotification(.success)
+                        } label: {
+                            Image(.mock)
+                                .resizable()
+                                .frame(width: 60, height: 60)
+                                .mask(Circle())
+                        }
+                        .buttonStyle(.bouncy)
                     }
                 }
             }

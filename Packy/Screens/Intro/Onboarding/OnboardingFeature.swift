@@ -27,7 +27,7 @@ struct OnboardingFeature: Reducer {
         case delegate(Delegate)
 
         enum Delegate {
-            case didFinishOnboarding
+            case completeOnboarding
         }
     }
 
@@ -42,7 +42,7 @@ struct OnboardingFeature: Reducer {
                 guard state.currentPage != OnboardingPage.allCases.last else {
                     return .run { send in
                         await userDefaults.setBool(true, .hasOnboarded)
-                        await send(.delegate(.didFinishOnboarding))
+                        await send(.delegate(.completeOnboarding))
                     }
                 }
 

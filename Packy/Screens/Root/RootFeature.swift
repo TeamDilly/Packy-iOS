@@ -39,6 +39,11 @@ struct RootFeature: Reducer {
         Reduce<State, Action> { state, action in
             switch action {
             case ._onAppear:
+                // TODO: AccessToken 존재 시, home 으로 이동
+                // if let userDefaults.stringForKey(.accessToken) {
+                // return .send(._changeScreen(.home()))
+                // }
+
                 socialLogin.initKakaoSDK()
                 return .run { send in
                     await userDefaults.setBool(true, .isPopGestureEnabled)
@@ -47,6 +52,16 @@ struct RootFeature: Reducer {
             case let ._changeScreen(newState):
                 state = newState
                 return .none
+
+            case let .intro(action):
+                switch action {
+                // 로그인 완료, 회원가입 완료 시 홈으로 이동
+                case .login(.delegate(.completeLogin)), .signUp(.delegate(.completeSignUp)):
+                    return .send(._changeScreen(.home()), animation: .spring)
+
+                default:
+                    return .none
+                }
 
             default:
                 return .none
