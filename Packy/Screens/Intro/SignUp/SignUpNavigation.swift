@@ -35,8 +35,8 @@ extension SignUpNicknameFeature {
             switch action {
             case let .path(action):
                 switch action {
-                case .element:
-                    return .none
+                case .element(id: _, action: .termsAgreement(._completeTermsAgreement)):
+                    return .send(.delegate(.completeSignUp))
 
                 default:
                     return .none

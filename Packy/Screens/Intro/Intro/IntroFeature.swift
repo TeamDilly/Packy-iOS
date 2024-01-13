@@ -16,7 +16,7 @@ struct IntroFeature: Reducer {
         case login(LoginFeature.State = .init())
         case signUp(SignUpNicknameFeature.State = .init())
 
-        init() { self = .login() }
+        init() { self = .onboarding() }
     }
 
     enum Action {
@@ -40,20 +40,23 @@ struct IntroFeature: Reducer {
         Reduce<State, Action> { state, action in
             switch action {
             case ._onAppear:
-                // TODO: 릴리즈 시 원상복귀
-                // if userDefaults.boolForKey(.hasOnboarded) {
-                //     return .run { send in await send(._changeScreen(.login())) }
-                // }
+                // 이미 온보딩 완료 시, 로그인으로 이동
+                if userDefaults.boolForKey(.hasOnboarded) {
+                    return .run { send in await send(._changeScreen(.login())) }
+                }
                 return .none
 
             case let ._changeScreen(newState):
                 state = newState
                 return .none
 
-            case .onboarding(.delegate(.didFinishOnboarding)):
+            case .onboarding(.delegate(.completeOnboarding)):
                 return .run { send in
                     await send(._changeScreen(.login()), animation: .spring)
                 }
+
+            case .login(.delegate(.moveToSignUp)):
+                return .send(._changeScreen(.signUp()), animation: .spring)
 
             default:
                 return .none

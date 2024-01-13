@@ -41,6 +41,7 @@ struct TermsAgreementFeature: Reducer {
 
         // MARK: Inner Business Action
         case _onAppear
+        case _completeTermsAgreement
 
         // MARK: Inner SetState Action
         case _setATTCompleted
@@ -87,8 +88,9 @@ struct TermsAgreementFeature: Reducer {
                 return .none
 
             case .allowNotificationButtonTapped:
-                return .run { _ in
+                return .run { send in
                     let isGranted = try await userNotification.requestAuthorization([.alert, .badge, .sound])
+                    await send(._completeTermsAgreement, animation: .spring)
                     print("🔔 UserNotification isGranted: \(isGranted)")
                 }
 

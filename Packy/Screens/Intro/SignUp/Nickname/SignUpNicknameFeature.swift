@@ -25,10 +25,13 @@ struct SignUpNicknameFeature: Reducer {
         // MARK: Inner Business Action
         case _onAppear
 
-        // MARK: Inner SetState Action
-
         // MARK: Child Action
         case path(StackAction<SignUpNavigationPath.State, SignUpNavigationPath.Action>)
+
+        enum Delegate {
+            case completeSignUp
+        }
+        case delegate(Delegate)
     }
 
 
