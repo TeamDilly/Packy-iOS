@@ -90,6 +90,7 @@ struct TermsAgreementFeature: Reducer {
             case .allowNotificationButtonTapped:
                 return .run { send in
                     let isGranted = try await userNotification.requestAuthorization([.alert, .badge, .sound])
+                    await send(.binding(.set(\.$isAllowNotificationBottomSheetPresented, false)))
                     await send(._completeTermsAgreement, animation: .spring)
                     print("🔔 UserNotification isGranted: \(isGranted)")
                 }
