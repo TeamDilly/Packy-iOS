@@ -79,6 +79,7 @@
 		E5F273022B52F21D00588D83 /* BoxStartGuideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F273002B52F21D00588D83 /* BoxStartGuideView.swift */; };
 		E5F273032B52F21D00588D83 /* BoxStartGuideFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F273012B52F21D00588D83 /* BoxStartGuideFeature.swift */; };
 		E5F273062B52F68E00588D83 /* BoxElementShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F273052B52F68E00588D83 /* BoxElementShape.swift */; };
+		E5F2730C2B52F7E000588D83 /* FloatingNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F2730B2B52F7E000588D83 /* FloatingNavigationBar.swift */; };
 		E5F2C7CC2B4C183B007387BC /* Color+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F2C7CB2B4C183B007387BC /* Color+Hex.swift */; };
 		E5F2C7D72B4C1C96007387BC /* SocialLoginClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F2C7D62B4C1C96007387BC /* SocialLoginClient.swift */; };
 		E5F2C7D92B4C253C007387BC /* SocialLoginInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F2C7D82B4C253C007387BC /* SocialLoginInfo.swift */; };
@@ -159,6 +160,7 @@
 		E5F273002B52F21D00588D83 /* BoxStartGuideView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoxStartGuideView.swift; sourceTree = "<group>"; };
 		E5F273012B52F21D00588D83 /* BoxStartGuideFeature.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoxStartGuideFeature.swift; sourceTree = "<group>"; };
 		E5F273052B52F68E00588D83 /* BoxElementShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoxElementShape.swift; sourceTree = "<group>"; };
+		E5F2730B2B52F7E000588D83 /* FloatingNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingNavigationBar.swift; sourceTree = "<group>"; };
 		E5F2C7CB2B4C183B007387BC /* Color+Hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Hex.swift"; sourceTree = "<group>"; };
 		E5F2C7D62B4C1C96007387BC /* SocialLoginClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialLoginClient.swift; sourceTree = "<group>"; };
 		E5F2C7D82B4C253C007387BC /* SocialLoginInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialLoginInfo.swift; sourceTree = "<group>"; };
@@ -406,6 +408,7 @@
 				E5A457282B4D7BEC0077EA61 /* Radio.swift */,
 				E5D749E92B4AD85600213F63 /* SocialLoginButton.swift */,
 				E5D927D32B5159B10064FBA4 /* CarouselView.swift */,
+				E5F2730B2B52F7E000588D83 /* FloatingNavigationBar.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -680,6 +683,7 @@
 				E5D749E32B4AD28D00213F63 /* IntroView.swift in Sources */,
 				E5F272FF2B52EC8F00588D83 /* MakeBoxFeature.swift in Sources */,
 				E5F2C7D72B4C1C96007387BC /* SocialLoginClient.swift in Sources */,
+				E5F2730C2B52F7E000588D83 /* FloatingNavigationBar.swift in Sources */,
 				E5A7C9E02B4EE6DC00F19D4A /* ATTManager.swift in Sources */,
 				E5F2C7DB2B4C2759007387BC /* AppleLoginController.swift in Sources */,
 				E5D749E82B4AD3B100213F63 /* HomeFeature.swift in Sources */,
