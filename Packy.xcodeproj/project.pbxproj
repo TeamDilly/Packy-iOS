@@ -78,6 +78,7 @@
 		E5F272FF2B52EC8F00588D83 /* MakeBoxFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F272FC2B52EC8F00588D83 /* MakeBoxFeature.swift */; };
 		E5F273022B52F21D00588D83 /* BoxStartGuideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F273002B52F21D00588D83 /* BoxStartGuideView.swift */; };
 		E5F273032B52F21D00588D83 /* BoxStartGuideFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F273012B52F21D00588D83 /* BoxStartGuideFeature.swift */; };
+		E5F273062B52F68E00588D83 /* BoxElementShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F273052B52F68E00588D83 /* BoxElementShape.swift */; };
 		E5F2C7CC2B4C183B007387BC /* Color+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F2C7CB2B4C183B007387BC /* Color+Hex.swift */; };
 		E5F2C7D72B4C1C96007387BC /* SocialLoginClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F2C7D62B4C1C96007387BC /* SocialLoginClient.swift */; };
 		E5F2C7D92B4C253C007387BC /* SocialLoginInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F2C7D82B4C253C007387BC /* SocialLoginInfo.swift */; };
@@ -157,6 +158,7 @@
 		E5F272FC2B52EC8F00588D83 /* MakeBoxFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeBoxFeature.swift; sourceTree = "<group>"; };
 		E5F273002B52F21D00588D83 /* BoxStartGuideView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoxStartGuideView.swift; sourceTree = "<group>"; };
 		E5F273012B52F21D00588D83 /* BoxStartGuideFeature.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoxStartGuideFeature.swift; sourceTree = "<group>"; };
+		E5F273052B52F68E00588D83 /* BoxElementShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoxElementShape.swift; sourceTree = "<group>"; };
 		E5F2C7CB2B4C183B007387BC /* Color+Hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Hex.swift"; sourceTree = "<group>"; };
 		E5F2C7D62B4C1C96007387BC /* SocialLoginClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialLoginClient.swift; sourceTree = "<group>"; };
 		E5F2C7D82B4C253C007387BC /* SocialLoginInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialLoginInfo.swift; sourceTree = "<group>"; };
@@ -390,6 +392,7 @@
 		E5D749C52B4AD05A00213F63 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				E5F273042B52F66400588D83 /* BoxElement */,
 				E5A4572A2B4D7C570077EA61 /* Checkbox.swift */,
 				E5FF94D52B4C44F6002AF035 /* CloseButton.swift */,
 				E5D927C82B514AE20064FBA4 /* MusicPlayerView.swift */,
@@ -527,6 +530,14 @@
 			children = (
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		E5F273042B52F66400588D83 /* BoxElement */ = {
+			isa = PBXGroup;
+			children = (
+				E5F273052B52F68E00588D83 /* BoxElementShape.swift */,
+			);
+			path = BoxElement;
 			sourceTree = "<group>";
 		};
 		E5F2C7CD2B4C1B29007387BC /* Storage */ = {
@@ -679,6 +690,7 @@
 				E5D749E42B4AD28D00213F63 /* IntroFeature.swift in Sources */,
 				E5A7C9DB2B4EBD9D00F19D4A /* Terms.swift in Sources */,
 				E5D749D32B4AD17700213F63 /* OnboardingView.swift in Sources */,
+				E5F273062B52F68E00588D83 /* BoxElementShape.swift in Sources */,
 				E5D749AD2B4AC71900213F63 /* Font+Pretendard.swift in Sources */,
 				E5D927C92B514AE20064FBA4 /* MusicPlayerView.swift in Sources */,
 				E5F272FD2B52EC8F00588D83 /* MakeBoxFeature+Navigation.swift in Sources */,

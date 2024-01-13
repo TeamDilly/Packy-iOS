@@ -29,25 +29,25 @@ struct BoxStartGuideView: View {
             ScrollView {
                 VStack {
                     // 음악 추가 원
-                    let musicCircleSize = ShapeElement.musicCircle.relativeSize(geometryWidth: width)
+                    let musicCircleSize = BoxElementShape.musicCircle.relativeSize(geometryWidth: width)
                     Circle()
                         .stroke(strokeColor, style: strokeStyle)
                         .frame(width: musicCircleSize.width, height: musicCircleSize.height)
 
                     // 편지 추가 사각형
-                    let letterRectangleSize = ShapeElement.letterRectangle.relativeSize(geometryWidth: width)
+                    let letterRectangleSize = BoxElementShape.letterRectangle.relativeSize(geometryWidth: width)
                     Rectangle()
                         .stroke(strokeColor, style: strokeStyle)
                         .frame(width: letterRectangleSize.width, height: letterRectangleSize.height)
 
                     // 사진 추가 
-                    let photoRectangleSize = ShapeElement.photoRectangle.relativeSize(geometryWidth: width)
+                    let photoRectangleSize = BoxElementShape.photoRectangle.relativeSize(geometryWidth: width)
                     Rectangle()
                         .stroke(strokeColor, style: strokeStyle)
                         .frame(width: photoRectangleSize.width, height: photoRectangleSize.height)
 
                     // 음악 원
-                    let giftEllipseSize = ShapeElement.giftEllipse.relativeSize(geometryWidth: width)
+                    let giftEllipseSize = BoxElementShape.giftEllipse.relativeSize(geometryWidth: width)
                     Ellipse()
                         .stroke(strokeColor, style: strokeStyle)
                         .frame(width: giftEllipseSize.width, height: giftEllipseSize.height)
@@ -58,39 +58,6 @@ struct BoxStartGuideView: View {
             await viewStore
                 .send(._onTask)
                 .finish()
-        }
-    }
-}
-
-// MARK: - ShapeElement (도형 사이즈 계산)
-
-
-extension BoxStartGuideView {
-    enum ShapeElement {
-        case musicCircle
-        case letterRectangle
-        case photoRectangle
-        case giftEllipse
-
-        var absoluteSize: CGSize {
-            switch self {
-            case .musicCircle:      return .init(width: 210, height: 210)
-            case .letterRectangle:  return .init(width: 163, height: 228)
-            case .photoRectangle:   return .init(width: 163, height: 202)
-            case .giftEllipse:      return .init(width: 163, height: 189)
-            }
-        }
-
-        var shapeRatio: CGFloat {
-            absoluteSize.height / absoluteSize.width
-        }
-
-        func relativeSize(geometryWidth: CGFloat) -> CGSize {
-            let standardWidth: CGFloat = 390
-            let widthRatio = absoluteSize.width / standardWidth
-            let width = geometryWidth * widthRatio
-            let height = width * shapeRatio
-            return .init(width: width, height: height)
         }
     }
 }
