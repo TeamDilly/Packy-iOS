@@ -9,20 +9,24 @@ import SwiftUI
 import Dependencies
 
 struct FloatingNavigationBar: View {
-    @Dependency(\.dismiss) var dismiss
-
     var leadingIcon: Image = Image(.arrowLeft)
     var leadingAction: (() -> Void)? = nil
     var trailingTitle: String = "다음"
     let trailingAction: () -> Void
+    var dismissible: Bool = true
+
+    @Dependency(\.dismiss) var dismiss
 
     var body: some View {
         HStack {
             Button {
                 leadingAction?()
-                Task {
-                    await dismiss()
+                if dismissible {
+                    Task {
+                        await dismiss()
+                    }
                 }
+                HapticManager.shared.fireFeedback(.medium)
             } label: {
                 Circle()
                     .fill(.white)
@@ -37,6 +41,7 @@ struct FloatingNavigationBar: View {
 
             Button {
                 trailingAction()
+                HapticManager.shared.fireFeedback(.medium)
             } label: {
                 Capsule()
                     .fill(.white)
@@ -53,6 +58,16 @@ struct FloatingNavigationBar: View {
         .padding(.vertical, 4)
     }
 }
+
+// MARK: - View Modifiers
+
+extension FloatingNavigationBar {
+    func disableDefaultDismissAction() -> FloatingNavigationBar {
+
+    }
+}
+
+// MARK: - Preview
 
 #Preview {
     FloatingNavigationBar {

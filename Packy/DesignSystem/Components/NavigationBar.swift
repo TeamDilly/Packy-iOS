@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Dependencies
 
 struct NavigationBar: View {
     var title: String?
@@ -13,10 +14,20 @@ struct NavigationBar: View {
     var leftIconAction: () -> Void = {}
     var rightIcon: Image?
     var rightIconAction: () -> Void = {}
+    var dismissible: Bool = true
+
+    @Dependency(\.dismiss) var dismiss
 
     var body: some View {
         HStack {
-            iconView(image: leftIcon, action: leftIconAction)
+            IconView(image: leftIcon) {
+                if dismissible {
+                    Task {
+                        await dismiss()
+                    }
+                }
+                leftIconAction()
+            }
 
             Spacer()
 
@@ -28,16 +39,23 @@ struct NavigationBar: View {
 
             Spacer()
 
-            iconView(image: rightIcon, action: rightIconAction)
+            IconView(image: rightIcon, action: rightIconAction)
         }
         .frame(height: 48)
         .padding(.horizontal, 16)
     }
+}
 
-    @ViewBuilder
-    func iconView(image: Image?, action: @escaping () -> Void) -> some View {
+// MARK: - Inner Views
+
+private struct IconView: View {
+    var image: Image?
+    var action: () -> Void
+
+    var body: some View {
         Button {
             action()
+            HapticManager.shared.fireFeedback(.medium)
         } label: {
             if let image {
                 image
@@ -49,6 +67,8 @@ struct NavigationBar: View {
     }
 }
 
+// MARK: - Static var
+
 extension NavigationBar {
     static func onlyBackButton(action: @escaping () -> Void) -> Self {
         NavigationBar(leftIcon: Image(.arrowLeft), leftIconAction: {
@@ -56,6 +76,8 @@ extension NavigationBar {
         })
     }
 }
+
+// MARK: - Preview
 
 #Preview {
     VStack {
