@@ -59,14 +59,6 @@ struct FloatingNavigationBar: View {
     }
 }
 
-// MARK: - View Modifiers
-
-extension FloatingNavigationBar {
-    func disableDefaultDismissAction() -> FloatingNavigationBar {
-
-    }
-}
-
 // MARK: - Preview
 
 #Preview {

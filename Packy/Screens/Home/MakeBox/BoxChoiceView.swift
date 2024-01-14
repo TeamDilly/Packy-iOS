@@ -23,19 +23,32 @@ struct BoxChoiceView: View {
     
     var body: some View {
         VStack(spacing: 0) {
-            FloatingNavigationBar {
+            ZStack {
+                Color.gray100.ignoresSafeArea()
 
+                VStack {
+                    FloatingNavigationBar {
+
+                    }
+                    .padding(.top, 8)
+
+                    Text("박스와 메시지를 골라주세요")
+                        .packyFont(.heading1)
+                        .foregroundStyle(.gray900)
+                        .padding(.top, 56)
+
+                    ZStack {
+                        Image(.giftboxForeground1)
+                            .offset(x: 35, y: -55)
+                            .zIndex(1)
+
+                        Image(.giftboxBackground1)
+                    }
+                    .padding(.top, 107)
+
+                    Spacer()
+                }
             }
-            .padding(.top, 8)
-
-            Text("박스와 메시지를 골라주세요")
-                .packyFont(.heading2)
-                .padding(.top, 56)
-
-            Image(.mock)
-                .padding(.top, 52)
-
-            Spacer()
 
             Divider()
 
@@ -46,11 +59,11 @@ struct BoxChoiceView: View {
 
             // 박스, 메시지 선택
             ZStack {
-                BoxSelector()
+                BoxSelector(selectedIndex: viewStore.$selectedBox)
                     .opacity(selection == .box ? 1 : 0)
                     .padding(.vertical, 20)
 
-                MessageSelector()
+                MessageSelector(selectedIndex: viewStore.$selectedMessage)
                     .opacity(selection == .message ? 1 : 0)
                     .padding(.vertical, 20)
             }
@@ -91,9 +104,10 @@ private struct CategorySelector: View {
                     .foregroundStyle(isSelected ? .black : .gray800)
                     .frame(maxWidth: .infinity)
                     .contentShape(Rectangle())
-                    .animation(.spring, value: selection)
                     .onTapGesture {
-                        self.selection = boxSelection
+                        withAnimation(.spring) {
+                            self.selection = boxSelection
+                        }
                     }
             }
         }
@@ -101,12 +115,15 @@ private struct CategorySelector: View {
 }
 
 private struct BoxSelector: View {
+    @Binding var selectedIndex: Int
+
     var body: some View {
         ScrollView(.horizontal) {
             HStack(spacing: 8) {
-                ForEach(0..<6, id: \.self) { _ in
+                ForEach(0..<6, id: \.self) { index in
                     Button {
-                        print("Box")
+                        selectedIndex = index
+                        HapticManager.shared.fireFeedback(.light)
                     } label: {
                         Image(.mock)
                             .resizable()
@@ -123,12 +140,15 @@ private struct BoxSelector: View {
 }
 
 private struct MessageSelector: View {
+    @Binding var selectedIndex: Int
+
     var body: some View {
         ScrollView(.horizontal) {
             HStack(spacing: 8) {
-                ForEach(0..<6, id: \.self) { _ in
+                ForEach(0..<6, id: \.self) { index in
                     Button {
-                        print("Message")
+                        selectedIndex = index
+                        HapticManager.shared.fireFeedback(.light)
                     } label: {
                         Rectangle()
                             .fill(.orange)
