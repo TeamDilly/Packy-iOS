@@ -63,17 +63,22 @@ struct LoginFeature: Reducer {
 
 private extension LoginFeature {
     func handleSocialLogin(_ info: SocialLoginInfo, send: Send<LoginFeature.Action>) async throws {
-        let response = try await authClient.signIn(.init(provider: info.provider, authorization: info.token))
+        do {
+            let response = try await authClient.signIn(.init(provider: info.provider, authorization: info.token))
 
-        keychain.save(.accessToken, response.accessToken)
-        keychain.save(.refreshToken, response.refreshToken)
+            keychain.save(.accessToken, response.accessToken)
+            keychain.save(.refreshToken, response.refreshToken)
 
-        // TODO: 서버 명세 변경 반영
-        let needSignup = Bool.random()
-        if needSignup {
-            await send(.delegate(.moveToSignUp), animation: .spring)
-        } else {
-            await send(.delegate(.completeLogin), animation: .spring)
+            // TODO: 서버 명세 변경 반영
+            let needSignup = Bool.random()
+            if needSignup {
+                await send(.delegate(.moveToSignUp), animation: .spring)
+            } else {
+                await send(.delegate(.completeLogin), animation: .spring)
+            }
+        } catch let error as ErrorResponse {
+            // TODO: 에러 메시지 표시...
+            error.message
         }
     }
 }

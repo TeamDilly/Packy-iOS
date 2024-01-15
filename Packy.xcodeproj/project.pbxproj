@@ -85,6 +85,7 @@
 		E5E6B3C92B5569FC004BB31C /* TokenRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E6B3C82B5569FB004BB31C /* TokenRequest.swift */; };
 		E5E6B3D32B556D30004BB31C /* AuthClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E6B3D22B556D30004BB31C /* AuthClient.swift */; };
 		E5E6B3D82B55715E004BB31C /* KeychainClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E6B3D72B55715E004BB31C /* KeychainClient.swift */; };
+		E5E6B3DA2B5586B6004BB31C /* MoyaLoggerPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E6B3D92B5586B6004BB31C /* MoyaLoggerPlugin.swift */; };
 		E5F2C7CC2B4C183B007387BC /* Color+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F2C7CB2B4C183B007387BC /* Color+Hex.swift */; };
 		E5F2C7D72B4C1C96007387BC /* SocialLoginClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F2C7D62B4C1C96007387BC /* SocialLoginClient.swift */; };
 		E5F2C7D92B4C253C007387BC /* SocialLoginInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F2C7D82B4C253C007387BC /* SocialLoginInfo.swift */; };
@@ -170,6 +171,7 @@
 		E5E6B3C82B5569FB004BB31C /* TokenRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenRequest.swift; sourceTree = "<group>"; };
 		E5E6B3D22B556D30004BB31C /* AuthClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthClient.swift; sourceTree = "<group>"; };
 		E5E6B3D72B55715E004BB31C /* KeychainClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainClient.swift; sourceTree = "<group>"; };
+		E5E6B3D92B5586B6004BB31C /* MoyaLoggerPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoyaLoggerPlugin.swift; sourceTree = "<group>"; };
 		E5F2C7CB2B4C183B007387BC /* Color+Hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Hex.swift"; sourceTree = "<group>"; };
 		E5F2C7D62B4C1C96007387BC /* SocialLoginClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialLoginClient.swift; sourceTree = "<group>"; };
 		E5F2C7D82B4C253C007387BC /* SocialLoginInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialLoginInfo.swift; sourceTree = "<group>"; };
@@ -209,7 +211,6 @@
 		E547DD1E2B502BC300641D6D /* Client */ = {
 			isa = PBXGroup;
 			children = (
-				E5E6B3D42B55710E004BB31C /* New Group */,
 				E547DD1F2B502BD500641D6D /* UserNotification */,
 				E5F2C7CF2B4C1B44007387BC /* SocialLogin */,
 			);
@@ -531,6 +532,7 @@
 			children = (
 				E5E6B3B82B556223004BB31C /* BaseResponse.swift */,
 				E5E6B3BB2B556250004BB31C /* MoyaProvider+Request.swift */,
+				E5E6B3D92B5586B6004BB31C /* MoyaLoggerPlugin.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -546,13 +548,6 @@
 				E5E6B3C82B5569FB004BB31C /* TokenRequest.swift */,
 			);
 			path = Auth;
-			sourceTree = "<group>";
-		};
-		E5E6B3D42B55710E004BB31C /* New Group */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = "New Group";
 			sourceTree = "<group>";
 		};
 		E5E6B3D52B55714E004BB31C /* UserDefatults */ = {
@@ -753,6 +748,7 @@
 				E5F2C7CC2B4C183B007387BC /* Color+Hex.swift in Sources */,
 				E5E6B3C92B5569FC004BB31C /* TokenRequest.swift in Sources */,
 				E5FF94D82B4C4A6A002AF035 /* PackyTextField.swift in Sources */,
+				E5E6B3DA2B5586B6004BB31C /* MoyaLoggerPlugin.swift in Sources */,
 				E547DD322B51460C00641D6D /* Image+ScaleToFillFrame.swift in Sources */,
 				E5F2C7DE2B4C281A007387BC /* KakaoLoginController.swift in Sources */,
 				E560D4BF2B4D811F0098D603 /* SignUpNicknameFeature.swift in Sources */,

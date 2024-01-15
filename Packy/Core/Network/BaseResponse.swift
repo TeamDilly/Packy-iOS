@@ -19,6 +19,8 @@ struct EmptyBaseResponse: Decodable {
 }
 
 struct ErrorResponse: Error, Decodable {
-    let status: String
+    let code: String
     let message: String
+
+    static let base = ErrorResponse(code: "000", message: "CannotParse")
 }

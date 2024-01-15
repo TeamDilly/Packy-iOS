@@ -67,4 +67,6 @@ extension AuthEndpoint: TargetType {
             return ["Content-Type": "application/json"]
         }
     }
+
+    var validationType: ValidationType { .successCodes }
 }
