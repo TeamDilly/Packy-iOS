@@ -12,16 +12,11 @@ struct SocialLoginInfo {
     let token: String
     let name: String?
     let email: String?
-    let loginType: SocialLoginType
-}
-
-enum SocialLoginType {
-    case apple
-    case kakao
+    let provider: SocialLoginProvider
 }
 
 // MARK: - Mock Data
 
 extension SocialLoginInfo {
-    static let mock = SocialLoginInfo(id: "", token: "", name: "mason", email: "packy@dilly.com", loginType: .apple)
+    static let mock = SocialLoginInfo(id: "", token: "", name: "mason", email: "packy@dilly.com", provider: .apple)
 }

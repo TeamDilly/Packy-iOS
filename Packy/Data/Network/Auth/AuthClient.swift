@@ -12,7 +12,6 @@ import Moya
 // MARK: - Dependency Values
 
 extension DependencyValues {
-    // 변수명 소문자로 변경 필요
     var authClient: AuthClient {
         get { self[AuthClient.self] }
         set { self[AuthClient.self] = newValue }
@@ -34,7 +33,7 @@ struct AuthClient {
 
 extension AuthClient: DependencyKey {
     static let liveValue: Self = {
-        let provider = MoyaProvider<AuthEndpoint>()
+        let provider = MoyaProvider<AuthEndpoint>(plugins: [NetworkLoggerPlugin()])
         return Self(
             signUp: {
                 try await provider.request(.signUp(authorization: $0, request: $1))

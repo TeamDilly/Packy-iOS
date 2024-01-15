@@ -17,3 +17,8 @@ struct EmptyBaseResponse: Decodable {
     let status: String
     let message: String
 }
+
+struct ErrorResponse: Error, Decodable {
+    let status: String
+    let message: String
+}

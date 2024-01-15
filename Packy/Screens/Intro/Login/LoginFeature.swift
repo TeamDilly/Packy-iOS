@@ -31,6 +31,8 @@ struct LoginFeature: Reducer {
     }
 
     @Dependency(\.socialLogin) var socialLogin
+    @Dependency(\.authClient) var authClient
+    @Dependency(\.keychain) var keychain
 
     var body: some Reducer<State, Action> {
         Reduce<State, Action> { state, action in
@@ -38,27 +40,13 @@ struct LoginFeature: Reducer {
             case .kakaoLoginButtonTapped:
                 return .run { send in
                     let info = try await socialLogin.kakaoLogin()
-                    print(info)
-
-                    // TODO: 서버에서 특정 에러코드 떨어지면 회원가입으로 이동. 일단은 랜덤하게 설정
-                    let needSignup = Bool.random()
-                    if needSignup {
-                        await send(.delegate(.moveToSignUp), animation: .spring)
-                    } else {
-                        await send(.delegate(.completeLogin), animation: .spring)
-                    }
+                    try await handleSocialLogin(info, send: send)
                 }
 
             case .appleLoginButtonTapped:
                 return .run { send in
                     let info = try await socialLogin.appleLogin()
-
-                    let needSignup = Bool.random()
-                    if needSignup {
-                        await send(.delegate(.moveToSignUp), animation: .spring)
-                    } else {
-                        await send(.delegate(.completeLogin), animation: .spring)
-                    }
+                    try await handleSocialLogin(info, send: send)
                 }
 
             case ._onAppear:
@@ -67,6 +55,25 @@ struct LoginFeature: Reducer {
             default:
                 return .none
             }
+        }
+    }
+}
+
+// MARK: - Inner Functions
+
+private extension LoginFeature {
+    func handleSocialLogin(_ info: SocialLoginInfo, send: Send<LoginFeature.Action>) async throws {
+        let response = try await authClient.signIn(.init(provider: info.provider, authorization: info.token))
+
+        keychain.save(.accessToken, response.accessToken)
+        keychain.save(.refreshToken, response.refreshToken)
+
+        // TODO: 서버 명세 변경 반영
+        let needSignup = Bool.random()
+        if needSignup {
+            await send(.delegate(.moveToSignUp), animation: .spring)
+        } else {
+            await send(.delegate(.completeLogin), animation: .spring)
         }
     }
 }

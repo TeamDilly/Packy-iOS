@@ -84,6 +84,7 @@
 		E5E6B3C72B5569F0004BB31C /* SignUpRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E6B3C62B5569F0004BB31C /* SignUpRequest.swift */; };
 		E5E6B3C92B5569FC004BB31C /* TokenRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E6B3C82B5569FB004BB31C /* TokenRequest.swift */; };
 		E5E6B3D32B556D30004BB31C /* AuthClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E6B3D22B556D30004BB31C /* AuthClient.swift */; };
+		E5E6B3D82B55715E004BB31C /* KeychainClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E6B3D72B55715E004BB31C /* KeychainClient.swift */; };
 		E5F2C7CC2B4C183B007387BC /* Color+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F2C7CB2B4C183B007387BC /* Color+Hex.swift */; };
 		E5F2C7D72B4C1C96007387BC /* SocialLoginClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F2C7D62B4C1C96007387BC /* SocialLoginClient.swift */; };
 		E5F2C7D92B4C253C007387BC /* SocialLoginInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F2C7D82B4C253C007387BC /* SocialLoginInfo.swift */; };
@@ -168,6 +169,7 @@
 		E5E6B3C62B5569F0004BB31C /* SignUpRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpRequest.swift; sourceTree = "<group>"; };
 		E5E6B3C82B5569FB004BB31C /* TokenRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenRequest.swift; sourceTree = "<group>"; };
 		E5E6B3D22B556D30004BB31C /* AuthClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthClient.swift; sourceTree = "<group>"; };
+		E5E6B3D72B55715E004BB31C /* KeychainClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainClient.swift; sourceTree = "<group>"; };
 		E5F2C7CB2B4C183B007387BC /* Color+Hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Hex.swift"; sourceTree = "<group>"; };
 		E5F2C7D62B4C1C96007387BC /* SocialLoginClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialLoginClient.swift; sourceTree = "<group>"; };
 		E5F2C7D82B4C253C007387BC /* SocialLoginInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialLoginInfo.swift; sourceTree = "<group>"; };
@@ -207,6 +209,7 @@
 		E547DD1E2B502BC300641D6D /* Client */ = {
 			isa = PBXGroup;
 			children = (
+				E5E6B3D42B55710E004BB31C /* New Group */,
 				E547DD1F2B502BD500641D6D /* UserNotification */,
 				E5F2C7CF2B4C1B44007387BC /* SocialLogin */,
 			);
@@ -545,11 +548,35 @@
 			path = Auth;
 			sourceTree = "<group>";
 		};
-		E5F2C7CD2B4C1B29007387BC /* Storage */ = {
+		E5E6B3D42B55710E004BB31C /* New Group */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "New Group";
+			sourceTree = "<group>";
+		};
+		E5E6B3D52B55714E004BB31C /* UserDefatults */ = {
 			isa = PBXGroup;
 			children = (
 				E5D749F22B4AF34600213F63 /* UserDefaultsKey.swift */,
 				E5D749F42B4AF37800213F63 /* UserDefaultsClient.swift */,
+			);
+			path = UserDefatults;
+			sourceTree = "<group>";
+		};
+		E5E6B3D62B557153004BB31C /* Keychain */ = {
+			isa = PBXGroup;
+			children = (
+				E5E6B3D72B55715E004BB31C /* KeychainClient.swift */,
+			);
+			path = Keychain;
+			sourceTree = "<group>";
+		};
+		E5F2C7CD2B4C1B29007387BC /* Storage */ = {
+			isa = PBXGroup;
+			children = (
+				E5E6B3D52B55714E004BB31C /* UserDefatults */,
+				E5E6B3D62B557153004BB31C /* Keychain */,
 			);
 			path = Storage;
 			sourceTree = "<group>";
@@ -703,6 +730,7 @@
 				E5D749AD2B4AC71900213F63 /* Font+Pretendard.swift in Sources */,
 				E5D927C92B514AE20064FBA4 /* MusicPlayerView.swift in Sources */,
 				E5E6B3C72B5569F0004BB31C /* SignUpRequest.swift in Sources */,
+				E5E6B3D82B55715E004BB31C /* KeychainClient.swift in Sources */,
 				E5D749F32B4AF34600213F63 /* UserDefaultsKey.swift in Sources */,
 				E547DD302B51411600641D6D /* PhotoElement.swift in Sources */,
 				E5D749EC2B4AE3D900213F63 /* PageIndicator.swift in Sources */,
