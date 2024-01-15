@@ -22,6 +22,10 @@
 		E560D4D62B4DA0E70098D603 /* NavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = E560D4D52B4DA0E70098D603 /* NavigationBar.swift */; };
 		E560D4D82B4DA9090098D603 /* UINavigationController+PopGesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = E560D4D72B4DA9090098D603 /* UINavigationController+PopGesture.swift */; };
 		E560D4DA2B4DACD30098D603 /* HapticManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E560D4D92B4DACD30098D603 /* HapticManager.swift */; };
+		E59B158A2B555329002F00AE /* NetworkLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = E59B15892B555329002F00AE /* NetworkLogger.swift */; };
+		E59B158C2B555352002F00AE /* TargetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E59B158B2B555352002F00AE /* TargetType.swift */; };
+		E59B158E2B5553E1002F00AE /* NetworkProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E59B158D2B5553E1002F00AE /* NetworkProvider.swift */; };
+		E59B15902B555481002F00AE /* BaseResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = E59B158F2B555481002F00AE /* BaseResponse.swift */; };
 		E5A457292B4D7BEC0077EA61 /* Radio.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A457282B4D7BEC0077EA61 /* Radio.swift */; };
 		E5A4572B2B4D7C570077EA61 /* Checkbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A4572A2B4D7C570077EA61 /* Checkbox.swift */; };
 		E5A7C9DB2B4EBD9D00F19D4A /* Terms.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7C9DA2B4EBD9D00F19D4A /* Terms.swift */; };
@@ -99,6 +103,10 @@
 		E560D4D52B4DA0E70098D603 /* NavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBar.swift; sourceTree = "<group>"; };
 		E560D4D72B4DA9090098D603 /* UINavigationController+PopGesture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+PopGesture.swift"; sourceTree = "<group>"; };
 		E560D4D92B4DACD30098D603 /* HapticManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticManager.swift; sourceTree = "<group>"; };
+		E59B15892B555329002F00AE /* NetworkLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkLogger.swift; sourceTree = "<group>"; };
+		E59B158B2B555352002F00AE /* TargetType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TargetType.swift; sourceTree = "<group>"; };
+		E59B158D2B5553E1002F00AE /* NetworkProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkProvider.swift; sourceTree = "<group>"; };
+		E59B158F2B555481002F00AE /* BaseResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseResponse.swift; sourceTree = "<group>"; };
 		E5A457282B4D7BEC0077EA61 /* Radio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Radio.swift; sourceTree = "<group>"; };
 		E5A4572A2B4D7C570077EA61 /* Checkbox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Checkbox.swift; sourceTree = "<group>"; };
 		E5A7C9DA2B4EBD9D00F19D4A /* Terms.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Terms.swift; sourceTree = "<group>"; };
@@ -423,6 +431,10 @@
 		E5D749CB2B4AD0AE00213F63 /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				E59B15892B555329002F00AE /* NetworkLogger.swift */,
+				E59B158B2B555352002F00AE /* TargetType.swift */,
+				E59B158D2B5553E1002F00AE /* NetworkProvider.swift */,
+				E59B158F2B555481002F00AE /* BaseResponse.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -649,6 +661,7 @@
 				E5F2C7DB2B4C2759007387BC /* AppleLoginController.swift in Sources */,
 				E5D749E82B4AD3B100213F63 /* HomeFeature.swift in Sources */,
 				E5D749D82B4AD17D00213F63 /* LoginFeature.swift in Sources */,
+				E59B158C2B555352002F00AE /* TargetType.swift in Sources */,
 				E5D927D02B514E280064FBA4 /* SpinningModifier.swift in Sources */,
 				E5D749DE2B4AD25700213F63 /* TermsAgreementView.swift in Sources */,
 				E5D749E72B4AD3B100213F63 /* HomeView.swift in Sources */,
@@ -663,14 +676,17 @@
 				E5D749D42B4AD17700213F63 /* OnboardingFeature.swift in Sources */,
 				E5E25DB72B4D712A00125DCE /* View+GetSize.swift in Sources */,
 				E5D749F02B4AEA4100213F63 /* PackyButton.swift in Sources */,
+				E59B158E2B5553E1002F00AE /* NetworkProvider.swift in Sources */,
 				E560D4C42B4D81630098D603 /* SignUpProfileView.swift in Sources */,
 				E5D749CF2B4AD0D500213F63 /* RootFeature.swift in Sources */,
 				E5D749DF2B4AD25700213F63 /* TermsAgreementFeature.swift in Sources */,
 				E560D4BE2B4D811F0098D603 /* SignUpNicknameView.swift in Sources */,
 				E560D4D62B4DA0E70098D603 /* NavigationBar.swift in Sources */,
 				E5FF94D32B4C3106002AF035 /* APIKey.swift in Sources */,
+				E59B15902B555481002F00AE /* BaseResponse.swift in Sources */,
 				E5D749F52B4AF37800213F63 /* UserDefaultsClient.swift in Sources */,
 				E560D4D82B4DA9090098D603 /* UINavigationController+PopGesture.swift in Sources */,
+				E59B158A2B555329002F00AE /* NetworkLogger.swift in Sources */,
 				E5D927D42B5159B10064FBA4 /* CarouselView.swift in Sources */,
 				E5F2C7CC2B4C183B007387BC /* Color+Hex.swift in Sources */,
 				E5FF94D82B4C4A6A002AF035 /* PackyTextField.swift in Sources */,
