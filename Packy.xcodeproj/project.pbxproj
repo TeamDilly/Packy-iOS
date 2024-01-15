@@ -83,7 +83,7 @@
 		E5E6B3C52B5569E5004BB31C /* SignInRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E6B3C42B5569E5004BB31C /* SignInRequest.swift */; };
 		E5E6B3C72B5569F0004BB31C /* SignUpRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E6B3C62B5569F0004BB31C /* SignUpRequest.swift */; };
 		E5E6B3C92B5569FC004BB31C /* TokenRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E6B3C82B5569FB004BB31C /* TokenRequest.swift */; };
-		E5E6B3CB2B556A01004BB31C /* TokenResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E6B3CA2B556A01004BB31C /* TokenResponse.swift */; };
+		E5E6B3D32B556D30004BB31C /* AuthClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E6B3D22B556D30004BB31C /* AuthClient.swift */; };
 		E5F2C7CC2B4C183B007387BC /* Color+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F2C7CB2B4C183B007387BC /* Color+Hex.swift */; };
 		E5F2C7D72B4C1C96007387BC /* SocialLoginClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F2C7D62B4C1C96007387BC /* SocialLoginClient.swift */; };
 		E5F2C7D92B4C253C007387BC /* SocialLoginInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F2C7D82B4C253C007387BC /* SocialLoginInfo.swift */; };
@@ -167,7 +167,7 @@
 		E5E6B3C42B5569E5004BB31C /* SignInRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInRequest.swift; sourceTree = "<group>"; };
 		E5E6B3C62B5569F0004BB31C /* SignUpRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpRequest.swift; sourceTree = "<group>"; };
 		E5E6B3C82B5569FB004BB31C /* TokenRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenRequest.swift; sourceTree = "<group>"; };
-		E5E6B3CA2B556A01004BB31C /* TokenResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenResponse.swift; sourceTree = "<group>"; };
+		E5E6B3D22B556D30004BB31C /* AuthClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthClient.swift; sourceTree = "<group>"; };
 		E5F2C7CB2B4C183B007387BC /* Color+Hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Hex.swift"; sourceTree = "<group>"; };
 		E5F2C7D62B4C1C96007387BC /* SocialLoginClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialLoginClient.swift; sourceTree = "<group>"; };
 		E5F2C7D82B4C253C007387BC /* SocialLoginInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialLoginInfo.swift; sourceTree = "<group>"; };
@@ -535,12 +535,12 @@
 		E5E6B3BF2B5569AB004BB31C /* Auth */ = {
 			isa = PBXGroup;
 			children = (
+				E5E6B3D22B556D30004BB31C /* AuthClient.swift */,
 				E59B15912B55581C002F00AE /* AuthEndpoint.swift */,
 				E5E6B3C22B5569D3004BB31C /* AuthResponse.swift */,
 				E5E6B3C42B5569E5004BB31C /* SignInRequest.swift */,
 				E5E6B3C62B5569F0004BB31C /* SignUpRequest.swift */,
 				E5E6B3C82B5569FB004BB31C /* TokenRequest.swift */,
-				E5E6B3CA2B556A01004BB31C /* TokenResponse.swift */,
 			);
 			path = Auth;
 			sourceTree = "<group>";
@@ -699,7 +699,6 @@
 				E5D749E42B4AD28D00213F63 /* IntroFeature.swift in Sources */,
 				E5E6B3C12B5569BD004BB31C /* SocialLoginProvider.swift in Sources */,
 				E5A7C9DB2B4EBD9D00F19D4A /* Terms.swift in Sources */,
-				E5E6B3CB2B556A01004BB31C /* TokenResponse.swift in Sources */,
 				E5D749D32B4AD17700213F63 /* OnboardingView.swift in Sources */,
 				E5D749AD2B4AC71900213F63 /* Font+Pretendard.swift in Sources */,
 				E5D927C92B514AE20064FBA4 /* MusicPlayerView.swift in Sources */,
@@ -709,6 +708,7 @@
 				E5D749EC2B4AE3D900213F63 /* PageIndicator.swift in Sources */,
 				E5D749D42B4AD17700213F63 /* OnboardingFeature.swift in Sources */,
 				E5E25DB72B4D712A00125DCE /* View+GetSize.swift in Sources */,
+				E5E6B3D32B556D30004BB31C /* AuthClient.swift in Sources */,
 				E5E6B3C52B5569E5004BB31C /* SignInRequest.swift in Sources */,
 				E5D749F02B4AEA4100213F63 /* PackyButton.swift in Sources */,
 				E560D4C42B4D81630098D603 /* SignUpProfileView.swift in Sources */,

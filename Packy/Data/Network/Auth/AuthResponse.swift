@@ -13,3 +13,7 @@ struct AuthResponse: Decodable {
     let refreshToken: Int
     let accessTokenExpiresIn: Int
 }
+
+extension AuthResponse {
+    static let mock: AuthResponse = .init(grantType: "", accessToken: "", refreshToken: 0, accessTokenExpiresIn: 0)
+}
