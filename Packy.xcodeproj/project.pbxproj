@@ -22,10 +22,9 @@
 		E560D4D62B4DA0E70098D603 /* NavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = E560D4D52B4DA0E70098D603 /* NavigationBar.swift */; };
 		E560D4D82B4DA9090098D603 /* UINavigationController+PopGesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = E560D4D72B4DA9090098D603 /* UINavigationController+PopGesture.swift */; };
 		E560D4DA2B4DACD30098D603 /* HapticManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E560D4D92B4DACD30098D603 /* HapticManager.swift */; };
-		E59B158A2B555329002F00AE /* NetworkLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = E59B15892B555329002F00AE /* NetworkLogger.swift */; };
-		E59B158C2B555352002F00AE /* TargetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E59B158B2B555352002F00AE /* TargetType.swift */; };
-		E59B158E2B5553E1002F00AE /* NetworkProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E59B158D2B5553E1002F00AE /* NetworkProvider.swift */; };
-		E59B15902B555481002F00AE /* BaseResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = E59B158F2B555481002F00AE /* BaseResponse.swift */; };
+		E59B15922B55581C002F00AE /* PackyEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = E59B15912B55581C002F00AE /* PackyEndpoint.swift */; };
+		E59B15942B55595B002F00AE /* SignUpDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = E59B15932B55595B002F00AE /* SignUpDTO.swift */; };
+		E59B15972B555CED002F00AE /* Moya in Frameworks */ = {isa = PBXBuildFile; productRef = E59B15962B555CED002F00AE /* Moya */; };
 		E5A457292B4D7BEC0077EA61 /* Radio.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A457282B4D7BEC0077EA61 /* Radio.swift */; };
 		E5A4572B2B4D7C570077EA61 /* Checkbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A4572A2B4D7C570077EA61 /* Checkbox.swift */; };
 		E5A7C9DB2B4EBD9D00F19D4A /* Terms.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7C9DA2B4EBD9D00F19D4A /* Terms.swift */; };
@@ -103,10 +102,8 @@
 		E560D4D52B4DA0E70098D603 /* NavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBar.swift; sourceTree = "<group>"; };
 		E560D4D72B4DA9090098D603 /* UINavigationController+PopGesture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+PopGesture.swift"; sourceTree = "<group>"; };
 		E560D4D92B4DACD30098D603 /* HapticManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticManager.swift; sourceTree = "<group>"; };
-		E59B15892B555329002F00AE /* NetworkLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkLogger.swift; sourceTree = "<group>"; };
-		E59B158B2B555352002F00AE /* TargetType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TargetType.swift; sourceTree = "<group>"; };
-		E59B158D2B5553E1002F00AE /* NetworkProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkProvider.swift; sourceTree = "<group>"; };
-		E59B158F2B555481002F00AE /* BaseResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseResponse.swift; sourceTree = "<group>"; };
+		E59B15912B55581C002F00AE /* PackyEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackyEndpoint.swift; sourceTree = "<group>"; };
+		E59B15932B55595B002F00AE /* SignUpDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpDTO.swift; sourceTree = "<group>"; };
 		E5A457282B4D7BEC0077EA61 /* Radio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Radio.swift; sourceTree = "<group>"; };
 		E5A4572A2B4D7C570077EA61 /* Checkbox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Checkbox.swift; sourceTree = "<group>"; };
 		E5A7C9DA2B4EBD9D00F19D4A /* Terms.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Terms.swift; sourceTree = "<group>"; };
@@ -176,6 +173,7 @@
 				E5D927CD2B514C9B0064FBA4 /* YouTubePlayerKit in Frameworks */,
 				E5D749762B4A7B9200213F63 /* Alamofire in Frameworks */,
 				E5E593BB2B4C2AB800C5A733 /* KakaoSDKUser in Frameworks */,
+				E59B15972B555CED002F00AE /* Moya in Frameworks */,
 				E5E593B92B4C2AB800C5A733 /* KakaoSDKAuth in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -404,7 +402,6 @@
 		E5D749C82B4AD0A500213F63 /* Core */ = {
 			isa = PBXGroup;
 			children = (
-				E5D749CB2B4AD0AE00213F63 /* Network */,
 				E5D749CA2B4AD0AA00213F63 /* Extensions */,
 				E5D749C92B4AD0A800213F63 /* Util */,
 			);
@@ -426,17 +423,6 @@
 			children = (
 			);
 			path = Extensions;
-			sourceTree = "<group>";
-		};
-		E5D749CB2B4AD0AE00213F63 /* Network */ = {
-			isa = PBXGroup;
-			children = (
-				E59B15892B555329002F00AE /* NetworkLogger.swift */,
-				E59B158B2B555352002F00AE /* TargetType.swift */,
-				E59B158D2B5553E1002F00AE /* NetworkProvider.swift */,
-				E59B158F2B555481002F00AE /* BaseResponse.swift */,
-			);
-			path = Network;
 			sourceTree = "<group>";
 		};
 		E5D749D02B4AD16B00213F63 /* Intro */ = {
@@ -530,6 +516,8 @@
 		E5F2C7CE2B4C1B34007387BC /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				E59B15912B55581C002F00AE /* PackyEndpoint.swift */,
+				E59B15932B55595B002F00AE /* SignUpDTO.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -576,6 +564,7 @@
 				E5E593B82B4C2AB800C5A733 /* KakaoSDKAuth */,
 				E5E593BA2B4C2AB800C5A733 /* KakaoSDKUser */,
 				E5D927CC2B514C9B0064FBA4 /* YouTubePlayerKit */,
+				E59B15962B555CED002F00AE /* Moya */,
 			);
 			productName = Packy;
 			productReference = E5D7495D2B4A72E100213F63 /* Packy.app */;
@@ -611,6 +600,7 @@
 				E5D7497A2B4A7C3300213F63 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				E5F2C7E02B4C2A21007387BC /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */,
 				E5D927CB2B514BD20064FBA4 /* XCRemoteSwiftPackageReference "YouTubePlayerKit" */,
+				E59B15952B555CED002F00AE /* XCRemoteSwiftPackageReference "Moya" */,
 			);
 			productRefGroup = E5D7495E2B4A72E100213F63 /* Products */;
 			projectDirPath = "";
@@ -661,7 +651,6 @@
 				E5F2C7DB2B4C2759007387BC /* AppleLoginController.swift in Sources */,
 				E5D749E82B4AD3B100213F63 /* HomeFeature.swift in Sources */,
 				E5D749D82B4AD17D00213F63 /* LoginFeature.swift in Sources */,
-				E59B158C2B555352002F00AE /* TargetType.swift in Sources */,
 				E5D927D02B514E280064FBA4 /* SpinningModifier.swift in Sources */,
 				E5D749DE2B4AD25700213F63 /* TermsAgreementView.swift in Sources */,
 				E5D749E72B4AD3B100213F63 /* HomeView.swift in Sources */,
@@ -670,23 +659,22 @@
 				E5D749D32B4AD17700213F63 /* OnboardingView.swift in Sources */,
 				E5D749AD2B4AC71900213F63 /* Font+Pretendard.swift in Sources */,
 				E5D927C92B514AE20064FBA4 /* MusicPlayerView.swift in Sources */,
+				E59B15942B55595B002F00AE /* SignUpDTO.swift in Sources */,
 				E5D749F32B4AF34600213F63 /* UserDefaultsKey.swift in Sources */,
 				E547DD302B51411600641D6D /* PhotoElement.swift in Sources */,
 				E5D749EC2B4AE3D900213F63 /* PageIndicator.swift in Sources */,
 				E5D749D42B4AD17700213F63 /* OnboardingFeature.swift in Sources */,
 				E5E25DB72B4D712A00125DCE /* View+GetSize.swift in Sources */,
 				E5D749F02B4AEA4100213F63 /* PackyButton.swift in Sources */,
-				E59B158E2B5553E1002F00AE /* NetworkProvider.swift in Sources */,
 				E560D4C42B4D81630098D603 /* SignUpProfileView.swift in Sources */,
 				E5D749CF2B4AD0D500213F63 /* RootFeature.swift in Sources */,
 				E5D749DF2B4AD25700213F63 /* TermsAgreementFeature.swift in Sources */,
+				E59B15922B55581C002F00AE /* PackyEndpoint.swift in Sources */,
 				E560D4BE2B4D811F0098D603 /* SignUpNicknameView.swift in Sources */,
 				E560D4D62B4DA0E70098D603 /* NavigationBar.swift in Sources */,
 				E5FF94D32B4C3106002AF035 /* APIKey.swift in Sources */,
-				E59B15902B555481002F00AE /* BaseResponse.swift in Sources */,
 				E5D749F52B4AF37800213F63 /* UserDefaultsClient.swift in Sources */,
 				E560D4D82B4DA9090098D603 /* UINavigationController+PopGesture.swift in Sources */,
-				E59B158A2B555329002F00AE /* NetworkLogger.swift in Sources */,
 				E5D927D42B5159B10064FBA4 /* CarouselView.swift in Sources */,
 				E5F2C7CC2B4C183B007387BC /* Color+Hex.swift in Sources */,
 				E5FF94D82B4C4A6A002AF035 /* PackyTextField.swift in Sources */,
@@ -931,6 +919,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		E59B15952B555CED002F00AE /* XCRemoteSwiftPackageReference "Moya" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Moya/Moya";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 15.0.3;
+			};
+		};
 		E5D749742B4A7B9200213F63 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "git@github.com:Alamofire/Alamofire.git";
@@ -974,6 +970,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		E59B15962B555CED002F00AE /* Moya */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E59B15952B555CED002F00AE /* XCRemoteSwiftPackageReference "Moya" */;
+			productName = Moya;
+		};
 		E5D749752B4A7B9200213F63 /* Alamofire */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = E5D749742B4A7B9200213F63 /* XCRemoteSwiftPackageReference "Alamofire" */;
