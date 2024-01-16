@@ -22,13 +22,13 @@ extension DependencyValues {
 
 struct AuthClient {
     /// 회원가입
-    var signUp: @Sendable (_ authorization: String, SignUpRequest) async throws -> AuthResponse
+    var signUp: @Sendable (_ authorization: String, SignUpRequest) async throws -> TokenInfoResponse
     /// 로그인
-    var signIn: @Sendable (SignInRequest) async throws -> AuthResponse
+    var signIn: @Sendable (SignInRequest) async throws -> SignInResponse
     /// 회원 탈퇴
     var withdraw: @Sendable () async throws -> String
     /// 토큰 재발급
-    var reissueToken: @Sendable (TokenRequest) async throws -> AuthResponse
+    var reissueToken: @Sendable (TokenRequest) async throws -> TokenInfoResponse
 }
 
 extension AuthClient: DependencyKey {

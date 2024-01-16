@@ -66,19 +66,20 @@ private extension LoginFeature {
         do {
             let response = try await authClient.signIn(.init(provider: info.provider, authorization: info.token))
 
-            keychain.save(.accessToken, response.accessToken)
-            keychain.save(.refreshToken, response.refreshToken)
-
-            // TODO: 서버 명세 변경 반영
-            let needSignup = Bool.random()
-            if needSignup {
+            guard response.status == .registered,
+                  let tokenInfo = response.tokenInfo else {
                 await send(.delegate(.moveToSignUp), animation: .spring)
-            } else {
-                await send(.delegate(.completeLogin), animation: .spring)
+                return
             }
+
+            keychain.save(.accessToken, tokenInfo.accessToken)
+            keychain.save(.refreshToken, tokenInfo.refreshToken)
+
+            await send(.delegate(.completeLogin), animation: .spring)
         } catch let error as ErrorResponse {
-            // TODO: 에러 메시지 표시...
-            error.message
+            print("error response: \(error.message)")
+        } catch {
+            print("error: \(error)")
         }
     }
 }

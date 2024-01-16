@@ -22,6 +22,7 @@
 		E560D4D62B4DA0E70098D603 /* NavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = E560D4D52B4DA0E70098D603 /* NavigationBar.swift */; };
 		E560D4D82B4DA9090098D603 /* UINavigationController+PopGesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = E560D4D72B4DA9090098D603 /* UINavigationController+PopGesture.swift */; };
 		E560D4DA2B4DACD30098D603 /* HapticManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E560D4D92B4DACD30098D603 /* HapticManager.swift */; };
+		E589CD932B56D13000746DC3 /* SignInResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = E589CD922B56D13000746DC3 /* SignInResponse.swift */; };
 		E59B15922B55581C002F00AE /* AuthEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = E59B15912B55581C002F00AE /* AuthEndpoint.swift */; };
 		E59B15972B555CED002F00AE /* Moya in Frameworks */ = {isa = PBXBuildFile; productRef = E59B15962B555CED002F00AE /* Moya */; };
 		E5A457292B4D7BEC0077EA61 /* Radio.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A457282B4D7BEC0077EA61 /* Radio.swift */; };
@@ -79,7 +80,7 @@
 		E5E6B3BC2B556250004BB31C /* MoyaProvider+Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E6B3BB2B556250004BB31C /* MoyaProvider+Request.swift */; };
 		E5E6B3BE2B5567AF004BB31C /* Encodable+ToDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E6B3BD2B5567AE004BB31C /* Encodable+ToDictionary.swift */; };
 		E5E6B3C12B5569BD004BB31C /* SocialLoginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E6B3C02B5569BD004BB31C /* SocialLoginProvider.swift */; };
-		E5E6B3C32B5569D3004BB31C /* AuthResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E6B3C22B5569D3004BB31C /* AuthResponse.swift */; };
+		E5E6B3C32B5569D3004BB31C /* TokenInfoResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E6B3C22B5569D3004BB31C /* TokenInfoResponse.swift */; };
 		E5E6B3C52B5569E5004BB31C /* SignInRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E6B3C42B5569E5004BB31C /* SignInRequest.swift */; };
 		E5E6B3C72B5569F0004BB31C /* SignUpRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E6B3C62B5569F0004BB31C /* SignUpRequest.swift */; };
 		E5E6B3C92B5569FC004BB31C /* TokenRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E6B3C82B5569FB004BB31C /* TokenRequest.swift */; };
@@ -112,6 +113,7 @@
 		E560D4D52B4DA0E70098D603 /* NavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBar.swift; sourceTree = "<group>"; };
 		E560D4D72B4DA9090098D603 /* UINavigationController+PopGesture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+PopGesture.swift"; sourceTree = "<group>"; };
 		E560D4D92B4DACD30098D603 /* HapticManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticManager.swift; sourceTree = "<group>"; };
+		E589CD922B56D13000746DC3 /* SignInResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInResponse.swift; sourceTree = "<group>"; };
 		E59B15912B55581C002F00AE /* AuthEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthEndpoint.swift; sourceTree = "<group>"; };
 		E5A457282B4D7BEC0077EA61 /* Radio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Radio.swift; sourceTree = "<group>"; };
 		E5A4572A2B4D7C570077EA61 /* Checkbox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Checkbox.swift; sourceTree = "<group>"; };
@@ -165,7 +167,7 @@
 		E5E6B3BB2B556250004BB31C /* MoyaProvider+Request.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MoyaProvider+Request.swift"; sourceTree = "<group>"; };
 		E5E6B3BD2B5567AE004BB31C /* Encodable+ToDictionary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Encodable+ToDictionary.swift"; path = "Packy/Core/Network/Encodable+ToDictionary.swift"; sourceTree = SOURCE_ROOT; };
 		E5E6B3C02B5569BD004BB31C /* SocialLoginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialLoginProvider.swift; sourceTree = "<group>"; };
-		E5E6B3C22B5569D3004BB31C /* AuthResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthResponse.swift; sourceTree = "<group>"; };
+		E5E6B3C22B5569D3004BB31C /* TokenInfoResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenInfoResponse.swift; sourceTree = "<group>"; };
 		E5E6B3C42B5569E5004BB31C /* SignInRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInRequest.swift; sourceTree = "<group>"; };
 		E5E6B3C62B5569F0004BB31C /* SignUpRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpRequest.swift; sourceTree = "<group>"; };
 		E5E6B3C82B5569FB004BB31C /* TokenRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenRequest.swift; sourceTree = "<group>"; };
@@ -542,9 +544,10 @@
 			children = (
 				E5E6B3D22B556D30004BB31C /* AuthClient.swift */,
 				E59B15912B55581C002F00AE /* AuthEndpoint.swift */,
-				E5E6B3C22B5569D3004BB31C /* AuthResponse.swift */,
 				E5E6B3C42B5569E5004BB31C /* SignInRequest.swift */,
+				E589CD922B56D13000746DC3 /* SignInResponse.swift */,
 				E5E6B3C62B5569F0004BB31C /* SignUpRequest.swift */,
+				E5E6B3C22B5569D3004BB31C /* TokenInfoResponse.swift */,
 				E5E6B3C82B5569FB004BB31C /* TokenRequest.swift */,
 			);
 			path = Auth;
@@ -712,7 +715,7 @@
 				E5F2C7D72B4C1C96007387BC /* SocialLoginClient.swift in Sources */,
 				E5A7C9E02B4EE6DC00F19D4A /* ATTManager.swift in Sources */,
 				E5F2C7DB2B4C2759007387BC /* AppleLoginController.swift in Sources */,
-				E5E6B3C32B5569D3004BB31C /* AuthResponse.swift in Sources */,
+				E5E6B3C32B5569D3004BB31C /* TokenInfoResponse.swift in Sources */,
 				E5D749E82B4AD3B100213F63 /* HomeFeature.swift in Sources */,
 				E5D749D82B4AD17D00213F63 /* LoginFeature.swift in Sources */,
 				E5D927D02B514E280064FBA4 /* SpinningModifier.swift in Sources */,
@@ -737,6 +740,7 @@
 				E560D4C42B4D81630098D603 /* SignUpProfileView.swift in Sources */,
 				E5D749CF2B4AD0D500213F63 /* RootFeature.swift in Sources */,
 				E5D749DF2B4AD25700213F63 /* TermsAgreementFeature.swift in Sources */,
+				E589CD932B56D13000746DC3 /* SignInResponse.swift in Sources */,
 				E59B15922B55581C002F00AE /* AuthEndpoint.swift in Sources */,
 				E560D4BE2B4D811F0098D603 /* SignUpNicknameView.swift in Sources */,
 				E560D4D62B4DA0E70098D603 /* NavigationBar.swift in Sources */,

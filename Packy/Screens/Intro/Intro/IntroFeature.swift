@@ -41,9 +41,9 @@ struct IntroFeature: Reducer {
             switch action {
             case ._onAppear:
                 // 이미 온보딩 완료 시, 로그인으로 이동
-                // if userDefaults.boolForKey(.hasOnboarded) {
-                //     return .run { send in await send(._changeScreen(.login())) }
-                // }
+                if userDefaults.boolForKey(.hasOnboarded) {
+                    return .run { send in await send(._changeScreen(.login())) }
+                }
                 return .none
 
             case let ._changeScreen(newState):
