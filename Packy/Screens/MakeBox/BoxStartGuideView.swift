@@ -7,6 +7,7 @@
 
 import SwiftUI
 import ComposableArchitecture
+import YouTubePlayerKit
 
 // MARK: - View
 
@@ -123,15 +124,28 @@ private extension BoxStartGuideView {
                 .foregroundStyle(.gray600)
                 .frame(maxWidth: .infinity, alignment: .leading)
 
-            HStack(spacing: 8) {
-                PackyTextField(text: viewStore.$musicLinkUrl, placeholder: "링크를 붙여주세요")
+            if let musicLinkPlayer = viewStore.musicLinkPlayer {
+                YouTubePlayerView(musicLinkPlayer)
+                    .frame(height: 183)
+                    .clipShape(RoundedRectangle(cornerRadius: 16))
+                    .overlay(alignment: .topTrailing) {
+                        CloseButton(sizeType: .medium, colorType: .dark) {
+                            viewStore.send(.musicLinkDeleteButtonTapped)
+                        }
+                        .offset(x: 4, y: -4)
+                    }
+                    .padding(.top, 32)
+            } else {
+                HStack(spacing: 8) {
+                    PackyTextField(text: viewStore.$musicLinkUrlInput, placeholder: "링크를 붙여주세요")
 
-                PackyButton(title: "확인", sizeType: .medium, colorType: .black) {
-                    viewStore.send(.musicLinkConfirmButtonTapped)
+                    PackyButton(title: "확인", sizeType: .medium, colorType: .black) {
+                        viewStore.send(.musicLinkConfirmButtonTapped)
+                    }
+                    .frame(width: 100)
                 }
-                .frame(width: 100)
+                .padding(.top, 32)
             }
-            .padding(.top, 32)
 
             Spacer()
 

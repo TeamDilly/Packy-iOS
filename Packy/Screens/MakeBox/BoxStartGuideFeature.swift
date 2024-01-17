@@ -7,6 +7,8 @@
 
 import Foundation
 import ComposableArchitecture
+import YouTubePlayerKit
+import SwiftUI
 
 @Reducer
 struct BoxStartGuideFeature: Reducer {
@@ -21,7 +23,8 @@ struct BoxStartGuideFeature: Reducer {
         @BindingState var isMusicBottomSheetPresented: Bool = true
         var musicBottomSheetMode: MusicBottomSheetMode = .userSelect
 
-        @BindingState var musicLinkUrl: String = ""
+        @BindingState var musicLinkUrlInput: String = ""
+        var musicLinkPlayer: YouTubePlayer? = "https://www.youtube.com/watch?v=hbnnNgtdYSo"
 
         @BindingState var isLetterBottomSheetPresented: Bool = false
         @BindingState var isPhotoBottomSheetPresented: Bool = false
@@ -37,6 +40,7 @@ struct BoxStartGuideFeature: Reducer {
 
         case musicLinkConfirmButtonTapped
         case musicLinkSaveButtonTapped
+        case musicLinkDeleteButtonTapped
 
         // MARK: Inner Business Action
         case _onTask
