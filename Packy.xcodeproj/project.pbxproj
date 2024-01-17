@@ -103,6 +103,7 @@
 		E5A7AA902B57F81400590EA6 /* Pretendard-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = E5A7AA342B57F81400590EA6 /* Pretendard-SemiBold.otf */; };
 		E5A7AA942B57F89C00590EA6 /* YouTubePlayerKit in Frameworks */ = {isa = PBXBuildFile; productRef = E5A7AA932B57F89C00590EA6 /* YouTubePlayerKit */; };
 		E5A7AA972B57F8A300590EA6 /* Moya in Frameworks */ = {isa = PBXBuildFile; productRef = E5A7AA962B57F8A300590EA6 /* Moya */; };
+		E5D0129A2B58086F00236FEF /* SetWindowBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D012992B58086F00236FEF /* SetWindowBackground.swift */; };
 		E5D749762B4A7B9200213F63 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = E5D749752B4A7B9200213F63 /* Alamofire */; };
 		E5D749792B4A7C1A00213F63 /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = E5D749782B4A7C1A00213F63 /* ComposableArchitecture */; };
 		E5D7497C2B4A7C3300213F63 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = E5D7497B2B4A7C3300213F63 /* Kingfisher */; };
@@ -202,6 +203,7 @@
 		E5A7AA332B57F81400590EA6 /* Pretendard-ExtraLight.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-ExtraLight.otf"; sourceTree = "<group>"; };
 		E5A7AA342B57F81400590EA6 /* Pretendard-SemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-SemiBold.otf"; sourceTree = "<group>"; };
 		E5A7AA352B57F81400590EA6 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E5D012992B58086F00236FEF /* SetWindowBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetWindowBackground.swift; sourceTree = "<group>"; };
 		E5D7495D2B4A72E100213F63 /* Packy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Packy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -261,6 +263,7 @@
 				E5A7A9BB2B57F81400590EA6 /* UINavigationController+PopGesture.swift */,
 				E5A7A9BC2B57F81400590EA6 /* View+GetSize.swift */,
 				E5A7A9BD2B57F81400590EA6 /* View+HideKeyboard.swift */,
+				E5D012992B58086F00236FEF /* SetWindowBackground.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -268,21 +271,21 @@
 		E5A7A9BE2B57F81400590EA6 /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				E5A7A9BF2B57F81400590EA6 /* PackyNavigationLink.swift */,
-				E5A7A9C02B57F81400590EA6 /* FloatingNavigationBar.swift */,
-				E5A7A9C12B57F81400590EA6 /* PackyTextArea.swift */,
-				E5A7A9C22B57F81400590EA6 /* NavigationBar.swift */,
 				E5A7A9C32B57F81400590EA6 /* BoxElement */,
-				E5A7A9C52B57F81400590EA6 /* CloseButton.swift */,
-				E5A7A9C62B57F81400590EA6 /* PackyTextField.swift */,
-				E5A7A9C72B57F81400590EA6 /* SocialLoginButton.swift */,
-				E5A7A9C82B57F81400590EA6 /* PhotoElement.swift */,
-				E5A7A9C92B57F81400590EA6 /* PackyButton.swift */,
-				E5A7A9CA2B57F81400590EA6 /* MusicPlayerView.swift */,
-				E5A7A9CB2B57F81400590EA6 /* PageIndicator.swift */,
-				E5A7A9CC2B57F81400590EA6 /* Checkbox.swift */,
-				E5A7A9CD2B57F81400590EA6 /* Radio.swift */,
 				E5A7A9CE2B57F81400590EA6 /* CarouselView.swift */,
+				E5A7A9CC2B57F81400590EA6 /* Checkbox.swift */,
+				E5A7A9C52B57F81400590EA6 /* CloseButton.swift */,
+				E5A7A9C02B57F81400590EA6 /* FloatingNavigationBar.swift */,
+				E5A7A9CA2B57F81400590EA6 /* MusicPlayerView.swift */,
+				E5A7A9C22B57F81400590EA6 /* NavigationBar.swift */,
+				E5A7A9C92B57F81400590EA6 /* PackyButton.swift */,
+				E5A7A9BF2B57F81400590EA6 /* PackyNavigationLink.swift */,
+				E5A7A9C12B57F81400590EA6 /* PackyTextArea.swift */,
+				E5A7A9C62B57F81400590EA6 /* PackyTextField.swift */,
+				E5A7A9CB2B57F81400590EA6 /* PageIndicator.swift */,
+				E5A7A9C82B57F81400590EA6 /* PhotoElement.swift */,
+				E5A7A9CD2B57F81400590EA6 /* Radio.swift */,
+				E5A7A9C72B57F81400590EA6 /* SocialLoginButton.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -806,6 +809,7 @@
 				E5A7AA6D2B57F81400590EA6 /* APIKey.swift in Sources */,
 				E5A7AA542B57F81400590EA6 /* HomeFeature.swift in Sources */,
 				E5A7AA592B57F81400590EA6 /* BoxStartGuideFeature.swift in Sources */,
+				E5D0129A2B58086F00236FEF /* SetWindowBackground.swift in Sources */,
 				E5A7AA362B57F81400590EA6 /* Color+Hex.swift in Sources */,
 				E5A7AA7E2B57F81400590EA6 /* KeychainClient.swift in Sources */,
 				E5A7AA7A2B57F81400590EA6 /* SignInRequest.swift in Sources */,
