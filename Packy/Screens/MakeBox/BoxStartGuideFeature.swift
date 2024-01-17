@@ -17,8 +17,9 @@ struct BoxStartGuideFeature: Reducer {
         @BindingState var isMusicBottomSheetPresented: Bool = true
         var musicBottomSheetMode: MusicBottomSheetMode = .choice
 
-        @BindingState var musicLinkUrlInput: String = ""
-        var selectedMusicLink: YouTubePlayer? = "https://www.youtube.com/watch?v=OZRLiBSeAG8"
+        @BindingState var musicLinkUrlInput: String = "https://www.youtube.com/watch?v=OZRLiBSeAG8"
+        var selectedMusicUrl: YouTubePlayer?
+        var showInvalidMusicUrlError: Bool = false
 
         @BindingState var isLetterBottomSheetPresented: Bool = false
         @BindingState var isPhotoBottomSheetPresented: Bool = false
@@ -57,13 +58,14 @@ struct BoxStartGuideFeature: Reducer {
             case ._onTask:
                 return .none
 
-            case .binding(_):
+            case .binding(\.$musicLinkUrlInput):
+                state.showInvalidMusicUrlError = false
                 return .none
 
             case .musicBottomSheetBackButtonTapped:
                 guard state.musicBottomSheetMode != .choice else { return .none }
                 state.musicLinkUrlInput = ""
-                state.selectedMusicLink = nil
+                state.selectedMusicUrl = nil
                 state.musicBottomSheetMode = .choice
                 return changeDetentsForSmoothAnimation(for: .choice)
 
@@ -76,12 +78,25 @@ struct BoxStartGuideFeature: Reducer {
                 return changeDetentsForSmoothAnimation(for: .recommend)
 
             case .musicLinkConfirmButtonTapped:
+                // TODO: 서버 통신해서 유효성 검사
+                // state.musicLinkUrlInput 가지고 서버 validation...
+                let isValidMusicUrl: Bool = .random()
+
+                guard isValidMusicUrl else {
+                    state.showInvalidMusicUrlError = true
+                    return .none
+                }
+
+                state.selectedMusicUrl = .init(stringLiteral: state.musicLinkUrlInput)
                 return .none
 
             case .musicLinkSaveButtonTapped:
+                // TODO: 서버 통신해서 저장
                 return .none
 
             case .musicLinkDeleteButtonTapped:
+                state.musicLinkUrlInput = ""
+                state.selectedMusicUrl = nil
                 return .none
 
             case let ._setDetents(detents):

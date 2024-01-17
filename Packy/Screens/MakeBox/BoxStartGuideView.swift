@@ -126,20 +126,34 @@ private extension BoxStartGuideView {
                 .foregroundStyle(.gray600)
                 .frame(maxWidth: .infinity, alignment: .leading)
 
-            if let musicLinkPlayer = viewStore.selectedMusicLink {
-                YouTubePlayerView(musicLinkPlayer)
-                    .frame(height: 183)
-                    .clipShape(RoundedRectangle(cornerRadius: 16))
-                    .overlay(alignment: .topTrailing) {
-                        CloseButton(sizeType: .medium, colorType: .dark) {
-                            viewStore.send(.musicLinkDeleteButtonTapped)
-                        }
-                        .offset(x: 4, y: -4)
+            if let musicLinkPlayer = viewStore.selectedMusicUrl {
+                YouTubePlayerView(musicLinkPlayer) { state in
+                    switch state {
+                    case .idle:
+                        ProgressView()
+                    case .ready:
+                        EmptyView()
+                    case .error:
+                        Text("문제가 생겼어요")
+                            .packyFont(.body1)
                     }
-                    .padding(.top, 32)
+                }
+                .frame(height: 183)
+                .clipShape(RoundedRectangle(cornerRadius: 16))
+                .overlay(alignment: .topTrailing) {
+                    CloseButton(sizeType: .medium, colorType: .dark) {
+                        viewStore.send(.musicLinkDeleteButtonTapped)
+                    }
+                    .offset(x: 4, y: -4)
+                }
+                .padding(.top, 32)
             } else {
-                HStack(spacing: 8) {
-                    PackyTextField(text: viewStore.$musicLinkUrlInput, placeholder: "링크를 붙여주세요")
+                HStack(alignment: .top, spacing: 8) {
+                    PackyTextField(
+                        text: viewStore.$musicLinkUrlInput,
+                        placeholder: "링크를 붙여주세요",
+                        errorMessage: viewStore.showInvalidMusicUrlError ? "올바른 url을 입력해주세요" : nil
+                    )
 
                     PackyButton(title: "확인", sizeType: .medium, colorType: .black) {
                         viewStore.send(.musicLinkConfirmButtonTapped)
@@ -202,7 +216,7 @@ private struct MusicSelectionCell: View {
             initialState: .init(),
             reducer: {
                 BoxStartGuideFeature()
-                    ._printChanges()
+                    // ._printChanges()
             }
         )
     )
