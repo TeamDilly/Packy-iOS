@@ -56,8 +56,9 @@ struct BoxStartGuideView: View {
             }
         }
         .bottomSheet(
-            isPresented: viewStore.$isMusicBottomSheetPresented,
-            detents: [viewStore.musicBottomSheetMode.detents],
+            isPresented: viewStore.$isMusicBottomSheetPresented, 
+            currentDetent: .constant(viewStore.musicBottomSheetMode.detent),
+            detents: viewStore.detents,
             showLeadingButton: viewStore.musicBottomSheetMode != .choice,
             leadingButtonAction: { viewStore.send(.musicBottomSheetBackButtonTapped) }
         )  {
@@ -71,6 +72,7 @@ struct BoxStartGuideView: View {
                     Text("")
                 }
             }
+            .animation(.easeInOut, value: viewStore.musicBottomSheetMode.detent)
         }
         .task {
             await viewStore
@@ -124,7 +126,7 @@ private extension BoxStartGuideView {
                 .foregroundStyle(.gray600)
                 .frame(maxWidth: .infinity, alignment: .leading)
 
-            if let musicLinkPlayer = viewStore.musicLinkPlayer {
+            if let musicLinkPlayer = viewStore.selectedMusicLink {
                 YouTubePlayerView(musicLinkPlayer)
                     .frame(height: 183)
                     .clipShape(RoundedRectangle(cornerRadius: 16))
@@ -158,6 +160,8 @@ private extension BoxStartGuideView {
     }
 }
 
+// MARK: - MusicSelectionCell
+
 private struct MusicSelectionCell: View {
     let title: String
     let caption: String
@@ -186,19 +190,6 @@ private struct MusicSelectionCell: View {
                 RoundedRectangle(cornerRadius: 8)
                     .fill(.gray100)
             }
-        }
-    }
-}
-
-// MARK: - MusicBottomSheet Detents
-
-private extension BoxStartGuideFeature.MusicBottomSheetMode {
-    var detents: PresentationDetent {
-        switch self {
-        case .choice:
-            return .height(383)
-        case .userSelect, .recommend:
-            return .large
         }
     }
 }

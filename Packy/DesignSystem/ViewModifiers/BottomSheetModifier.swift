@@ -10,19 +10,21 @@ import SwiftUI
 extension View {
     func bottomSheet<Content: View>(
         isPresented: Binding<Bool>,
+        currentDetent: Binding<PresentationDetent>? = nil,
         detents: Set<PresentationDetent>,
         showLeadingButton: Bool = false,
         leadingButtonAction: (() -> Void)? = nil,
         sheetContent: @escaping () -> Content
     ) -> some View {
         modifier(
-            BottomSheetModifier(isPresented: isPresented, detents: detents, showLeadingButton: showLeadingButton, leadingButtonAction: leadingButtonAction, sheetContent: sheetContent)
+            BottomSheetModifier(isPresented: isPresented, currentDetent: currentDetent, detents: detents, showLeadingButton: showLeadingButton, leadingButtonAction: leadingButtonAction, sheetContent: sheetContent)
         )
     }
 }
 
 struct BottomSheetModifier<SheetContent: View>: ViewModifier {
     @Binding var isPresented: Bool
+    var currentDetent: Binding<PresentationDetent>?
     let detents: Set<PresentationDetent>
     let showLeadingButton: Bool
     let leadingButtonAction: (() -> Void)?
@@ -61,7 +63,13 @@ struct BottomSheetModifier<SheetContent: View>: ViewModifier {
                         sheetContent()
                     }
                     .presentationCornerRadius(24)
-                    .presentationDetents(detents)
+                    .if(currentDetent == nil) { view in
+                        view.presentationDetents(detents)
+                    }
+                    .ifLet(currentDetent) { view, currentDetent in
+                        view.presentationDetents(detents, selection: currentDetent)
+                    }
+                    .presentationDragIndicator(.hidden)
                     .interactiveDismissDisabled()
                 }
         }
@@ -73,7 +81,7 @@ struct BottomSheetModifier<SheetContent: View>: ViewModifier {
 
 #Preview {
     VStack {}
-        .bottomSheet(isPresented: .constant(true), detents: [.medium], showLeadingButton: true) {
+        .bottomSheet(isPresented: .constant(true), currentDetent: .constant(.medium), detents: [.medium], showLeadingButton: true) {
             VStack {
                 Text("hello")
 
