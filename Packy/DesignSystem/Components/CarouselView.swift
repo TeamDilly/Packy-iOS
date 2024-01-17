@@ -8,12 +8,14 @@
 import SwiftUI
 
 
-struct CarouselView<Content: View, Item: Identifiable>: View {
+struct CarouselView<Content: View, Item: Identifiable & Hashable>: View {
     private let itemWidth: CGFloat
     private let itemPadding: CGFloat
     private let contentBuilder: (Item) -> Content
     private let items: [Item]
     private var minifyScale: CGFloat = 1 // 좌우의 효과에 의해 작아진 아이템의 scale
+
+    private var centeredItem: Binding<Item?>?
 
     init(
         items: [Item],
@@ -30,11 +32,12 @@ struct CarouselView<Content: View, Item: Identifiable>: View {
     var body: some View {
         GeometryReader { geometry in
             ScrollView(.horizontal) {
-                HStack(spacing: -generatedPaddingByMinifyScale) {
+                LazyHStack(spacing: 0) {
                     ForEach(items) { item in
                         contentBuilder(item)
+                            .id(item)
                             .frame(width: itemWidth)
-                            .padding(.horizontal, itemPadding / 2)
+                            .containerRelativeFrame(.horizontal)
                             .scrollTransition(.interactive, axis: .horizontal) { view, phase in
                                 view
                                     .scaleEffect(phase.isIdentity ? 1 : minifyScale)
@@ -46,12 +49,15 @@ struct CarouselView<Content: View, Item: Identifiable>: View {
             .scrollTargetBehavior(.viewAligned)
             .scrollIndicators(.hidden)
             .safeAreaPadding(.horizontal, safeAreaPadding(geometryWidth: geometry.size.width))
+            .ifLet(centeredItem) { view, centeredItem in
+                view.scrollPosition(id: centeredItem)
+            }
         }
     }
 
 
     private func safeAreaPadding(geometryWidth: CGFloat) -> CGFloat {
-        (geometryWidth - itemWidth - itemPadding) / 2
+        (geometryWidth - itemWidth - itemPadding) / 2 + generatedPaddingByMinifyScale / 2
     }
 
     /// 좌우 아이템 작게 만드는 효과에 의해 생성된 패딩값
@@ -70,6 +76,12 @@ extension CarouselView {
         carousel.minifyScale = minifyScale
         return carousel
     }
+
+    func centeredItem(_ centeredItem: Binding<Item?>) -> Self {
+        var carousel = self
+        carousel.centeredItem = centeredItem
+        return carousel
+    }
 }
 
 extension Color: Identifiable {
@@ -77,24 +89,36 @@ extension Color: Identifiable {
 }
 
 #Preview {
-    VStack {
-        let colors: [Color] = [.red, .blue, .black, .yellow, .green]
+    struct SampleView: View {
+        @State private var selectedColor: Color? = .red
 
-        // 음악 플레이어 스타일
-        let itemSize1: CGFloat = 180
-        let itemPadding1: CGFloat = 50
-        CarouselView(items: colors, itemWidth: itemSize1, itemPadding: itemPadding1) {
-            Circle()
-                .fill($0)
-        }
-        .minifyScale(0.8)
+        var body: some View {
+            VStack {
+                let colors: [Color] = [.red, .blue, .black, .yellow, .green]
 
-        // 앨범 스타일
-        let itemSize2: CGFloat = 280
-        let itemPadding2: CGFloat = 24
-        CarouselView(items: colors, itemWidth: itemSize2, itemPadding: itemPadding2) {
-            Rectangle()
-                .fill($0)
+                // 음악 플레이어 스타일
+                let itemSize1: CGFloat = 180
+                let itemPadding1: CGFloat = 50
+                CarouselView(items: colors, itemWidth: itemSize1, itemPadding: itemPadding1) {
+                    Circle()
+                        .fill($0)
+                }
+                .minifyScale(0.8)
+                .centeredItem($selectedColor)
+
+                // 앨범 스타일
+                let itemSize2: CGFloat = 280
+                let itemPadding2: CGFloat = 24
+                CarouselView(items: colors, itemWidth: itemSize2, itemPadding: itemPadding2) {
+                    Rectangle()
+                        .fill($0)
+                }
+            }
+            .onChange(of: selectedColor) {
+                print($0, $1)
+            }
         }
     }
+
+    return SampleView()
 }
