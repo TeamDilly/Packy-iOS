@@ -85,7 +85,7 @@ struct KakaoLoginController {
                 token: accessToken,
                 name: user.kakaoAccount?.name,
                 email: user.kakaoAccount?.email,
-                loginType: .kakao
+                provider: .kakao
             )
 
             continuation.resume(returning: info)

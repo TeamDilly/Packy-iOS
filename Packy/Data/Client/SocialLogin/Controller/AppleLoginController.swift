@@ -66,7 +66,7 @@ final class AppleLoginController: NSObject, ASAuthorizationControllerDelegate {
             token: token,
             name: String(describing: fullName),
             email: email,
-            loginType: .apple
+            provider: .apple
         )
         continuation?.resume(returning: info)
     }
