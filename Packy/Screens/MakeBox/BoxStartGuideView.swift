@@ -15,6 +15,8 @@ struct BoxStartGuideView: View {
     private let store: StoreOf<BoxStartGuideFeature>
     @ObservedObject private var viewStore: ViewStoreOf<BoxStartGuideFeature>
 
+    @State private var selectedTempMusic: TempMusic? = TempMusic.musics.first
+
     private let strokeColor: Color = .gray400
     private let strokeStyle: StrokeStyle = .init(lineWidth: 1.5, dash: [5])
 
@@ -69,7 +71,7 @@ struct BoxStartGuideView: View {
                 case .userSelect:
                     musicUserSelectBottomSheet
                 case .recommend:
-                    Text("")
+                    musicRecommendationBottomSheet
                 }
             }
             .animation(.easeInOut, value: viewStore.musicBottomSheetMode.detent)
@@ -172,6 +174,78 @@ private extension BoxStartGuideView {
         }
         .padding(.horizontal, 24)
     }
+
+    var musicRecommendationBottomSheet: some View {
+        VStack {
+            Group {
+                Text("패키가 준비한 음악")
+                    .packyFont(.heading1)
+                    .foregroundStyle(.gray900)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(.top, 8)
+                    .padding(.bottom, 4)
+
+                Text("음악을 선택해주세요")
+                    .packyFont(.body4)
+                    .foregroundStyle(.gray600)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+
+            }
+            .padding(.horizontal, 24)
+
+            CarouselView(items: TempMusic.musics, itemWidth: 180, itemPadding: 40) { music in
+                YouTubePlayerView(.init(stringLiteral: music.youtubeUrl)) { state in
+                    switch state {
+                    case .idle:
+                        ProgressView()
+                    case .ready:
+                        EmptyView()
+                    case .error:
+                        Text("문제가 생겼어요")
+                            .packyFont(.body1)
+                    }
+                }
+                .frame(width: 180, height: 180)
+                .mask(Circle())
+            }
+            .minifyScale(160 / 180)
+            .centeredItem($selectedTempMusic)
+            .frame(height: 180)
+            .padding(.top, 128)
+
+            if let selectedTempMusic {
+                Text(selectedTempMusic.title)
+                    .packyFont(.heading2)
+                    .foregroundStyle(.gray900)
+                    .padding(.top, 28)
+
+                Text(
+                    selectedTempMusic
+                        .hashTags
+                        .joined(separator: " ")
+                )
+                .packyFont(.body2)
+                .foregroundStyle(.purple500)
+            }
+
+            Spacer()
+
+            PackyButton(title: "저장", colorType: .black) {
+                viewStore.send(.musicLinkSaveButtonTapped)
+            }
+            .padding(.horizontal, 24)
+            .padding(.bottom, 16)
+        }
+    }
+}
+
+struct TempMusic: Identifiable, Hashable {
+    let id: UUID = UUID()
+    var title: String { id.uuidString.prefix(8).lowercased() }
+    let hashTags: [String] = [ "#입학", "#취업", "#결혼"]
+    let youtubeUrl: String = "https://www.youtube.com/watch?v=neaxGr8_trU&list=RDneaxGr8_trU&start_radio=1"
+
+    static let musics: [TempMusic] = (0...5).map{ _ in TempMusic() }
 }
 
 // MARK: - MusicSelectionCell
