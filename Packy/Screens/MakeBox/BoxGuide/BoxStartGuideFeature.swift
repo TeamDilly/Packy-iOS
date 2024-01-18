@@ -13,19 +13,28 @@ import SwiftUI
 @Reducer
 struct BoxStartGuideFeature: Reducer {
 
+    struct PhotoInput: Identifiable, Hashable {
+        let id: Int
+        var photoUrl: URL?
+        @BindingState var text: String = ""
+    }
+
     struct State: Equatable {
-        @BindingState var isMusicBottomSheetPresented: Bool = true
-        var musicBottomSheetMode: MusicBottomSheetMode = .choice
-
-        @BindingState var musicLinkUrlInput: String = "https://www.youtube.com/watch?v=OZRLiBSeAG8"
-        var selectedMusicUrl: YouTubePlayer?
-        var showInvalidMusicUrlError: Bool = false
-
+        @BindingState var isMusicBottomSheetPresented: Bool = false
         @BindingState var isLetterBottomSheetPresented: Bool = false
-        @BindingState var isPhotoBottomSheetPresented: Bool = false
+        @BindingState var isPhotoBottomSheetPresented: Bool = true
         @BindingState var isGiftBottomSheetPresented: Bool = false
 
-        var detents: Set<PresentationDetent> = MusicBottomSheetMode.allDetents
+        @BindingState var musicLinkUrlInput: String = "https://www.youtube.com/watch?v=OZRLiBSeAG8"
+        var musicBottomSheetMode: MusicBottomSheetMode = .choice
+        var selectedMusicUrl: YouTubePlayer?
+        var showInvalidMusicUrlError: Bool = false
+        var musicSheetDetents: Set<PresentationDetent> = MusicBottomSheetMode.allDetents
+
+        @BindingState var photoInputs: [PhotoInput] = (0...1).map { PhotoInput(id: $0) } // 허용 갯수 2개
+        var filledPhotoInputCount: Int {
+            photoInputs.filter{ $0.photoUrl != nil }.count
+        }
     }
 
     enum Action: BindableAction {
@@ -34,10 +43,13 @@ struct BoxStartGuideFeature: Reducer {
         case musicBottomSheetBackButtonTapped
         case musicChoiceUserSelectButtonTapped
         case musicChoiceRecommendButtonTapped
-
         case musicLinkConfirmButtonTapped
         case musicLinkSaveButtonTapped
         case musicLinkDeleteButtonTapped
+
+        case photoAddButtonTapped(_ index: Int)
+        case photoSaveButtonTapped
+        case photoDeleteButtonTapped
 
         // MARK: Inner Business Action
         case _onTask
@@ -100,7 +112,7 @@ struct BoxStartGuideFeature: Reducer {
                 return .none
 
             case let ._setDetents(detents):
-                state.detents = detents
+                state.musicSheetDetents = detents
                 return .none
 
             default:

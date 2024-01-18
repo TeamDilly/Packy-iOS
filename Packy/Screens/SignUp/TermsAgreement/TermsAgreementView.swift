@@ -75,6 +75,7 @@ struct TermsAgreementView: View {
             detents: [.height(591)]
         ) {
             bottomSheetContent
+                .padding(.horizontal, 24)
         }
         .navigationBarBackButtonHidden(true)
         .task {

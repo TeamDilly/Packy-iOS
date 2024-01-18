@@ -107,6 +107,8 @@
 		E5D749762B4A7B9200213F63 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = E5D749752B4A7B9200213F63 /* Alamofire */; };
 		E5D749792B4A7C1A00213F63 /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = E5D749782B4A7C1A00213F63 /* ComposableArchitecture */; };
 		E5D7497C2B4A7C3300213F63 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = E5D7497B2B4A7C3300213F63 /* Kingfisher */; };
+		E5E73D4A2B597C0200729D99 /* BoxStartGuideView+MusicSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E73D492B597C0200729D99 /* BoxStartGuideView+MusicSheet.swift */; };
+		E5E73D4C2B597CB600729D99 /* BoxStartGuideView+PhotoSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E73D4B2B597CB600729D99 /* BoxStartGuideView+PhotoSheet.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -205,6 +207,8 @@
 		E5A7AA352B57F81400590EA6 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E5D012992B58086F00236FEF /* SetWindowBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetWindowBackground.swift; sourceTree = "<group>"; };
 		E5D7495D2B4A72E100213F63 /* Packy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Packy.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E5E73D492B597C0200729D99 /* BoxStartGuideView+MusicSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BoxStartGuideView+MusicSheet.swift"; sourceTree = "<group>"; };
+		E5E73D4B2B597CB600729D99 /* BoxStartGuideView+PhotoSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BoxStartGuideView+PhotoSheet.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -346,13 +350,9 @@
 		E5A7A9DC2B57F81400590EA6 /* MakeBox */ = {
 			isa = PBXGroup;
 			children = (
-				E5A7A9DD2B57F81400590EA6 /* BoxChoiceView.swift */,
-				E5A7A9DE2B57F81400590EA6 /* BoxChoiceFeature.swift */,
-				E5A7A9DF2B57F81400590EA6 /* BoxStartGuideView.swift */,
-				E5A7A9E02B57F81400590EA6 /* MakeBoxFeature+Navigation.swift */,
-				E5A7A9E12B57F81400590EA6 /* BoxStartGuideFeature.swift */,
-				E5A7A9E22B57F81400590EA6 /* MakeBoxFeature.swift */,
-				E5A7A9E32B57F81400590EA6 /* MakeBoxView.swift */,
+				E5E73D482B597BE000729D99 /* MakeBox */,
+				E5E73D462B597BC200729D99 /* BoxChoice */,
+				E5E73D472B597BCD00729D99 /* BoxGuide */,
 			);
 			path = MakeBox;
 			sourceTree = "<group>";
@@ -639,6 +639,36 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		E5E73D462B597BC200729D99 /* BoxChoice */ = {
+			isa = PBXGroup;
+			children = (
+				E5A7A9DE2B57F81400590EA6 /* BoxChoiceFeature.swift */,
+				E5A7A9DD2B57F81400590EA6 /* BoxChoiceView.swift */,
+			);
+			path = BoxChoice;
+			sourceTree = "<group>";
+		};
+		E5E73D472B597BCD00729D99 /* BoxGuide */ = {
+			isa = PBXGroup;
+			children = (
+				E5A7A9E12B57F81400590EA6 /* BoxStartGuideFeature.swift */,
+				E5A7A9DF2B57F81400590EA6 /* BoxStartGuideView.swift */,
+				E5E73D492B597C0200729D99 /* BoxStartGuideView+MusicSheet.swift */,
+				E5E73D4B2B597CB600729D99 /* BoxStartGuideView+PhotoSheet.swift */,
+			);
+			path = BoxGuide;
+			sourceTree = "<group>";
+		};
+		E5E73D482B597BE000729D99 /* MakeBox */ = {
+			isa = PBXGroup;
+			children = (
+				E5A7A9E02B57F81400590EA6 /* MakeBoxFeature+Navigation.swift */,
+				E5A7A9E22B57F81400590EA6 /* MakeBoxFeature.swift */,
+				E5A7A9E32B57F81400590EA6 /* MakeBoxView.swift */,
+			);
+			path = MakeBox;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -784,6 +814,7 @@
 				E5A7AA652B57F81400590EA6 /* LoginView.swift in Sources */,
 				E5A7AA402B57F81400590EA6 /* NavigationBar.swift in Sources */,
 				E5A7AA612B57F81400590EA6 /* SignUpProfileView.swift in Sources */,
+				E5E73D4C2B597CB600729D99 /* BoxStartGuideView+PhotoSheet.swift in Sources */,
 				E5A7AA3E2B57F81400590EA6 /* FloatingNavigationBar.swift in Sources */,
 				E5A7AA3F2B57F81400590EA6 /* PackyTextArea.swift in Sources */,
 				E5A7AA5B2B57F81400590EA6 /* MakeBoxView.swift in Sources */,
@@ -812,6 +843,7 @@
 				E5D0129A2B58086F00236FEF /* SetWindowBackground.swift in Sources */,
 				E5A7AA362B57F81400590EA6 /* Color+Hex.swift in Sources */,
 				E5A7AA7E2B57F81400590EA6 /* KeychainClient.swift in Sources */,
+				E5E73D4A2B597C0200729D99 /* BoxStartGuideView+MusicSheet.swift in Sources */,
 				E5A7AA7A2B57F81400590EA6 /* SignInRequest.swift in Sources */,
 				E5A7AA602B57F81400590EA6 /* SignUpNavigation.swift in Sources */,
 				E5A7AA722B57F81400590EA6 /* MoyaProvider+Request.swift in Sources */,

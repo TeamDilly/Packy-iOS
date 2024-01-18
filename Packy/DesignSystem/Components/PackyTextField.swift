@@ -30,10 +30,13 @@ struct PackyTextField: View {
                     .foregroundColor(.gray100)
                     .frame(height: 50)
 
-                textField
-                    .frame(height: 50)
+                HStack(spacing: 0) {
+                    textField
+                        .padding(.vertical, 14)
+                        .padding(.leading, 16)
+                        .frame(height: 50)
+                        // .border(Color.black)
 
-                HStack {
                     Spacer()
                     if !text.isEmpty && !isCompleted {
                         Button {
@@ -44,7 +47,10 @@ struct PackyTextField: View {
                                 .resizable()
                                 .frame(width: 24, height: 24)
                         }
-                        .padding(12)
+                        // .border(Color.black)
+                        .padding(.vertical, 13)
+                        .padding(.trailing, 12)
+                        // .border(Color.black)
                     }
                 }
             }
@@ -69,9 +75,9 @@ struct PackyTextField: View {
         return TextField("", text: $text, prompt: prompt)
             .tint(.black)  // 커서 색상
             .packyFont(.body4)
-            .padding()
             .disabled(isCompleted)
             .focused($textFieldFocused)
+            .truncationMode(.head)
     }
 }
 

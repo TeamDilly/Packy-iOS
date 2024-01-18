@@ -1,92 +1,17 @@
 //
-//  BoxStartGuideView.swift
+//  BoxStartGuideView+MusicSheet.swift
 //  Packy
 //
-//  Created Mason Kim on 1/13/24.
+//  Created by Mason Kim on 1/19/24.
 //
 
 import SwiftUI
-import ComposableArchitecture
 import YouTubePlayerKit
 
-// MARK: - View
+extension BoxStartGuideView {
 
-struct BoxStartGuideView: View {
-    private let store: StoreOf<BoxStartGuideFeature>
-    @ObservedObject private var viewStore: ViewStoreOf<BoxStartGuideFeature>
+    // MARK: 음악 추가 방식 선택 바텀시트
 
-    @State private var selectedTempMusic: TempMusic? = TempMusic.musics.first
-
-    private let strokeColor: Color = .gray400
-    private let strokeStyle: StrokeStyle = .init(lineWidth: 1.5, dash: [5])
-
-    init(store: StoreOf<BoxStartGuideFeature>) {
-        self.store = store
-        self.viewStore = ViewStore(store, observe: { $0 })
-    }
-
-    var body: some View {
-        GeometryReader { geometry in
-            let width = geometry.size.width
-
-            ScrollView {
-                VStack {
-                    // 음악 추가 원
-                    let musicCircleSize = BoxElementShape.musicCircle.relativeSize(geometryWidth: width)
-                    Circle()
-                        .stroke(strokeColor, style: strokeStyle)
-                        .frame(width: musicCircleSize.width, height: musicCircleSize.height)
-
-                    // 편지 추가 사각형
-                    let letterRectangleSize = BoxElementShape.letterRectangle.relativeSize(geometryWidth: width)
-                    Rectangle()
-                        .stroke(strokeColor, style: strokeStyle)
-                        .frame(width: letterRectangleSize.width, height: letterRectangleSize.height)
-
-                    // 사진 추가
-                    let photoRectangleSize = BoxElementShape.photoRectangle.relativeSize(geometryWidth: width)
-                    Rectangle()
-                        .stroke(strokeColor, style: strokeStyle)
-                        .frame(width: photoRectangleSize.width, height: photoRectangleSize.height)
-
-                    // 음악 원
-                    let giftEllipseSize = BoxElementShape.giftEllipse.relativeSize(geometryWidth: width)
-                    Ellipse()
-                        .stroke(strokeColor, style: strokeStyle)
-                        .frame(width: giftEllipseSize.width, height: giftEllipseSize.height)
-                }
-            }
-        }
-        .bottomSheet(
-            isPresented: viewStore.$isMusicBottomSheetPresented, 
-            currentDetent: .constant(viewStore.musicBottomSheetMode.detent),
-            detents: viewStore.detents,
-            showLeadingButton: viewStore.musicBottomSheetMode != .choice,
-            leadingButtonAction: { viewStore.send(.musicBottomSheetBackButtonTapped) }
-        )  {
-            VStack {
-                switch viewStore.musicBottomSheetMode {
-                case .choice:
-                    musicAddChoiceBottomSheet
-                case .userSelect:
-                    musicUserSelectBottomSheet
-                case .recommend:
-                    musicRecommendationBottomSheet
-                }
-            }
-            .animation(.easeInOut, value: viewStore.musicBottomSheetMode.detent)
-        }
-        .task {
-            await viewStore
-                .send(._onTask)
-                .finish()
-        }
-    }
-}
-
-// MARK: - Inner Views
-
-private extension BoxStartGuideView {
     var musicAddChoiceBottomSheet: some View {
         VStack(spacing: 0) {
             Text("음악 추가하기")
@@ -113,6 +38,8 @@ private extension BoxStartGuideView {
         }
         .padding(.horizontal, 24)
     }
+
+    // MARK: 음악 직접 입력 바텀시트
 
     var musicUserSelectBottomSheet: some View {
         VStack(spacing: 0) {
@@ -174,6 +101,8 @@ private extension BoxStartGuideView {
         }
         .padding(.horizontal, 24)
     }
+
+    // MARK: 추천 음악 선택 바텀시트
 
     var musicRecommendationBottomSheet: some View {
         VStack {
@@ -239,6 +168,8 @@ private extension BoxStartGuideView {
     }
 }
 
+// TODO: 실제 로직으로 대체
+
 struct TempMusic: Identifiable, Hashable {
     let id: UUID = UUID()
     var title: String { id.uuidString.prefix(8).lowercased() }
@@ -280,18 +211,4 @@ private struct MusicSelectionCell: View {
             }
         }
     }
-}
-
-// MARK: - Preview
-
-#Preview {
-    BoxStartGuideView(
-        store: .init(
-            initialState: .init(),
-            reducer: {
-                BoxStartGuideFeature()
-                    // ._printChanges()
-            }
-        )
-    )
 }

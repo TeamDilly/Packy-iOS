@@ -11,6 +11,7 @@ import Kingfisher
 struct PhotoElement: View {
     var imageURL: URL?
     @Binding var text: String
+    var infoText: String
 
     var isPrimaryPhoto: Bool = true
     var imageTapAction: (() -> Void)? = nil
@@ -22,10 +23,7 @@ struct PhotoElement: View {
             } label: {
                 KFImage(imageURL)
                     .placeholder {
-                        Color.gray200
-                            .overlay {
-                                Image(.plus)
-                            }
+                        placeholderView
                     }
                     .scaleToFillFrame(width: 280, height: 280)
             }
@@ -36,7 +34,20 @@ struct PhotoElement: View {
                 .frame(width: 280, height: 46)
         }
         .padding(16)
-        .background(.gray100)
+        .background(.gray200)
+    }
+
+    private var placeholderView: some View {
+        Color.white
+            .overlay {
+                VStack {
+                    Image(.photo)
+                    Text(infoText)
+                        .tracking(2)
+                        .packyFont(.body4)
+                        .foregroundStyle(.gray900)
+                }
+            }
     }
 }
 
@@ -54,7 +65,7 @@ private struct PhotoTextField: View {
 
     var body: some View {
         let prompt = Text(placeholder)
-            .foregroundStyle(.gray400)
+            .foregroundStyle(.gray500)
             .font(.packy(.body5))
 
         TextField("", text: $text, prompt: prompt)
@@ -69,13 +80,15 @@ private struct PhotoTextField: View {
     VStack {
         PhotoElement(
             imageURL: nil,
-            text: .constant("")
+            text: .constant(""), 
+            infoText: "0/2"
         )
         .imageTapAction { }
 
         PhotoElement(
             imageURL: URL(string: "https://picsum.photos/id/237/200/300"),
-            text: .constant("asdada")
+            text: .constant("asdada"), 
+            infoText: "1/2"
         )
     }
 
