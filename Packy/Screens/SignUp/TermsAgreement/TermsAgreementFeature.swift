@@ -12,6 +12,10 @@ import ComposableArchitecture
 struct TermsAgreementFeature: Reducer {
 
     struct State: Equatable {
+        let socialLoginInfo: SocialLoginInfo
+        let nickName: String
+        let selectedProfileIndex: Int
+
         var termsStates: [Terms: Bool] = Terms.allCases.reduce(into: [Terms: Bool]()) {
             $0[$1] = false
         }
@@ -25,6 +29,8 @@ struct TermsAgreementFeature: Reducer {
         }
 
         var isATTCompleted: Bool = false
+        var isATTAuthorized: Bool = false
+        var isNotificationAllowed: Bool = false
 
         @BindingState var isAllowNotificationBottomSheetPresented: Bool = false
     }
@@ -41,17 +47,25 @@ struct TermsAgreementFeature: Reducer {
 
         // MARK: Inner Business Action
         case _onAppear
-        case _completeTermsAgreement
+        case _signUp
 
         // MARK: Inner SetState Action
         case _setATTCompleted
+        case _setATTAuthorized(Bool)
+        case _setNotificationAllowed(Bool)
 
-        // MARK: Child Action
+        // MARK: Delegate Action
+        enum Delegate {
+            case completedSignUp
+        }
+        case delegate(Delegate)
     }
 
     @Dependency(\.dismiss) var dismiss
     @Dependency(\.continuousClock) var clock
     @Dependency(\.userNotification) var userNotification
+    @Dependency(\.authClient) var authClient
+    @Dependency(\.keychain) var keychain
 
     var body: some Reducer<State, Action> {
         BindingReducer()
@@ -72,7 +86,8 @@ struct TermsAgreementFeature: Reducer {
                 return .run { send in
                     await ATTManager.requestAuthorization()
 
-                    // 여기서 종료되고, 네비게이팅 or 바텀시트 노출.. 등
+                    let isATTAuthorized = ATTManager.isAuthorized
+                    await send(._setATTAuthorized(isATTAuthorized))
                     await send(._setATTCompleted)
                 }
 
@@ -91,18 +106,60 @@ struct TermsAgreementFeature: Reducer {
                 return .run { send in
                     let isGranted = try await userNotification.requestAuthorization([.alert, .badge, .sound])
                     await send(.binding(.set(\.$isAllowNotificationBottomSheetPresented, false)))
-                    await send(._completeTermsAgreement, animation: .spring)
+                    await send(._setNotificationAllowed(isGranted))
                     print("🔔 UserNotification isGranted: \(isGranted)")
+
+                    await send(._signUp)
                 }
 
+
+            // TODO: ATT, Push Noti 이미 해제했을 땐 안띄우게 로직 구현 필요
             case ._setATTCompleted:
                 state.isATTCompleted = true
                 state.isAllowNotificationBottomSheetPresented = true
                 return .none
 
+            case let ._setATTAuthorized(isATTAuthorized):
+                state.isATTAuthorized = isATTAuthorized
+                return .none
+
+            case let ._setNotificationAllowed(isAllowed):
+                state.isNotificationAllowed = isAllowed
+                return .none
+
+            case ._signUp:
+                return .run { [state] send in
+                    let request = buildSignUpRequest(from: state)
+
+                    do {
+                        let response = try await authClient.signUp(state.socialLoginInfo.token, request)
+
+                        guard let accessToken = response.accessToken,
+                              let refreshToken = response.refreshToken else { return }
+
+                        keychain.save(.accessToken, accessToken)
+                        keychain.save(.refreshToken, refreshToken)
+
+                        await send(.delegate(.completedSignUp), animation: .spring)
+                    } catch {
+                        // TODO: 에러 핸들링
+                        print(error)
+                    }
+                }
+
             default:
                 return .none
             }
         }
+    }
+
+    private func buildSignUpRequest(from state: State) -> SignUpRequest {
+        SignUpRequest(
+            provider: state.socialLoginInfo.provider,
+            nickname: state.nickName,
+            profileImg: state.selectedProfileIndex,
+            pushNotification: state.isNotificationAllowed,
+            marketingAgreement: state.isATTAuthorized
+        )
     }
 }

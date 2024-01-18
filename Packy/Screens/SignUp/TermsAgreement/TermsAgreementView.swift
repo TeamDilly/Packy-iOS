@@ -145,7 +145,7 @@ private extension TermsAgreementView {
 #Preview {
     TermsAgreementView(
         store: .init(
-            initialState: .init(),
+            initialState: .init(socialLoginInfo: .mock, nickName: "mason", selectedProfileIndex: 0),
             reducer: {
                 TermsAgreementFeature()
                     ._printChanges()

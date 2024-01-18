@@ -8,10 +8,10 @@
 import Foundation
 
 struct TokenInfoResponse: Decodable {
-    let grantType: String
-    let accessToken: String
-    let refreshToken: String
-    let accessTokenExpiresIn: Int
+    let grantType: String?
+    let accessToken: String?
+    let refreshToken: String?
+    let accessTokenExpiresIn: Int?
 }
 
 extension TokenInfoResponse {

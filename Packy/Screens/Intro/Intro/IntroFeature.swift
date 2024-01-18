@@ -14,7 +14,7 @@ struct IntroFeature: Reducer {
     enum State: Equatable {
         case onboarding(OnboardingFeature.State = .init())
         case login(LoginFeature.State = .init())
-        case signUp(SignUpNicknameFeature.State = .init())
+        case signUp(SignUpNicknameFeature.State)
 
         init() { self = .onboarding() }
     }
@@ -55,8 +55,8 @@ struct IntroFeature: Reducer {
                     await send(._changeScreen(.login()), animation: .spring)
                 }
 
-            case .login(.delegate(.moveToSignUp)):
-                return .send(._changeScreen(.signUp()), animation: .spring)
+            case let .login(.delegate(.moveToSignUp(info))):
+                return .send(._changeScreen(.signUp(.init(socialLoginInfo: info))), animation: .spring)
 
             default:
                 return .none

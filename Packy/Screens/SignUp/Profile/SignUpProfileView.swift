@@ -40,11 +40,12 @@ struct SignUpProfileView: View {
                     .mask(Circle())
 
                 HStack(spacing: 16) {
-                    ForEach(0..<4, id: \.self) { _ in
+                    ForEach(0...4, id: \.self) { index in
                         Button {
+                            viewStore.send(.selectProfile(index))
                             HapticManager.shared.fireNotification(.success)
                         } label: {
-                            Image(.mock)
+                            Image(.mock) // TODO: 선택된 프로필 이미지 인덱스에 따라 업뎃
                                 .resizable()
                                 .frame(width: 60, height: 60)
                                 .mask(Circle())
@@ -56,9 +57,18 @@ struct SignUpProfileView: View {
 
             Spacer()
 
-            PackyNavigationLink(title: "저장", pathState: SignUpNavigationPath.State.termsAgreement())
-                .padding(.horizontal, 24)
-                .padding(.bottom, 16)
+            PackyNavigationLink(
+                title: "저장",
+                pathState: SignUpNavigationPath.State.termsAgreement(
+                    .init(
+                        socialLoginInfo: viewStore.socialLoginInfo,
+                        nickName: viewStore.nickName,
+                        selectedProfileIndex: viewStore.selectedProfileIndex
+                    )
+                )
+            )
+            .padding(.horizontal, 24)
+            .padding(.bottom, 16)
         }
         // .animation(.spring, value: viewStore.nickname) // TODO: 프로필 변경에 따라 애니메이션 부옇!
         .navigationBarBackButtonHidden(true)
@@ -75,7 +85,7 @@ struct SignUpProfileView: View {
 #Preview {
     SignUpProfileView(
         store: .init(
-            initialState: .init(),
+            initialState: .init(socialLoginInfo: .mock, nickName: "mason"),
             reducer: {
                 SignUpProfileFeature()
                     ._printChanges()

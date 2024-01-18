@@ -49,8 +49,8 @@ struct MoyaLoggerPlugin: PluginType {
         let url = response.request?.url?.absoluteString ?? "nil"
         let statusCode = response.statusCode
         print("  ✅ [URL] : \(url)")
-        print("  ✅ [TARGET] : (target)")
-        print(" ✅ [Status Code] : (statusCode)")
+        print("  ✅ [TARGET] : \(target)")
+        print("  ✅ [Status Code] : \(statusCode)")
         if let headers = response.response?.allHeaderFields {
             print("  ✅ [Headers] : \(headers)")
         }

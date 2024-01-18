@@ -68,9 +68,17 @@ private extension SignUpNicknameView {
 
             Spacer()
 
-            PackyNavigationLink(title: "저장", pathState: SignUpNavigationPath.State.profile())
-                .disabled(viewStore.nickname.isEmpty)
-                .padding(.bottom, 16)
+            PackyNavigationLink(
+                title: "저장",
+                pathState: SignUpNavigationPath.State.profile(
+                    .init(
+                        socialLoginInfo: viewStore.socialLoginInfo,
+                        nickName: viewStore.nickname
+                    )
+                )
+            )
+            .disabled(viewStore.nickname.isEmpty)
+            .padding(.bottom, 16)
         }
         .animation(.spring, value: viewStore.nickname)
         .padding(.horizontal, 24)
@@ -89,7 +97,7 @@ private extension SignUpNicknameView {
 #Preview {
     SignUpNicknameView(
         store: .init(
-            initialState: .init(),
+            initialState: .init(socialLoginInfo: SocialLoginInfo(id: "", token: "", name: "", email: nil, provider: .kakao)),
             reducer: {
                 SignUpNicknameFeature()
                     ._printChanges()

@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct SocialLoginInfo {
+struct SocialLoginInfo: Equatable {
     let id: String
     let token: String
     let name: String?

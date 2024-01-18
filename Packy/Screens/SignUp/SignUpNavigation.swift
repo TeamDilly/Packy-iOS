@@ -12,8 +12,8 @@ import ComposableArchitecture
 @Reducer
 struct SignUpNavigationPath {
     enum State: Equatable {
-        case profile(SignUpProfileFeature.State = .init())
-        case termsAgreement(TermsAgreementFeature.State = .init())
+        case profile(SignUpProfileFeature.State)
+        case termsAgreement(TermsAgreementFeature.State)
     }
 
     enum Action {
@@ -35,7 +35,7 @@ extension SignUpNicknameFeature {
             switch action {
             case let .path(action):
                 switch action {
-                case .element(id: _, action: .termsAgreement(._completeTermsAgreement)):
+                case .element(id: _, action: .termsAgreement(.delegate(.completedSignUp))):
                     return .send(.delegate(.completeSignUp))
 
                 default:

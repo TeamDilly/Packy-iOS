@@ -60,7 +60,8 @@ struct RootFeature: Reducer {
                 case let .intro(action):
                     switch action {
                         // 로그인 완료, 회원가입 완료 시 홈으로 이동
-                    case .login(.delegate(.completeLogin)), .signUp(.delegate(.completeSignUp)):
+                    case .login(.delegate(.completeLogin)),
+                            .signUp(.delegate(.completeSignUp)):
                         return .send(._changeScreen(.home()), animation: .spring)
 
                     default:

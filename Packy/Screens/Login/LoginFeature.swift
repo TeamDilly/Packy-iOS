@@ -12,6 +12,7 @@ import ComposableArchitecture
 struct LoginFeature: Reducer {
 
     struct State: Equatable {
+        var socialLoginInfo: SocialLoginInfo?
     }
 
     enum Action {
@@ -22,10 +23,13 @@ struct LoginFeature: Reducer {
         // MARK: Inner Business Action
         case _onAppear
 
+        // MARK: Inner SetState Action
+        case _setSocialLoginInfo(SocialLoginInfo)
+
         // MARK: Delegate Action
         enum Delegate {
             case completeLogin
-            case moveToSignUp
+            case moveToSignUp(SocialLoginInfo)
         }
         case delegate(Delegate)
     }
@@ -49,6 +53,10 @@ struct LoginFeature: Reducer {
                     try await handleSocialLogin(info, send: send)
                 }
 
+            case let ._setSocialLoginInfo(info):
+                state.socialLoginInfo = info
+                return .none
+
             case ._onAppear:
                 return .none
 
@@ -64,16 +72,20 @@ struct LoginFeature: Reducer {
 private extension LoginFeature {
     func handleSocialLogin(_ info: SocialLoginInfo, send: Send<LoginFeature.Action>) async throws {
         do {
+            await send(._setSocialLoginInfo(info))
+
             let response = try await authClient.signIn(.init(provider: info.provider, authorization: info.token))
 
             guard response.status == .registered,
-                  let tokenInfo = response.tokenInfo else {
-                await send(.delegate(.moveToSignUp), animation: .spring)
+                  let tokenInfo = response.tokenInfo,
+                  let accessToken = tokenInfo.accessToken,
+                  let refreshToken = tokenInfo.refreshToken else {
+                await send(.delegate(.moveToSignUp(info)), animation: .spring)
                 return
             }
 
-            keychain.save(.accessToken, tokenInfo.accessToken)
-            keychain.save(.refreshToken, tokenInfo.refreshToken)
+            keychain.save(.accessToken, accessToken)
+            keychain.save(.refreshToken, refreshToken)
 
             await send(.delegate(.completeLogin), animation: .spring)
         } catch let error as ErrorResponse {

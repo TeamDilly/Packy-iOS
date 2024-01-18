@@ -12,13 +12,18 @@ import ComposableArchitecture
 struct SignUpProfileFeature: Reducer {
 
     struct State: Equatable {
+        let socialLoginInfo: SocialLoginInfo
+        let nickName: String
+
         @BindingState var textInput: String = ""
+        var selectedProfileIndex: Int = 0
     }
 
     enum Action: BindableAction {
         // MARK: User Action
         case binding(BindingAction<State>)
         case backButtonTapped
+        case selectProfile(Int)
 
         // MARK: Inner Business Action
         case _onAppear
@@ -31,7 +36,6 @@ struct SignUpProfileFeature: Reducer {
 
     @Dependency(\.dismiss) var dismiss
 
-
     var body: some Reducer<State, Action> {
         BindingReducer()
 
@@ -42,6 +46,10 @@ struct SignUpProfileFeature: Reducer {
 
             case .backButtonTapped:
                 return .run { _ in await dismiss() }
+
+            case let .selectProfile(index):
+                state.selectedProfileIndex = index
+                return .none
 
             case ._onAppear:
                 return .none

@@ -370,10 +370,10 @@
 		E5A7A9E82B57F81400590EA6 /* SignUp */ = {
 			isa = PBXGroup;
 			children = (
-				E5A7A9E92B57F81400590EA6 /* TermsAgreement */,
 				E5A7A9EC2B57F81400590EA6 /* SignUpNavigation.swift */,
-				E5A7A9ED2B57F81400590EA6 /* Profile */,
 				E5A7A9F02B57F81400590EA6 /* Nickname */,
+				E5A7A9ED2B57F81400590EA6 /* Profile */,
+				E5A7A9E92B57F81400590EA6 /* TermsAgreement */,
 			);
 			path = SignUp;
 			sourceTree = "<group>";
@@ -390,8 +390,8 @@
 		E5A7A9ED2B57F81400590EA6 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
-				E5A7A9EE2B57F81400590EA6 /* SignUpProfileView.swift */,
 				E5A7A9EF2B57F81400590EA6 /* SignUpProfileFeature.swift */,
+				E5A7A9EE2B57F81400590EA6 /* SignUpProfileView.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
