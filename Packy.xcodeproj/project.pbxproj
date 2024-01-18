@@ -327,12 +327,9 @@
 			isa = PBXGroup;
 			children = (
 				E5A7A9FA2B57F81400590EA6 /* Root */,
+				E5A7A9E52B57F81400590EA6 /* Intro */,
 				E5A7A9D92B57F81400590EA6 /* Home */,
 				E5A7A9DC2B57F81400590EA6 /* MakeBox */,
-				E5A7A9E52B57F81400590EA6 /* Intro */,
-				E5A7A9E82B57F81400590EA6 /* SignUp */,
-				E5A7A9F32B57F81400590EA6 /* Login */,
-				E5A7A9F62B57F81400590EA6 /* Onboarding */,
 			);
 			name = Screens;
 			path = Packy/Screens;
@@ -362,6 +359,9 @@
 			children = (
 				E5A7A9E62B57F81400590EA6 /* IntroFeature.swift */,
 				E5A7A9E72B57F81400590EA6 /* IntroView.swift */,
+				E5A7A9F62B57F81400590EA6 /* Onboarding */,
+				E5A7A9F32B57F81400590EA6 /* Login */,
+				E5A7A9E82B57F81400590EA6 /* SignUp */,
 			);
 			name = Intro;
 			path = Intro/Intro;
