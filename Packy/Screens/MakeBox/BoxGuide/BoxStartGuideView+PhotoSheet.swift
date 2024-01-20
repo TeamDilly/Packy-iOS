@@ -34,10 +34,11 @@ extension BoxStartGuideView {
                 imageURL: viewStore.photoInput.photoUrl,
                 text: viewStore.$photoInput.text
             )
+            .photoPickable { data in
+                guard let data else { return }
+                viewStore.send(.selectPhoto(data))
+            }
             .frame(height: 374)
-        // }
-        // .frame(height: 374)
-        // .border(Color.black)
 
             Spacer()
 
@@ -58,6 +59,7 @@ extension BoxStartGuideView {
             initialState: .init(senderInfo: .mock, selectedBoxIndex: 0, isPhotoBottomSheetPresented: true),
             reducer: {
                 BoxStartGuideFeature()
+                    ._printChanges()
             }
         )
     )

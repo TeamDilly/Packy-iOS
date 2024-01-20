@@ -10,6 +10,11 @@
 		E5001F852B5BA011004B65E6 /* Line.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5001F842B5BA011004B65E6 /* Line.swift */; };
 		E5001F872B5BA4C0004B65E6 /* BoxSenderInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5001F862B5BA4C0004B65E6 /* BoxSenderInfo.swift */; };
 		E5001F892B5BC09A004B65E6 /* AlertButtonTint.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5001F882B5BC09A004B65E6 /* AlertButtonTint.swift */; };
+		E5001F8E2B5BE422004B65E6 /* UploadClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5001F8D2B5BE422004B65E6 /* UploadClient.swift */; };
+		E5001F912B5BE44D004B65E6 /* UploadEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5001F902B5BE44D004B65E6 /* UploadEndpoint.swift */; };
+		E5001F932B5BE5DD004B65E6 /* PreSignedUrlResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5001F922B5BE5DD004B65E6 /* PreSignedUrlResponse.swift */; };
+		E5001F962B5BEAF6004B65E6 /* URL+Trimming.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5001F952B5BEAF6004B65E6 /* URL+Trimming.swift */; };
+		E58048C12B5BF0D200B974B3 /* UIImage+Compression.swift in Sources */ = {isa = PBXBuildFile; fileRef = E58048C02B5BF0D200B974B3 /* UIImage+Compression.swift */; };
 		E58A7B072B57FA3F0059FBF3 /* KakaoSDKAuth in Frameworks */ = {isa = PBXBuildFile; productRef = E58A7B062B57FA3F0059FBF3 /* KakaoSDKAuth */; };
 		E58A7B092B57FA3F0059FBF3 /* KakaoSDKCommon in Frameworks */ = {isa = PBXBuildFile; productRef = E58A7B082B57FA3F0059FBF3 /* KakaoSDKCommon */; };
 		E58A7B0B2B57FA3F0059FBF3 /* KakaoSDKUser in Frameworks */ = {isa = PBXBuildFile; productRef = E58A7B0A2B57FA3F0059FBF3 /* KakaoSDKUser */; };
@@ -118,6 +123,11 @@
 		E5001F842B5BA011004B65E6 /* Line.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Line.swift; sourceTree = "<group>"; };
 		E5001F862B5BA4C0004B65E6 /* BoxSenderInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoxSenderInfo.swift; sourceTree = "<group>"; };
 		E5001F882B5BC09A004B65E6 /* AlertButtonTint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertButtonTint.swift; sourceTree = "<group>"; };
+		E5001F8D2B5BE422004B65E6 /* UploadClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadClient.swift; sourceTree = "<group>"; };
+		E5001F902B5BE44D004B65E6 /* UploadEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadEndpoint.swift; sourceTree = "<group>"; };
+		E5001F922B5BE5DD004B65E6 /* PreSignedUrlResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreSignedUrlResponse.swift; sourceTree = "<group>"; };
+		E5001F952B5BEAF6004B65E6 /* URL+Trimming.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+Trimming.swift"; sourceTree = "<group>"; };
+		E58048C02B5BF0D200B974B3 /* UIImage+Compression.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Compression.swift"; sourceTree = "<group>"; };
 		E5A7A9B72B57F81400590EA6 /* Color+Hex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Color+Hex.swift"; sourceTree = "<group>"; };
 		E5A7A9B82B57F81400590EA6 /* TextField+LimitInputLength.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TextField+LimitInputLength.swift"; sourceTree = "<group>"; };
 		E5A7A9B92B57F81400590EA6 /* Image+ScaleToFillFrame.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Image+ScaleToFillFrame.swift"; sourceTree = "<group>"; };
@@ -236,6 +246,25 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		E5001F8F2B5BE43E004B65E6 /* Upload */ = {
+			isa = PBXGroup;
+			children = (
+				E5001F8D2B5BE422004B65E6 /* UploadClient.swift */,
+				E5001F902B5BE44D004B65E6 /* UploadEndpoint.swift */,
+				E5001F922B5BE5DD004B65E6 /* PreSignedUrlResponse.swift */,
+			);
+			path = Upload;
+			sourceTree = "<group>";
+		};
+		E5001F942B5BEAEB004B65E6 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				E5001F952B5BEAF6004B65E6 /* URL+Trimming.swift */,
+				E58048C02B5BF0D200B974B3 /* UIImage+Compression.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		E58A7B052B57FA3F0059FBF3 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -444,6 +473,7 @@
 		E5A7A9FD2B57F81400590EA6 /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				E5001F942B5BEAEB004B65E6 /* Extensions */,
 				E5A7A9FE2B57F81400590EA6 /* Util */,
 				E5A7AA022B57F81400590EA6 /* Network */,
 			);
@@ -507,6 +537,7 @@
 		E5A7AA0E2B57F81400590EA6 /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				E5001F8F2B5BE43E004B65E6 /* Upload */,
 				E5A7AA0F2B57F81400590EA6 /* Auth */,
 			);
 			path = Network;
@@ -515,13 +546,13 @@
 		E5A7AA0F2B57F81400590EA6 /* Auth */ = {
 			isa = PBXGroup;
 			children = (
-				E5A7AA102B57F81400590EA6 /* SignInResponse.swift */,
-				E5A7AA112B57F81400590EA6 /* TokenRequest.swift */,
-				E5A7AA122B57F81400590EA6 /* SignUpRequest.swift */,
-				E5A7AA132B57F81400590EA6 /* SignInRequest.swift */,
-				E5A7AA142B57F81400590EA6 /* TokenInfoResponse.swift */,
 				E5A7AA152B57F81400590EA6 /* AuthClient.swift */,
 				E5A7AA162B57F81400590EA6 /* AuthEndpoint.swift */,
+				E5A7AA132B57F81400590EA6 /* SignInRequest.swift */,
+				E5A7AA102B57F81400590EA6 /* SignInResponse.swift */,
+				E5A7AA122B57F81400590EA6 /* SignUpRequest.swift */,
+				E5A7AA142B57F81400590EA6 /* TokenInfoResponse.swift */,
+				E5A7AA112B57F81400590EA6 /* TokenRequest.swift */,
 			);
 			path = Auth;
 			sourceTree = "<group>";
@@ -776,6 +807,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E58048C12B5BF0D200B974B3 /* UIImage+Compression.swift in Sources */,
 				E5A7AA412B57F81400590EA6 /* BoxElementShape.swift in Sources */,
 				E5A7AA4D2B57F81400590EA6 /* PackyFont.swift in Sources */,
 				E5A7AA752B57F81400590EA6 /* PackyApp.swift in Sources */,
@@ -809,6 +841,7 @@
 				E5A7AA7F2B57F81400590EA6 /* UserDefaultsKey.swift in Sources */,
 				E5A7AA6F2B57F81400590EA6 /* MoyaLoggerPlugin.swift in Sources */,
 				E5A7AA792B57F81400590EA6 /* SignUpRequest.swift in Sources */,
+				E5001F8E2B5BE422004B65E6 /* UploadClient.swift in Sources */,
 				E5A7AA3D2B57F81400590EA6 /* PackyNavigationLink.swift in Sources */,
 				E5A7AA5D2B57F81400590EA6 /* IntroView.swift in Sources */,
 				E5A7AA3B2B57F81400590EA6 /* View+GetSize.swift in Sources */,
@@ -836,6 +869,7 @@
 				E5001F872B5BA4C0004B65E6 /* BoxSenderInfo.swift in Sources */,
 				E5A7AA782B57F81400590EA6 /* TokenRequest.swift in Sources */,
 				E5A7AA822B57F81400590EA6 /* KakaoLoginController.swift in Sources */,
+				E5001F912B5BE44D004B65E6 /* UploadEndpoint.swift in Sources */,
 				E5A7AA502B57F81400590EA6 /* BottomSheetModifier.swift in Sources */,
 				E5A7AA572B57F81400590EA6 /* BoxStartGuideView.swift in Sources */,
 				E5A7AA7B2B57F81400590EA6 /* TokenInfoResponse.swift in Sources */,
@@ -854,9 +888,11 @@
 				E5A7AA592B57F81400590EA6 /* BoxStartGuideFeature.swift in Sources */,
 				E5D0129A2B58086F00236FEF /* SetWindowBackground.swift in Sources */,
 				E5A7AA362B57F81400590EA6 /* Color+Hex.swift in Sources */,
+				E5001F932B5BE5DD004B65E6 /* PreSignedUrlResponse.swift in Sources */,
 				E5A7AA7E2B57F81400590EA6 /* KeychainClient.swift in Sources */,
 				E5E73D4A2B597C0200729D99 /* BoxStartGuideView+MusicSheet.swift in Sources */,
 				E5A7AA7A2B57F81400590EA6 /* SignInRequest.swift in Sources */,
+				E5001F962B5BEAF6004B65E6 /* URL+Trimming.swift in Sources */,
 				E5A7AA602B57F81400590EA6 /* SignUpNavigation.swift in Sources */,
 				E5A7AA722B57F81400590EA6 /* MoyaProvider+Request.swift in Sources */,
 				E5A7AA772B57F81400590EA6 /* SignInResponse.swift in Sources */,

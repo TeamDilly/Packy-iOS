@@ -50,6 +50,7 @@ struct BoxStartGuideFeature: Reducer {
         case musicLinkSaveButtonTapped
         case musicLinkDeleteButtonTapped
 
+        case selectPhoto(Data)
         case photoAddButtonTapped
         case photoSaveButtonTapped
         case photoDeleteButtonTapped
@@ -72,6 +73,7 @@ struct BoxStartGuideFeature: Reducer {
     }
 
     @Dependency(\.continuousClock) var clock
+    @Dependency(\.uploadClient) var uploadClient
 
     var body: some Reducer<State, Action> {
         BindingReducer()
@@ -80,6 +82,8 @@ struct BoxStartGuideFeature: Reducer {
             switch action {
             case ._onTask:
                 return .none
+
+            // MARK: Music
 
             case .binding(\.$musicLinkUrlInput):
                 state.showInvalidMusicUrlError = false
@@ -125,6 +129,14 @@ struct BoxStartGuideFeature: Reducer {
             case let ._setDetents(detents):
                 state.musicSheetDetents = detents
                 return .none
+
+            // MARK: Photo
+
+            case let .selectPhoto(data):
+                return .run { send in
+                    let response = try await uploadClient.upload(.init(fileName: "\(UUID()).png", data: data))
+                    print(response.uploadedFileUrl)
+                }
 
             case .nextButtonTapped:
                 state.boxFinishAlert = AlertState {
