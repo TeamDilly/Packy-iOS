@@ -17,6 +17,9 @@ struct PhotoElement: View {
     private var selectedPhotoData: ((Data?) -> Void)? = nil
     @State private var selectedItem: PhotosPickerItem? = nil
 
+    private var isShowDeleteButton: Bool = false
+    private var deleteButtonAction: (() -> Void)? = nil
+
     init(imageURL: URL? = nil, text: Binding<String>) {
         self.imageURL = imageURL
         self._text = text
@@ -38,6 +41,18 @@ struct PhotoElement: View {
     }
 }
 
+// MARK: - Inner Functions
+
+private extension PhotoElement {
+    func compressImageData(_ data: Data?) async -> Data? {
+        guard let data else { return nil }
+        let uiImage = UIImage(data: data)
+        let compressedImage = await uiImage?.compressTo(expectedSizeInMB: 1)
+        let compressedData = try? compressedImage?.toData()
+        return compressedData
+    }
+}
+
 // MARK: - Inner Views
 
 private extension PhotoElement {
@@ -51,8 +66,9 @@ private extension PhotoElement {
         }
         .onChange(of: selectedItem) { photoItem in
             Task {
-                let data = try? await photoItem?.loadTransferable(type: Data.self)
-                selectedPhotoData?(data)
+                let loadedData = try? await photoItem?.loadTransferable(type: Data.self)
+                let compressedData = await compressImageData(loadedData)
+                selectedPhotoData?(compressedData)
             }
         }
     }
@@ -63,6 +79,14 @@ private extension PhotoElement {
                 placeholderView
             }
             .scaleToFillFrame(width: 280, height: 280)
+            .overlay(alignment: .topTrailing) {
+                if isShowDeleteButton {
+                    CloseButton(sizeType: .medium, colorType: .dark) {
+                        deleteButtonAction?()
+                    }
+                    .padding(12)
+                }
+            }
     }
 
     var placeholderView: some View {
@@ -99,6 +123,13 @@ extension PhotoElement {
         element.selectedPhotoData = selectedPhotoData
         return element
     }
+
+    func deleteButton(isShown: Bool, action: @escaping () -> Void) -> Self {
+        var element = self
+        element.isShowDeleteButton = isShown
+        element.deleteButtonAction = action
+        return element
+    }
 }
 
 // MARK: - Preview
@@ -117,6 +148,9 @@ extension PhotoElement {
             imageURL: URL(string: "https://picsum.photos/id/237/200/300"),
             text: .constant("asdada")
         )
+        .deleteButton(isShown: true) {
+            print("aaa")
+        }
     }
 
 }
