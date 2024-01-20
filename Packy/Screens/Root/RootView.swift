@@ -31,6 +31,11 @@ struct RootView: View {
                 CaseLet(\RootFeature.State.home, action: RootFeature.Action.home) { store in
                     HomeView(store: store)
                 }
+
+            case .makeBox:
+                CaseLet(\RootFeature.State.makeBox, action: RootFeature.Action.makeBox) { store in
+                    MakeBoxView(store: store)
+                }
             }
         }
         .task {

@@ -103,7 +103,7 @@ extension Color: Identifiable {
                     Circle()
                         .fill($0)
                 }
-                .minifyScale(0.8)
+                .minifyScale(0.5)
                 .centeredItem($selectedColor)
 
                 // 앨범 스타일
@@ -113,6 +113,7 @@ extension Color: Identifiable {
                     Rectangle()
                         .fill($0)
                 }
+                .minifyScale(0.5)
             }
             .onChange(of: selectedColor) {
                 print($0, $1)

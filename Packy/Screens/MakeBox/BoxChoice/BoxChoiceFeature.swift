@@ -8,10 +8,13 @@
 import Foundation
 import ComposableArchitecture
 
+
+
 @Reducer
 struct BoxChoiceFeature: Reducer {
 
     struct State: Equatable {
+        let senderInfo: BoxSenderInfo
         @BindingState var selectedBox: Int = 0
         @BindingState var selectedMessage: Int = 0
     }

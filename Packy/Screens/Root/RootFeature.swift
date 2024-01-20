@@ -14,8 +14,9 @@ struct RootFeature: Reducer {
     enum State: Equatable {
         case intro(IntroFeature.State = .init())
         case home(HomeFeature.State = .init())
+        case makeBox(MakeBoxFeature.State = .init())
 
-        init() { self = .intro() }
+        init() { self = .makeBox() }
     }
 
     enum Action {
@@ -30,6 +31,7 @@ struct RootFeature: Reducer {
         // MARK: Child Action
         case intro(IntroFeature.Action)
         case home(HomeFeature.Action)
+        case makeBox(MakeBoxFeature.Action)
     }
 
     @Dependency(\.socialLogin) var socialLogin

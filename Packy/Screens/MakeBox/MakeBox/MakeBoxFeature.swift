@@ -12,11 +12,14 @@ import ComposableArchitecture
 struct MakeBoxFeature: Reducer {
 
     struct State: Equatable {
+        @BindingState var boxSendTo: String = ""
+        @BindingState var boxSendFrom: String = ""
         var path: StackState<MakeBoxNavigationPath.State> = .init()
     }
 
-    enum Action {
+    enum Action: BindableAction {
         // MARK: User Action
+        case binding(BindingAction<State>)
 
         // MARK: Inner Business Action
         case _onTask
@@ -37,6 +40,9 @@ struct MakeBoxFeature: Reducer {
                 return .none
                 
             case .path:
+                return .none
+
+            default:
                 return .none
             }
         }

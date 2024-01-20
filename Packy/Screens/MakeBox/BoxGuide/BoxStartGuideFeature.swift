@@ -20,9 +20,9 @@ struct BoxStartGuideFeature: Reducer {
     }
 
     struct State: Equatable {
-        @BindingState var isMusicBottomSheetPresented: Bool = false
+        @BindingState var isMusicBottomSheetPresented: Bool = true
         @BindingState var isLetterBottomSheetPresented: Bool = false
-        @BindingState var isPhotoBottomSheetPresented: Bool = true
+        @BindingState var isPhotoBottomSheetPresented: Bool = false
         @BindingState var isGiftBottomSheetPresented: Bool = false
 
         @BindingState var musicLinkUrlInput: String = "https://www.youtube.com/watch?v=OZRLiBSeAG8"
@@ -95,7 +95,7 @@ struct BoxStartGuideFeature: Reducer {
                 let isValidMusicUrl: Bool = .random()
 
                 guard isValidMusicUrl else {
-                    state.showInvalidMusicUrlError = true
+                    state.showInvalidMusicUrlError = false
                     return .none
                 }
 

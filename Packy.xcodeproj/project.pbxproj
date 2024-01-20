@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E5001F852B5BA011004B65E6 /* Line.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5001F842B5BA011004B65E6 /* Line.swift */; };
+		E5001F872B5BA4C0004B65E6 /* BoxSenderInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5001F862B5BA4C0004B65E6 /* BoxSenderInfo.swift */; };
 		E58A7B072B57FA3F0059FBF3 /* KakaoSDKAuth in Frameworks */ = {isa = PBXBuildFile; productRef = E58A7B062B57FA3F0059FBF3 /* KakaoSDKAuth */; };
 		E58A7B092B57FA3F0059FBF3 /* KakaoSDKCommon in Frameworks */ = {isa = PBXBuildFile; productRef = E58A7B082B57FA3F0059FBF3 /* KakaoSDKCommon */; };
 		E58A7B0B2B57FA3F0059FBF3 /* KakaoSDKUser in Frameworks */ = {isa = PBXBuildFile; productRef = E58A7B0A2B57FA3F0059FBF3 /* KakaoSDKUser */; };
@@ -112,6 +114,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		E5001F842B5BA011004B65E6 /* Line.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Line.swift; sourceTree = "<group>"; };
+		E5001F862B5BA4C0004B65E6 /* BoxSenderInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoxSenderInfo.swift; sourceTree = "<group>"; };
 		E5A7A9B72B57F81400590EA6 /* Color+Hex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Color+Hex.swift"; sourceTree = "<group>"; };
 		E5A7A9B82B57F81400590EA6 /* TextField+LimitInputLength.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TextField+LimitInputLength.swift"; sourceTree = "<group>"; };
 		E5A7A9B92B57F81400590EA6 /* Image+ScaleToFillFrame.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Image+ScaleToFillFrame.swift"; sourceTree = "<group>"; };
@@ -290,6 +294,7 @@
 				E5A7A9C82B57F81400590EA6 /* PhotoElement.swift */,
 				E5A7A9CD2B57F81400590EA6 /* Radio.swift */,
 				E5A7A9C72B57F81400590EA6 /* SocialLoginButton.swift */,
+				E5001F842B5BA011004B65E6 /* Line.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -469,6 +474,7 @@
 			children = (
 				E5A7AA082B57F81400590EA6 /* SocialLoginProvider.swift */,
 				E5A7AA092B57F81400590EA6 /* Terms.swift */,
+				E5001F862B5BA4C0004B65E6 /* BoxSenderInfo.swift */,
 			);
 			name = Model;
 			path = Packy/Model;
@@ -778,6 +784,7 @@
 				E5A7AA532B57F81400590EA6 /* HomeView.swift in Sources */,
 				E5A7AA732B57F81400590EA6 /* SocialLoginProvider.swift in Sources */,
 				E5A7AA802B57F81400590EA6 /* UserDefaultsClient.swift in Sources */,
+				E5001F852B5BA011004B65E6 /* Line.swift in Sources */,
 				E5A7AA482B57F81400590EA6 /* PageIndicator.swift in Sources */,
 				E5A7AA4E2B57F81400590EA6 /* Font+Packy.swift in Sources */,
 				E5A7AA632B57F81400590EA6 /* SignUpNicknameFeature.swift in Sources */,
@@ -822,6 +829,7 @@
 				E5A7AA3C2B57F81400590EA6 /* View+HideKeyboard.swift in Sources */,
 				E5A7AA6B2B57F81400590EA6 /* RootFeature.swift in Sources */,
 				E5A7AA6C2B57F81400590EA6 /* HapticManager.swift in Sources */,
+				E5001F872B5BA4C0004B65E6 /* BoxSenderInfo.swift in Sources */,
 				E5A7AA782B57F81400590EA6 /* TokenRequest.swift in Sources */,
 				E5A7AA822B57F81400590EA6 /* KakaoLoginController.swift in Sources */,
 				E5A7AA502B57F81400590EA6 /* BottomSheetModifier.swift in Sources */,

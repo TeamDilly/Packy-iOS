@@ -12,14 +12,17 @@ import ComposableArchitecture
 @Reducer
 struct MakeBoxNavigationPath {
     enum State: Equatable {
+        case boxChoice(BoxChoiceFeature.State)
         case startGuide(BoxStartGuideFeature.State = .init())
     }
 
     enum Action {
+        case boxChoice(BoxChoiceFeature.Action)
         case startGuide(BoxStartGuideFeature.Action)
     }
 
     var body: some Reducer<State, Action> {
+        Scope(state: \.boxChoice, action: \.boxChoice) { BoxChoiceFeature() }
         Scope(state: \.startGuide, action: \.startGuide) { BoxStartGuideFeature() }
     }
 }

@@ -169,7 +169,7 @@ private struct MessageSelector: View {
 #Preview {
     BoxChoiceView(
         store: .init(
-            initialState: .init(),
+            initialState: .init(senderInfo: BoxSenderInfo(to: "Mason", from: "Mson")),
             reducer: {
                 BoxChoiceFeature()
                     ._printChanges()
