@@ -38,6 +38,9 @@ extension BoxStartGuideView {
                 guard let data else { return }
                 viewStore.send(.selectPhoto(data))
             }
+            .deleteButton(isShown: viewStore.photoInput.photoUrl != nil) {
+                viewStore.send(.photoDeleteButtonTapped)
+            }
             .frame(height: 374)
 
             Spacer()

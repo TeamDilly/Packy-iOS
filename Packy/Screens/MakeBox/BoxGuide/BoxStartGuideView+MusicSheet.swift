@@ -55,7 +55,7 @@ extension BoxStartGuideView {
                 .foregroundStyle(.gray600)
                 .frame(maxWidth: .infinity, alignment: .leading)
 
-            if let musicLinkPlayer = viewStore.selectedMusicUrl {
+            if let musicLinkPlayer = viewStore.musicInput.selectedMusicUrl {
                 YouTubePlayerView(musicLinkPlayer) { state in
                     switch state {
                     case .idle:
@@ -79,9 +79,9 @@ extension BoxStartGuideView {
             } else {
                 HStack(alignment: .top, spacing: 8) {
                     PackyTextField(
-                        text: viewStore.$musicLinkUrlInput,
+                        text: viewStore.$musicInput.musicLinkUrlInput,
                         placeholder: "링크를 붙여주세요",
-                        errorMessage: viewStore.showInvalidMusicUrlError ? "올바른 url을 입력해주세요" : nil
+                        errorMessage: viewStore.musicInput.showInvalidMusicUrlError ? "올바른 url을 입력해주세요" : nil
                     )
 
                     PackyButton(title: "확인", sizeType: .medium, colorType: .black) {

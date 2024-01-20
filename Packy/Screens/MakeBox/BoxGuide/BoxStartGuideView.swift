@@ -31,19 +31,29 @@ struct BoxStartGuideView: View {
                     viewStore.send(.nextButtonTapped)
                 }
 
+                PackyButton(title: "Music") {
+                    viewStore.send(.binding(.set(\.$isMusicBottomSheetPresented, true)))
+                }
+                .padding()
+
+                PackyButton(title: "Photo") {
+                    viewStore.send(.binding(.set(\.$isPhotoBottomSheetPresented, true)))
+                }
+                .padding()
+
                 Spacer()
             }
         }
         // 음악 추가 바텀시트
         .bottomSheet(
             isPresented: viewStore.$isMusicBottomSheetPresented, 
-            currentDetent: .constant(viewStore.musicBottomSheetMode.detent),
-            detents: viewStore.musicSheetDetents,
-            showLeadingButton: viewStore.musicBottomSheetMode != .choice,
+            currentDetent: .constant(viewStore.musicInput.musicBottomSheetMode.detent),
+            detents: viewStore.musicInput.musicSheetDetents,
+            showLeadingButton: viewStore.musicInput.musicBottomSheetMode != .choice,
             leadingButtonAction: { viewStore.send(.musicBottomSheetBackButtonTapped) }
         )  {
             VStack {
-                switch viewStore.musicBottomSheetMode {
+                switch viewStore.musicInput.musicBottomSheetMode {
                 case .choice:
                     musicAddChoiceBottomSheet
                 case .userSelect:
@@ -52,7 +62,7 @@ struct BoxStartGuideView: View {
                     musicRecommendationBottomSheet
                 }
             }
-            .animation(.easeInOut, value: viewStore.musicBottomSheetMode.detent)
+            .animation(.easeInOut, value: viewStore.musicInput.musicBottomSheetMode.detent)
         }
         // 사진 추가 바텀시트
         .bottomSheet(

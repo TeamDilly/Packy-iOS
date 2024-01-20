@@ -13,10 +13,19 @@ import SwiftUI
 @Reducer
 struct BoxStartGuideFeature: Reducer {
 
+    struct MusicInput: Hashable {
+        @BindingState var musicLinkUrlInput: String = "https://www.youtube.com/watch?v=OZRLiBSeAG8"
+        var musicBottomSheetMode: MusicBottomSheetMode = .choice
+        var selectedMusicUrl: YouTubePlayer?
+        var selectedMusicIndex: Int = 0
+        var showInvalidMusicUrlError: Bool = false
+        var musicSheetDetents: Set<PresentationDetent> = MusicBottomSheetMode.allDetents
+    }
+
     struct PhotoInput: Identifiable, Hashable {
         let id: Int
         var photoUrl: URL?
-        @BindingState var text: String = ""
+        var text: String = ""
     }
 
     struct State: Equatable {
@@ -28,13 +37,7 @@ struct BoxStartGuideFeature: Reducer {
         @BindingState var isPhotoBottomSheetPresented: Bool = false
         @BindingState var isGiftBottomSheetPresented: Bool = false
 
-        @BindingState var musicLinkUrlInput: String = "https://www.youtube.com/watch?v=OZRLiBSeAG8"
-        var musicBottomSheetMode: MusicBottomSheetMode = .choice
-        var selectedMusicUrl: YouTubePlayer?
-        @BindingState var selectedMusicIndex: Int = 0
-        var showInvalidMusicUrlError: Bool = false
-        var musicSheetDetents: Set<PresentationDetent> = MusicBottomSheetMode.allDetents
-
+        @BindingState var musicInput: MusicInput = .init()
         @BindingState var photoInput: PhotoInput = .init(id: 0)
 
         @PresentationState var boxFinishAlert: AlertState<Action.Alert>?
@@ -62,6 +65,7 @@ struct BoxStartGuideFeature: Reducer {
 
         // MARK: Inner SetState Action
         case _setDetents(Set<PresentationDetent>)
+        case _setUploadedPhotoUrl(URL?)
 
         // MARK: Child Action
         case boxFinishAlert(PresentationAction<Alert>)
@@ -83,25 +87,31 @@ struct BoxStartGuideFeature: Reducer {
             case ._onTask:
                 return .none
 
+            case .binding(\.$isMusicBottomSheetPresented):
+                guard state.isMusicBottomSheetPresented else { return .none }
+                state.musicInput = .init()
+                return .none
+
+
             // MARK: Music
 
-            case .binding(\.$musicLinkUrlInput):
-                state.showInvalidMusicUrlError = false
+            case .binding(\.musicInput.$musicLinkUrlInput):
+                state.musicInput.showInvalidMusicUrlError = false
                 return .none
 
             case .musicBottomSheetBackButtonTapped:
-                guard state.musicBottomSheetMode != .choice else { return .none }
-                state.musicLinkUrlInput = ""
-                state.selectedMusicUrl = nil
-                state.musicBottomSheetMode = .choice
+                guard state.musicInput.musicBottomSheetMode != .choice else { return .none }
+                state.musicInput.musicLinkUrlInput = ""
+                state.musicInput.selectedMusicUrl = nil
+                state.musicInput.musicBottomSheetMode = .choice
                 return changeDetentsForSmoothAnimation(for: .choice)
 
             case .musicChoiceUserSelectButtonTapped:
-                state.musicBottomSheetMode = .userSelect
+                state.musicInput.musicBottomSheetMode = .userSelect
                 return changeDetentsForSmoothAnimation(for: .userSelect)
 
             case .musicChoiceRecommendButtonTapped:
-                state.musicBottomSheetMode = .recommend
+                state.musicInput.musicBottomSheetMode = .recommend
                 return changeDetentsForSmoothAnimation(for: .recommend)
 
             case .musicLinkConfirmButtonTapped:
@@ -110,11 +120,11 @@ struct BoxStartGuideFeature: Reducer {
                 let isValidMusicUrl: Bool = .random()
 
                 guard isValidMusicUrl else {
-                    state.showInvalidMusicUrlError = false
+                    state.musicInput.showInvalidMusicUrlError = false
                     return .none
                 }
 
-                state.selectedMusicUrl = .init(stringLiteral: state.musicLinkUrlInput)
+                state.musicInput.selectedMusicUrl = .init(stringLiteral: state.musicInput.musicLinkUrlInput)
                 return .none
 
             case .musicLinkSaveButtonTapped:
@@ -122,12 +132,12 @@ struct BoxStartGuideFeature: Reducer {
                 return .none
 
             case .musicLinkDeleteButtonTapped:
-                state.musicLinkUrlInput = ""
-                state.selectedMusicUrl = nil
+                state.musicInput.musicLinkUrlInput = ""
+                state.musicInput.selectedMusicUrl = nil
                 return .none
 
             case let ._setDetents(detents):
-                state.musicSheetDetents = detents
+                state.musicInput.musicSheetDetents = detents
                 return .none
 
             // MARK: Photo
@@ -135,8 +145,16 @@ struct BoxStartGuideFeature: Reducer {
             case let .selectPhoto(data):
                 return .run { send in
                     let response = try await uploadClient.upload(.init(fileName: "\(UUID()).png", data: data))
-                    print(response.uploadedFileUrl)
+                    await send(._setUploadedPhotoUrl(URL(string: response.uploadedFileUrl)))
                 }
+
+            case let ._setUploadedPhotoUrl(url):
+                state.photoInput.photoUrl = url
+                return .none
+
+            case .photoDeleteButtonTapped:
+                state.photoInput.photoUrl = nil
+                return .none
 
             case .nextButtonTapped:
                 state.boxFinishAlert = AlertState {

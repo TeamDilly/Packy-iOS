@@ -38,6 +38,7 @@ struct PhotoElement: View {
         }
         .padding(16)
         .background(.gray200)
+        .animation(.spring, value: imageURL)
     }
 }
 

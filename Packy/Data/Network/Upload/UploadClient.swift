@@ -44,10 +44,10 @@ extension UploadClient: DependencyKey {
         )
     }()
 
-    static let testValue: Self = {
+    static let previewValue: Self = {
         Self(
             upload: { _ in
-                return .init(uploadedFileUrl: "")
+                return .init(uploadedFileUrl: "https://packy-bucket.s3.ap-northeast-2.amazonaws.com/images/f355c3f0-36ce-40db-9b6e-50d1b5279174-31364E3F-36CD-406C-A39B-1682C0F45062.png")
             }
         )
     }()
