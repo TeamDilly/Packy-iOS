@@ -41,6 +41,12 @@ struct BoxStartGuideView: View {
                 }
                 .padding()
 
+                PackyButton(title: "Letter") {
+                    viewStore.send(.binding(.set(\.$isLetterBottomSheetPresented, true)))
+                }
+                .padding()
+
+
                 Spacer()
             }
         }
@@ -79,7 +85,7 @@ struct BoxStartGuideView: View {
             detents: [.large],
             closeButtonAction: { viewStore.send(.binding(.set(\.$letterInput, .init()))) }
         ) {
-            letterBottomSheet
+            LetterBottomSheet(viewStore: viewStore)
         }
         .alertButtonTint(color: .black)
         .alert(store: store.scope(state: \.$boxFinishAlert, action: \.boxFinishAlert))

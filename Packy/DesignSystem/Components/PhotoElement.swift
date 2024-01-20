@@ -12,19 +12,19 @@ import PhotosUI
 struct PhotoElement: View {
     var imageURL: URL?
     @Binding var text: String
-
+    
     private var isPhotoPickable: Bool = false
     private var selectedPhotoData: ((Data?) -> Void)? = nil
     @State private var selectedItem: PhotosPickerItem? = nil
-
+    
     private var isShowDeleteButton: Bool = false
     private var deleteButtonAction: (() -> Void)? = nil
-
+    
     init(imageURL: URL? = nil, text: Binding<String>) {
         self.imageURL = imageURL
         self._text = text
     }
-
+    
     var body: some View {
         VStack(spacing: 16) {
             if isPhotoPickable {
@@ -32,7 +32,7 @@ struct PhotoElement: View {
             } else {
                 imageView
             }
-
+            
             PhotoTextField(text: $text, placeholder: "사진 속 추억을 적어주세요")
                 .frame(width: 280, height: 46)
         }
@@ -73,7 +73,7 @@ private extension PhotoElement {
             }
         }
     }
-
+    
     var imageView: some View {
         KFImage(imageURL)
             .placeholder {
@@ -89,7 +89,7 @@ private extension PhotoElement {
                 }
             }
     }
-
+    
     var placeholderView: some View {
         Color.white
             .overlay {
@@ -101,17 +101,25 @@ private extension PhotoElement {
 private struct PhotoTextField: View {
     @Binding var text: String
     let placeholder: String
+    
+    @FocusState private var isFocused: Bool
 
     var body: some View {
-        let prompt = Text(placeholder)
-            .foregroundStyle(.gray500)
-            .font(.packy(.body5))
-
-        TextField("", text: $text, prompt: prompt)
+        TextField("", text: $text)
             .tint(.black)
             .packyFont(.body4)
             .lineLimit(1)
             .multilineTextAlignment(.center)
+            .focused($isFocused)
+            .overlay {
+                Text(placeholder)
+                    .foregroundStyle(.gray500)
+                    .font(.packy(.body5))
+                    .animation(.spring, value: isFocused)
+                    .animation(.spring, value: text.isEmpty)
+                    .opacity(!isFocused && text.isEmpty ? 1 : 0)
+                    .allowsHitTesting(false)
+            }
     }
 }
 
@@ -124,7 +132,7 @@ extension PhotoElement {
         element.selectedPhotoData = selectedPhotoData
         return element
     }
-
+    
     func deleteButton(isShown: Bool, action: @escaping () -> Void) -> Self {
         var element = self
         element.isShowDeleteButton = isShown
@@ -144,7 +152,7 @@ extension PhotoElement {
         .photoPickable { data in
             print(data)
         }
-
+        
         PhotoElement(
             imageURL: URL(string: "https://picsum.photos/id/237/200/300"),
             text: .constant("asdada")
@@ -153,5 +161,5 @@ extension PhotoElement {
             print("aaa")
         }
     }
-
+    
 }
