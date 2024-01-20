@@ -70,9 +70,9 @@ private struct IconView: View {
 // MARK: - Static var
 
 extension NavigationBar {
-    static func onlyBackButton(action: @escaping () -> Void) -> Self {
+    static func onlyBackButton(action: (() -> Void)? = nil) -> Self {
         NavigationBar(leftIcon: Image(.arrowLeft), leftIconAction: {
-            action()
+            action?()
         })
     }
 }

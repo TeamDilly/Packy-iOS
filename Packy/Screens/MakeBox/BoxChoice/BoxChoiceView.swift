@@ -27,10 +27,8 @@ struct BoxChoiceView: View {
                 Color.gray100.ignoresSafeArea()
 
                 VStack {
-                    FloatingNavigationBar {
-
-                    }
-                    .padding(.top, 8)
+                    NavigationBar.onlyBackButton()
+                        .padding(.top, 8)
 
                     Text("박스와 메시지를 골라주세요")
                         .packyFont(.heading1)
