@@ -35,10 +35,7 @@ struct BoxStartGuideFeature: Reducer {
         var showInvalidMusicUrlError: Bool = false
         var musicSheetDetents: Set<PresentationDetent> = MusicBottomSheetMode.allDetents
 
-        @BindingState var photoInputs: [PhotoInput] = (0...1).map { PhotoInput(id: $0) } // 허용 갯수 2개
-        var filledPhotoInputCount: Int {
-            photoInputs.filter{ $0.photoUrl != nil }.count
-        }
+        @BindingState var photoInput: PhotoInput = .init(id: 0)
 
         @PresentationState var boxFinishAlert: AlertState<Action.Alert>?
     }
@@ -53,7 +50,7 @@ struct BoxStartGuideFeature: Reducer {
         case musicLinkSaveButtonTapped
         case musicLinkDeleteButtonTapped
 
-        case photoAddButtonTapped(_ index: Int)
+        case photoAddButtonTapped
         case photoSaveButtonTapped
         case photoDeleteButtonTapped
 

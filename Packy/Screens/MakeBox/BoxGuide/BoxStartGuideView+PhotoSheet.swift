@@ -30,19 +30,14 @@ extension BoxStartGuideView {
             }
             .padding(.horizontal, 24)
 
-            CarouselView(items: [0, 1], itemWidth: 312, itemPadding: 24) { index in
-                PhotoElement(
-                    imageURL: viewStore.photoInputs[index].photoUrl,
-                    text: viewStore.$photoInputs[index].text,
-                    infoText: "\(viewStore.filledPhotoInputCount)/\(viewStore.photoInputs.count)",
-                    isPrimaryPhoto: index == 0
-                ) {
-                    viewStore.send(.photoAddButtonTapped(index))
-                }
-                .frame(height: 374)
-            }
+            PhotoElement(
+                imageURL: viewStore.photoInput.photoUrl,
+                text: viewStore.$photoInput.text
+            )
             .frame(height: 374)
-            .border(Color.black)
+        // }
+        // .frame(height: 374)
+        // .border(Color.black)
 
             Spacer()
 
@@ -60,10 +55,9 @@ extension BoxStartGuideView {
 #Preview {
     BoxStartGuideView(
         store: .init(
-            initialState: .init(senderInfo: .mock, selectedBoxIndex: 0),
+            initialState: .init(senderInfo: .mock, selectedBoxIndex: 0, isPhotoBottomSheetPresented: true),
             reducer: {
                 BoxStartGuideFeature()
-                // ._printChanges()
             }
         )
     )

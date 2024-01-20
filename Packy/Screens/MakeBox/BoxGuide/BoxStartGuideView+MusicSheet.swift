@@ -109,7 +109,6 @@ extension BoxStartGuideView {
             let youtubeHeight = (proxy.size.width - 48) * (9 / 16)
             let cellHeight = youtubeHeight + 80
             let cellTopPadding = proxy.size.height / 7
-            let _ = print(cellTopPadding)
 
             VStack(spacing: 0) {
                 Group {
