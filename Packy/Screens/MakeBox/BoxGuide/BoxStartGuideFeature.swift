@@ -31,6 +31,7 @@ struct BoxStartGuideFeature: Reducer {
         @BindingState var musicLinkUrlInput: String = "https://www.youtube.com/watch?v=OZRLiBSeAG8"
         var musicBottomSheetMode: MusicBottomSheetMode = .choice
         var selectedMusicUrl: YouTubePlayer?
+        @BindingState var selectedMusicIndex: Int = 0
         var showInvalidMusicUrlError: Bool = false
         var musicSheetDetents: Set<PresentationDetent> = MusicBottomSheetMode.allDetents
 

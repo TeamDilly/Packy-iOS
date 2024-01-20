@@ -14,7 +14,7 @@ struct BoxStartGuideView: View {
     private let store: StoreOf<BoxStartGuideFeature>
     @ObservedObject var viewStore: ViewStoreOf<BoxStartGuideFeature>
 
-    @State var selectedTempMusic: TempMusic? = TempMusic.musics.first
+    @State var selectedTempMusic: TempMusic? = TempMusic.musics.first!
 
     private let strokeColor: Color = .gray400
     private let strokeStyle: StrokeStyle = .init(lineWidth: 1.5, dash: [5])
@@ -25,7 +25,7 @@ struct BoxStartGuideView: View {
     }
 
     var body: some View {
-        GeometryReader { geometry in
+        GeometryReader { proxy in
             VStack(spacing: 0) {
                 FloatingNavigationBar {
                     viewStore.send(.nextButtonTapped)

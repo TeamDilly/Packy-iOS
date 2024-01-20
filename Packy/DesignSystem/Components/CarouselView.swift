@@ -16,15 +16,16 @@ struct CarouselView<Content: View, Item: Identifiable & Hashable>: View {
     private var minifyScale: CGFloat = 1 // 좌우의 효과에 의해 작아진 아이템의 scale
 
     private var centeredItem: Binding<Item?>?
+    private var isCollapsing: Bool = true
 
     init(
         items: [Item],
-        itemWidth: CGFloat,
-        itemPadding: CGFloat,
+        itemWidth: CGFloat? = nil,
+        itemPadding: CGFloat = 0,
         @ViewBuilder contentBuilder: @escaping (Item) -> Content
     ) {
         self.items = items
-        self.itemWidth = itemWidth
+        self.itemWidth = itemWidth ?? 0
         self.itemPadding = itemPadding
         self.contentBuilder = contentBuilder
     }
@@ -36,7 +37,7 @@ struct CarouselView<Content: View, Item: Identifiable & Hashable>: View {
                     ForEach(items) { item in
                         contentBuilder(item)
                             .id(item)
-                            .frame(width: itemWidth)
+                            .frame(width: isCollapsing ? itemWidth : nil)
                             .containerRelativeFrame(.horizontal)
                             .scrollTransition(.interactive, axis: .horizontal) { view, phase in
                                 view
@@ -48,7 +49,7 @@ struct CarouselView<Content: View, Item: Identifiable & Hashable>: View {
             }
             .scrollTargetBehavior(.viewAligned)
             .scrollIndicators(.hidden)
-            .safeAreaPadding(.horizontal, safeAreaPadding(geometryWidth: geometry.size.width))
+            .safeAreaPadding(.horizontal, isCollapsing ? safeAreaPadding(geometryWidth: geometry.size.width) : 0)
             .ifLet(centeredItem) { view, centeredItem in
                 view.scrollPosition(id: centeredItem)
             }
@@ -82,6 +83,12 @@ extension CarouselView {
         carousel.centeredItem = centeredItem
         return carousel
     }
+
+    func disableCollapsing() -> Self {
+        var carousel = self
+        carousel.isCollapsing = false
+        return carousel
+    }
 }
 
 extension Color: Identifiable {
@@ -105,6 +112,16 @@ extension Color: Identifiable {
                 }
                 .minifyScale(0.5)
                 .centeredItem($selectedColor)
+                .border(Color.black)
+
+                CarouselView(items: colors) {
+                    Circle()
+                        .fill($0)
+                        .frame(width: 200, height: 200)
+                }
+                .centeredItem($selectedColor)
+                .disableCollapsing()
+                .border(Color.black)
 
                 // 앨범 스타일
                 let itemSize2: CGFloat = 280
