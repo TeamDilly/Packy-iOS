@@ -16,6 +16,7 @@
 		E5001F962B5BEAF6004B65E6 /* URL+Trimming.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5001F952B5BEAF6004B65E6 /* URL+Trimming.swift */; };
 		E58048C12B5BF0D200B974B3 /* UIImage+Compression.swift in Sources */ = {isa = PBXBuildFile; fileRef = E58048C02B5BF0D200B974B3 /* UIImage+Compression.swift */; };
 		E58048C32B5BFF3800B974B3 /* BoxStartGuideView+LetterSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = E58048C22B5BFF3800B974B3 /* BoxStartGuideView+LetterSheet.swift */; };
+		E58048C92B5C36DD00B974B3 /* CornerRadiusWithBorderModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = E58048C82B5C36DD00B974B3 /* CornerRadiusWithBorderModifier.swift */; };
 		E58A7B072B57FA3F0059FBF3 /* KakaoSDKAuth in Frameworks */ = {isa = PBXBuildFile; productRef = E58A7B062B57FA3F0059FBF3 /* KakaoSDKAuth */; };
 		E58A7B092B57FA3F0059FBF3 /* KakaoSDKCommon in Frameworks */ = {isa = PBXBuildFile; productRef = E58A7B082B57FA3F0059FBF3 /* KakaoSDKCommon */; };
 		E58A7B0B2B57FA3F0059FBF3 /* KakaoSDKUser in Frameworks */ = {isa = PBXBuildFile; productRef = E58A7B0A2B57FA3F0059FBF3 /* KakaoSDKUser */; };
@@ -130,6 +131,7 @@
 		E5001F952B5BEAF6004B65E6 /* URL+Trimming.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+Trimming.swift"; sourceTree = "<group>"; };
 		E58048C02B5BF0D200B974B3 /* UIImage+Compression.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Compression.swift"; sourceTree = "<group>"; };
 		E58048C22B5BFF3800B974B3 /* BoxStartGuideView+LetterSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BoxStartGuideView+LetterSheet.swift"; sourceTree = "<group>"; };
+		E58048C82B5C36DD00B974B3 /* CornerRadiusWithBorderModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CornerRadiusWithBorderModifier.swift; sourceTree = "<group>"; };
 		E5A7A9B72B57F81400590EA6 /* Color+Hex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Color+Hex.swift"; sourceTree = "<group>"; };
 		E5A7A9B82B57F81400590EA6 /* TextField+LimitInputLength.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TextField+LimitInputLength.swift"; sourceTree = "<group>"; };
 		E5A7A9B92B57F81400590EA6 /* Image+ScaleToFillFrame.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Image+ScaleToFillFrame.swift"; sourceTree = "<group>"; };
@@ -358,6 +360,7 @@
 				E5A7A9D62B57F81400590EA6 /* BouncyButtonStyle.swift */,
 				E5A7A9D72B57F81400590EA6 /* SpinningModifier.swift */,
 				E5001F882B5BC09A004B65E6 /* AlertButtonTint.swift */,
+				E58048C82B5C36DD00B974B3 /* CornerRadiusWithBorderModifier.swift */,
 			);
 			path = ViewModifiers;
 			sourceTree = "<group>";
@@ -859,6 +862,7 @@
 				E5A7AA512B57F81400590EA6 /* BouncyButtonStyle.swift in Sources */,
 				E5A7AA442B57F81400590EA6 /* SocialLoginButton.swift in Sources */,
 				E5A7AA4A2B57F81400590EA6 /* Radio.swift in Sources */,
+				E58048C92B5C36DD00B974B3 /* CornerRadiusWithBorderModifier.swift in Sources */,
 				E5A7AA652B57F81400590EA6 /* LoginView.swift in Sources */,
 				E5A7AA402B57F81400590EA6 /* NavigationBar.swift in Sources */,
 				E5A7AA612B57F81400590EA6 /* SignUpProfileView.swift in Sources */,
