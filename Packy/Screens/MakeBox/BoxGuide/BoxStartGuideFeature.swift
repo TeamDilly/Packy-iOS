@@ -20,6 +20,9 @@ struct BoxStartGuideFeature: Reducer {
     }
 
     struct State: Equatable {
+        let senderInfo: BoxSenderInfo
+        let selectedBoxIndex: Int
+
         @BindingState var isMusicBottomSheetPresented: Bool = true
         @BindingState var isLetterBottomSheetPresented: Bool = false
         @BindingState var isPhotoBottomSheetPresented: Bool = false

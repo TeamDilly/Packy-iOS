@@ -60,7 +60,7 @@ extension BoxStartGuideView {
 #Preview {
     BoxStartGuideView(
         store: .init(
-            initialState: .init(),
+            initialState: .init(senderInfo: .mock, selectedBoxIndex: 0),
             reducer: {
                 BoxStartGuideFeature()
                 // ._printChanges()

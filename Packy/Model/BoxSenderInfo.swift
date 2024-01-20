@@ -11,3 +11,7 @@ struct BoxSenderInfo: Equatable {
     let to: String
     let from: String
 }
+
+extension BoxSenderInfo {
+    static let mock: BoxSenderInfo = .init(to: "Mason", from: "Packy")
+}

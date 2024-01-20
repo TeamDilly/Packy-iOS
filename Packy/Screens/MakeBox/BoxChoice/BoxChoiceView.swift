@@ -14,58 +14,58 @@ struct BoxChoiceView: View {
     private let store: StoreOf<BoxChoiceFeature>
     @ObservedObject private var viewStore: ViewStoreOf<BoxChoiceFeature>
 
-    @State private var selection: BoxSelectionCategory = .box
-
     init(store: StoreOf<BoxChoiceFeature>) {
         self.store = store
         self.viewStore = ViewStore(store, observe: { $0 })
     }
-    
+
     var body: some View {
         VStack(spacing: 0) {
-            ZStack {
-                Color.gray100.ignoresSafeArea()
+            if viewStore.isPresentingFinishedMotionView {
+                finishedBoxMotionView
+            } else {
+                NavigationBar.onlyBackButton()
+                    .padding(.top, 8)
 
-                VStack {
-                    NavigationBar.onlyBackButton()
-                        .padding(.top, 8)
+                Text("마음에 드는 선물박스를 골라주세요")
+                    .packyFont(.heading1)
+                    .foregroundStyle(.gray900)
+                    .padding(.top, 48)
 
-                    Text("박스와 메시지를 골라주세요")
-                        .packyFont(.heading1)
-                        .foregroundStyle(.gray900)
-                        .padding(.top, 56)
 
-                    ZStack {
-                        Image(.giftboxForeground1)
-                            .offset(x: 35, y: -55)
-                            .zIndex(1)
+                VStack(spacing: 40) {
+                    Image(.mock)
+                        .resizable()
+                        .frame(width: 160, height: 160)
+                        .mask(Circle())
 
-                        Image(.giftboxBackground1)
+                    HStack(spacing: 16) {
+                        ForEach(0...4, id: \.self) { index in
+                            Button {
+                                viewStore.send(.selectBox(index))
+                                HapticManager.shared.fireNotification(.success)
+                            } label: {
+                                Image(.mock) // TODO: 선택된 박스 이미지 인덱스에 따라 업뎃
+                                    .resizable()
+                                    .frame(width: 60, height: 60)
+                                    .mask(Circle())
+                            }
+                            .buttonStyle(.bouncy)
+                        }
                     }
-                    .padding(.top, 107)
-
-                    Spacer()
                 }
-            }
+                .padding(.top, 82)
 
-            Divider()
+                Spacer()
 
-            CategorySelector(selection: $selection)
-                .frame(height: 56)
-
-            Divider()
-
-            // 박스, 메시지 선택
-            ZStack {
-                BoxSelector(selectedIndex: viewStore.$selectedBox)
-                    .opacity(selection == .box ? 1 : 0)
-                    .padding(.vertical, 20)
-
-                MessageSelector(selectedIndex: viewStore.$selectedMessage)
-                    .opacity(selection == .message ? 1 : 0)
-                    .padding(.vertical, 20)
+                PackyButton(title: "다음", colorType: .black) {
+                    viewStore.send(.nextButtonTapped)
+                }
+                .padding(.horizontal, 24)
+                .padding(.bottom, 16)
             }
         }
+        .animation(.spring, value: viewStore.isPresentingFinishedMotionView)
         .navigationBarBackButtonHidden(true)
         .task {
             await viewStore
@@ -75,91 +75,22 @@ struct BoxChoiceView: View {
     }
 }
 
-// MARK: - BoxSelectionCategory
-
-enum BoxSelectionCategory: CaseIterable {
-    case box
-    case message
-
-    var description: String {
-        switch self {
-        case .box:      return "박스"
-        case .message:  return "메시지"
-        }
-    }
-}
-
 // MARK: - Inner Views
 
-private struct CategorySelector: View {
-    @Binding var selection: BoxSelectionCategory
+private extension BoxChoiceView {
+    @ViewBuilder
+    var finishedBoxMotionView: some View {
+        // TODO: Text Interaction 구현
+        Text("이제 선물박스를\n채우러 가볼까요?")
+            .packyFont(.heading1)
+            .foregroundStyle(.gray900)
+            .padding(.top, 104)
 
-    var body: some View {
-        HStack {
-            ForEach(BoxSelectionCategory.allCases, id: \.self) { boxSelection in
-                let isSelected = selection == boxSelection
-                Text(boxSelection.description)
-                    .packyFont(isSelected ? .body1 : .body2)
-                    .foregroundStyle(isSelected ? .black : .gray800)
-                    .frame(maxWidth: .infinity)
-                    .contentShape(Rectangle())
-                    .onTapGesture {
-                        withAnimation(.spring) {
-                            self.selection = boxSelection
-                        }
-                    }
-            }
-        }
-    }
-}
+        // Motion Design
+        Image(.mock)
+            .padding(.top, 50)
 
-private struct BoxSelector: View {
-    @Binding var selectedIndex: Int
-
-    var body: some View {
-        ScrollView(.horizontal) {
-            HStack(spacing: 8) {
-                ForEach(0..<6, id: \.self) { index in
-                    Button {
-                        selectedIndex = index
-                        HapticManager.shared.fireFeedback(.light)
-                    } label: {
-                        Image(.mock)
-                            .resizable()
-                            .frame(width: 80, height: 80)
-                            .clipShape(RoundedRectangle(cornerRadius: 12))
-                    }
-                    .buttonStyle(.bouncy)
-                }
-            }
-        }
-        .safeAreaPadding(.horizontal, 20)
-        .scrollIndicators(.hidden)
-    }
-}
-
-private struct MessageSelector: View {
-    @Binding var selectedIndex: Int
-
-    var body: some View {
-        ScrollView(.horizontal) {
-            HStack(spacing: 8) {
-                ForEach(0..<6, id: \.self) { index in
-                    Button {
-                        selectedIndex = index
-                        HapticManager.shared.fireFeedback(.light)
-                    } label: {
-                        Rectangle()
-                            .fill(.orange)
-                            .frame(width: 80, height: 80)
-                            .clipShape(RoundedRectangle(cornerRadius: 12))
-                    }
-                    .buttonStyle(.bouncy)
-                }
-            }
-        }
-        .safeAreaPadding(.horizontal, 20)
-        .scrollIndicators(.hidden)
+        Spacer()
     }
 }
 
@@ -168,7 +99,7 @@ private struct MessageSelector: View {
 #Preview {
     BoxChoiceView(
         store: .init(
-            initialState: .init(senderInfo: BoxSenderInfo(to: "Mason", from: "Mson")),
+            initialState: .init(senderInfo: .mock),
             reducer: {
                 BoxChoiceFeature()
                     ._printChanges()

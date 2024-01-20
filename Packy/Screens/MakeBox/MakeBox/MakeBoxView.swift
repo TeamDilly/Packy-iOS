@@ -128,6 +128,9 @@ private struct ToFromInputTextField: View {
                             fromFieldFocused = true
                         }
                 }
+                .onTapGesture {
+                    toFieldFocused = true
+                }
 
                 Line()
                     .stroke(style: .init(dash: [7]))
@@ -147,6 +150,9 @@ private struct ToFromInputTextField: View {
                         .limitTextLength(text: $from, length: 6)
                         .frame(height: 26)
                         .focused($fromFieldFocused)
+                }
+                .onTapGesture {
+                    fromFieldFocused = true
                 }
             }
             .padding(20)
