@@ -22,10 +22,14 @@ struct BoxStartGuideFeature: Reducer {
         var musicSheetDetents: Set<PresentationDetent> = MusicBottomSheetMode.allDetents
     }
 
-    struct PhotoInput: Identifiable, Hashable {
-        let id: Int
+    struct PhotoInput: Hashable {
         var photoUrl: URL?
         var text: String = ""
+    }
+
+    struct LetterInput: Hashable {
+        var templateIndex: Int = 0
+        var letter: String = ""
     }
 
     struct State: Equatable {
@@ -38,7 +42,8 @@ struct BoxStartGuideFeature: Reducer {
         @BindingState var isGiftBottomSheetPresented: Bool = false
 
         @BindingState var musicInput: MusicInput = .init()
-        @BindingState var photoInput: PhotoInput = .init(id: 0)
+        @BindingState var photoInput: PhotoInput = .init()
+        @BindingState var letterInput: LetterInput = .init()
 
         @PresentationState var boxFinishAlert: AlertState<Action.Alert>?
     }
@@ -86,12 +91,6 @@ struct BoxStartGuideFeature: Reducer {
             switch action {
             case ._onTask:
                 return .none
-
-            case .binding(\.$isMusicBottomSheetPresented):
-                guard state.isMusicBottomSheetPresented else { return .none }
-                state.musicInput = .init()
-                return .none
-
 
             // MARK: Music
 

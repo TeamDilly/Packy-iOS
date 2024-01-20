@@ -50,7 +50,8 @@ struct BoxStartGuideView: View {
             currentDetent: .constant(viewStore.musicInput.musicBottomSheetMode.detent),
             detents: viewStore.musicInput.musicSheetDetents,
             showLeadingButton: viewStore.musicInput.musicBottomSheetMode != .choice,
-            leadingButtonAction: { viewStore.send(.musicBottomSheetBackButtonTapped) }
+            leadingButtonAction: { viewStore.send(.musicBottomSheetBackButtonTapped) },
+            closeButtonAction: { viewStore.send(.binding(.set(\.$musicInput, .init()))) }
         )  {
             VStack {
                 switch viewStore.musicInput.musicBottomSheetMode {
@@ -67,9 +68,18 @@ struct BoxStartGuideView: View {
         // 사진 추가 바텀시트
         .bottomSheet(
             isPresented: viewStore.$isPhotoBottomSheetPresented,
-            detents: [.large]
+            detents: [.large],
+            closeButtonAction: { viewStore.send(.binding(.set(\.$photoInput, .init()))) }
         ) {
             addPhotoBottomSheet
+        }
+        // 편지 쓰기 바텀시트
+        .bottomSheet(
+            isPresented: viewStore.$isLetterBottomSheetPresented,
+            detents: [.large],
+            closeButtonAction: { viewStore.send(.binding(.set(\.$letterInput, .init()))) }
+        ) {
+            letterBottomSheet
         }
         .alertButtonTint(color: .black)
         .alert(store: store.scope(state: \.$boxFinishAlert, action: \.boxFinishAlert))

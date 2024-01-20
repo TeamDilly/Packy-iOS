@@ -41,7 +41,7 @@ struct SignUpProfileView: View {
                     ForEach(0...4, id: \.self) { index in
                         Button {
                             viewStore.send(.selectProfile(index))
-                            HapticManager.shared.fireNotification(.success)
+                            HapticManager.shared.fireFeedback(.medium)
                         } label: {
                             Image(.mock) // TODO: 선택된 프로필 이미지 인덱스에 따라 업뎃
                                 .resizable()

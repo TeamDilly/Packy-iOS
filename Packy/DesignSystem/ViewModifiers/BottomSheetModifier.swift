@@ -14,10 +14,11 @@ extension View {
         detents: Set<PresentationDetent>,
         showLeadingButton: Bool = false,
         leadingButtonAction: (() -> Void)? = nil,
+        closeButtonAction: (() -> Void)? = nil,
         sheetContent: @escaping () -> Content
     ) -> some View {
         modifier(
-            BottomSheetModifier(isPresented: isPresented, currentDetent: currentDetent, detents: detents, showLeadingButton: showLeadingButton, leadingButtonAction: leadingButtonAction, sheetContent: sheetContent)
+            BottomSheetModifier(isPresented: isPresented, currentDetent: currentDetent, detents: detents, showLeadingButton: showLeadingButton, leadingButtonAction: leadingButtonAction, closeButtonAction: closeButtonAction, sheetContent: sheetContent)
         )
     }
 }
@@ -28,6 +29,7 @@ struct BottomSheetModifier<SheetContent: View>: ViewModifier {
     let detents: Set<PresentationDetent>
     let showLeadingButton: Bool
     let leadingButtonAction: (() -> Void)?
+    let closeButtonAction: (() -> Void)?
 
     let sheetContent: () -> SheetContent
 
@@ -53,6 +55,7 @@ struct BottomSheetModifier<SheetContent: View>: ViewModifier {
 
                             Spacer()
                             CloseButton(colorType: .light) {
+                                closeButtonAction?()
                                 isPresented = false
                             }
                         }
