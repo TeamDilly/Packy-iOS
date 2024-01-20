@@ -81,6 +81,7 @@ struct BoxStartGuideView: View {
         ) {
             addPhotoBottomSheet
         }
+        .navigationBarBackButtonHidden(true)
         .task {
             await viewStore
                 .send(._onTask)

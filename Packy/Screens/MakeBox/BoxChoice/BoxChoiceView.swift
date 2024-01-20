@@ -68,6 +68,7 @@ struct BoxChoiceView: View {
                     .padding(.vertical, 20)
             }
         }
+        .navigationBarBackButtonHidden(true)
         .task {
             await viewStore
                 .send(._onTask)

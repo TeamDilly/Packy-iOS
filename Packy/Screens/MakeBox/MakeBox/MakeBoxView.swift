@@ -56,14 +56,21 @@ private extension MakeBoxView {
             Text("패키와 함께 마음을 담은\n선물박스를 만들어볼까요?")
                 .packyFont(.heading1)
                 .foregroundStyle(.gray900)
+                .multilineTextAlignment(.center)
                 .padding(.bottom, 8)
+                .padding(.horizontal, 24)
 
             Text("보내는 사람과 받는 사람의 이름을 적어주세요")
                 .packyFont(.body4)
                 .foregroundStyle(.gray600)
                 .padding(.bottom, 40)
+                .padding(.horizontal, 24)
 
-            toFromInputTextField
+            ToFromInputTextField(
+                to: viewStore.$boxSendTo,
+                from: viewStore.$boxSendFrom
+            )
+            .padding(.horizontal, 24)
 
             Spacer()
 
@@ -73,9 +80,12 @@ private extension MakeBoxView {
 
             NavigationLink("다음", state: destinationState)
                 .buttonStyle(PackyButtonStyle(colorType: .black))
-                .padding(.horizontal, 24)
                 .padding(.bottom, 16)
+                .padding(.horizontal, 24)
+                .disabled(!viewStore.nextButtonEnabled)
+                .animation(.spring, value: viewStore.nextButtonEnabled)
         }
+        .navigationBarBackButtonHidden(true)
         .task {
             await viewStore
                 .send(._onTask)
@@ -86,11 +96,17 @@ private extension MakeBoxView {
 
 // MARK: - Inner Views
 
-private extension MakeBoxView {
-    var toFromInputTextField: some View {
+private struct ToFromInputTextField: View {
+    @Binding var to: String
+    @Binding var from: String
+
+    @FocusState private var toFieldFocused: Bool
+    @FocusState private var fromFieldFocused: Bool
+
+    var body: some View {
         GeometryReader { proxy in
             VStack(spacing: 16) {
-                let halfWidth = proxy.size.width / 2
+                let textWidth = proxy.size.width / 3
 
                 let prompt = Text("6자 이내로 입력해주세요")
                     .foregroundStyle(.gray400)
@@ -100,14 +116,19 @@ private extension MakeBoxView {
                     Text("To.")
                         .packyFont(.body2)
                         .foregroundStyle(.gray900)
-                        .frame(width: halfWidth, alignment: .leading)
+                        .frame(width: textWidth, alignment: .leading)
 
-                    TextField("", text: viewStore.$boxSendTo, prompt: prompt)
+                    TextField("", text: $to, prompt: prompt)
                         .tint(.black)
                         .packyFont(.body4)
-                    // .focused($textFieldFocused)
                         .truncationMode(.head)
                         .multilineTextAlignment(.trailing)
+                        .limitTextLength(text: $to, length: 6)
+                        .frame(height: 26)
+                        .focused($toFieldFocused)
+                        .onSubmit {
+                            fromFieldFocused = true
+                        }
                 }
 
                 Line()
@@ -119,13 +140,15 @@ private extension MakeBoxView {
                     Text("From.")
                         .packyFont(.body2)
                         .foregroundStyle(.gray900)
-                        .frame(width: halfWidth, alignment: .leading)
-                    TextField("", text: viewStore.$boxSendFrom, prompt: prompt)
+                        .frame(width: textWidth, alignment: .leading)
+                    TextField("", text: $from, prompt: prompt)
                         .tint(.black)
                         .packyFont(.body4)
-                    // .focused($textFieldFocused)
                         .truncationMode(.head)
                         .multilineTextAlignment(.trailing)
+                        .limitTextLength(text: $from, length: 6)
+                        .frame(height: 26)
+                        .focused($fromFieldFocused)
                 }
             }
             .padding(20)
@@ -133,6 +156,9 @@ private extension MakeBoxView {
                 RoundedRectangle(cornerRadius: 16)
                     .fill(.gray100)
             )
+        }
+        .onAppear {
+            toFieldFocused = true
         }
     }
 }

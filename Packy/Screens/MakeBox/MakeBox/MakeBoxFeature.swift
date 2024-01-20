@@ -14,6 +14,10 @@ struct MakeBoxFeature: Reducer {
     struct State: Equatable {
         @BindingState var boxSendTo: String = ""
         @BindingState var boxSendFrom: String = ""
+        var nextButtonEnabled: Bool {
+            !boxSendTo.isEmpty && !boxSendFrom.isEmpty
+        }
+
         var path: StackState<MakeBoxNavigationPath.State> = .init()
     }
 
@@ -32,10 +36,15 @@ struct MakeBoxFeature: Reducer {
 
 
     var body: some Reducer<State, Action> {
+        BindingReducer()
         navigationReducer
 
         Reduce<State, Action> { state, action in
             switch action {
+            case .binding(\.$boxSendFrom):
+                print("FROM!!!")
+                return .none
+
             case ._onTask:
                 return .none
                 

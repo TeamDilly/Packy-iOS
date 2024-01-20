@@ -49,32 +49,33 @@ struct RootFeature: Reducer {
 
                     /// AccessToken 존재 시, home 으로 이동
                     if keychain.read(.accessToken) != nil {
-                        await send(._changeScreen(.home()))
+                        await send(._changeScreen(.makeBox()))
                     }
 
                     await userDefaults.setBool(true, .isPopGestureEnabled)
                 }
 
-                case let ._changeScreen(newState):
-                    state = newState
-                    return .none
+            case let ._changeScreen(newState):
+                state = newState
+                return .none
 
-                case let .intro(action):
-                    switch action {
-                        // 로그인 완료, 회원가입 완료 시 홈으로 이동
-                    case .login(.delegate(.completeLogin)),
-                            .signUp(.delegate(.completeSignUp)):
-                        return .send(._changeScreen(.home()), animation: .spring)
-
-                    default:
-                        return .none
-                    }
+            case let .intro(action):
+                switch action {
+                    // 로그인 완료, 회원가입 완료 시 홈으로 이동
+                case .login(.delegate(.completeLogin)),
+                     .signUp(.delegate(.completeSignUp)):
+                    return .send(._changeScreen(.home()), animation: .spring)
 
                 default:
                     return .none
                 }
+
+            default:
+                return .none
             }
-                .ifCaseLet(\.intro, action: \.intro) { IntroFeature() }
-                .ifCaseLet(\.home, action: \.home) { HomeFeature() }
         }
+        .ifCaseLet(\.intro, action: \.intro) { IntroFeature() }
+        .ifCaseLet(\.home, action: \.home) { HomeFeature() }
+        .ifCaseLet(\.makeBox, action: \.makeBox) { MakeBoxFeature() }
     }
+}
