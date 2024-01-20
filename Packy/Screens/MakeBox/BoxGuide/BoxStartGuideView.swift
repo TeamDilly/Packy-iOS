@@ -26,36 +26,15 @@ struct BoxStartGuideView: View {
 
     var body: some View {
         GeometryReader { geometry in
-            let width = geometry.size.width
-
-            ScrollView {
-                VStack {
-                    // 음악 추가 원
-                    let musicCircleSize = BoxElementShape.musicCircle.relativeSize(geometryWidth: width)
-                    Circle()
-                        .stroke(strokeColor, style: strokeStyle)
-                        .frame(width: musicCircleSize.width, height: musicCircleSize.height)
-
-                    // 편지 추가 사각형
-                    let letterRectangleSize = BoxElementShape.letterRectangle.relativeSize(geometryWidth: width)
-                    Rectangle()
-                        .stroke(strokeColor, style: strokeStyle)
-                        .frame(width: letterRectangleSize.width, height: letterRectangleSize.height)
-
-                    // 사진 추가
-                    let photoRectangleSize = BoxElementShape.photoRectangle.relativeSize(geometryWidth: width)
-                    Rectangle()
-                        .stroke(strokeColor, style: strokeStyle)
-                        .frame(width: photoRectangleSize.width, height: photoRectangleSize.height)
-
-                    // 음악 원
-                    let giftEllipseSize = BoxElementShape.giftEllipse.relativeSize(geometryWidth: width)
-                    Ellipse()
-                        .stroke(strokeColor, style: strokeStyle)
-                        .frame(width: giftEllipseSize.width, height: giftEllipseSize.height)
+            VStack(spacing: 0) {
+                FloatingNavigationBar {
+                    viewStore.send(.nextButtonTapped)
                 }
+
+                Spacer()
             }
         }
+        // 음악 추가 바텀시트
         .bottomSheet(
             isPresented: viewStore.$isMusicBottomSheetPresented, 
             currentDetent: .constant(viewStore.musicBottomSheetMode.detent),
@@ -75,12 +54,16 @@ struct BoxStartGuideView: View {
             }
             .animation(.easeInOut, value: viewStore.musicBottomSheetMode.detent)
         }
+        // 사진 추가 바텀시트
         .bottomSheet(
             isPresented: viewStore.$isPhotoBottomSheetPresented,
             detents: [.large]
         ) {
             addPhotoBottomSheet
         }
+        .alertButtonTint(color: .black)
+        .alert(store: store.scope(state: \.$boxFinishAlert, action: \.boxFinishAlert))
+        .accentColor(.black)
         .navigationBarBackButtonHidden(true)
         .task {
             await viewStore
@@ -101,7 +84,7 @@ struct BoxStartGuideView: View {
             initialState: .init(senderInfo: .mock, selectedBoxIndex: 0),
             reducer: {
                 BoxStartGuideFeature()
-                    // ._printChanges()
+                    ._printChanges()
             }
         )
     )

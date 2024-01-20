@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		E5001F852B5BA011004B65E6 /* Line.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5001F842B5BA011004B65E6 /* Line.swift */; };
 		E5001F872B5BA4C0004B65E6 /* BoxSenderInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5001F862B5BA4C0004B65E6 /* BoxSenderInfo.swift */; };
+		E5001F892B5BC09A004B65E6 /* AlertButtonTint.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5001F882B5BC09A004B65E6 /* AlertButtonTint.swift */; };
 		E58A7B072B57FA3F0059FBF3 /* KakaoSDKAuth in Frameworks */ = {isa = PBXBuildFile; productRef = E58A7B062B57FA3F0059FBF3 /* KakaoSDKAuth */; };
 		E58A7B092B57FA3F0059FBF3 /* KakaoSDKCommon in Frameworks */ = {isa = PBXBuildFile; productRef = E58A7B082B57FA3F0059FBF3 /* KakaoSDKCommon */; };
 		E58A7B0B2B57FA3F0059FBF3 /* KakaoSDKUser in Frameworks */ = {isa = PBXBuildFile; productRef = E58A7B0A2B57FA3F0059FBF3 /* KakaoSDKUser */; };
@@ -116,6 +117,7 @@
 /* Begin PBXFileReference section */
 		E5001F842B5BA011004B65E6 /* Line.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Line.swift; sourceTree = "<group>"; };
 		E5001F862B5BA4C0004B65E6 /* BoxSenderInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoxSenderInfo.swift; sourceTree = "<group>"; };
+		E5001F882B5BC09A004B65E6 /* AlertButtonTint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertButtonTint.swift; sourceTree = "<group>"; };
 		E5A7A9B72B57F81400590EA6 /* Color+Hex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Color+Hex.swift"; sourceTree = "<group>"; };
 		E5A7A9B82B57F81400590EA6 /* TextField+LimitInputLength.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TextField+LimitInputLength.swift"; sourceTree = "<group>"; };
 		E5A7A9B92B57F81400590EA6 /* Image+ScaleToFillFrame.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Image+ScaleToFillFrame.swift"; sourceTree = "<group>"; };
@@ -324,6 +326,7 @@
 				E5A7A9D52B57F81400590EA6 /* BottomSheetModifier.swift */,
 				E5A7A9D62B57F81400590EA6 /* BouncyButtonStyle.swift */,
 				E5A7A9D72B57F81400590EA6 /* SpinningModifier.swift */,
+				E5001F882B5BC09A004B65E6 /* AlertButtonTint.swift */,
 			);
 			path = ViewModifiers;
 			sourceTree = "<group>";
@@ -778,6 +781,7 @@
 				E5A7AA752B57F81400590EA6 /* PackyApp.swift in Sources */,
 				E5A7AA642B57F81400590EA6 /* SignUpNicknameView.swift in Sources */,
 				E5A7AA522B57F81400590EA6 /* SpinningModifier.swift in Sources */,
+				E5001F892B5BC09A004B65E6 /* AlertButtonTint.swift in Sources */,
 				E5A7AA5A2B57F81400590EA6 /* MakeBoxFeature.swift in Sources */,
 				E5A7AA562B57F81400590EA6 /* BoxChoiceFeature.swift in Sources */,
 				E5A7AA852B57F81400590EA6 /* UserNotificationClient.swift in Sources */,

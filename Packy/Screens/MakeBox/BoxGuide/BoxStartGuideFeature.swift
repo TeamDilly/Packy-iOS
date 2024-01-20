@@ -23,7 +23,7 @@ struct BoxStartGuideFeature: Reducer {
         let senderInfo: BoxSenderInfo
         let selectedBoxIndex: Int
 
-        @BindingState var isMusicBottomSheetPresented: Bool = true
+        @BindingState var isMusicBottomSheetPresented: Bool = false
         @BindingState var isLetterBottomSheetPresented: Bool = false
         @BindingState var isPhotoBottomSheetPresented: Bool = false
         @BindingState var isGiftBottomSheetPresented: Bool = false
@@ -38,6 +38,8 @@ struct BoxStartGuideFeature: Reducer {
         var filledPhotoInputCount: Int {
             photoInputs.filter{ $0.photoUrl != nil }.count
         }
+
+        @PresentationState var boxFinishAlert: AlertState<Action.Alert>?
     }
 
     enum Action: BindableAction {
@@ -54,6 +56,8 @@ struct BoxStartGuideFeature: Reducer {
         case photoSaveButtonTapped
         case photoDeleteButtonTapped
 
+        case nextButtonTapped
+
         // MARK: Inner Business Action
         case _onTask
 
@@ -61,6 +65,12 @@ struct BoxStartGuideFeature: Reducer {
         case _setDetents(Set<PresentationDetent>)
 
         // MARK: Child Action
+        case boxFinishAlert(PresentationAction<Alert>)
+
+        enum Alert {
+            case seeAgain
+            case finish
+        }
     }
 
     @Dependency(\.continuousClock) var clock
@@ -116,6 +126,23 @@ struct BoxStartGuideFeature: Reducer {
 
             case let ._setDetents(detents):
                 state.musicSheetDetents = detents
+                return .none
+
+            case .nextButtonTapped:
+                state.boxFinishAlert = AlertState {
+                    TextState("선물박스를 완성할까요?")
+                } actions: {
+                    ButtonState(action: .seeAgain) {
+                        TextState("다시 볼게요")
+                    }
+
+                    ButtonState(action: .finish) {
+                        TextState("완성할래요")
+                    }
+                } message: {
+                    TextState("완성한 이후에는 수정할 수 없어요")
+                }
+                
                 return .none
 
             default:
