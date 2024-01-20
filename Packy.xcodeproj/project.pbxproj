@@ -17,6 +17,7 @@
 		E58048C12B5BF0D200B974B3 /* UIImage+Compression.swift in Sources */ = {isa = PBXBuildFile; fileRef = E58048C02B5BF0D200B974B3 /* UIImage+Compression.swift */; };
 		E58048C32B5BFF3800B974B3 /* BoxStartGuideView+LetterSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = E58048C22B5BFF3800B974B3 /* BoxStartGuideView+LetterSheet.swift */; };
 		E58048C92B5C36DD00B974B3 /* CornerRadiusWithBorderModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = E58048C82B5C36DD00B974B3 /* CornerRadiusWithBorderModifier.swift */; };
+		E58048CB2B5C394700B974B3 /* Snackbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = E58048CA2B5C394700B974B3 /* Snackbar.swift */; };
 		E58A7B072B57FA3F0059FBF3 /* KakaoSDKAuth in Frameworks */ = {isa = PBXBuildFile; productRef = E58A7B062B57FA3F0059FBF3 /* KakaoSDKAuth */; };
 		E58A7B092B57FA3F0059FBF3 /* KakaoSDKCommon in Frameworks */ = {isa = PBXBuildFile; productRef = E58A7B082B57FA3F0059FBF3 /* KakaoSDKCommon */; };
 		E58A7B0B2B57FA3F0059FBF3 /* KakaoSDKUser in Frameworks */ = {isa = PBXBuildFile; productRef = E58A7B0A2B57FA3F0059FBF3 /* KakaoSDKUser */; };
@@ -132,6 +133,7 @@
 		E58048C02B5BF0D200B974B3 /* UIImage+Compression.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Compression.swift"; sourceTree = "<group>"; };
 		E58048C22B5BFF3800B974B3 /* BoxStartGuideView+LetterSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BoxStartGuideView+LetterSheet.swift"; sourceTree = "<group>"; };
 		E58048C82B5C36DD00B974B3 /* CornerRadiusWithBorderModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CornerRadiusWithBorderModifier.swift; sourceTree = "<group>"; };
+		E58048CA2B5C394700B974B3 /* Snackbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Snackbar.swift; sourceTree = "<group>"; };
 		E5A7A9B72B57F81400590EA6 /* Color+Hex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Color+Hex.swift"; sourceTree = "<group>"; };
 		E5A7A9B82B57F81400590EA6 /* TextField+LimitInputLength.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TextField+LimitInputLength.swift"; sourceTree = "<group>"; };
 		E5A7A9B92B57F81400590EA6 /* Image+ScaleToFillFrame.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Image+ScaleToFillFrame.swift"; sourceTree = "<group>"; };
@@ -319,6 +321,7 @@
 				E5A7A9CC2B57F81400590EA6 /* Checkbox.swift */,
 				E5A7A9C52B57F81400590EA6 /* CloseButton.swift */,
 				E5A7A9C02B57F81400590EA6 /* FloatingNavigationBar.swift */,
+				E5001F842B5BA011004B65E6 /* Line.swift */,
 				E5A7A9CA2B57F81400590EA6 /* MusicPlayerView.swift */,
 				E5A7A9C22B57F81400590EA6 /* NavigationBar.swift */,
 				E5A7A9C92B57F81400590EA6 /* PackyButton.swift */,
@@ -328,8 +331,8 @@
 				E5A7A9CB2B57F81400590EA6 /* PageIndicator.swift */,
 				E5A7A9C82B57F81400590EA6 /* PhotoElement.swift */,
 				E5A7A9CD2B57F81400590EA6 /* Radio.swift */,
+				E58048CA2B5C394700B974B3 /* Snackbar.swift */,
 				E5A7A9C72B57F81400590EA6 /* SocialLoginButton.swift */,
-				E5001F842B5BA011004B65E6 /* Line.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -345,9 +348,9 @@
 		E5A7A9CF2B57F81400590EA6 /* Font */ = {
 			isa = PBXGroup;
 			children = (
+				E5A7A9D22B57F81400590EA6 /* Font+Packy.swift */,
 				E5A7A9D02B57F81400590EA6 /* Font+Pretendard.swift */,
 				E5A7A9D12B57F81400590EA6 /* PackyFont.swift */,
-				E5A7A9D22B57F81400590EA6 /* Font+Packy.swift */,
 				E5A7A9D32B57F81400590EA6 /* PretendardFont.swift */,
 			);
 			path = Font;
@@ -356,11 +359,11 @@
 		E5A7A9D42B57F81400590EA6 /* ViewModifiers */ = {
 			isa = PBXGroup;
 			children = (
+				E5001F882B5BC09A004B65E6 /* AlertButtonTint.swift */,
 				E5A7A9D52B57F81400590EA6 /* BottomSheetModifier.swift */,
 				E5A7A9D62B57F81400590EA6 /* BouncyButtonStyle.swift */,
-				E5A7A9D72B57F81400590EA6 /* SpinningModifier.swift */,
-				E5001F882B5BC09A004B65E6 /* AlertButtonTint.swift */,
 				E58048C82B5C36DD00B974B3 /* CornerRadiusWithBorderModifier.swift */,
+				E5A7A9D72B57F81400590EA6 /* SpinningModifier.swift */,
 			);
 			path = ViewModifiers;
 			sourceTree = "<group>";
@@ -864,6 +867,7 @@
 				E5A7AA4A2B57F81400590EA6 /* Radio.swift in Sources */,
 				E58048C92B5C36DD00B974B3 /* CornerRadiusWithBorderModifier.swift in Sources */,
 				E5A7AA652B57F81400590EA6 /* LoginView.swift in Sources */,
+				E58048CB2B5C394700B974B3 /* Snackbar.swift in Sources */,
 				E5A7AA402B57F81400590EA6 /* NavigationBar.swift in Sources */,
 				E5A7AA612B57F81400590EA6 /* SignUpProfileView.swift in Sources */,
 				E5E73D4C2B597CB600729D99 /* BoxStartGuideView+PhotoSheet.swift in Sources */,

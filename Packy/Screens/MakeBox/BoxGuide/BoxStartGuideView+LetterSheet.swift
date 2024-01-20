@@ -11,7 +11,9 @@ import ComposableArchitecture
 extension BoxStartGuideView {
     struct LetterBottomSheet: View {
         @ObservedObject var viewStore: ViewStoreOf<BoxStartGuideFeature>
-        @FocusState var isLetterFieldFocused: Bool
+        @FocusState private var isLetterFieldFocused: Bool
+
+        @State private var isShownSnackbar: Bool = false
 
         init(viewStore: ViewStoreOf<BoxStartGuideFeature>) {
             self.viewStore = viewStore
@@ -43,34 +45,37 @@ extension BoxStartGuideView {
                     )
                     .focused($isLetterFieldFocused)
 
-                    HStack(spacing: 10) {
-                        ForEach(0..<4, id: \.self) { index in
-                            let isSelected = viewStore.letterInput.templateIndex == index
-                            Button {
-                                let newLetterInput = BoxStartGuideFeature.LetterInput(
-                                    templateIndex: index,
-                                    letter: viewStore.letterInput.letter
-                                )
-                                viewStore.send(.binding(.set(\.$letterInput, newLetterInput)))
-                                HapticManager.shared.fireFeedback(.medium)
-                            } label: {
-                                Image(.mock) // TODO: 선택된 박스 이미지 인덱스에 따라 업뎃
-                                    .resizable()
-                                    .aspectRatio(1, contentMode: .fit)
-                                    .cornerRadiusWithBorder(
-                                        radius: 16,
-                                        borderColor: isSelected ? .black : .white,
-                                        lineWidth: 5
+                    if !isLetterFieldFocused {
+                        HStack(spacing: 10) {
+                            ForEach(0..<4, id: \.self) { index in
+                                let isSelected = viewStore.letterInput.templateIndex == index
+                                Button {
+                                    let newLetterInput = BoxStartGuideFeature.LetterInput(
+                                        templateIndex: index,
+                                        letter: viewStore.letterInput.letter
                                     )
-                                    .animation(.spring, value: isSelected)
+                                    viewStore.send(.binding(.set(\.$letterInput, newLetterInput)))
+                                    HapticManager.shared.fireFeedback(.medium)
+                                } label: {
+                                    Image(.mock) // TODO: 선택된 편지 인덱스에 따라 업뎃
+                                        .resizable()
+                                        .aspectRatio(1, contentMode: .fit)
+                                        .cornerRadiusWithBorder(
+                                            radius: 16,
+                                            borderColor: isSelected ? .black : .white,
+                                            lineWidth: 5
+                                        )
+                                        .animation(.spring, value: isSelected)
+                                }
+                                .buttonStyle(.bouncy)
                             }
-                            .buttonStyle(.bouncy)
                         }
+                        .padding(.top, 16)
                     }
-                    .padding(.top, 16)
 
                     Spacer()
                 }
+                .snackbar(isShown: $isShownSnackbar, text: "최대 10줄까지 작성할 수 있어요")
                 .toolbar {
                     ToolbarItemGroup(placement: .keyboard) {
                         Spacer()
