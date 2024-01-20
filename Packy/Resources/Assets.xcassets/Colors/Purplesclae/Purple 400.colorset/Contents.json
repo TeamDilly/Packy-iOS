@@ -1,23 +1,20 @@
 {
-  "colors": [
+  "colors" : [
     {
-      "color": {
-        "color-space": "srgb",
-        "components": {
-          "alpha": "1.000",
-          "blue": "0.969",
-          "green": "0.475",
-          "red": "0.475"
+      "color" : {
+        "color-space" : "srgb",
+        "components" : {
+          "alpha" : "1.000",
+          "blue" : "0.959",
+          "green" : "0.468",
+          "red" : "0.507"
         }
       },
-      "idiom": "universal"
+      "idiom" : "universal"
     }
   ],
-  "info": {
-    "author": "xcode-color-asset-exporter",
-    "version": 1
-  },
-  "properties": {
-    "provides-namespace": false
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
   }
 }
