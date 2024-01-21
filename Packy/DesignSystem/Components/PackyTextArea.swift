@@ -48,9 +48,9 @@ struct PackyTextArea: View {
             .packyFont(.body4)
             .foregroundStyle(.gray600)
             .padding(16)
-            .onTapGesture {
-                isFocused = true
-            }
+        }
+        .onTapGesture {
+            isFocused = true
         }
     }
 }

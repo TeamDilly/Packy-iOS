@@ -32,7 +32,7 @@ struct BoxStartGuideFeature: Reducer {
     }
 
     struct LetterInput: Equatable {
-        var templateIndex: Int = 0
+        @BindingState var selectedLetterDesign: LetterDesign?
         var letter: String = ""
     }
 
@@ -73,7 +73,7 @@ struct BoxStartGuideFeature: Reducer {
         case photoSaveButtonTapped
         case photoDeleteButtonTapped
 
-        case letterAddButtonTapped
+        case letterSaveButtonTapped
 
         case nextButtonTapped
 
@@ -121,8 +121,10 @@ struct BoxStartGuideFeature: Reducer {
                 return .none
 
             // MARK: Set Design
+
             case let ._setLetterDesigns(letterDesigns):
                 state.letterDesigns = letterDesigns
+                state.letterInput.selectedLetterDesign = letterDesigns.first
                 return .none
 
             case let ._setRecommendedMusics(recommendedMusics):
@@ -224,7 +226,7 @@ struct BoxStartGuideFeature: Reducer {
 
             // MARK: Letter
 
-            case .letterAddButtonTapped:
+            case .letterSaveButtonTapped:
                 state.isLetterBottomSheetPresented = false
                 return .none
 

@@ -7,6 +7,7 @@
 
 import SwiftUI
 import ComposableArchitecture
+import Kingfisher
 
 extension BoxStartGuideView {
     struct LetterBottomSheet: View {
@@ -47,17 +48,13 @@ extension BoxStartGuideView {
 
                     if !isLetterFieldFocused {
                         HStack(spacing: 10) {
-                            ForEach(0..<4, id: \.self) { index in
-                                let isSelected = viewStore.letterInput.templateIndex == index
+                            ForEach(viewStore.letterDesigns, id: \.id) { letterDesign in
+                                let isSelected = viewStore.letterInput.selectedLetterDesign == letterDesign
                                 Button {
-                                    let newLetterInput = BoxStartGuideFeature.LetterInput(
-                                        templateIndex: index,
-                                        letter: viewStore.letterInput.letter
-                                    )
-                                    viewStore.send(.binding(.set(\.$letterInput, newLetterInput)))
+                                    viewStore.send(.binding(.set(\.letterInput.$selectedLetterDesign, letterDesign)))
                                     HapticManager.shared.fireFeedback(.medium)
                                 } label: {
-                                    Image(.mock) // TODO: 선택된 편지 인덱스에 따라 업뎃
+                                    KFImage(URL(string: letterDesign.letterPaperUrl))
                                         .resizable()
                                         .aspectRatio(1, contentMode: .fit)
                                         .cornerRadiusWithBorder(
@@ -77,9 +74,10 @@ extension BoxStartGuideView {
 
                     if !isLetterFieldFocused {
                         PackyButton(title: "저장", colorType: .black) {
-                            viewStore.send(.photoSaveButtonTapped)
+                            viewStore.send(.letterSaveButtonTapped)
                         }
                         .padding(.bottom, 16)
+                        .disabled(viewStore.letterInput.letter.isEmpty)
                     }
                 }
                 .snackbar(isShown: $isShownSnackbar, text: "최대 10줄까지 작성할 수 있어요")
