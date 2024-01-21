@@ -7,6 +7,7 @@
 
 import SwiftUI
 import ComposableArchitecture
+import Kingfisher
 
 // MARK: - View
 
@@ -26,10 +27,6 @@ struct BoxStartGuideView: View {
     var body: some View {
         GeometryReader { proxy in
             let screenWidth = proxy.size.width
-            let photoSize = BoxElementShape.photo.size(fromScreenWidth: screenWidth)
-            let stickerSize = BoxElementShape.sticker1.size(fromScreenWidth: screenWidth)
-            let letterSize = BoxElementShape.letter.size(fromScreenWidth: screenWidth)
-            let musicSize = BoxElementShape.music.size(fromScreenWidth: screenWidth)
 
             ZStack {
                 if viewStore.isShowingGuideText {
@@ -52,8 +49,17 @@ struct BoxStartGuideView: View {
 
                     HStack {
                         // 추억 사진 담기
-                        ElementGuideView(element: .photo, screenWidth: screenWidth) {
-                            viewStore.send(.binding(.set(\.$isPhotoBottomSheetPresented, true)))
+                        if let photoUrl = viewStore.photoInput.photoUrl {
+                            PhotoPresentingView(
+                                photoUrl: photoUrl,
+                                screenWidth: screenWidth
+                            ) {
+                                viewStore.send(.binding(.set(\.$isPhotoBottomSheetPresented, true)))
+                            }
+                        } else {
+                            ElementGuideView(element: .photo, screenWidth: screenWidth) {
+                                viewStore.send(.binding(.set(\.$isPhotoBottomSheetPresented, true)))
+                            }
                         }
 
                         Spacer()
@@ -78,8 +84,17 @@ struct BoxStartGuideView: View {
                         Spacer()
 
                         // 편지 쓰기
-                        ElementGuideView(element: .letter, screenWidth: screenWidth) {
-                            viewStore.send(.binding(.set(\.$isLetterBottomSheetPresented, true)))
+                        if !viewStore.letterInput.letter.isEmpty {
+                            LetterPresentingView(
+                                input: viewStore.letterInput,
+                                screenWidth: screenWidth
+                            ) {
+                                viewStore.send(.binding(.set(\.$isLetterBottomSheetPresented, true)))
+                            }
+                        } else {
+                            ElementGuideView(element: .letter, screenWidth: screenWidth) {
+                                viewStore.send(.binding(.set(\.$isLetterBottomSheetPresented, true)))
+                            }
                         }
                     }
                     .padding(.leading, 36)
@@ -182,6 +197,82 @@ private struct ElementGuideView: View {
                         }
                     }
                 }
+        }
+        .buttonStyle(.bouncy)
+    }
+}
+
+private struct PhotoPresentingView: View {
+    let photoUrl: URL
+    let screenWidth: CGFloat
+    let action: () -> Void
+
+    private let element = BoxElementShape.photo
+
+    var body: some View {
+        let size = element.size(fromScreenWidth: screenWidth)
+
+        Button {
+            action()
+        } label: {
+            VStack {
+                KFImage(photoUrl)
+                    .placeholder {
+                        ProgressView()
+                            .progressViewStyle(.circular)
+                    }
+                    .resizable()
+                    .aspectRatio(1, contentMode: .fit)
+                    .padding(.horizontal, 8)
+                    .padding(.top, 8)
+
+                Spacer()
+            }
+            .frame(width: size.width, height: size.height)
+            .background(.white)
+            .rotationEffect(.degrees(element.rotationDegree))
+        }
+        .buttonStyle(.bouncy)
+    }
+}
+
+private struct LetterPresentingView: View {
+    let input: BoxStartGuideFeature.LetterInput
+    let screenWidth: CGFloat
+    let action: () -> Void
+
+    private let element = BoxElementShape.letter
+    private let letterContentWidthRatio: CGFloat = 160 / 180
+    private let letterContentHeightRatio: CGFloat = 130 / 150
+
+    var body: some View {
+        let size = element.size(fromScreenWidth: screenWidth)
+        let letterContentWidth = letterContentWidthRatio * size.width
+        let letterContentHeight = letterContentHeightRatio * size.height
+        let spacing = letterContentWidth * (20 / 160)
+
+        Button {
+            action()
+        } label: {
+            ZStack {
+                Text(input.letter)
+                    .packyFont(.body6)
+                    .foregroundStyle(.gray900)
+                    .padding(8)
+                    .frame(width: letterContentWidth, height: letterContentHeight, alignment: .top)
+                    .background(
+                        RoundedRectangle(cornerRadius: 8)
+                            .fill(.white)
+                    )
+
+                // TODO: input.templateIndex 적용
+                Image(.envelopeSample)
+                    .resizable()
+                    .frame(width: letterContentWidth, height: letterContentHeight, alignment: .top)
+                    .offset(x: spacing, y: spacing)
+            }
+            .frame(width: size.width, height: size.height)
+            .rotationEffect(.degrees(element.rotationDegree))
         }
         .buttonStyle(.bouncy)
     }

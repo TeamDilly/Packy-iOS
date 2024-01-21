@@ -74,6 +74,13 @@ extension BoxStartGuideView {
                     }
 
                     Spacer()
+
+                    if !isLetterFieldFocused {
+                        PackyButton(title: "저장", colorType: .black) {
+                            viewStore.send(.photoSaveButtonTapped)
+                        }
+                        .padding(.bottom, 16)
+                    }
                 }
                 .snackbar(isShown: $isShownSnackbar, text: "최대 10줄까지 작성할 수 있어요")
                 .toolbar {

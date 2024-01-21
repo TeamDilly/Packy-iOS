@@ -53,6 +53,7 @@ struct BoxStartGuideFeature: Reducer {
     enum Action: BindableAction {
         // MARK: User Action
         case binding(BindingAction<State>)
+
         case musicBottomSheetBackButtonTapped
         case musicChoiceUserSelectButtonTapped
         case musicChoiceRecommendButtonTapped
@@ -64,6 +65,8 @@ struct BoxStartGuideFeature: Reducer {
         case photoAddButtonTapped
         case photoSaveButtonTapped
         case photoDeleteButtonTapped
+
+        case letterAddButtonTapped
 
         case nextButtonTapped
 
@@ -165,6 +168,10 @@ struct BoxStartGuideFeature: Reducer {
                 state.photoInput.photoUrl = nil
                 return .none
 
+            case .photoSaveButtonTapped:
+                state.isPhotoBottomSheetPresented = false
+                return .none
+
             case .nextButtonTapped:
                 state.boxFinishAlert = AlertState {
                     TextState("선물박스를 완성할까요?")
@@ -180,6 +187,12 @@ struct BoxStartGuideFeature: Reducer {
                     TextState("완성한 이후에는 수정할 수 없어요")
                 }
                 
+                return .none
+
+            // MARK: Letter
+
+            case .letterAddButtonTapped:
+                state.isLetterBottomSheetPresented = false
                 return .none
 
             default:

@@ -12,7 +12,8 @@ import PhotosUI
 struct PhotoElement: View {
     var imageURL: URL?
     @Binding var text: String
-    
+    var placeholder: String = "사진 속 추억을 적어주세요"
+
     private var isPhotoPickable: Bool = false
     private var selectedPhotoData: ((Data?) -> Void)? = nil
     @State private var selectedItem: PhotosPickerItem? = nil
@@ -33,7 +34,7 @@ struct PhotoElement: View {
                 imageView
             }
             
-            PhotoTextField(text: $text, placeholder: "사진 속 추억을 적어주세요")
+            PhotoTextField(text: $text, placeholder: placeholder)
                 .frame(width: 280, height: 46)
         }
         .padding(16)
