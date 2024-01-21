@@ -30,6 +30,7 @@
 		E5A416AD2B5D218E00313E5A /* MessageDesign.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A416AC2B5D218D00313E5A /* MessageDesign.swift */; };
 		E5A416AF2B5D21B700313E5A /* LetterDesign.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A416AE2B5D21B700313E5A /* LetterDesign.swift */; };
 		E5A416B12B5D220B00313E5A /* BoxDesign.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A416B02B5D220B00313E5A /* BoxDesign.swift */; };
+		E5A416B32B5D350C00313E5A /* BoxStartGuideView+StickerSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A416B22B5D350C00313E5A /* BoxStartGuideView+StickerSheet.swift */; };
 		E5A7AA362B57F81400590EA6 /* Color+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7A9B72B57F81400590EA6 /* Color+Hex.swift */; };
 		E5A7AA372B57F81400590EA6 /* TextField+LimitInputLength.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7A9B82B57F81400590EA6 /* TextField+LimitInputLength.swift */; };
 		E5A7AA382B57F81400590EA6 /* Image+ScaleToFillFrame.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7A9B92B57F81400590EA6 /* Image+ScaleToFillFrame.swift */; };
@@ -152,6 +153,7 @@
 		E5A416AC2B5D218D00313E5A /* MessageDesign.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageDesign.swift; sourceTree = "<group>"; };
 		E5A416AE2B5D21B700313E5A /* LetterDesign.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LetterDesign.swift; sourceTree = "<group>"; };
 		E5A416B02B5D220B00313E5A /* BoxDesign.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoxDesign.swift; sourceTree = "<group>"; };
+		E5A416B22B5D350C00313E5A /* BoxStartGuideView+StickerSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BoxStartGuideView+StickerSheet.swift"; sourceTree = "<group>"; };
 		E5A7A9B72B57F81400590EA6 /* Color+Hex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Color+Hex.swift"; sourceTree = "<group>"; };
 		E5A7A9B82B57F81400590EA6 /* TextField+LimitInputLength.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TextField+LimitInputLength.swift"; sourceTree = "<group>"; };
 		E5A7A9B92B57F81400590EA6 /* Image+ScaleToFillFrame.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Image+ScaleToFillFrame.swift"; sourceTree = "<group>"; };
@@ -739,6 +741,7 @@
 				E5E73D492B597C0200729D99 /* BoxStartGuideView+MusicSheet.swift */,
 				E5E73D4B2B597CB600729D99 /* BoxStartGuideView+PhotoSheet.swift */,
 				E58048C22B5BFF3800B974B3 /* BoxStartGuideView+LetterSheet.swift */,
+				E5A416B22B5D350C00313E5A /* BoxStartGuideView+StickerSheet.swift */,
 			);
 			path = BoxGuide;
 			sourceTree = "<group>";
@@ -933,6 +936,7 @@
 				E5A7AA7C2B57F81400590EA6 /* AuthClient.swift in Sources */,
 				E5A7AA842B57F81400590EA6 /* SocialLoginClient.swift in Sources */,
 				E5A7AA682B57F81400590EA6 /* OnboardingFeature.swift in Sources */,
+				E5A416B32B5D350C00313E5A /* BoxStartGuideView+StickerSheet.swift in Sources */,
 				E5A7AA472B57F81400590EA6 /* MusicPlayerView.swift in Sources */,
 				E5A7AA462B57F81400590EA6 /* PackyButton.swift in Sources */,
 				E5A7AA552B57F81400590EA6 /* BoxChoiceView.swift in Sources */,

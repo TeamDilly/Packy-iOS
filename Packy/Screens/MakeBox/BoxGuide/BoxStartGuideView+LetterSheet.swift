@@ -55,6 +55,10 @@ extension BoxStartGuideView {
                                     HapticManager.shared.fireFeedback(.medium)
                                 } label: {
                                     KFImage(URL(string: letterDesign.letterPaperUrl))
+                                        .placeholder {
+                                            ProgressView()
+                                                .progressViewStyle(.circular)
+                                        }
                                         .resizable()
                                         .aspectRatio(1, contentMode: .fit)
                                         .cornerRadiusWithBorder(

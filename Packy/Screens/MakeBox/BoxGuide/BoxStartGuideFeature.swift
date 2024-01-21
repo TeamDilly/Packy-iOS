@@ -45,7 +45,7 @@ struct BoxStartGuideFeature: Reducer {
         @BindingState var isMusicBottomSheetPresented: Bool = false
         @BindingState var isLetterBottomSheetPresented: Bool = false
         @BindingState var isPhotoBottomSheetPresented: Bool = false
-        @BindingState var isGiftBottomSheetPresented: Bool = false
+        @BindingState var isStickerBottomSheetPresented: Bool = false
 
         @BindingState var musicInput: MusicInput = .init()
         @BindingState var photoInput: PhotoInput = .init()

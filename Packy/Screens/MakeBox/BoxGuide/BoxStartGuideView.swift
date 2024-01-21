@@ -65,7 +65,7 @@ struct BoxStartGuideView: View {
 
                         // 스티커1
                         ElementGuideView(element: .sticker1, screenWidth: screenWidth) {
-                            // 스티커1 추가
+                            viewStore.send(.binding(.set(\.$isStickerBottomSheetPresented, true)))
                         }
                         .offset(y: 10)
                     }
@@ -76,7 +76,7 @@ struct BoxStartGuideView: View {
                     HStack {
                         // 스티커2
                         ElementGuideView(element: .sticker2, screenWidth: screenWidth) {
-                            // 스티커2 추가
+                            viewStore.send(.binding(.set(\.$isStickerBottomSheetPresented, true)))
                         }
                         .offset(y: -5)
 
@@ -158,6 +158,15 @@ struct BoxStartGuideView: View {
         ) {
             LetterBottomSheet(viewStore: viewStore)
         }
+        // 스티커 추가 바텀 시트
+        .bottomSheet(
+            isPresented: viewStore.$isStickerBottomSheetPresented,
+            detents: [.fraction(0.35)],
+            isBackgroundBlack: false,
+            hideTopButtons: true
+        ) {
+            addStickerBottomSheet
+        }
         .alertButtonTint(color: .black)
         .alert(store: store.scope(state: \.$boxFinishAlert, action: \.boxFinishAlert))
         .accentColor(.black)
@@ -183,6 +192,7 @@ private struct ElementGuideView: View {
 
     var body: some View {
         Button {
+            HapticManager.shared.fireFeedback(.medium)
             action()
         } label: {
             let size = element.size(fromScreenWidth: screenWidth)

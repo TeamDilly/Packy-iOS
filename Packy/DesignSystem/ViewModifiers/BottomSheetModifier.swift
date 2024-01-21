@@ -15,10 +15,12 @@ extension View {
         showLeadingButton: Bool = false,
         leadingButtonAction: (() -> Void)? = nil,
         closeButtonAction: (() -> Void)? = nil,
+        isBackgroundBlack: Bool = true,
+        hideTopButtons: Bool = false,
         sheetContent: @escaping () -> Content
     ) -> some View {
         modifier(
-            BottomSheetModifier(isPresented: isPresented, currentDetent: currentDetent, detents: detents, showLeadingButton: showLeadingButton, leadingButtonAction: leadingButtonAction, closeButtonAction: closeButtonAction, sheetContent: sheetContent)
+            BottomSheetModifier(isPresented: isPresented, currentDetent: currentDetent, detents: detents, showLeadingButton: showLeadingButton, leadingButtonAction: leadingButtonAction, closeButtonAction: closeButtonAction, isBackgroundBlack: isBackgroundBlack, hideTopButtons: hideTopButtons, sheetContent: sheetContent)
         )
     }
 }
@@ -30,39 +32,45 @@ struct BottomSheetModifier<SheetContent: View>: ViewModifier {
     let showLeadingButton: Bool
     let leadingButtonAction: (() -> Void)?
     let closeButtonAction: (() -> Void)?
+    let isBackgroundBlack: Bool
+    let hideTopButtons: Bool
 
     let sheetContent: () -> SheetContent
 
     func body(content baseContent: Content) -> some View {
         ZStack {
-            Color.black
-                .ignoresSafeArea()
-                .zIndex(1)
-                .opacity(isPresented ? 0.6 : 0)
-                .animation(.spring, value: isPresented)
+            if isBackgroundBlack {
+                Color.black
+                    .ignoresSafeArea()
+                    .zIndex(1)
+                    .opacity(isPresented ? 0.6 : 0)
+                    .animation(.spring, value: isPresented)
+            }
 
             baseContent
                 .sheet(isPresented: $isPresented) {
                     VStack(spacing: 0) {
-                        HStack {
-                            if showLeadingButton {
-                                Button {
-                                    leadingButtonAction?()
-                                } label: {
-                                    Image(.arrowLeft)
+                        if !hideTopButtons {
+                            HStack {
+                                if showLeadingButton {
+                                    Button {
+                                        leadingButtonAction?()
+                                    } label: {
+                                        Image(.arrowLeft)
+                                    }
+                                }
+                                
+                                Spacer()
+                                CloseButton(colorType: .light) {
+                                    closeButtonAction?()
+                                    isPresented = false
                                 }
                             }
-
-                            Spacer()
-                            CloseButton(colorType: .light) {
-                                closeButtonAction?()
-                                isPresented = false
-                            }
+                            .padding(.horizontal, 16)
+                            .frame(height: 48)
+                            .padding(.top, 8)
                         }
-                        .padding(.horizontal, 16)
-                        .frame(height: 48)
-                        .padding(.top, 8)
-                        
+
                         sheetContent()
                     }
                     .presentationCornerRadius(24)
@@ -72,8 +80,10 @@ struct BottomSheetModifier<SheetContent: View>: ViewModifier {
                     .ifLet(currentDetent) { view, currentDetent in
                         view.presentationDetents(detents, selection: currentDetent)
                     }
+                    .if(!hideTopButtons) { view in
+                        view.interactiveDismissDisabled()
+                    }
                     .presentationDragIndicator(.hidden)
-                    .interactiveDismissDisabled()
                 }
         }
         .onAppear {
