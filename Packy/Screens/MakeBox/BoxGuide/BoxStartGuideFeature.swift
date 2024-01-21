@@ -51,7 +51,7 @@ struct BoxStartGuideFeature: Reducer {
         @BindingState var photoInput: PhotoInput = .init()
         @BindingState var letterInput: LetterInput = .init()
 
-        @PresentationState var boxFinishAlert: AlertState<Action.Alert>?
+        @BindingState var isShowBoxFinishAlert: Bool = false
 
         var recommendedMusics: [RecommendedMusic] = []
         var letterDesigns: [LetterDesign] = []
@@ -76,6 +76,7 @@ struct BoxStartGuideFeature: Reducer {
         case letterSaveButtonTapped
 
         case nextButtonTapped
+        case makeBoxConfirmButtonTapped
 
         // MARK: Inner Business Action
         case _onTask
@@ -88,12 +89,6 @@ struct BoxStartGuideFeature: Reducer {
         case _setRecommendedMusics([RecommendedMusic])
 
         // MARK: Child Action
-        case boxFinishAlert(PresentationAction<Alert>)
-
-        enum Alert {
-            case seeAgain
-            case finish
-        }
     }
 
     @Dependency(\.continuousClock) var clock
@@ -208,26 +203,17 @@ struct BoxStartGuideFeature: Reducer {
                 return .none
 
             case .nextButtonTapped:
-                state.boxFinishAlert = AlertState {
-                    TextState("선물박스를 완성할까요?")
-                } actions: {
-                    ButtonState(action: .seeAgain) {
-                        TextState("다시 볼게요")
-                    }
-
-                    ButtonState(action: .finish) {
-                        TextState("완성할래요")
-                    }
-                } message: {
-                    TextState("완성한 이후에는 수정할 수 없어요")
-                }
-                
+                state.isShowBoxFinishAlert = true
                 return .none
 
             // MARK: Letter
 
             case .letterSaveButtonTapped:
                 state.isLetterBottomSheetPresented = false
+                return .none
+
+            case .makeBoxConfirmButtonTapped:
+                // TODO: 실제 서버 통신해서 박스 만드는 과정 마무리
                 return .none
 
             default:
