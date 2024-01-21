@@ -10,6 +10,8 @@ import AuthenticationServices
 
 enum AppleLoginError: LocalizedError {
     case invalidCredential
+    case invalidIdentityToken
+    case invalidAuthorizationCode
     case transferError(Error)
 }
 
@@ -40,30 +42,31 @@ final class AppleLoginController: NSObject, ASAuthorizationControllerDelegate {
             return
         }
 
-        guard let email = credential.email else {
-            // continuation
-            return
-        }
-        print("🍎 appleLogin email \(email)")
+        let email = credential.email
+        print("🍎 appleLogin email \(email ?? "")")
 
-        guard let fullName = credential.fullName else {
-            // continuation
-            return
-        }
-        print("🍎 appleLogin fullName \(fullName)")
+        let fullName = credential.fullName
+        print("🍎 appleLogin fullName \(fullName?.description ?? "")")
 
         guard let tokenData = credential.identityToken,
               let token = String(data: tokenData, encoding: .utf8) else {
+            continuation?.resume(throwing: AppleLoginError.invalidIdentityToken)
+            return
+        }
+
+        guard let authorizationCode = credential.authorizationCode,
+              let codeString = String(data: authorizationCode, encoding: .utf8) else {
+            continuation?.resume(throwing: AppleLoginError.invalidAuthorizationCode)
             return
         }
         print("🍎 appleLogin token \(token)")
+        print("🍎 appleLogin authorizationCode \(codeString)")
 
         let userIdentifier = credential.user
 
-
         let info = SocialLoginInfo(
             id: userIdentifier,
-            token: token,
+            authorization: codeString,
             name: String(describing: fullName),
             email: email,
             provider: .apple

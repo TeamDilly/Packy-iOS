@@ -74,7 +74,7 @@ private extension LoginFeature {
         do {
             await send(._setSocialLoginInfo(info))
 
-            let response = try await authClient.signIn(.init(provider: info.provider, authorization: info.token))
+            let response = try await authClient.signIn(.init(provider: info.provider, authorization: info.authorization))
 
             guard response.status == .registered,
                   let tokenInfo = response.tokenInfo,

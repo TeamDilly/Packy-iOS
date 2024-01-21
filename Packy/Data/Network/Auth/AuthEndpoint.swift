@@ -21,7 +21,7 @@ enum AuthEndpoint {
 
 extension AuthEndpoint: TargetType {
     var baseURL: URL {
-        return URL(string: "http://packy-dev.ap-northeast-2.elasticbeanstalk.com/api/v1/")!
+        return URL(string: "https://dev.packyforyou.shop/api/v1/")!
     }
     
     var path: String {

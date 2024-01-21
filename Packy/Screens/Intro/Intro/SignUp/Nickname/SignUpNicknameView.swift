@@ -97,7 +97,7 @@ private extension SignUpNicknameView {
 #Preview {
     SignUpNicknameView(
         store: .init(
-            initialState: .init(socialLoginInfo: SocialLoginInfo(id: "", token: "", name: "", email: nil, provider: .kakao)),
+            initialState: .init(socialLoginInfo: SocialLoginInfo(id: "", authorization: "", name: "", email: nil, provider: .kakao)),
             reducer: {
                 SignUpNicknameFeature()
                     ._printChanges()

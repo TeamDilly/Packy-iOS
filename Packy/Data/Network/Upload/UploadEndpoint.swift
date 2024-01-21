@@ -20,7 +20,7 @@ extension UploadEndpoint: TargetType {
     var baseURL: URL {
         switch self {
         case .getPreSignedUrl:
-            URL(string: "http://packy-dev.ap-northeast-2.elasticbeanstalk.com/api/v1/")!
+            URL(string: "https://dev.packyforyou.shop/api/v1/")!
         case let .upload(url, _):
             url
         }

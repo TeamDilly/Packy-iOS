@@ -125,7 +125,7 @@ struct TermsAgreementFeature: Reducer {
                     let request = buildSignUpRequest(from: state)
 
                     do {
-                        let response = try await authClient.signUp(state.socialLoginInfo.token, request)
+                        let response = try await authClient.signUp(state.socialLoginInfo.authorization, request)
 
                         guard let accessToken = response.accessToken,
                               let refreshToken = response.refreshToken else { return }

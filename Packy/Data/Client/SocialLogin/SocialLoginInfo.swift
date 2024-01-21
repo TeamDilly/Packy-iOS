@@ -9,7 +9,7 @@ import Foundation
 
 struct SocialLoginInfo: Equatable {
     let id: String
-    let token: String
+    let authorization: String
     let name: String?
     let email: String?
     let provider: SocialLoginProvider
@@ -18,5 +18,5 @@ struct SocialLoginInfo: Equatable {
 // MARK: - Mock Data
 
 extension SocialLoginInfo {
-    static let mock = SocialLoginInfo(id: "", token: "", name: "mason", email: "packy@dilly.com", provider: .apple)
+    static let mock = SocialLoginInfo(id: "", authorization: "", name: "mason", email: "packy@dilly.com", provider: .apple)
 }

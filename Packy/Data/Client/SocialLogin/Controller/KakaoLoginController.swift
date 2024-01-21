@@ -82,7 +82,7 @@ struct KakaoLoginController {
 
             let info = SocialLoginInfo(
                 id: String(userId),
-                token: accessToken,
+                authorization: accessToken,
                 name: user.kakaoAccount?.name,
                 email: user.kakaoAccount?.email,
                 provider: .kakao
