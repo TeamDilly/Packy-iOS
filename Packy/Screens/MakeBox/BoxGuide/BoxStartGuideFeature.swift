@@ -36,6 +36,8 @@ struct BoxStartGuideFeature: Reducer {
         let senderInfo: BoxSenderInfo
         let selectedBoxIndex: Int
 
+        var isShowingGuideText: Bool = true
+
         @BindingState var isMusicBottomSheetPresented: Bool = false
         @BindingState var isLetterBottomSheetPresented: Bool = false
         @BindingState var isPhotoBottomSheetPresented: Bool = false
@@ -71,6 +73,7 @@ struct BoxStartGuideFeature: Reducer {
         // MARK: Inner SetState Action
         case _setDetents(Set<PresentationDetent>)
         case _setUploadedPhotoUrl(URL?)
+        case _setIsShowingGuideText(Bool)
 
         // MARK: Child Action
         case boxFinishAlert(PresentationAction<Alert>)
@@ -90,6 +93,13 @@ struct BoxStartGuideFeature: Reducer {
         Reduce<State, Action> { state, action in
             switch action {
             case ._onTask:
+                return .run { send in
+                    try? await clock.sleep(for: .seconds(2))
+                    await send(._setIsShowingGuideText(false), animation: .spring)
+                }
+
+            case let ._setIsShowingGuideText(isShowing):
+                state.isShowingGuideText = isShowing
                 return .none
 
             // MARK: Music

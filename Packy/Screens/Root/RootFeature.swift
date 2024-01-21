@@ -16,7 +16,7 @@ struct RootFeature: Reducer {
         case home(HomeFeature.State = .init())
         case makeBox(MakeBoxFeature.State = .init())
 
-        init() { self = .makeBox() }
+        init() { self = .intro() }
     }
 
     enum Action {
@@ -44,12 +44,17 @@ struct RootFeature: Reducer {
             case ._onAppear:
                 socialLogin.initKakaoSDK()
 
+                // TODO: 테스트를 위한 로직 (토큰 삭제)
+                keychain.delete(.accessToken)
+                keychain.delete(.refreshToken)
+
                 return .run { send in
                     // TODO: Token 만료 시, refresh token 으로 발급 로직 추가
 
                     /// AccessToken 존재 시, home 으로 이동
                     if keychain.read(.accessToken) != nil {
-                        await send(._changeScreen(.makeBox()))
+                        // TODO: 테스트를 위해 makeBox로 이동하도록 처리. 차후 home 으로 변경 필요
+                        await send(._changeScreen(.makeBox()), animation: .spring)
                     }
 
                     await userDefaults.setBool(true, .isPopGestureEnabled)
@@ -64,7 +69,7 @@ struct RootFeature: Reducer {
                     // 로그인 완료, 회원가입 완료 시 홈으로 이동
                 case .login(.delegate(.completeLogin)),
                      .signUp(.delegate(.completeSignUp)):
-                    return .send(._changeScreen(.home()), animation: .spring)
+                    return .send(._changeScreen(.makeBox()), animation: .spring)
 
                 default:
                     return .none

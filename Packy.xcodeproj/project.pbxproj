@@ -22,6 +22,7 @@
 		E58A7B072B57FA3F0059FBF3 /* KakaoSDKAuth in Frameworks */ = {isa = PBXBuildFile; productRef = E58A7B062B57FA3F0059FBF3 /* KakaoSDKAuth */; };
 		E58A7B092B57FA3F0059FBF3 /* KakaoSDKCommon in Frameworks */ = {isa = PBXBuildFile; productRef = E58A7B082B57FA3F0059FBF3 /* KakaoSDKCommon */; };
 		E58A7B0B2B57FA3F0059FBF3 /* KakaoSDKUser in Frameworks */ = {isa = PBXBuildFile; productRef = E58A7B0A2B57FA3F0059FBF3 /* KakaoSDKUser */; };
+		E5A416A22B5D076C00313E5A /* PopGestureDisableModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A416A12B5D076C00313E5A /* PopGestureDisableModifier.swift */; };
 		E5A7AA362B57F81400590EA6 /* Color+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7A9B72B57F81400590EA6 /* Color+Hex.swift */; };
 		E5A7AA372B57F81400590EA6 /* TextField+LimitInputLength.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7A9B82B57F81400590EA6 /* TextField+LimitInputLength.swift */; };
 		E5A7AA382B57F81400590EA6 /* Image+ScaleToFillFrame.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7A9B92B57F81400590EA6 /* Image+ScaleToFillFrame.swift */; };
@@ -136,6 +137,7 @@
 		E58048C82B5C36DD00B974B3 /* CornerRadiusWithBorderModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CornerRadiusWithBorderModifier.swift; sourceTree = "<group>"; };
 		E58048CA2B5C394700B974B3 /* Snackbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Snackbar.swift; sourceTree = "<group>"; };
 		E58048CC2B5CE2A300B974B3 /* UIScreen+CheckScreenSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScreen+CheckScreenSize.swift"; sourceTree = "<group>"; };
+		E5A416A12B5D076C00313E5A /* PopGestureDisableModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopGestureDisableModifier.swift; sourceTree = "<group>"; };
 		E5A7A9B72B57F81400590EA6 /* Color+Hex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Color+Hex.swift"; sourceTree = "<group>"; };
 		E5A7A9B82B57F81400590EA6 /* TextField+LimitInputLength.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TextField+LimitInputLength.swift"; sourceTree = "<group>"; };
 		E5A7A9B92B57F81400590EA6 /* Image+ScaleToFillFrame.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Image+ScaleToFillFrame.swift"; sourceTree = "<group>"; };
@@ -367,6 +369,7 @@
 				E5A7A9D62B57F81400590EA6 /* BouncyButtonStyle.swift */,
 				E58048C82B5C36DD00B974B3 /* CornerRadiusWithBorderModifier.swift */,
 				E5A7A9D72B57F81400590EA6 /* SpinningModifier.swift */,
+				E5A416A12B5D076C00313E5A /* PopGestureDisableModifier.swift */,
 			);
 			path = ViewModifiers;
 			sourceTree = "<group>";
@@ -830,6 +833,7 @@
 				E5A7AA562B57F81400590EA6 /* BoxChoiceFeature.swift in Sources */,
 				E5A7AA852B57F81400590EA6 /* UserNotificationClient.swift in Sources */,
 				E5A7AA532B57F81400590EA6 /* HomeView.swift in Sources */,
+				E5A416A22B5D076C00313E5A /* PopGestureDisableModifier.swift in Sources */,
 				E5A7AA732B57F81400590EA6 /* SocialLoginProvider.swift in Sources */,
 				E5A7AA802B57F81400590EA6 /* UserDefaultsClient.swift in Sources */,
 				E5001F852B5BA011004B65E6 /* Line.swift in Sources */,
