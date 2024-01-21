@@ -18,6 +18,7 @@
 		E58048C32B5BFF3800B974B3 /* BoxStartGuideView+LetterSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = E58048C22B5BFF3800B974B3 /* BoxStartGuideView+LetterSheet.swift */; };
 		E58048C92B5C36DD00B974B3 /* CornerRadiusWithBorderModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = E58048C82B5C36DD00B974B3 /* CornerRadiusWithBorderModifier.swift */; };
 		E58048CB2B5C394700B974B3 /* Snackbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = E58048CA2B5C394700B974B3 /* Snackbar.swift */; };
+		E58048CD2B5CE2A300B974B3 /* UIScreen+CheckScreenSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = E58048CC2B5CE2A300B974B3 /* UIScreen+CheckScreenSize.swift */; };
 		E58A7B072B57FA3F0059FBF3 /* KakaoSDKAuth in Frameworks */ = {isa = PBXBuildFile; productRef = E58A7B062B57FA3F0059FBF3 /* KakaoSDKAuth */; };
 		E58A7B092B57FA3F0059FBF3 /* KakaoSDKCommon in Frameworks */ = {isa = PBXBuildFile; productRef = E58A7B082B57FA3F0059FBF3 /* KakaoSDKCommon */; };
 		E58A7B0B2B57FA3F0059FBF3 /* KakaoSDKUser in Frameworks */ = {isa = PBXBuildFile; productRef = E58A7B0A2B57FA3F0059FBF3 /* KakaoSDKUser */; };
@@ -134,6 +135,7 @@
 		E58048C22B5BFF3800B974B3 /* BoxStartGuideView+LetterSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BoxStartGuideView+LetterSheet.swift"; sourceTree = "<group>"; };
 		E58048C82B5C36DD00B974B3 /* CornerRadiusWithBorderModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CornerRadiusWithBorderModifier.swift; sourceTree = "<group>"; };
 		E58048CA2B5C394700B974B3 /* Snackbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Snackbar.swift; sourceTree = "<group>"; };
+		E58048CC2B5CE2A300B974B3 /* UIScreen+CheckScreenSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScreen+CheckScreenSize.swift"; sourceTree = "<group>"; };
 		E5A7A9B72B57F81400590EA6 /* Color+Hex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Color+Hex.swift"; sourceTree = "<group>"; };
 		E5A7A9B82B57F81400590EA6 /* TextField+LimitInputLength.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TextField+LimitInputLength.swift"; sourceTree = "<group>"; };
 		E5A7A9B92B57F81400590EA6 /* Image+ScaleToFillFrame.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Image+ScaleToFillFrame.swift"; sourceTree = "<group>"; };
@@ -302,13 +304,14 @@
 			isa = PBXGroup;
 			children = (
 				E5A7A9B72B57F81400590EA6 /* Color+Hex.swift */,
-				E5A7A9B82B57F81400590EA6 /* TextField+LimitInputLength.swift */,
 				E5A7A9B92B57F81400590EA6 /* Image+ScaleToFillFrame.swift */,
-				E5A7A9BA2B57F81400590EA6 /* View+If.swift */,
+				E5D012992B58086F00236FEF /* SetWindowBackground.swift */,
+				E5A7A9B82B57F81400590EA6 /* TextField+LimitInputLength.swift */,
 				E5A7A9BB2B57F81400590EA6 /* UINavigationController+PopGesture.swift */,
+				E58048CC2B5CE2A300B974B3 /* UIScreen+CheckScreenSize.swift */,
 				E5A7A9BC2B57F81400590EA6 /* View+GetSize.swift */,
 				E5A7A9BD2B57F81400590EA6 /* View+HideKeyboard.swift */,
-				E5D012992B58086F00236FEF /* SetWindowBackground.swift */,
+				E5A7A9BA2B57F81400590EA6 /* View+If.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -887,6 +890,7 @@
 				E5A7AA7B2B57F81400590EA6 /* TokenInfoResponse.swift in Sources */,
 				E5A7AA702B57F81400590EA6 /* BaseResponse.swift in Sources */,
 				E5A7AA372B57F81400590EA6 /* TextField+LimitInputLength.swift in Sources */,
+				E58048CD2B5CE2A300B974B3 /* UIScreen+CheckScreenSize.swift in Sources */,
 				E5A7AA712B57F81400590EA6 /* Encodable+ToDictionary.swift in Sources */,
 				E5A7AA432B57F81400590EA6 /* PackyTextField.swift in Sources */,
 				E5A7AA7C2B57F81400590EA6 /* AuthClient.swift in Sources */,
