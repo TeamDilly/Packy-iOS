@@ -55,8 +55,8 @@ extension BoxStartGuideView {
                 .foregroundStyle(.gray600)
                 .frame(maxWidth: .infinity, alignment: .leading)
 
-            if let musicLinkPlayer = viewStore.musicInput.selectedMusicUrl {
-                YouTubePlayerView(musicLinkPlayer) { state in
+            if let selectedMusicUrl = viewStore.musicInput.selectedMusicUrl {
+                YouTubePlayerView(.init(stringLiteral: selectedMusicUrl)) { state in
                     switch state {
                     case .idle:
                         ProgressView()
@@ -95,8 +95,12 @@ extension BoxStartGuideView {
             Spacer()
 
             PackyButton(title: "저장", colorType: .black) {
-                viewStore.send(.musicLinkSaveButtonTapped)
+                viewStore.send(.musicSaveButtonTapped)
             }
+            .disabled(
+                viewStore.musicInput.musicBottomSheetMode == .userSelect
+                && viewStore.musicInput.selectedMusicUrl == nil
+            )
             .padding(.bottom, 16)
         }
         .padding(.horizontal, 24)
@@ -127,7 +131,7 @@ extension BoxStartGuideView {
                 }
                 .padding(.horizontal, 24)
 
-                CarouselView(items: TempMusic.musics) { music in
+                CarouselView(items: viewStore.recommendedMusics) { music in
                     VStack(spacing: 0) {
                         YouTubePlayerView(.init(stringLiteral: music.youtubeUrl)) { state in
                             switch state {
@@ -142,11 +146,11 @@ extension BoxStartGuideView {
                         }
                         .padding(.bottom, 16)
 
-                        Text(music.title)
+                        Text("제목을 서버에 요청해야 함")
                             .packyFont(.body1)
                             .foregroundStyle(.gray900)
 
-                        Text(music.hashTags.joined(separator: " "))
+                        Text(music.hashtags.joined(separator: " "))
                             .packyFont(.body4)
                             .foregroundStyle(.purple500)
                             .padding(.bottom, 16)
@@ -155,21 +159,20 @@ extension BoxStartGuideView {
                     .mask(RoundedRectangle(cornerRadius: 16))
                     .padding(.horizontal, 24)
                 }
-                .centeredItem($selectedTempMusic)
+                .centeredItem(viewStore.$musicInput.selectedRecommendedMusic)
                 .disableCollapsing()
                 .frame(height: cellHeight)
                 .padding(.top, cellTopPadding)
 
-                if let selectedTempMusic {
-                    let musicIndex = TempMusic.musics.firstIndex(of: selectedTempMusic) ?? 0
-                    PageIndicator(totalPages: TempMusic.musics.count, currentPage: musicIndex)
-                        .padding(.top, 32)
-                }
+                let selectedRecommendedMusic = viewStore.musicInput.selectedRecommendedMusic
+                let musicIndex = viewStore.recommendedMusics.firstIndex { $0.id == selectedRecommendedMusic?.id ?? 0 } ?? 0
+                PageIndicator(totalPages: viewStore.recommendedMusics.count, currentPage: musicIndex)
+                    .padding(.top, 32)
 
                 Spacer()
 
                 PackyButton(title: "저장", colorType: .black) {
-                    viewStore.send(.musicLinkSaveButtonTapped)
+                    viewStore.send(.musicSaveButtonTapped)
                 }
                 .padding(.horizontal, 24)
                 .padding(.bottom, 16)
@@ -178,15 +181,10 @@ extension BoxStartGuideView {
     }
 }
 
-// TODO: 실제 로직으로 대체
-
-struct TempMusic: Identifiable, Hashable {
-    let id: UUID = UUID()
-    var title: String { id.uuidString.prefix(8).lowercased() }
-    let hashTags: [String] = [ "#입학", "#취업", "#결혼"]
-    let youtubeUrl: String = "https://www.youtube.com/watch?v=neaxGr8_trU&list=RDneaxGr8_trU&start_radio=1"
-
-    static let musics: [TempMusic] = (0...5).map{ _ in TempMusic() }
+extension RecommendedMusic: Hashable, Identifiable {
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
 }
 
 // MARK: - MusicSelectionCell

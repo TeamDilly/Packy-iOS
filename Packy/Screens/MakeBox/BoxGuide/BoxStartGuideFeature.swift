@@ -13,21 +13,25 @@ import SwiftUI
 @Reducer
 struct BoxStartGuideFeature: Reducer {
 
-    struct MusicInput: Hashable {
-        @BindingState var musicLinkUrlInput: String = "https://www.youtube.com/watch?v=OZRLiBSeAG8"
+    struct MusicInput: Equatable {
         var musicBottomSheetMode: MusicBottomSheetMode = .choice
-        var selectedMusicUrl: YouTubePlayer?
-        var selectedMusicIndex: Int = 0
-        var showInvalidMusicUrlError: Bool = false
         var musicSheetDetents: Set<PresentationDetent> = MusicBottomSheetMode.allDetents
+
+        @BindingState var musicLinkUrlInput: String = "https://www.youtube.com/watch?v=OZRLiBSeAG8"
+        var showInvalidMusicUrlError: Bool = false
+
+        var selectedRecommendedMusic: RecommendedMusic? = nil
+
+        /// 최종 유저가 선택한 음악 url
+        var selectedMusicUrl: String? = nil
     }
 
-    struct PhotoInput: Hashable {
+    struct PhotoInput: Equatable {
         var photoUrl: URL?
         var text: String = ""
     }
 
-    struct LetterInput: Hashable {
+    struct LetterInput: Equatable {
         var templateIndex: Int = 0
         var letter: String = ""
     }
@@ -48,6 +52,9 @@ struct BoxStartGuideFeature: Reducer {
         @BindingState var letterInput: LetterInput = .init()
 
         @PresentationState var boxFinishAlert: AlertState<Action.Alert>?
+
+        var recommendedMusics: [RecommendedMusic] = []
+        var letterDesigns: [LetterDesign] = []
     }
 
     enum Action: BindableAction {
@@ -58,7 +65,7 @@ struct BoxStartGuideFeature: Reducer {
         case musicChoiceUserSelectButtonTapped
         case musicChoiceRecommendButtonTapped
         case musicLinkConfirmButtonTapped
-        case musicLinkSaveButtonTapped
+        case musicSaveButtonTapped
         case musicLinkDeleteButtonTapped
 
         case selectPhoto(Data)
@@ -77,6 +84,8 @@ struct BoxStartGuideFeature: Reducer {
         case _setDetents(Set<PresentationDetent>)
         case _setUploadedPhotoUrl(URL?)
         case _setIsShowingGuideText(Bool)
+        case _setLetterDesigns([LetterDesign])
+        case _setRecommendedMusics([RecommendedMusic])
 
         // MARK: Child Action
         case boxFinishAlert(PresentationAction<Alert>)
@@ -89,6 +98,7 @@ struct BoxStartGuideFeature: Reducer {
 
     @Dependency(\.continuousClock) var clock
     @Dependency(\.uploadClient) var uploadClient
+    @Dependency(\.boxClient) var boxClient
 
     var body: some Reducer<State, Action> {
         BindingReducer()
@@ -96,13 +106,27 @@ struct BoxStartGuideFeature: Reducer {
         Reduce<State, Action> { state, action in
             switch action {
             case ._onTask:
-                return .run { send in
-                    try? await clock.sleep(for: .seconds(2))
-                    await send(._setIsShowingGuideText(false), animation: .spring)
-                }
+                return .merge(
+                    .run { send in
+                        try? await clock.sleep(for: .seconds(2))
+                        await send(._setIsShowingGuideText(false), animation: .spring)
+                    },
+                    // 디자인들 조회...
+                    fetchLetterDesigns(),
+                    fetchRecommendedMusics()
+                )
 
             case let ._setIsShowingGuideText(isShowing):
                 state.isShowingGuideText = isShowing
+                return .none
+
+            // MARK: Set Design
+            case let ._setLetterDesigns(letterDesigns):
+                state.letterDesigns = letterDesigns
+                return .none
+
+            case let ._setRecommendedMusics(recommendedMusics):
+                state.recommendedMusics = recommendedMusics
                 return .none
 
             // MARK: Music
@@ -114,7 +138,7 @@ struct BoxStartGuideFeature: Reducer {
             case .musicBottomSheetBackButtonTapped:
                 guard state.musicInput.musicBottomSheetMode != .choice else { return .none }
                 state.musicInput.musicLinkUrlInput = ""
-                state.musicInput.selectedMusicUrl = nil
+                state.musicInput.selectedRecommendedMusic = nil
                 state.musicInput.musicBottomSheetMode = .choice
                 return changeDetentsForSmoothAnimation(for: .choice)
 
@@ -136,15 +160,24 @@ struct BoxStartGuideFeature: Reducer {
                     return .none
                 }
 
-                state.musicInput.selectedMusicUrl = .init(stringLiteral: state.musicInput.musicLinkUrlInput)
+                state.musicInput.selectedMusicUrl = state.musicInput.musicLinkUrlInput
                 return .none
 
-            case .musicLinkSaveButtonTapped:
-                // TODO: 서버 통신해서 저장
+            case .musicSaveButtonTapped:
+                switch state.musicInput.musicBottomSheetMode {
+                case .choice:
+                    break
+                case .userSelect:
+                    state.musicInput.selectedMusicUrl = state.musicInput.musicLinkUrlInput
+                case .recommend:
+                    state.musicInput.selectedMusicUrl = state.musicInput.selectedRecommendedMusic?.youtubeUrl
+                }
+                state.isMusicBottomSheetPresented = false
                 return .none
 
             case .musicLinkDeleteButtonTapped:
                 state.musicInput.musicLinkUrlInput = ""
+                state.musicInput.selectedRecommendedMusic = nil
                 state.musicInput.selectedMusicUrl = nil
                 return .none
 
@@ -210,6 +243,28 @@ private extension BoxStartGuideFeature {
             await send(._setDetents(MusicBottomSheetMode.allDetents))
             try? await clock.sleep(for: .seconds(0.1))
             await send(._setDetents([mode.detent]))
+        }
+    }
+
+    func fetchLetterDesigns() -> Effect<Action> {
+        .run { send in
+            do {
+                let letterDesigns = try await boxClient.fetchLetterDesigns()
+                await send(._setLetterDesigns(letterDesigns))
+            } catch {
+                print(error)
+            }
+        }
+    }
+
+    func fetchRecommendedMusics() -> Effect<Action> {
+        .run { send in
+            do {
+                let recommendedMusics = try await boxClient.fetchRecommendedMusics()
+                await send(._setRecommendedMusics(recommendedMusics))
+            } catch {
+                print(error)
+            }
         }
     }
 }

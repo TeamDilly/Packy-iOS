@@ -8,14 +8,13 @@
 import SwiftUI
 import ComposableArchitecture
 import Kingfisher
+import YouTubePlayerKit
 
 // MARK: - View
 
 struct BoxStartGuideView: View {
     private let store: StoreOf<BoxStartGuideFeature>
     @ObservedObject var viewStore: ViewStoreOf<BoxStartGuideFeature>
-
-    @State var selectedTempMusic: TempMusic? = TempMusic.musics.first!
 
     private let strokeStyle: StrokeStyle = .init(lineWidth: 1.5, dash: [5])
 
@@ -102,8 +101,16 @@ struct BoxStartGuideView: View {
                     .padding(.top, 36)
 
                     // 음악 추가하기
-                    ElementGuideView(element: .music, screenWidth: screenWidth) {
-                        viewStore.send(.binding(.set(\.$isMusicBottomSheetPresented, true)))
+                    Group {
+                        if let musicUrl = viewStore.musicInput.selectedMusicUrl {
+                            MusicPresentingView(url: musicUrl, screenWidth: screenWidth) {
+                                viewStore.send(.binding(.set(\.$isMusicBottomSheetPresented, true)))
+                            }
+                        } else {
+                            ElementGuideView(element: .music, screenWidth: screenWidth) {
+                                viewStore.send(.binding(.set(\.$isMusicBottomSheetPresented, true)))
+                            }
+                        }
                     }
                     .padding(.horizontal, 32)
                     .padding(.top, 43)
@@ -116,7 +123,7 @@ struct BoxStartGuideView: View {
         }
         // 음악 추가 바텀시트
         .bottomSheet(
-            isPresented: viewStore.$isMusicBottomSheetPresented, 
+            isPresented: viewStore.$isMusicBottomSheetPresented,
             currentDetent: .constant(viewStore.musicInput.musicBottomSheetMode.detent),
             detents: viewStore.musicInput.musicSheetDetents,
             showLeadingButton: viewStore.musicInput.musicBottomSheetMode != .choice,
@@ -275,6 +282,35 @@ private struct LetterPresentingView: View {
             .rotationEffect(.degrees(element.rotationDegree))
         }
         .buttonStyle(.bouncy)
+    }
+}
+
+private struct MusicPresentingView: View {
+    let url: String
+    let screenWidth: CGFloat
+    let action: () -> Void
+
+    private let element = BoxElementShape.music
+
+    var body: some View {
+        let size = element.size(fromScreenWidth: screenWidth)
+
+        YouTubePlayerView(.init(stringLiteral: url)) { state in
+            switch state {
+            case .idle:
+                ProgressView()
+            case .ready:
+                EmptyView()
+            case .error:
+                Text("문제가 생겼어요")
+                    .packyFont(.body1)
+            }
+        }
+        .frame(width: size.width, height: size.height)
+        .mask(RoundedRectangle(cornerRadius: 8))
+        .onLongPressGesture {
+            action()
+        }
     }
 }
 
