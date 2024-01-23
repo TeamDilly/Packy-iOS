@@ -106,7 +106,7 @@ private struct ToFromInputTextField: View {
             VStack(spacing: 16) {
                 let textWidth = proxy.size.width / 3
 
-                let prompt = Text("6자 이내로 입력해주세요")
+                let prompt = Text("6자까지 입력할 수 있어요")
                     .foregroundStyle(.gray400)
                     .font(.packy(.body4))
 
@@ -125,6 +125,7 @@ private struct ToFromInputTextField: View {
                         .frame(height: 26)
                         .focused($toFieldFocused)
                         .onSubmit {
+                            guard from.isEmpty else { return }
                             fromFieldFocused = true
                         }
                 }
@@ -172,7 +173,7 @@ private struct ToFromInputTextField: View {
 #Preview {
     MakeBoxView(
         store: .init(
-            initialState: MakeBoxFeature.State(boxSendTo: "asdf", boxSendFrom: "asd"),
+            initialState: MakeBoxFeature.State(),
             reducer: {
                 MakeBoxFeature()
                     ._printChanges()

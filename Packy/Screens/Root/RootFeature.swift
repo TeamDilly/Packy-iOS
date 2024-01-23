@@ -49,8 +49,6 @@ struct RootFeature: Reducer {
                 keychain.delete(.refreshToken)
 
                 return .run { send in
-                    // TODO: Token 만료 시, refresh token 으로 발급 로직 추가
-
                     /// AccessToken 존재 시, home 으로 이동
                     if keychain.read(.accessToken) != nil {
                         // TODO: 테스트를 위해 makeBox로 이동하도록 처리. 차후 home 으로 변경 필요

@@ -35,9 +35,9 @@ struct PackyTextField: View {
                         .padding(.vertical, 14)
                         .padding(.leading, 16)
                         .frame(height: 50)
-                        // .border(Color.black)
 
                     Spacer()
+
                     if !text.isEmpty && !isCompleted {
                         Button {
                             text = ""
@@ -47,10 +47,8 @@ struct PackyTextField: View {
                                 .resizable()
                                 .frame(width: 24, height: 24)
                         }
-                        // .border(Color.black)
                         .padding(.vertical, 13)
                         .padding(.trailing, 12)
-                        // .border(Color.black)
                     }
                 }
             }

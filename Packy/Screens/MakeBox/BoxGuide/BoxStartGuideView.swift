@@ -29,16 +29,7 @@ struct BoxStartGuideView: View {
 
             ZStack {
                 if viewStore.isShowingGuideText {
-                    Color.black
-                        .opacity(0.7)
-                        .ignoresSafeArea()
-                        .zIndex(1)
-                        .overlay {
-                            Text("빈 공간을 눌러서\n선물박스를 채워보세요")
-                                .packyFont(.heading2)
-                                .foregroundStyle(.white)
-                                .multilineTextAlignment(.center)
-                        }
+                    guideOverlayView
                 }
 
                 VStack(spacing: 0) {
@@ -48,18 +39,7 @@ struct BoxStartGuideView: View {
 
                     HStack {
                         // 추억 사진 담기
-                        if let photoUrl = viewStore.photoInput.photoUrl {
-                            PhotoPresentingView(
-                                photoUrl: photoUrl,
-                                screenWidth: screenWidth
-                            ) {
-                                viewStore.send(.binding(.set(\.$isPhotoBottomSheetPresented, true)))
-                            }
-                        } else {
-                            ElementGuideView(element: .photo, screenWidth: screenWidth) {
-                                viewStore.send(.binding(.set(\.$isPhotoBottomSheetPresented, true)))
-                            }
-                        }
+                        photoView(screenWidth)
 
                         Spacer()
 
@@ -83,42 +63,25 @@ struct BoxStartGuideView: View {
                         Spacer()
 
                         // 편지 쓰기
-                        if !viewStore.letterInput.letter.isEmpty {
-                            LetterPresentingView(
-                                input: viewStore.letterInput,
-                                screenWidth: screenWidth
-                            ) {
-                                viewStore.send(.binding(.set(\.$isLetterBottomSheetPresented, true)))
-                            }
-                        } else {
-                            ElementGuideView(element: .letter, screenWidth: screenWidth) {
-                                viewStore.send(.binding(.set(\.$isLetterBottomSheetPresented, true)))
-                            }
-                        }
+                        letterView(screenWidth)
                     }
                     .padding(.leading, 36)
                     .padding(.trailing, 33)
                     .padding(.top, 36)
 
                     // 음악 추가하기
-                    Group {
-                        if let musicUrl = viewStore.musicInput.selectedMusicUrl {
-                            MusicPresentingView(url: musicUrl, screenWidth: screenWidth) {
-                                viewStore.send(.binding(.set(\.$isMusicBottomSheetPresented, true)))
-                            }
-                        } else {
-                            ElementGuideView(element: .music, screenWidth: screenWidth) {
-                                viewStore.send(.binding(.set(\.$isMusicBottomSheetPresented, true)))
-                            }
-                        }
-                    }
-                    .padding(.horizontal, 32)
-                    .padding(.top, 43)
-                    .frame(maxWidth: .infinity, alignment: .leading)
+                    musicView(screenWidth)
+                        .padding(.horizontal, 32)
+                        .padding(.top, 43)
+                        .frame(maxWidth: .infinity, alignment: .leading)
 
                     Spacer()
+
+                    bottomButtonsView
+                        .padding(.horizontal, 40)
+                        .padding(.bottom, 28)
                 }
-                .background(Color.init(hex: 0x222222))
+                .background(.gray900)
             }
         }
         // 음악 추가 바텀시트
@@ -189,6 +152,104 @@ struct BoxStartGuideView: View {
 }
 
 // MARK: - Inner Views
+
+private extension BoxStartGuideView {
+    var guideOverlayView: some View {
+        Color.black
+            .opacity(0.7)
+            .ignoresSafeArea()
+            .zIndex(1)
+            .overlay {
+                Text("빈 공간을 눌러서\n선물박스를 채워보세요")
+                    .packyFont(.heading2)
+                    .foregroundStyle(.white)
+                    .multilineTextAlignment(.center)
+            }
+    }
+
+    @ViewBuilder
+    func photoView(_ screenWidth: CGFloat) -> some View {
+        if let photoUrl = viewStore.photoInput.photoUrl {
+            PhotoPresentingView(
+                photoUrl: photoUrl,
+                screenWidth: screenWidth
+            ) {
+                viewStore.send(.binding(.set(\.$isPhotoBottomSheetPresented, true)))
+            }
+        } else {
+            ElementGuideView(element: .photo, screenWidth: screenWidth) {
+                viewStore.send(.binding(.set(\.$isPhotoBottomSheetPresented, true)))
+            }
+        }
+    }
+
+    @ViewBuilder
+    func letterView(_ screenWidth: CGFloat) -> some View {
+        if !viewStore.letterInput.letter.isEmpty {
+            LetterPresentingView(
+                input: viewStore.letterInput,
+                screenWidth: screenWidth
+            ) {
+                viewStore.send(.binding(.set(\.$isLetterBottomSheetPresented, true)))
+            }
+        } else {
+            ElementGuideView(element: .letter, screenWidth: screenWidth) {
+                viewStore.send(.binding(.set(\.$isLetterBottomSheetPresented, true)))
+            }
+        }
+    }
+
+    @ViewBuilder
+    func musicView(_ screenWidth: CGFloat) -> some View {
+        if let musicUrl = viewStore.musicInput.selectedMusicUrl {
+            MusicPresentingView(url: musicUrl, screenWidth: screenWidth) {
+                viewStore.send(.binding(.set(\.$isMusicBottomSheetPresented, true)))
+            }
+        } else {
+            ElementGuideView(element: .music, screenWidth: screenWidth) {
+                viewStore.send(.binding(.set(\.$isMusicBottomSheetPresented, true)))
+            }
+        }
+    }
+
+    var bottomButtonsView: some View {
+        HStack(spacing: 16) {
+            Button {
+
+            } label: {
+                Text("박스 다시 고르기")
+                    .foregroundStyle(.white)
+                    .packyFont(.body4)
+                    .padding(.vertical, 14)
+                    .frame(maxWidth: .infinity)
+                    .background {
+                        Capsule()
+                    }
+            }
+
+            Button {
+
+            } label: {
+                HStack(spacing: 8) {
+                    Image(.plus)
+                        .renderingMode(.template)
+                        .resizable()
+                        .frame(width: 16, height: 16)
+                        .foregroundStyle(.white)
+
+                    Text("선물 담기")
+                        .foregroundStyle(.white)
+                        .packyFont(.body4)
+                }
+                .padding(.vertical, 14)
+                .frame(maxWidth: .infinity)
+                .background {
+                    Capsule()
+                }
+            }
+        }
+    }
+}
 
 private struct ElementGuideView: View {
 

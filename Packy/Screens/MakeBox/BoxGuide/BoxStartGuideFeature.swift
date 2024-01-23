@@ -94,6 +94,7 @@ struct BoxStartGuideFeature: Reducer {
     @Dependency(\.continuousClock) var clock
     @Dependency(\.uploadClient) var uploadClient
     @Dependency(\.boxClient) var boxClient
+    @Dependency(\.userDefaults) var userDefaults
 
     var body: some Reducer<State, Action> {
         BindingReducer()
@@ -102,6 +103,9 @@ struct BoxStartGuideFeature: Reducer {
             switch action {
             case ._onTask:
                 return .merge(
+                    .run { _ in
+                        await userDefaults.setBool(true, .didEnteredBoxGuide)
+                    },
                     .run { send in
                         try? await clock.sleep(for: .seconds(2))
                         await send(._setIsShowingGuideText(false), animation: .spring)
