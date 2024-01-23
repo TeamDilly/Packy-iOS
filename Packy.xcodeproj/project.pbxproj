@@ -17,6 +17,7 @@
 		E5551B792B5FE8E300DB81F3 /* TokenInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5551B782B5FE8E300DB81F3 /* TokenInterceptor.swift */; };
 		E5551B7B2B5FF2AF00DB81F3 /* HTTPSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5551B7A2B5FF2AF00DB81F3 /* HTTPSession.swift */; };
 		E5551B7D2B5FF5AD00DB81F3 /* MoyaProvider+Build.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5551B7C2B5FF5AD00DB81F3 /* MoyaProvider+Build.swift */; };
+		E5551B7F2B6001CC00DB81F3 /* BoxStartGuideView+SelectBoxSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5551B7E2B6001CC00DB81F3 /* BoxStartGuideView+SelectBoxSheet.swift */; };
 		E58048C12B5BF0D200B974B3 /* UIImage+Compression.swift in Sources */ = {isa = PBXBuildFile; fileRef = E58048C02B5BF0D200B974B3 /* UIImage+Compression.swift */; };
 		E58048C32B5BFF3800B974B3 /* BoxStartGuideView+LetterSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = E58048C22B5BFF3800B974B3 /* BoxStartGuideView+LetterSheet.swift */; };
 		E58048C92B5C36DD00B974B3 /* CornerRadiusWithBorderModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = E58048C82B5C36DD00B974B3 /* CornerRadiusWithBorderModifier.swift */; };
@@ -147,6 +148,7 @@
 		E5551B782B5FE8E300DB81F3 /* TokenInterceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenInterceptor.swift; sourceTree = "<group>"; };
 		E5551B7A2B5FF2AF00DB81F3 /* HTTPSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPSession.swift; sourceTree = "<group>"; };
 		E5551B7C2B5FF5AD00DB81F3 /* MoyaProvider+Build.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MoyaProvider+Build.swift"; sourceTree = "<group>"; };
+		E5551B7E2B6001CC00DB81F3 /* BoxStartGuideView+SelectBoxSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BoxStartGuideView+SelectBoxSheet.swift"; sourceTree = "<group>"; };
 		E58048C02B5BF0D200B974B3 /* UIImage+Compression.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Compression.swift"; sourceTree = "<group>"; };
 		E58048C22B5BFF3800B974B3 /* BoxStartGuideView+LetterSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BoxStartGuideView+LetterSheet.swift"; sourceTree = "<group>"; };
 		E58048C82B5C36DD00B974B3 /* CornerRadiusWithBorderModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CornerRadiusWithBorderModifier.swift; sourceTree = "<group>"; };
@@ -754,6 +756,7 @@
 				E5E73D4B2B597CB600729D99 /* BoxStartGuideView+PhotoSheet.swift */,
 				E58048C22B5BFF3800B974B3 /* BoxStartGuideView+LetterSheet.swift */,
 				E5A416B22B5D350C00313E5A /* BoxStartGuideView+StickerSheet.swift */,
+				E5551B7E2B6001CC00DB81F3 /* BoxStartGuideView+SelectBoxSheet.swift */,
 			);
 			path = BoxGuide;
 			sourceTree = "<group>";
@@ -936,6 +939,7 @@
 				E5001F872B5BA4C0004B65E6 /* BoxSenderInfo.swift in Sources */,
 				E5A416AF2B5D21B700313E5A /* LetterDesign.swift in Sources */,
 				E5A7AA782B57F81400590EA6 /* TokenRequest.swift in Sources */,
+				E5551B7F2B6001CC00DB81F3 /* BoxStartGuideView+SelectBoxSheet.swift in Sources */,
 				E5A7AA822B57F81400590EA6 /* KakaoLoginController.swift in Sources */,
 				E5001F912B5BE44D004B65E6 /* UploadEndpoint.swift in Sources */,
 				E5A7AA502B57F81400590EA6 /* BottomSheetModifier.swift in Sources */,

@@ -46,6 +46,7 @@ struct BoxStartGuideFeature: Reducer {
         @BindingState var isLetterBottomSheetPresented: Bool = false
         @BindingState var isPhotoBottomSheetPresented: Bool = false
         @BindingState var isStickerBottomSheetPresented: Bool = false
+        @BindingState var isSelectBoxBottomSheetPresented: Bool = false
 
         @BindingState var musicInput: MusicInput = .init()
         @BindingState var photoInput: PhotoInput = .init()
@@ -77,6 +78,9 @@ struct BoxStartGuideFeature: Reducer {
 
         case nextButtonTapped
         case makeBoxConfirmButtonTapped
+
+        case reselectBoxButtonTapped
+        case addGiftButtonTapped
 
         // MARK: Inner Business Action
         case _onTask

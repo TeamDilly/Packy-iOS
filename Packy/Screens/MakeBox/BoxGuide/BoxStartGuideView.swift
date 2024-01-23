@@ -130,6 +130,12 @@ struct BoxStartGuideView: View {
         ) {
             addStickerBottomSheet
         }
+        .bottomSheet(
+            isPresented: viewStore.$isSelectBoxBottomSheetPresented,
+            detents: [.fraction(0.3)]
+        ) {
+            selectBoxBottomSheet
+        }
         .alertButtonTint(color: .black)
         .packyAlert(
             isPresented: viewStore.$isShowBoxFinishAlert,
@@ -215,7 +221,7 @@ private extension BoxStartGuideView {
     var bottomButtonsView: some View {
         HStack(spacing: 16) {
             Button {
-
+                viewStore.send(.reselectBoxButtonTapped)
             } label: {
                 Text("박스 다시 고르기")
                     .foregroundStyle(.white)
@@ -228,7 +234,7 @@ private extension BoxStartGuideView {
             }
 
             Button {
-
+                viewStore.send(.addGiftButtonTapped)
             } label: {
                 HStack(spacing: 8) {
                     Image(.plus)
