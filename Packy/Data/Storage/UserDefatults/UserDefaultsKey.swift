@@ -12,6 +12,8 @@ enum UserDefaultsKey {
     enum BoolKey: String {
         case hasOnboarded
         case isPopGestureEnabled
+        /// 박스 제작 가이드에 진입한 후면, 모션을 보여주지 않기 위한 flag
+        case didEnteredBoxGuide
     }
 
     enum StringKey: String {

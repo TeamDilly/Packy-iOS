@@ -18,9 +18,17 @@ struct BoxChoiceFeature: Reducer {
 
     struct State: Equatable {
         let senderInfo: BoxSenderInfo
-        @BindingState var selectedBox: Int = 0
+        @BindingState var selectedBox: Int?
         @BindingState var selectedMessage: Int = 0
         var isPresentingFinishedMotionView: Bool = false
+        @BindingState var isShowAlert: Bool = false
+
+        var passingData: PassingData {
+            .init(
+                senderInfo: senderInfo,
+                selectedBoxIndex: selectedBox ?? 0
+            )
+        }
     }
 
     enum Action: BindableAction {
@@ -28,6 +36,8 @@ struct BoxChoiceFeature: Reducer {
         case binding(BindingAction<State>)
         case selectBox(_ index: Int)
         case nextButtonTapped
+        case closeButtonTapped
+        case alertConfirmButtonTapped
 
         // MARK: Inner Business Action
         case _onTask
@@ -43,6 +53,7 @@ struct BoxChoiceFeature: Reducer {
     }
 
     @Dependency(\.continuousClock) var clock
+    @Dependency(\.userDefaults) var userDefaults
 
     var body: some Reducer<State, Action> {
         BindingReducer()
@@ -56,13 +67,14 @@ struct BoxChoiceFeature: Reducer {
                 return .none
 
             case .nextButtonTapped:
-                return .run { [state] send in
-                    await send(._setIsPresentingFinishedMotionView(true))
-                    try? await clock.sleep(for: .seconds(3)) // 애니메이션 부여 시간 만큼... 지연
-                    await send(.delegate(.moveToBoxStartGuide(.init(senderInfo: state.senderInfo, selectedBoxIndex: state.selectedBox))))
-                    try? await clock.sleep(for: .seconds(0.1))
-                    await send(._setIsPresentingFinishedMotionView(false))
+                // 이미 사용자가 BoxGuide 에 진입했던 경우에는, BoxMotion 을 나타내지 않음
+                guard userDefaults.boolForKey(.didEnteredBoxGuide) else {
+                    return .send(.delegate(.moveToBoxStartGuide(state.passingData)))
                 }
+                return showBoxMotion(state.passingData)
+
+            case .closeButtonTapped:
+                return .none
 
             case let ._setIsPresentingFinishedMotionView(isPresented):
                 state.isPresentingFinishedMotionView = isPresented
@@ -71,6 +83,23 @@ struct BoxChoiceFeature: Reducer {
             default:
                 return .none
             }
+        }
+    }
+}
+
+// MARK: - Inner Functions
+
+private extension BoxChoiceFeature {
+    func showBoxMotion(_ passingData: PassingData) -> Effect<Action> {
+        .run { send in
+            await send(._setIsPresentingFinishedMotionView(true))
+            // TODO: 애니메이션 부여 시간 만큼 지연 _ 차후 기획측과 논의
+            try? await clock.sleep(for: .seconds(3))
+
+            await send(.delegate(.moveToBoxStartGuide(passingData)))
+
+            try? await clock.sleep(for: .seconds(0.1))
+            await send(._setIsPresentingFinishedMotionView(false))
         }
     }
 }

@@ -75,6 +75,22 @@ extension NavigationBar {
             action?()
         })
     }
+
+    static func backAndCloseButton(
+        backButtonAction: (() -> Void)? = nil,
+        closeButtonAction: (() -> Void)? = nil
+    ) -> Self {
+        NavigationBar(
+            leftIcon: Image(.arrowLeft),
+            leftIconAction: {
+                backButtonAction?()
+            },
+            rightIcon: Image(.xmark),
+            rightIconAction: {
+                closeButtonAction?()
+            }
+        )
+    }
 }
 
 // MARK: - Preview

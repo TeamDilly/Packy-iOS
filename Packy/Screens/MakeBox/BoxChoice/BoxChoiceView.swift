@@ -24,14 +24,15 @@ struct BoxChoiceView: View {
             if viewStore.isPresentingFinishedMotionView {
                 finishedBoxMotionView
             } else {
-                NavigationBar.onlyBackButton()
-                    .padding(.top, 8)
+                NavigationBar.backAndCloseButton(closeButtonAction: {
+                    viewStore.send(.closeButtonTapped)
+                })
+                .padding(.top, 8)
 
                 Text("마음에 드는 선물박스를 골라주세요")
                     .packyFont(.heading1)
                     .foregroundStyle(.gray900)
                     .padding(.top, 48)
-
 
                 VStack(spacing: 40) {
                     Image(.mock)
@@ -39,20 +40,25 @@ struct BoxChoiceView: View {
                         .frame(width: 160, height: 160)
                         .mask(Circle())
 
-                    HStack(spacing: 16) {
-                        ForEach(0...4, id: \.self) { index in
+                    HStack(spacing: 12) {
+                        ForEach(0...3, id: \.self) { index in
                             Button {
                                 viewStore.send(.selectBox(index))
                                 HapticManager.shared.fireNotification(.success)
                             } label: {
-                                Image(.mock) // TODO: 선택된 박스 이미지 인덱스에 따라 업뎃
-                                    .resizable()
-                                    .frame(width: 60, height: 60)
-                                    .mask(Circle())
+                                if let selectedBox = viewStore.selectedBox {
+                                    // TODO: 선택된 박스가 존재하면....!
+                                }
+
+                                // TODO: 선택된 박스 이미지 인덱스에 따라 업뎃
+                                RoundedRectangle(cornerRadius: 12)
+                                    .aspectRatio(1, contentMode: .fit)
+
                             }
                             .buttonStyle(.bouncy)
                         }
                     }
+                    .padding(.horizontal, 40)
                 }
                 .padding(.top, 82)
 
@@ -61,10 +67,14 @@ struct BoxChoiceView: View {
                 PackyButton(title: "다음", colorType: .black) {
                     viewStore.send(.nextButtonTapped)
                 }
+                .disabled(viewStore.selectedBox == nil)
                 .padding(.horizontal, 24)
                 .padding(.bottom, 16)
             }
         }
+        .packyAlert(isPresented: viewStore.$isShowAlert, title: "Title", confirm: "Confirm", confirmAction: {
+            viewStore.send(.alertConfirmButtonTapped)
+        })
         .animation(.spring, value: viewStore.isPresentingFinishedMotionView)
         .navigationBarBackButtonHidden(true)
         .task {
