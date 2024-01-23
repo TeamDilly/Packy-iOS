@@ -14,6 +14,7 @@
 		E5001F912B5BE44D004B65E6 /* UploadEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5001F902B5BE44D004B65E6 /* UploadEndpoint.swift */; };
 		E5001F932B5BE5DD004B65E6 /* PreSignedUrlResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5001F922B5BE5DD004B65E6 /* PreSignedUrlResponse.swift */; };
 		E5001F962B5BEAF6004B65E6 /* URL+Trimming.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5001F952B5BEAF6004B65E6 /* URL+Trimming.swift */; };
+		E5551B792B5FE8E300DB81F3 /* TokenInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5551B782B5FE8E300DB81F3 /* TokenInterceptor.swift */; };
 		E58048C12B5BF0D200B974B3 /* UIImage+Compression.swift in Sources */ = {isa = PBXBuildFile; fileRef = E58048C02B5BF0D200B974B3 /* UIImage+Compression.swift */; };
 		E58048C32B5BFF3800B974B3 /* BoxStartGuideView+LetterSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = E58048C22B5BFF3800B974B3 /* BoxStartGuideView+LetterSheet.swift */; };
 		E58048C92B5C36DD00B974B3 /* CornerRadiusWithBorderModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = E58048C82B5C36DD00B974B3 /* CornerRadiusWithBorderModifier.swift */; };
@@ -141,6 +142,7 @@
 		E5001F902B5BE44D004B65E6 /* UploadEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadEndpoint.swift; sourceTree = "<group>"; };
 		E5001F922B5BE5DD004B65E6 /* PreSignedUrlResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreSignedUrlResponse.swift; sourceTree = "<group>"; };
 		E5001F952B5BEAF6004B65E6 /* URL+Trimming.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+Trimming.swift"; sourceTree = "<group>"; };
+		E5551B782B5FE8E300DB81F3 /* TokenInterceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenInterceptor.swift; sourceTree = "<group>"; };
 		E58048C02B5BF0D200B974B3 /* UIImage+Compression.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Compression.swift"; sourceTree = "<group>"; };
 		E58048C22B5BFF3800B974B3 /* BoxStartGuideView+LetterSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BoxStartGuideView+LetterSheet.swift"; sourceTree = "<group>"; };
 		E58048C82B5C36DD00B974B3 /* CornerRadiusWithBorderModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CornerRadiusWithBorderModifier.swift; sourceTree = "<group>"; };
@@ -545,6 +547,7 @@
 				E5A7AA042B57F81400590EA6 /* BaseResponse.swift */,
 				E5A7AA052B57F81400590EA6 /* Encodable+ToDictionary.swift */,
 				E5A7AA062B57F81400590EA6 /* MoyaProvider+Request.swift */,
+				E5551B782B5FE8E300DB81F3 /* TokenInterceptor.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -939,6 +942,7 @@
 				E5A7AA432B57F81400590EA6 /* PackyTextField.swift in Sources */,
 				E5A7AA7C2B57F81400590EA6 /* AuthClient.swift in Sources */,
 				E5A7AA842B57F81400590EA6 /* SocialLoginClient.swift in Sources */,
+				E5551B792B5FE8E300DB81F3 /* TokenInterceptor.swift in Sources */,
 				E5A7AA682B57F81400590EA6 /* OnboardingFeature.swift in Sources */,
 				E5A416B32B5D350C00313E5A /* BoxStartGuideView+StickerSheet.swift in Sources */,
 				E5A7AA472B57F81400590EA6 /* MusicPlayerView.swift in Sources */,
