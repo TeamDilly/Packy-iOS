@@ -7,6 +7,7 @@
 
 import SwiftUI
 import ComposableArchitecture
+import Kingfisher
 
 // MARK: - View
 
@@ -32,35 +33,42 @@ struct BoxChoiceView: View {
                 Text("마음에 드는 선물박스를 골라주세요")
                     .packyFont(.heading1)
                     .foregroundStyle(.gray900)
+                    // .padding(.vertical, UIScreen.main.isWiderThan375pt ? 48 : 30)
                     .padding(.top, 48)
 
                 VStack(spacing: 40) {
-                    Image(.mock)
-                        .resizable()
-                        .frame(width: 160, height: 160)
-                        .mask(Circle())
+                    if let selectedBox = viewStore.selectedBox {
+                        KFImage(URL(string: selectedBox.boxTopUrl))
+                            .placeholder {
+                                ProgressView()
+                                    .progressViewStyle(.circular)
+                            }
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 250, height: 250)
+                    }
 
                     HStack(spacing: 12) {
-                        ForEach(0...3, id: \.self) { index in
+                        ForEach(viewStore.boxDesigns, id: \.id) { boxDesign in
                             Button {
-                                viewStore.send(.selectBox(index))
+                                viewStore.send(.selectBox(boxDesign))
                                 HapticManager.shared.fireNotification(.success)
                             } label: {
-                                if let selectedBox = viewStore.selectedBox {
-                                    // TODO: 선택된 박스가 존재하면....!
-                                }
-
-                                // TODO: 선택된 박스 이미지 인덱스에 따라 업뎃
-                                RoundedRectangle(cornerRadius: 12)
+                                KFImage(URL(string: boxDesign.boxTopUrl))
+                                    .placeholder {
+                                        ProgressView()
+                                            .progressViewStyle(.circular)
+                                    }
+                                    .resizable()
+                                    .clipShape(RoundedRectangle(cornerRadius: 12))
                                     .aspectRatio(1, contentMode: .fit)
-
                             }
                             .buttonStyle(.bouncy)
                         }
                     }
-                    .padding(.horizontal, 40)
+                    .padding(.horizontal, padding)
                 }
-                .padding(.top, 82)
+                .padding(.top, UIScreen.main.isWiderThan375pt ? 48 : 20)
 
                 Spacer()
 
@@ -76,6 +84,7 @@ struct BoxChoiceView: View {
             viewStore.send(.alertConfirmButtonTapped)
         })
         .animation(.spring, value: viewStore.isPresentingFinishedMotionView)
+        .animation(.spring, value: viewStore.selectedBox)
         .navigationBarBackButtonHidden(true)
         .task {
             await viewStore

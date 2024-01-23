@@ -18,15 +18,17 @@ struct BoxChoiceFeature: Reducer {
 
     struct State: Equatable {
         let senderInfo: BoxSenderInfo
-        @BindingState var selectedBox: Int?
+        var selectedBox: BoxDesign?
         @BindingState var selectedMessage: Int = 0
         var isPresentingFinishedMotionView: Bool = false
         @BindingState var isShowAlert: Bool = false
 
+        var boxDesigns: [BoxDesign] = []
+
         var passingData: PassingData {
             .init(
                 senderInfo: senderInfo,
-                selectedBoxIndex: selectedBox ?? 0
+                selectedBoxIndex: selectedBox?.id ?? 0
             )
         }
     }
@@ -34,7 +36,7 @@ struct BoxChoiceFeature: Reducer {
     enum Action: BindableAction {
         // MARK: User Action
         case binding(BindingAction<State>)
-        case selectBox(_ index: Int)
+        case selectBox(BoxDesign)
         case nextButtonTapped
         case closeButtonTapped
         case alertConfirmButtonTapped
@@ -44,6 +46,7 @@ struct BoxChoiceFeature: Reducer {
 
         // MARK: Inner SetState Action
         case _setIsPresentingFinishedMotionView(Bool)
+        case _setBoxDesigns([BoxDesign])
 
         // MARK: Delegate Action
         enum Delegate {
@@ -54,6 +57,7 @@ struct BoxChoiceFeature: Reducer {
 
     @Dependency(\.continuousClock) var clock
     @Dependency(\.userDefaults) var userDefaults
+    @Dependency(\.boxClient) var boxClient
 
     var body: some Reducer<State, Action> {
         BindingReducer()
@@ -62,8 +66,22 @@ struct BoxChoiceFeature: Reducer {
             switch action {
             case .binding:
                 return .none
-                
+
             case ._onTask:
+                return .run { send in
+                    do {
+                        let boxDesigns = try await boxClient.fetchBoxDesigns()
+                        await send(._setBoxDesigns(boxDesigns), animation: .spring)
+                        if let firstBox = boxDesigns.first {
+                            await send(.selectBox(firstBox), animation: .spring)
+                        }
+                    } catch {
+                        print(error)
+                    }
+                }
+
+            case let .selectBox(id):
+                state.selectedBox = id
                 return .none
 
             case .nextButtonTapped:
@@ -74,13 +92,21 @@ struct BoxChoiceFeature: Reducer {
                 return showBoxMotion(state.passingData)
 
             case .closeButtonTapped:
+                state.isShowAlert = true
+                return .none
+
+            case .alertConfirmButtonTapped:
                 return .none
 
             case let ._setIsPresentingFinishedMotionView(isPresented):
                 state.isPresentingFinishedMotionView = isPresented
                 return .none
 
-            default:
+            case let ._setBoxDesigns(boxDesigns):
+                state.boxDesigns = boxDesigns
+                return .none
+
+            case .delegate:
                 return .none
             }
         }
