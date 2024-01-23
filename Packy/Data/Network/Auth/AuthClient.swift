@@ -33,7 +33,8 @@ struct AuthClient {
 
 extension AuthClient: DependencyKey {
     static let liveValue: Self = {
-        let provider = MoyaProvider<AuthEndpoint>(plugins: [MoyaLoggerPlugin()])
+        let provider = MoyaProvider<AuthEndpoint>.build()
+
         return Self(
             signUp: {
                 try await provider.request(.signUp(authorization: $0, request: $1))

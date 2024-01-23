@@ -29,7 +29,7 @@ struct BoxClient {
 
 extension BoxClient: DependencyKey {
     static let liveValue: Self = {
-        let provider = MoyaProvider<BoxEndpoint>(plugins: [MoyaLoggerPlugin()])
+        let provider = MoyaProvider<BoxEndpoint>.build()
         return Self(
             fetchRecommendedMusics: {
                 try await provider.request(.getRecommendedMusics)
