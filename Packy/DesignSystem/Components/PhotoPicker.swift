@@ -67,7 +67,6 @@ private extension PhotoPicker {
             .placeholder {
                 placeholderView
             }
-            .scaleToFillFrame(width: 280, height: 280)
             .overlay(alignment: .topTrailing) {
                 if isShowDeleteButton {
                     CloseButton(sizeType: .medium, colorType: .dark) {

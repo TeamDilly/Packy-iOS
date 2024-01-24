@@ -18,7 +18,7 @@ struct PackyApp: App {
 
     let store = Store(initialState: RootFeature.State()) { RootFeature() }
 
-    let boxStore = Store(initialState: BoxStartGuideFeature.State(senderInfo: .mock, selectedBoxIndex: 0)) {
+    let boxStore = Store(initialState: BoxStartGuideFeature.State(senderInfo: .mock, selectedBox: .mock, boxDesigns: .mock)) {
         BoxStartGuideFeature()
     }
     var body: some Scene {

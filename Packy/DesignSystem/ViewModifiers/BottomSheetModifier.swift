@@ -15,12 +15,24 @@ extension View {
         showLeadingButton: Bool = false,
         leadingButtonAction: (() -> Void)? = nil,
         closeButtonAction: (() -> Void)? = nil,
+        isDismissible: Bool = true,
         isBackgroundBlack: Bool = true,
         hideTopButtons: Bool = false,
         sheetContent: @escaping () -> Content
     ) -> some View {
         modifier(
-            BottomSheetModifier(isPresented: isPresented, currentDetent: currentDetent, detents: detents, showLeadingButton: showLeadingButton, leadingButtonAction: leadingButtonAction, closeButtonAction: closeButtonAction, isBackgroundBlack: isBackgroundBlack, hideTopButtons: hideTopButtons, sheetContent: sheetContent)
+            BottomSheetModifier(
+                isPresented: isPresented,
+                currentDetent: currentDetent,
+                detents: detents,
+                showLeadingButton: showLeadingButton,
+                leadingButtonAction: leadingButtonAction,
+                closeButtonAction: closeButtonAction,
+                isDismissible: isDismissible,
+                isBackgroundBlack: isBackgroundBlack,
+                hideTopButtons: hideTopButtons,
+                sheetContent: sheetContent
+            )
         )
     }
 }
@@ -32,6 +44,7 @@ struct BottomSheetModifier<SheetContent: View>: ViewModifier {
     let showLeadingButton: Bool
     let leadingButtonAction: (() -> Void)?
     let closeButtonAction: (() -> Void)?
+    let isDismissible: Bool
     let isBackgroundBlack: Bool
     let hideTopButtons: Bool
 
@@ -63,7 +76,9 @@ struct BottomSheetModifier<SheetContent: View>: ViewModifier {
                                 Spacer()
                                 CloseButton(colorType: .light) {
                                     closeButtonAction?()
-                                    isPresented = false
+                                    if isDismissible {
+                                        isPresented = false
+                                    }
                                 }
                             }
                             .padding(.horizontal, 16)

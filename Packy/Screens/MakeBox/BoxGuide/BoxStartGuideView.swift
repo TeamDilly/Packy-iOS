@@ -160,10 +160,20 @@ struct BoxStartGuideView: View {
         // 선물 추가 바텀 시트
         .bottomSheet(
             isPresented: viewStore.$isAddGiftBottomSheetPresented,
-            detents: [.large]
+            detents: [.large],
+            closeButtonAction: {
+                viewStore.send(.addGiftSheetCloseButtonTapped)
+            },
+            isDismissible: false
         ) {
             addGiftBottomSheet
         }
+        .packyAlert(
+            isPresented: viewStore.$isShowGiftDeleteAlert,
+            title: "선물탭을 진짜 닫겠는가",
+            description: "진짜루?", cancel: "놉,,", confirm: "예쓰", confirmAction: {
+                viewStore.send(.closeGiftSheetAlertConfirmTapped)
+            })
         .alertButtonTint(color: .black)
         .packyAlert(
             isPresented: viewStore.$isShowBoxFinishAlert,

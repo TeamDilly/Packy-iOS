@@ -23,15 +23,32 @@ extension BoxStartGuideView {
                     .frame(maxWidth: .infinity, alignment: .leading)
             }
 
-            // KFImage(URL(string: viewStore))
-            //     .placeholder {
-            //         ProgressView()
-            //             .progressViewStyle(.circular)
-            //     }
-            //     .resizable()
-            //     .clipShape(RoundedRectangle(cornerRadius: 16))
-            //     .aspectRatio(1, contentMode: .fit)
+            PhotoPicker(imageURL: viewStore.giftImageUrl) { data in
+                guard let data else { return }
+                viewStore.send(.selectGiftImage(data))
+            }
+            .deleteButton(isShown: viewStore.giftImageUrl != nil) {
+                viewStore.send(.deleteGiftImageButtonTapped)
+            }
+            .padding(.top, 32)
+            .aspectRatio(1, contentMode: .fit)
+
+            Spacer()
+
+            PackyButton(title: "저장", colorType: .black) {
+                viewStore.send(.binding(.set(\.$isAddGiftBottomSheetPresented, false)))
+            }
+            .disabled(viewStore.giftImageUrl == nil)
+            .padding(.bottom, 8)
+
+            Button("안 담을래요") {
+                viewStore.send(.notSelectGiftButtonTapped)
+            }
+            .buttonStyle(TextButtonStyle())
+            .padding(.bottom, 20)
+
         }
+        .padding(.horizontal, 24)
     }
 }
 

@@ -62,6 +62,7 @@ struct BoxStartGuideFeature: Reducer {
         @BindingState var letterInput: LetterInput = .init()
 
         @BindingState var isShowBoxFinishAlert: Bool = false
+        @BindingState var isShowGiftDeleteAlert: Bool = false
 
         var recommendedMusics: [RecommendedMusic] = []
         var letterDesigns: [LetterDesign] = []
@@ -71,6 +72,8 @@ struct BoxStartGuideFeature: Reducer {
             StickerDesign(id: $0, imageURL: "https://picsum.photos/200")
         }
         var selectedStickers: [StickerDesign] = []
+
+        var giftImageUrl: URL?
 
         let boxDesigns: [BoxDesign]
 
@@ -108,6 +111,13 @@ struct BoxStartGuideFeature: Reducer {
         // 박스
         case selectBox(BoxDesign)
 
+        // 선물
+        case selectGiftImage(Data)
+        case deleteGiftImageButtonTapped
+        case notSelectGiftButtonTapped
+        case addGiftSheetCloseButtonTapped
+        case closeGiftSheetAlertConfirmTapped
+
         // 완성
         case completeButtonTapped
         case makeBoxConfirmButtonTapped
@@ -118,6 +128,7 @@ struct BoxStartGuideFeature: Reducer {
         // MARK: Inner SetState Action
         case _setDetents(Set<PresentationDetent>)
         case _setUploadedPhotoUrl(URL?)
+        case _setUploadedGiftUrl(URL?)
         case _setIsShowingGuideText(Bool)
         case _setLetterDesigns([LetterDesign])
         case _setRecommendedMusics([RecommendedMusic])
@@ -263,8 +274,35 @@ struct BoxStartGuideFeature: Reducer {
                 state.selectedStickers.append(sticker)
                 return .none
 
+            // MARK: Box
+
             case let .selectBox(boxDesign):
                 state.selectedBox = boxDesign
+                return .none
+
+            // MARK: Gift
+
+            case let .selectGiftImage(data):
+                return .run { send in
+                    let response = try await uploadClient.upload(.init(fileName: "\(UUID()).png", data: data))
+                    await send(._setUploadedGiftUrl(URL(string: response.uploadedFileUrl)))
+                }
+
+            case let ._setUploadedGiftUrl(url):
+                state.giftImageUrl = url
+                return .none
+
+            case .deleteGiftImageButtonTapped:
+                state.giftImageUrl = nil
+                return .none
+
+            case .notSelectGiftButtonTapped, .closeGiftSheetAlertConfirmTapped:
+                state.giftImageUrl = nil
+                state.isAddGiftBottomSheetPresented = false
+                return .none
+
+            case .addGiftSheetCloseButtonTapped:
+                state.isShowGiftDeleteAlert = true
                 return .none
 
             case .makeBoxConfirmButtonTapped:
