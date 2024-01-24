@@ -29,16 +29,19 @@ struct BoxStartGuideFeature: Reducer {
 
         /// 최종 유저가 선택한 음악 url
         var selectedMusicUrl: String? = nil
+        var isCompleted: Bool { selectedMusicUrl != nil }
     }
 
     struct PhotoInput: Equatable {
         var photoUrl: URL?
         var text: String = ""
+        var isCompleted: Bool { text.isEmpty == false }
     }
 
     struct LetterInput: Equatable {
         @BindingState var selectedLetterDesign: LetterDesign?
         var letter: String = ""
+        var isCompleted: Bool { letter.isEmpty == false }
     }
 
     struct State: Equatable {
@@ -67,6 +70,14 @@ struct BoxStartGuideFeature: Reducer {
             StickerDesign(id: $0, imageURL: "https://picsum.photos/200")
         }
         var selectedStickers: [StickerDesign] = []
+
+        /// 모든 요소가 입력되어서, 완성할 수 있는 상태인지
+        var isCompletable: Bool {
+            musicInput.isCompleted &&
+            photoInput.isCompleted &&
+            letterInput.isCompleted &&
+            selectedStickers.count == 2
+        }
     }
 
     enum Action: BindableAction {

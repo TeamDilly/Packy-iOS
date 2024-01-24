@@ -14,6 +14,7 @@ struct FloatingNavigationBar: View {
     var trailingTitle: String = "다음"
     let trailingAction: () -> Void
     var dismissible: Bool = true
+    var trailingDisabled: Bool = false
 
     @Dependency(\.dismiss) var dismiss
 
@@ -50,9 +51,10 @@ struct FloatingNavigationBar: View {
                     .overlay {
                         Text(trailingTitle)
                             .packyFont(.body2)
-                            .foregroundStyle(.gray900)
+                            .foregroundStyle(trailingDisabled ? .gray600 : .gray900)
                     }
             }
+            .disabled(trailingDisabled)
         }
         .padding(.horizontal, 16)
         .padding(.vertical, 4)

@@ -37,9 +37,13 @@ struct BoxStartGuideView: View {
                         .ignoresSafeArea()
                         .transition(.move(edge: .top))
 
-                    FloatingNavigationBar {
-                        viewStore.send(.nextButtonTapped)
-                    }
+                    FloatingNavigationBar(
+                        trailingTitle: "완성",
+                        trailingAction: {
+                            viewStore.send(.nextButtonTapped)
+                        },
+                        trailingDisabled: !viewStore.isCompletable
+                    )
                     .zIndex(2)
                 }
 
