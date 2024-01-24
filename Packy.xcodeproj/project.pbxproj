@@ -14,6 +14,8 @@
 		E5001F912B5BE44D004B65E6 /* UploadEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5001F902B5BE44D004B65E6 /* UploadEndpoint.swift */; };
 		E5001F932B5BE5DD004B65E6 /* PreSignedUrlResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5001F922B5BE5DD004B65E6 /* PreSignedUrlResponse.swift */; };
 		E5001F962B5BEAF6004B65E6 /* URL+Trimming.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5001F952B5BEAF6004B65E6 /* URL+Trimming.swift */; };
+		E52470ED2B612DD3003D49DE /* TextButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52470EC2B612DD3003D49DE /* TextButtonStyle.swift */; };
+		E52470EF2B6134EE003D49DE /* Array+SafeIndex.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52470EE2B6134EE003D49DE /* Array+SafeIndex.swift */; };
 		E5551B792B5FE8E300DB81F3 /* TokenInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5551B782B5FE8E300DB81F3 /* TokenInterceptor.swift */; };
 		E5551B7B2B5FF2AF00DB81F3 /* HTTPSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5551B7A2B5FF2AF00DB81F3 /* HTTPSession.swift */; };
 		E5551B7D2B5FF5AD00DB81F3 /* MoyaProvider+Build.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5551B7C2B5FF5AD00DB81F3 /* MoyaProvider+Build.swift */; };
@@ -145,6 +147,8 @@
 		E5001F902B5BE44D004B65E6 /* UploadEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadEndpoint.swift; sourceTree = "<group>"; };
 		E5001F922B5BE5DD004B65E6 /* PreSignedUrlResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreSignedUrlResponse.swift; sourceTree = "<group>"; };
 		E5001F952B5BEAF6004B65E6 /* URL+Trimming.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+Trimming.swift"; sourceTree = "<group>"; };
+		E52470EC2B612DD3003D49DE /* TextButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextButtonStyle.swift; sourceTree = "<group>"; };
+		E52470EE2B6134EE003D49DE /* Array+SafeIndex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+SafeIndex.swift"; sourceTree = "<group>"; };
 		E5551B782B5FE8E300DB81F3 /* TokenInterceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenInterceptor.swift; sourceTree = "<group>"; };
 		E5551B7A2B5FF2AF00DB81F3 /* HTTPSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPSession.swift; sourceTree = "<group>"; };
 		E5551B7C2B5FF5AD00DB81F3 /* MoyaProvider+Build.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MoyaProvider+Build.swift"; sourceTree = "<group>"; };
@@ -297,6 +301,7 @@
 			children = (
 				E5001F952B5BEAF6004B65E6 /* URL+Trimming.swift */,
 				E58048C02B5BF0D200B974B3 /* UIImage+Compression.swift */,
+				E52470EE2B6134EE003D49DE /* Array+SafeIndex.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -371,6 +376,7 @@
 				E5A7A9C22B57F81400590EA6 /* NavigationBar.swift */,
 				E5A416B42B5D439300313E5A /* PackyAlert.swift */,
 				E5A7A9C92B57F81400590EA6 /* PackyButton.swift */,
+				E52470EC2B612DD3003D49DE /* TextButtonStyle.swift */,
 				E5A7A9BF2B57F81400590EA6 /* PackyNavigationLink.swift */,
 				E5A7A9C12B57F81400590EA6 /* PackyTextArea.swift */,
 				E5A7A9C62B57F81400590EA6 /* PackyTextField.swift */,
@@ -906,6 +912,7 @@
 				E5A7AA7F2B57F81400590EA6 /* UserDefaultsKey.swift in Sources */,
 				E5A7AA6F2B57F81400590EA6 /* MoyaLoggerPlugin.swift in Sources */,
 				E5A416B52B5D439300313E5A /* PackyAlert.swift in Sources */,
+				E52470EF2B6134EE003D49DE /* Array+SafeIndex.swift in Sources */,
 				E5A7AA792B57F81400590EA6 /* SignUpRequest.swift in Sources */,
 				E5001F8E2B5BE422004B65E6 /* UploadClient.swift in Sources */,
 				E5A7AA3D2B57F81400590EA6 /* PackyNavigationLink.swift in Sources */,
@@ -971,6 +978,7 @@
 				E5001F932B5BE5DD004B65E6 /* PreSignedUrlResponse.swift in Sources */,
 				E5A7AA7E2B57F81400590EA6 /* KeychainClient.swift in Sources */,
 				E5E73D4A2B597C0200729D99 /* BoxStartGuideView+MusicSheet.swift in Sources */,
+				E52470ED2B612DD3003D49DE /* TextButtonStyle.swift in Sources */,
 				E5A7AA7A2B57F81400590EA6 /* SignInRequest.swift in Sources */,
 				E5001F962B5BEAF6004B65E6 /* URL+Trimming.swift in Sources */,
 				E5A7AA602B57F81400590EA6 /* SignUpNavigation.swift in Sources */,

@@ -33,8 +33,7 @@ struct BoxChoiceView: View {
                 Text("마음에 드는 선물박스를 골라주세요")
                     .packyFont(.heading1)
                     .foregroundStyle(.gray900)
-                    // .padding(.vertical, UIScreen.main.isWiderThan375pt ? 48 : 30)
-                    .padding(.top, 48)
+                    .padding(.vertical, UIScreen.main.isWiderThan375pt ? 48 : 30)
 
                 VStack(spacing: 40) {
                     if let selectedBox = viewStore.selectedBox {
@@ -47,7 +46,7 @@ struct BoxChoiceView: View {
                             .aspectRatio(contentMode: .fit)
                             .frame(width: 250, height: 250)
                     }
-
+                
                     HStack(spacing: 12) {
                         ForEach(viewStore.boxDesigns, id: \.id) { boxDesign in
                             Button {
@@ -66,7 +65,7 @@ struct BoxChoiceView: View {
                             .buttonStyle(.bouncy)
                         }
                     }
-                    .padding(.horizontal, padding)
+                    .padding(.horizontal, 40)
                 }
                 .padding(.top, UIScreen.main.isWiderThan375pt ? 48 : 20)
 

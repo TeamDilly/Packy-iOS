@@ -10,6 +10,11 @@ import ComposableArchitecture
 import YouTubePlayerKit
 import SwiftUI
 
+struct StickerDesign: Hashable, Equatable {
+    var id: Int
+    var imageURL: String
+}
+
 @Reducer
 struct BoxStartGuideFeature: Reducer {
 
@@ -56,6 +61,12 @@ struct BoxStartGuideFeature: Reducer {
 
         var recommendedMusics: [RecommendedMusic] = []
         var letterDesigns: [LetterDesign] = []
+
+        // TODO: 서버에서 받아와서 반영하는 형태로 변경
+        var stickerDesigns: [StickerDesign] = (0...10).map {
+            StickerDesign(id: $0, imageURL: "https://picsum.photos/200")
+        }
+        var selectedStickers: [StickerDesign] = []
     }
 
     enum Action: BindableAction {
@@ -75,6 +86,8 @@ struct BoxStartGuideFeature: Reducer {
         case photoDeleteButtonTapped
 
         case letterSaveButtonTapped
+
+        case stickerTapped(StickerDesign)
 
         case nextButtonTapped
         case makeBoxConfirmButtonTapped
@@ -218,6 +231,21 @@ struct BoxStartGuideFeature: Reducer {
 
             case .letterSaveButtonTapped:
                 state.isLetterBottomSheetPresented = false
+                return .none
+
+            // MARK: Sticker
+
+            case let .stickerTapped(sticker):
+                // 이미 해당 스티커가 존재하면 삭제
+                if let index = state.selectedStickers.firstIndex(of: sticker) {
+                    state.selectedStickers.remove(at: index)
+                    return .none
+                }
+
+                // 2개 까지만 선택
+                guard state.selectedStickers.count < 2 else { return .none }
+                state.selectedStickers.append(sticker)
+
                 return .none
 
             case .makeBoxConfirmButtonTapped:

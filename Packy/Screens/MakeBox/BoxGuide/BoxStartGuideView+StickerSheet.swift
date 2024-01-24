@@ -12,27 +12,39 @@ extension BoxStartGuideView {
     var addStickerBottomSheet: some View {
         ScrollView {
             VStack(spacing: 0) {
-                Group {
-                    Text("스티커 붙이기")
-                        .packyFont(.heading1)
-                        .foregroundStyle(.gray900)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .padding(.top, 24)
-                        .padding(.bottom, 4)
+                HStack(alignment: .top) {
+                    VStack(spacing: 4) {
+                        Text("스티커 붙이기")
+                            .packyFont(.heading1)
+                            .foregroundStyle(.gray900)
+                            .frame(maxWidth: .infinity, alignment: .leading)
 
-                    Text("최대 2개까지 붙일 수 있어요")
-                        .packyFont(.body4)
-                        .foregroundStyle(.gray600)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .padding(.bottom, 32)
+                        Text("최대 2개까지 붙일 수 있어요")
+                            .packyFont(.body4)
+                            .foregroundStyle(.gray600)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                    }
+
+                    Button("확인") {
+                        viewStore.send(.binding(.set(\.$isStickerBottomSheetPresented, false)))
+                    }
+                    .buttonStyle(.text)
                 }
                 .padding(.horizontal, 24)
+                .padding(.vertical, 24)
 
                 let columns = [GridItem(spacing: 12), GridItem(spacing: 12), GridItem(spacing: 12)]
                 LazyVGrid(columns: columns, spacing: 12) {
-                    ForEach(0...10, id: \.self) { _ in
-                        StickerCell(imageUrl: "https://picsum.photos/200", selectedNumber: 1)
-                            .aspectRatio(1, contentMode: .fit)
+                    ForEach(viewStore.stickerDesigns, id: \.id) { stickerDesign in
+                        let index = viewStore.selectedStickers.firstIndex(of: stickerDesign)
+
+                        Button {
+                            viewStore.send(.stickerTapped(stickerDesign), animation: .easeInOut)
+                        } label: {
+                            StickerCell(imageUrl: stickerDesign.imageURL, selectedIndex: index)
+                                .aspectRatio(1, contentMode: .fit)
+                        }
+                        .buttonStyle(.bouncy)
                     }
                 }
                 .padding(.horizontal, 24)
@@ -45,7 +57,7 @@ extension BoxStartGuideView {
 
 private struct StickerCell: View {
     var imageUrl: String
-    var selectedNumber: Int?
+    var selectedIndex: Int?
 
     var body: some View {
         ZStack(alignment: .topTrailing) {
@@ -62,8 +74,8 @@ private struct StickerCell: View {
                         .padding(20)
                 }
 
-            if let selectedNumber {
-                Text("\(selectedNumber)")
+            if let selectedIndex {
+                Text("\(selectedIndex + 1)")
                     .packyFont(.body1)
                     .foregroundStyle(.white)
                     .background(
@@ -75,6 +87,7 @@ private struct StickerCell: View {
                     .padding(.trailing, 16)
             }
         }
+        .animation(.spring, value: selectedIndex)
     }
 }
 

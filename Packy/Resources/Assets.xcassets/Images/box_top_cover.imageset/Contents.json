@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "box_top_mock.png",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

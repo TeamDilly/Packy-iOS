@@ -30,11 +30,21 @@ struct BoxStartGuideView: View {
             ZStack {
                 if viewStore.isShowingGuideText {
                     guideOverlayView
+                } else {
+                    Image(.boxTopCover)
                 }
 
                 VStack(spacing: 0) {
-                    FloatingNavigationBar {
-                        viewStore.send(.nextButtonTapped)
+                    ZStack {
+                        FloatingNavigationBar {
+                            viewStore.send(.nextButtonTapped)
+                        }
+
+                        Text("To. BlahBlah")
+                            .packyFont(.body2)
+                            .foregroundStyle(.white)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .padding(.horizontal, 72)
                     }
 
                     HStack {
@@ -44,10 +54,8 @@ struct BoxStartGuideView: View {
                         Spacer()
 
                         // 스티커1
-                        ElementGuideView(element: .sticker1, screenWidth: screenWidth) {
-                            viewStore.send(.binding(.set(\.$isStickerBottomSheetPresented, true)))
-                        }
-                        .offset(y: 10)
+                        firstStickerView(screenWidth)
+                            .offset(y: 10)
                     }
                     .padding(.leading, 33)
                     .padding(.trailing, 36)
@@ -55,10 +63,7 @@ struct BoxStartGuideView: View {
 
                     HStack {
                         // 스티커2
-                        ElementGuideView(element: .sticker2, screenWidth: screenWidth) {
-                            viewStore.send(.binding(.set(\.$isStickerBottomSheetPresented, true)))
-                        }
-                        .offset(y: -5)
+                        secondStickerView(screenWidth)
 
                         Spacer()
 
@@ -218,6 +223,38 @@ private extension BoxStartGuideView {
         }
     }
 
+    @ViewBuilder
+    func firstStickerView(_ screenWidth: CGFloat) -> some View {
+        if let firstSticker = viewStore.selectedStickers.first {
+            StickerPresentingView(
+                stickerType: .sticker1,
+                stickerURL: firstSticker.imageURL,
+                screenWidth: screenWidth) {
+                    viewStore.send(.binding(.set(\.$isStickerBottomSheetPresented, true)))
+                }
+        } else {
+            ElementGuideView(element: .sticker1, screenWidth: screenWidth) {
+                viewStore.send(.binding(.set(\.$isStickerBottomSheetPresented, true)))
+            }
+        }
+    }
+
+    @ViewBuilder
+    func secondStickerView(_ screenWidth: CGFloat) -> some View {
+        if let secondSticker = viewStore.selectedStickers[safe: 1] {
+            StickerPresentingView(
+                stickerType: .sticker2,
+                stickerURL: secondSticker.imageURL,
+                screenWidth: screenWidth) {
+                    viewStore.send(.binding(.set(\.$isStickerBottomSheetPresented, true)))
+                }
+        } else {
+            ElementGuideView(element: .sticker2, screenWidth: screenWidth) {
+                viewStore.send(.binding(.set(\.$isStickerBottomSheetPresented, true)))
+            }
+        }
+    }
+
     var bottomButtonsView: some View {
         HStack(spacing: 16) {
             Button {
@@ -230,6 +267,7 @@ private extension BoxStartGuideView {
                     .frame(maxWidth: .infinity)
                     .background {
                         Capsule()
+                            .fill(.black.opacity(0.3))
                     }
             }
 
@@ -251,6 +289,7 @@ private extension BoxStartGuideView {
                 .frame(maxWidth: .infinity)
                 .background {
                     Capsule()
+                        .fill(.black.opacity(0.3))
                 }
             }
         }
@@ -267,7 +306,7 @@ private struct ElementGuideView: View {
 
     var body: some View {
         Button {
-            HapticManager.shared.fireFeedback(.medium)
+            HapticManager.shared.fireFeedback(.soft)
             action()
         } label: {
             let size = element.size(fromScreenWidth: screenWidth)
@@ -305,6 +344,7 @@ private struct PhotoPresentingView: View {
         let size = element.size(fromScreenWidth: screenWidth)
 
         Button {
+            HapticManager.shared.fireFeedback(.soft)
             action()
         } label: {
             VStack {
@@ -344,6 +384,7 @@ private struct LetterPresentingView: View {
         let spacing = letterContentWidth * (20 / 160)
 
         Button {
+            HapticManager.shared.fireFeedback(.soft)
             action()
         } label: {
             ZStack {
@@ -376,10 +417,11 @@ private struct MusicPresentingView: View {
     let action: () -> Void
 
     private let element = BoxElementShape.music
+    private var size: CGSize {
+        element.size(fromScreenWidth: screenWidth)
+    }
 
     var body: some View {
-        let size = element.size(fromScreenWidth: screenWidth)
-
         YouTubePlayerView(.init(stringLiteral: url)) { state in
             switch state {
             case .idle:
@@ -394,7 +436,34 @@ private struct MusicPresentingView: View {
         .frame(width: size.width, height: size.height)
         .mask(RoundedRectangle(cornerRadius: 8))
         .onLongPressGesture {
+            HapticManager.shared.fireFeedback(.soft)
             action()
+        }
+    }
+}
+
+private struct StickerPresentingView: View {
+    let stickerType: BoxElementShape
+    let stickerURL: String
+    let screenWidth: CGFloat
+    let action: () -> Void
+
+    private var size: CGSize {
+        stickerType.size(fromScreenWidth: screenWidth)
+    }
+
+    var body: some View {
+        Button {
+            HapticManager.shared.fireFeedback(.soft)
+            action()
+        } label: {
+            KFImage(URL(string: stickerURL))
+                .placeholder {
+                    ProgressView()
+                        .progressViewStyle(.circular)
+                }
+                .scaleToFillFrame(width: size.width, height: size.height)
+                .rotationEffect(.degrees(stickerType.rotationDegree))
         }
     }
 }
