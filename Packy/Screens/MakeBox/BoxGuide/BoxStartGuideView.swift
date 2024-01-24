@@ -27,24 +27,33 @@ struct BoxStartGuideView: View {
         GeometryReader { proxy in
             let screenWidth = proxy.size.width
 
-            ZStack {
+            ZStack(alignment: .topTrailing) {
                 if viewStore.isShowingGuideText {
                     guideOverlayView
+                        .zIndex(3)
                 } else {
                     Image(.boxTopCover)
+                        .zIndex(1)
+                        .ignoresSafeArea()
+                        .transition(.move(edge: .top))
+
+                    FloatingNavigationBar {
+                        viewStore.send(.nextButtonTapped)
+                    }
+                    .zIndex(2)
                 }
 
                 VStack(spacing: 0) {
                     ZStack {
-                        FloatingNavigationBar {
-                            viewStore.send(.nextButtonTapped)
-                        }
-
-                        Text("To. BlahBlah")
+                        Text("To. \(viewStore.senderInfo.to)")
                             .packyFont(.body2)
                             .foregroundStyle(.white)
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .padding(.horizontal, 72)
+
+                        Rectangle()
+                            .fill(.clear)
+                            .frame(height: 48)
                     }
 
                     HStack {
@@ -214,7 +223,7 @@ private extension BoxStartGuideView {
     func musicView(_ screenWidth: CGFloat) -> some View {
         if let musicUrl = viewStore.musicInput.selectedMusicUrl {
             MusicPresentingView(url: musicUrl, screenWidth: screenWidth) {
-                viewStore.send(.binding(.set(\.$isMusicBottomSheetPresented, true)))
+                viewStore.send(.musicLinkDeleteButtonTapped)
             }
         } else {
             ElementGuideView(element: .music, screenWidth: screenWidth) {
@@ -414,7 +423,7 @@ private struct LetterPresentingView: View {
 private struct MusicPresentingView: View {
     let url: String
     let screenWidth: CGFloat
-    let action: () -> Void
+    let deleteAction: () -> Void
 
     private let element = BoxElementShape.music
     private var size: CGSize {
@@ -435,9 +444,11 @@ private struct MusicPresentingView: View {
         }
         .frame(width: size.width, height: size.height)
         .mask(RoundedRectangle(cornerRadius: 8))
-        .onLongPressGesture {
-            HapticManager.shared.fireFeedback(.soft)
-            action()
+        .overlay(alignment: .topTrailing) {
+            CloseButton(sizeType: .medium, colorType: .light) {
+                deleteAction()
+            }
+            .offset(x: 4, y: -4)
         }
     }
 }

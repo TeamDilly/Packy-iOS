@@ -29,13 +29,16 @@ struct PackyButton: View {
     let action: () -> Void
 
     var body: some View {
-        Button(title, action: action)
-            .buttonStyle(
-                PackyButtonStyle(
-                    sizeType: sizeType,
-                    colorType: colorType
-                )
+        Button(title) {
+            HapticManager.shared.fireFeedback(.soft)
+            action()
+        }
+        .buttonStyle(
+            PackyButtonStyle(
+                sizeType: sizeType,
+                colorType: colorType
             )
+        )
     }
 }
 

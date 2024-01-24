@@ -25,13 +25,16 @@ struct CloseButton: View {
     let action: () -> Void
 
     var body: some View {
-        Button("", action: action)
-            .buttonStyle(
-                CloseButtonStyle(
-                    sizeType: sizeType,
-                    colorType: colorType
-                )
+        Button("") {
+            HapticManager.shared.fireFeedback(.soft)
+            action()
+        }
+        .buttonStyle(
+            CloseButtonStyle(
+                sizeType: sizeType,
+                colorType: colorType
             )
+        )
     }
 }
 
@@ -70,7 +73,7 @@ private extension CloseButtonStyle {
     func backgroundColor(isPressed: Bool) -> Color {
         switch colorType {
         case .light:
-            return isPressed ? .gray100 : .clear
+            return isPressed ? .gray100 : .white
         case .dark:
             guard isEnabled else { return .gray300 }
             return isPressed ? .gray800 : .gray900
