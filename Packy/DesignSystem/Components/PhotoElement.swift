@@ -84,6 +84,7 @@ private extension PhotoElement {
             .overlay(alignment: .topTrailing) {
                 if isShowDeleteButton {
                     CloseButton(sizeType: .medium, colorType: .dark) {
+                        selectedItem = nil
                         deleteButtonAction?()
                     }
                     .padding(12)

@@ -63,18 +63,23 @@ private extension PhotoPicker {
     }
 
     var imageView: some View {
-        KFImage(imageURL)
-            .placeholder {
-                placeholderView
-            }
-            .overlay(alignment: .topTrailing) {
-                if isShowDeleteButton {
-                    CloseButton(sizeType: .medium, colorType: .dark) {
-                        deleteButtonAction?()
-                    }
-                    .padding(12)
+        GeometryReader { proxy in
+            let width = proxy.size.width
+            KFImage(imageURL)
+                .placeholder {
+                    placeholderView
                 }
-            }
+                .scaleToFillFrame(width: width, height: width)
+                .overlay(alignment: .topTrailing) {
+                    if isShowDeleteButton {
+                        CloseButton(sizeType: .medium, colorType: .dark) {
+                            selectedItem = nil
+                            deleteButtonAction?()
+                        }
+                        .padding(12)
+                    }
+                }
+        }
     }
 
     var placeholderView: some View {
@@ -100,8 +105,22 @@ extension PhotoPicker {
 
 #Preview {
     VStack {
-        PhotoPicker(imageURL: nil) { data in
+        let url = URL(string: "https://packy-bucket.s3.ap-northeast-2.amazonaws.com/images/3bea52ca-f174-419f-872c-b0a0b852cdcb-76FE85EC-0AEC-406B-84D8-C2253A83940C.png")!
+
+        PhotoPicker(imageURL: url) { data in
             print(data)
         }
+        .aspectRatio(contentMode: .fit)
+        .border(Color.black)
+        .padding()
+
+        PhotoPicker(
+            imageURL: URL(string: "https://packy-bucket.s3.ap-northeast-2.amazonaws.com/images/3bea52ca-f174-419f-872c-b0a0b852cdcb-76FE85EC-0AEC-406B-84D8-C2253A83940C.png")!
+        ) { data in
+            print(data)
+        }
+        .border(Color.black)
+        .padding()
     }
+    .border(Color.black)
 }
