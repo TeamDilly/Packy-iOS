@@ -219,7 +219,8 @@ struct BoxStartGuideFeature: Reducer {
                 case .userSelect:
                     state.musicInput.selectedMusicUrl = state.musicInput.musicLinkUrlInput
                 case .recommend:
-                    state.musicInput.selectedMusicUrl = state.musicInput.selectedRecommendedMusic?.youtubeUrl
+                    // 첫 번째 요소는 가끔 centeredItem 이 안먹기에, nil이면 첫번째 요소로 지정
+                    state.musicInput.selectedMusicUrl = (state.musicInput.selectedRecommendedMusic ?? state.recommendedMusics.first)?.youtubeUrl
                 }
                 state.isMusicBottomSheetPresented = false
                 return .none
