@@ -162,5 +162,4 @@ extension PhotoElement {
             print("aaa")
         }
     }
-    
 }
