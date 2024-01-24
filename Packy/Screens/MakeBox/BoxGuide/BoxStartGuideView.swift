@@ -157,6 +157,13 @@ struct BoxStartGuideView: View {
         ) {
             selectBoxBottomSheet
         }
+        // 선물 추가 바텀 시트
+        .bottomSheet(
+            isPresented: viewStore.$isAddGiftBottomSheetPresented,
+            detents: [.large]
+        ) {
+            addGiftBottomSheet
+        }
         .alertButtonTint(color: .black)
         .packyAlert(
             isPresented: viewStore.$isShowBoxFinishAlert,
@@ -288,7 +295,7 @@ private extension BoxStartGuideView {
             }
 
             Button {
-                viewStore.send(.addGiftButtonTapped)
+                viewStore.send(.binding(.set(\.$isAddGiftBottomSheetPresented, true)))
             } label: {
                 HStack(spacing: 8) {
                     Image(.plus)

@@ -36,7 +36,7 @@ extension MakeBoxFeature {
             case let .path(action):
                 switch action {
                 case let .element(id: _, action: .boxChoice(.delegate(.moveToBoxStartGuide(data)))):
-                    state.path.append(.startGuide(.init(senderInfo: data.senderInfo, selectedBox: data.selectedBoxIndex, boxDesigns: data.boxDesigns)))
+                    state.path.append(.startGuide(.init(senderInfo: data.senderInfo, selectedBox: data.selectedBox, boxDesigns: data.boxDesigns)))
                     return .none
 
                 case .element:

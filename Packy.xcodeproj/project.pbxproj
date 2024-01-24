@@ -16,6 +16,7 @@
 		E5001F962B5BEAF6004B65E6 /* URL+Trimming.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5001F952B5BEAF6004B65E6 /* URL+Trimming.swift */; };
 		E52470ED2B612DD3003D49DE /* TextButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52470EC2B612DD3003D49DE /* TextButtonStyle.swift */; };
 		E52470EF2B6134EE003D49DE /* Array+SafeIndex.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52470EE2B6134EE003D49DE /* Array+SafeIndex.swift */; };
+		E52470F22B6142EB003D49DE /* BoxStartGuideView+AddGiftSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52470F12B6142EB003D49DE /* BoxStartGuideView+AddGiftSheet.swift */; };
 		E5551B792B5FE8E300DB81F3 /* TokenInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5551B782B5FE8E300DB81F3 /* TokenInterceptor.swift */; };
 		E5551B7B2B5FF2AF00DB81F3 /* HTTPSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5551B7A2B5FF2AF00DB81F3 /* HTTPSession.swift */; };
 		E5551B7D2B5FF5AD00DB81F3 /* MoyaProvider+Build.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5551B7C2B5FF5AD00DB81F3 /* MoyaProvider+Build.swift */; };
@@ -149,6 +150,7 @@
 		E5001F952B5BEAF6004B65E6 /* URL+Trimming.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+Trimming.swift"; sourceTree = "<group>"; };
 		E52470EC2B612DD3003D49DE /* TextButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextButtonStyle.swift; sourceTree = "<group>"; };
 		E52470EE2B6134EE003D49DE /* Array+SafeIndex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+SafeIndex.swift"; sourceTree = "<group>"; };
+		E52470F12B6142EB003D49DE /* BoxStartGuideView+AddGiftSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BoxStartGuideView+AddGiftSheet.swift"; sourceTree = "<group>"; };
 		E5551B782B5FE8E300DB81F3 /* TokenInterceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenInterceptor.swift; sourceTree = "<group>"; };
 		E5551B7A2B5FF2AF00DB81F3 /* HTTPSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPSession.swift; sourceTree = "<group>"; };
 		E5551B7C2B5FF5AD00DB81F3 /* MoyaProvider+Build.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MoyaProvider+Build.swift"; sourceTree = "<group>"; };
@@ -304,6 +306,19 @@
 				E52470EE2B6134EE003D49DE /* Array+SafeIndex.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		E52470F02B6142D1003D49DE /* BottomSheets */ = {
+			isa = PBXGroup;
+			children = (
+				E5E73D492B597C0200729D99 /* BoxStartGuideView+MusicSheet.swift */,
+				E5E73D4B2B597CB600729D99 /* BoxStartGuideView+PhotoSheet.swift */,
+				E58048C22B5BFF3800B974B3 /* BoxStartGuideView+LetterSheet.swift */,
+				E5A416B22B5D350C00313E5A /* BoxStartGuideView+StickerSheet.swift */,
+				E5551B7E2B6001CC00DB81F3 /* BoxStartGuideView+SelectBoxSheet.swift */,
+				E52470F12B6142EB003D49DE /* BoxStartGuideView+AddGiftSheet.swift */,
+			);
+			path = BottomSheets;
 			sourceTree = "<group>";
 		};
 		E58A7B052B57FA3F0059FBF3 /* Frameworks */ = {
@@ -756,13 +771,9 @@
 		E5E73D472B597BCD00729D99 /* BoxGuide */ = {
 			isa = PBXGroup;
 			children = (
+				E52470F02B6142D1003D49DE /* BottomSheets */,
 				E5A7A9E12B57F81400590EA6 /* BoxStartGuideFeature.swift */,
 				E5A7A9DF2B57F81400590EA6 /* BoxStartGuideView.swift */,
-				E5E73D492B597C0200729D99 /* BoxStartGuideView+MusicSheet.swift */,
-				E5E73D4B2B597CB600729D99 /* BoxStartGuideView+PhotoSheet.swift */,
-				E58048C22B5BFF3800B974B3 /* BoxStartGuideView+LetterSheet.swift */,
-				E5A416B22B5D350C00313E5A /* BoxStartGuideView+StickerSheet.swift */,
-				E5551B7E2B6001CC00DB81F3 /* BoxStartGuideView+SelectBoxSheet.swift */,
 			);
 			path = BoxGuide;
 			sourceTree = "<group>";
@@ -921,6 +932,7 @@
 				E5A7AA392B57F81400590EA6 /* View+If.swift in Sources */,
 				E5A416A92B5D212300313E5A /* RecommendedMusic.swift in Sources */,
 				E5A7AA4F2B57F81400590EA6 /* PretendardFont.swift in Sources */,
+				E52470F22B6142EB003D49DE /* BoxStartGuideView+AddGiftSheet.swift in Sources */,
 				E5A7AA422B57F81400590EA6 /* CloseButton.swift in Sources */,
 				E5A7AA832B57F81400590EA6 /* AppleLoginController.swift in Sources */,
 				E5A7AA5F2B57F81400590EA6 /* TermsAgreementView.swift in Sources */,

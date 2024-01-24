@@ -46,7 +46,7 @@ struct BoxStartGuideFeature: Reducer {
 
     struct State: Equatable {
         let senderInfo: BoxSenderInfo
-        var selectedBox: BoxDesign
+        var selectedBox: BoxDesign?
 
         var isShowingGuideText: Bool = true
 
@@ -55,6 +55,7 @@ struct BoxStartGuideFeature: Reducer {
         @BindingState var isPhotoBottomSheetPresented: Bool = false
         @BindingState var isStickerBottomSheetPresented: Bool = false
         @BindingState var isSelectBoxBottomSheetPresented: Bool = false
+        @BindingState var isAddGiftBottomSheetPresented: Bool = false
 
         @BindingState var musicInput: MusicInput = .init()
         @BindingState var photoInput: PhotoInput = .init()
