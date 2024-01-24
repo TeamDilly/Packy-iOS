@@ -46,7 +46,7 @@ extension BoxStartGuideView {
             Spacer()
 
             PackyButton(title: "저장", colorType: .black) {
-                viewStore.send(.photoSaveButtonTapped)
+                viewStore.send(.binding(.set(\.$isPhotoBottomSheetPresented, false)))
             }
             .padding(.horizontal, 24)
             .padding(.bottom, 16)
@@ -59,7 +59,7 @@ extension BoxStartGuideView {
 #Preview {
     BoxStartGuideView(
         store: .init(
-            initialState: .init(senderInfo: .mock, selectedBoxIndex: 0, isPhotoBottomSheetPresented: true),
+            initialState: .init(senderInfo: .mock, selectedBox: .mock, isPhotoBottomSheetPresented: true, boxDesigns: .mock),
             reducer: {
                 BoxStartGuideFeature()
                     ._printChanges()

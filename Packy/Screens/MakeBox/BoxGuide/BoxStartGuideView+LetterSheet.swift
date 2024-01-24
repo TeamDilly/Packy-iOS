@@ -109,7 +109,7 @@ extension BoxStartGuideView {
 #Preview {
     BoxStartGuideView(
         store: .init(
-            initialState: .init(senderInfo: .mock, selectedBoxIndex: 0, isLetterBottomSheetPresented: true),
+            initialState: .init(senderInfo: .mock, selectedBox: .mock, isLetterBottomSheetPresented: true, boxDesigns: .mock),
             reducer: {
                 BoxStartGuideFeature()
             }

@@ -23,6 +23,10 @@ struct BoxDesign: Decodable, Equatable {
 
 // MARK: - Mock
 
+extension BoxDesign {
+    static let mock: Self = .init(id: 0, boxTopUrl: "https://picsum.photos/200", boxBottomUrl: "https://picsum.photos/300")
+}
+
 extension BoxDesignResponse {
     static let mock: Self = [
         .init(id: 0, boxTopUrl: "https://picsum.photos/200", boxBottomUrl: "https://picsum.photos/300"),

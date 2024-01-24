@@ -40,7 +40,7 @@ struct BoxStartGuideView: View {
                     FloatingNavigationBar(
                         trailingTitle: "완성",
                         trailingAction: {
-                            viewStore.send(.nextButtonTapped)
+                            viewStore.send(.completeButtonTapped)
                         },
                         trailingDisabled: !viewStore.isCompletable
                     )
@@ -148,9 +148,12 @@ struct BoxStartGuideView: View {
         ) {
             addStickerBottomSheet
         }
+        // 박스 다시 고르기 바텀 시트
         .bottomSheet(
             isPresented: viewStore.$isSelectBoxBottomSheetPresented,
-            detents: [.fraction(0.3)]
+            detents: [.fraction(0.3)],
+            isBackgroundBlack: false,
+            hideTopButtons: true
         ) {
             selectBoxBottomSheet
         }
@@ -271,7 +274,7 @@ private extension BoxStartGuideView {
     var bottomButtonsView: some View {
         HStack(spacing: 16) {
             Button {
-                viewStore.send(.reselectBoxButtonTapped)
+                viewStore.send(.binding(.set(\.$isSelectBoxBottomSheetPresented, true)))
             } label: {
                 Text("박스 다시 고르기")
                     .foregroundStyle(.white)
@@ -489,7 +492,7 @@ private struct StickerPresentingView: View {
 #Preview {
     BoxStartGuideView(
         store: .init(
-            initialState: .init(senderInfo: .mock, selectedBoxIndex: 0),
+            initialState: .init(senderInfo: .mock, selectedBox: .mock, boxDesigns: .mock),
             reducer: {
                 BoxStartGuideFeature()
                     ._printChanges()

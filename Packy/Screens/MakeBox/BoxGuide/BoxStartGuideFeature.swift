@@ -46,7 +46,7 @@ struct BoxStartGuideFeature: Reducer {
 
     struct State: Equatable {
         let senderInfo: BoxSenderInfo
-        let selectedBoxIndex: Int
+        var selectedBox: BoxDesign
 
         var isShowingGuideText: Bool = true
 
@@ -71,6 +71,8 @@ struct BoxStartGuideFeature: Reducer {
         }
         var selectedStickers: [StickerDesign] = []
 
+        let boxDesigns: [BoxDesign]
+
         /// 모든 요소가 입력되어서, 완성할 수 있는 상태인지
         var isCompletable: Bool {
             musicInput.isCompleted &&
@@ -84,6 +86,7 @@ struct BoxStartGuideFeature: Reducer {
         // MARK: User Action
         case binding(BindingAction<State>)
 
+        // 음악
         case musicBottomSheetBackButtonTapped
         case musicChoiceUserSelectButtonTapped
         case musicChoiceRecommendButtonTapped
@@ -91,20 +94,22 @@ struct BoxStartGuideFeature: Reducer {
         case musicSaveButtonTapped
         case musicLinkDeleteButtonTapped
 
+        // 사진
         case selectPhoto(Data)
-        case photoAddButtonTapped
-        case photoSaveButtonTapped
         case photoDeleteButtonTapped
 
+        // 편지
         case letterSaveButtonTapped
 
+        // 스티커
         case stickerTapped(StickerDesign)
 
-        case nextButtonTapped
-        case makeBoxConfirmButtonTapped
+        // 박스
+        case selectBox(BoxDesign)
 
-        case reselectBoxButtonTapped
-        case addGiftButtonTapped
+        // 완성
+        case completeButtonTapped
+        case makeBoxConfirmButtonTapped
 
         // MARK: Inner Business Action
         case _onTask
@@ -129,6 +134,9 @@ struct BoxStartGuideFeature: Reducer {
 
         Reduce<State, Action> { state, action in
             switch action {
+            case .binding:
+                return .none
+
             case ._onTask:
                 return .merge(
                     .run { _ in
@@ -230,11 +238,7 @@ struct BoxStartGuideFeature: Reducer {
                 state.photoInput.photoUrl = nil
                 return .none
 
-            case .photoSaveButtonTapped:
-                state.isPhotoBottomSheetPresented = false
-                return .none
-
-            case .nextButtonTapped:
+            case .completeButtonTapped:
                 state.isShowBoxFinishAlert = true
                 return .none
 
@@ -256,15 +260,16 @@ struct BoxStartGuideFeature: Reducer {
                 // 2개 까지만 선택
                 guard state.selectedStickers.count < 2 else { return .none }
                 state.selectedStickers.append(sticker)
+                return .none
 
+            case let .selectBox(boxDesign):
+                state.selectedBox = boxDesign
                 return .none
 
             case .makeBoxConfirmButtonTapped:
                 // TODO: 실제 서버 통신해서 박스 만드는 과정 마무리
                 return .none
 
-            default:
-                return .none
             }
         }
     }

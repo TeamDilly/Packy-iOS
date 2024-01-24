@@ -13,7 +13,8 @@ struct BoxChoiceFeature: Reducer {
 
     struct PassingData {
         let senderInfo: BoxSenderInfo
-        let selectedBoxIndex: Int
+        let selectedBox: BoxDesign?
+        let boxDesigns: [BoxDesign]
     }
 
     struct State: Equatable {
@@ -28,7 +29,8 @@ struct BoxChoiceFeature: Reducer {
         var passingData: PassingData {
             .init(
                 senderInfo: senderInfo,
-                selectedBoxIndex: selectedBox?.id ?? 0
+                selectedBox: selectedBox,
+                boxDesigns: boxDesigns
             )
         }
     }

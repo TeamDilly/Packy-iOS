@@ -96,7 +96,7 @@ private struct StickerCell: View {
 #Preview {
     BoxStartGuideView(
         store: .init(
-            initialState: .init(senderInfo: .mock, selectedBoxIndex: 0, isStickerBottomSheetPresented: true),
+            initialState: .init(senderInfo: .mock, selectedBox: .mock, isStickerBottomSheetPresented: true, boxDesigns: .mock),
             reducer: {
                 BoxStartGuideFeature()
                     ._printChanges()

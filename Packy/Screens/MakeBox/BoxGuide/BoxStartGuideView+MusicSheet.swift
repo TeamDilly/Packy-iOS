@@ -226,7 +226,7 @@ private struct MusicSelectionCell: View {
 #Preview {
     BoxStartGuideView(
         store: .init(
-            initialState: .init(senderInfo: .mock, selectedBoxIndex: 0, isMusicBottomSheetPresented: true),
+            initialState: .init(senderInfo: .mock, selectedBox: .mock, isMusicBottomSheetPresented: true, boxDesigns: .mock),
             reducer: {
                 BoxStartGuideFeature()
             }
