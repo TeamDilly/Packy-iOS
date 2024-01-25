@@ -14,7 +14,7 @@ enum BoxEndpoint {
     /// 패키 프로필 이미지 디자인 조회
     case getProfileImageDesigns
     /// 편지지 디자인 조회
-    case getLetterDesigns
+    case getEnvelopeDesigns
     /// 박스 디자인 조회
     case getBoxDesigns
     /// 스티커 디자인 조회
@@ -32,8 +32,8 @@ extension BoxEndpoint: TargetType {
             return "admin/music"
         case .getProfileImageDesigns:
             return "admin/design/profiles"
-        case .getLetterDesigns:
-            return "admin/design/letters"
+        case .getEnvelopeDesigns:
+            return "admin/design/envelopes"
         case .getBoxDesigns:
             return "admin/design/boxes"
         case .getStickerDesigns:

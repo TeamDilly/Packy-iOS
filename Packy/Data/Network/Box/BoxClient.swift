@@ -39,7 +39,7 @@ extension BoxClient: DependencyKey {
                 try await provider.request(.getProfileImageDesigns)
             },
             fetchLetterDesigns: {
-                try await provider.request(.getLetterDesigns)
+                try await provider.request(.getEnvelopeDesigns)
             },
             fetchBoxDesigns: {
                 try await provider.request(.getBoxDesigns)

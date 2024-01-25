@@ -11,23 +11,19 @@ typealias LetterDesignResponse = [LetterDesign]
 
 struct LetterDesign: Decodable, Equatable {
     let id: Int
-    let letterPaperUrl: String
-    let envelopeUrl: String
+    let sequence: Int
+    let imageUrl: String
 
     enum CodingKeys: String, CodingKey {
-        case id
-        case letterPaperUrl = "letterPaper"
-        case envelopeUrl = "envelope"
+        case id, sequence
+        case imageUrl = "imgUrl"
     }
 }
 
 // MARK: - Mock
 
 extension LetterDesignResponse {
-    static let mock: Self = [
-        .init(id: 0, letterPaperUrl: "https://picsum.photos/200", envelopeUrl: "https://picsum.photos/300"),
-        .init(id: 1, letterPaperUrl: "https://picsum.photos/200", envelopeUrl: "https://picsum.photos/300"),
-        .init(id: 2, letterPaperUrl: "https://picsum.photos/200", envelopeUrl: "https://picsum.photos/300"),
-        .init(id: 3, letterPaperUrl: "https://picsum.photos/200", envelopeUrl: "https://picsum.photos/300")
-    ]
+    static let mock: Self = (1...4).map {
+        .init(id: $0, sequence: $0, imageUrl: "https://packy-bucket.s3.ap-northeast-2.amazonaws.com/admin/design/envelope/envelope_\($0).png")
+    }
 }
