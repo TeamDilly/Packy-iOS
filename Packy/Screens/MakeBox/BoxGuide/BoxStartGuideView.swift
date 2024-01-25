@@ -168,22 +168,6 @@ struct BoxStartGuideView: View {
         ) {
             addGiftBottomSheet
         }
-        .packyAlert(
-            isPresented: viewStore.$isShowGiftDeleteAlert,
-            title: "선물탭을 진짜 닫겠는가",
-            description: "진짜루?", cancel: "놉,,", confirm: "예쓰", confirmAction: {
-                viewStore.send(.closeGiftSheetAlertConfirmTapped)
-            })
-        .alertButtonTint(color: .black)
-        .packyAlert(
-            isPresented: viewStore.$isShowBoxFinishAlert,
-            title: "선물박스를 완성할까요?",
-            description: "완성한 이후에는 수정할 수 없어요",
-            cancel: "다시 볼게요",
-            confirm: "완성할래요"
-        ) {
-            viewStore.send(.makeBoxConfirmButtonTapped)
-        }
         .accentColor(.black)
         .navigationBarBackButtonHidden(true)
         .popGestureDisabled()

@@ -79,9 +79,6 @@ struct BoxChoiceView: View {
                 .padding(.bottom, 16)
             }
         }
-        .packyAlert(isPresented: viewStore.$isShowAlert, title: "Title", confirm: "Confirm", confirmAction: {
-            viewStore.send(.alertConfirmButtonTapped)
-        })
         .animation(.spring, value: viewStore.isPresentingFinishedMotionView)
         .animation(.spring, value: viewStore.selectedBox)
         .navigationBarBackButtonHidden(true)

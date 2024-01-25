@@ -61,9 +61,6 @@ struct BoxStartGuideFeature: Reducer {
         @BindingState var photoInput: PhotoInput = .init()
         @BindingState var letterInput: LetterInput = .init()
 
-        @BindingState var isShowBoxFinishAlert: Bool = false
-        @BindingState var isShowGiftDeleteAlert: Bool = false
-
         var recommendedMusics: [RecommendedMusic] = []
         var letterDesigns: [LetterDesign] = []
 
@@ -140,6 +137,7 @@ struct BoxStartGuideFeature: Reducer {
     @Dependency(\.uploadClient) var uploadClient
     @Dependency(\.boxClient) var boxClient
     @Dependency(\.userDefaults) var userDefaults
+    @Dependency(\.packyAlert) var packyAlert
 
     var body: some Reducer<State, Action> {
         BindingReducer()
@@ -252,8 +250,13 @@ struct BoxStartGuideFeature: Reducer {
                 return .none
 
             case .completeButtonTapped:
-                state.isShowBoxFinishAlert = true
-                return .none
+                return .run { send in
+                    await packyAlert.show(
+                        .init(title: "선물박스를 완성할까요?", description: "완성한 이후에는 수정할 수 없어요", cancel: "다시 볼게요", confirm: "완성할래요", confirmAction: {
+                            await send(.makeBoxConfirmButtonTapped)
+                        })
+                    )
+                }
 
             // MARK: Letter
 
@@ -303,8 +306,13 @@ struct BoxStartGuideFeature: Reducer {
                 return .none
 
             case .addGiftSheetCloseButtonTapped:
-                state.isShowGiftDeleteAlert = true
-                return .none
+                return .run { send in
+                    await packyAlert.show(
+                        .init(title: "선물탭을 진짜 닫겠는가", description: "진짜루?", cancel: "놉,,", confirm: "예쓰", confirmAction: {
+                            await send(.closeGiftSheetAlertConfirmTapped)
+                        })
+                    )
+                }
 
             case .makeBoxConfirmButtonTapped:
                 // TODO: 실제 서버 통신해서 박스 만드는 과정 마무리

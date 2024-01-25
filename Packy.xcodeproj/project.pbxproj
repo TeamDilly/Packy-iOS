@@ -133,6 +133,9 @@
 		E5A7AA902B57F81400590EA6 /* Pretendard-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = E5A7AA342B57F81400590EA6 /* Pretendard-SemiBold.otf */; };
 		E5A7AA942B57F89C00590EA6 /* YouTubePlayerKit in Frameworks */ = {isa = PBXBuildFile; productRef = E5A7AA932B57F89C00590EA6 /* YouTubePlayerKit */; };
 		E5A7AA972B57F8A300590EA6 /* Moya in Frameworks */ = {isa = PBXBuildFile; productRef = E5A7AA962B57F8A300590EA6 /* Moya */; };
+		E5AC66EB2B62AB9900F3CBF0 /* PackyAlertClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5AC66EA2B62AB9900F3CBF0 /* PackyAlertClient.swift */; };
+		E5AC66ED2B62B1CB00F3CBF0 /* PackyAlertManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5AC66EC2B62B1CB00F3CBF0 /* PackyAlertManager.swift */; };
+		E5AC66EF2B62B24700F3CBF0 /* PassThroughWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5AC66EE2B62B24700F3CBF0 /* PassThroughWindow.swift */; };
 		E5D0129A2B58086F00236FEF /* SetWindowBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D012992B58086F00236FEF /* SetWindowBackground.swift */; };
 		E5D749762B4A7B9200213F63 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = E5D749752B4A7B9200213F63 /* Alamofire */; };
 		E5D749792B4A7C1A00213F63 /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = E5D749782B4A7C1A00213F63 /* ComposableArchitecture */; };
@@ -265,6 +268,9 @@
 		E5A7AA332B57F81400590EA6 /* Pretendard-ExtraLight.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-ExtraLight.otf"; sourceTree = "<group>"; };
 		E5A7AA342B57F81400590EA6 /* Pretendard-SemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-SemiBold.otf"; sourceTree = "<group>"; };
 		E5A7AA352B57F81400590EA6 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E5AC66EA2B62AB9900F3CBF0 /* PackyAlertClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackyAlertClient.swift; sourceTree = "<group>"; };
+		E5AC66EC2B62B1CB00F3CBF0 /* PackyAlertManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackyAlertManager.swift; sourceTree = "<group>"; };
+		E5AC66EE2B62B24700F3CBF0 /* PassThroughWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassThroughWindow.swift; sourceTree = "<group>"; };
 		E5D012992B58086F00236FEF /* SetWindowBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetWindowBackground.swift; sourceTree = "<group>"; };
 		E5D7495D2B4A72E100213F63 /* Packy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Packy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E5E73D492B597C0200729D99 /* BoxStartGuideView+MusicSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BoxStartGuideView+MusicSheet.swift"; sourceTree = "<group>"; };
@@ -383,6 +389,7 @@
 		E5A7A9BE2B57F81400590EA6 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				E5AC66E62B62A01400F3CBF0 /* Alert */,
 				E5A7A9C32B57F81400590EA6 /* BoxElement */,
 				E5A7A9CE2B57F81400590EA6 /* CarouselView.swift */,
 				E5A7A9CC2B57F81400590EA6 /* Checkbox.swift */,
@@ -391,7 +398,6 @@
 				E5001F842B5BA011004B65E6 /* Line.swift */,
 				E5A7A9CA2B57F81400590EA6 /* MusicPlayerView.swift */,
 				E5A7A9C22B57F81400590EA6 /* NavigationBar.swift */,
-				E5A416B42B5D439300313E5A /* PackyAlert.swift */,
 				E5A7A9C92B57F81400590EA6 /* PackyButton.swift */,
 				E5A7A9BF2B57F81400590EA6 /* PackyNavigationLink.swift */,
 				E5A7A9C12B57F81400590EA6 /* PackyTextArea.swift */,
@@ -566,6 +572,7 @@
 				E5A7A9FF2B57F81400590EA6 /* HapticManager.swift */,
 				E5A7AA002B57F81400590EA6 /* APIKey.swift */,
 				E5A7AA012B57F81400590EA6 /* ATTManager.swift */,
+				E5AC66EE2B62B24700F3CBF0 /* PassThroughWindow.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -669,6 +676,7 @@
 		E5A7AA1D2B57F81400590EA6 /* Client */ = {
 			isa = PBXGroup;
 			children = (
+				E5AC66E92B62AB8900F3CBF0 /* DesignSystem */,
 				E5A7AA1E2B57F81400590EA6 /* SocialLogin */,
 				E5A7AA242B57F81400590EA6 /* UserNotification */,
 			);
@@ -737,6 +745,23 @@
 				E5A7AA342B57F81400590EA6 /* Pretendard-SemiBold.otf */,
 			);
 			path = Font;
+			sourceTree = "<group>";
+		};
+		E5AC66E62B62A01400F3CBF0 /* Alert */ = {
+			isa = PBXGroup;
+			children = (
+				E5A416B42B5D439300313E5A /* PackyAlert.swift */,
+				E5AC66EC2B62B1CB00F3CBF0 /* PackyAlertManager.swift */,
+			);
+			path = Alert;
+			sourceTree = "<group>";
+		};
+		E5AC66E92B62AB8900F3CBF0 /* DesignSystem */ = {
+			isa = PBXGroup;
+			children = (
+				E5AC66EA2B62AB9900F3CBF0 /* PackyAlertClient.swift */,
+			);
+			path = DesignSystem;
 			sourceTree = "<group>";
 		};
 		E5D749542B4A72E100213F63 = {
@@ -948,6 +973,7 @@
 				E58048C92B5C36DD00B974B3 /* CornerRadiusWithBorderModifier.swift in Sources */,
 				E5A7AA652B57F81400590EA6 /* LoginView.swift in Sources */,
 				E58048CB2B5C394700B974B3 /* Snackbar.swift in Sources */,
+				E5AC66EF2B62B24700F3CBF0 /* PassThroughWindow.swift in Sources */,
 				E5A7AA402B57F81400590EA6 /* NavigationBar.swift in Sources */,
 				E5A7AA612B57F81400590EA6 /* SignUpProfileView.swift in Sources */,
 				E5E73D4C2B597CB600729D99 /* BoxStartGuideView+PhotoSheet.swift in Sources */,
@@ -958,12 +984,14 @@
 				E5A7AA3C2B57F81400590EA6 /* View+HideKeyboard.swift in Sources */,
 				E5A7AA6B2B57F81400590EA6 /* RootFeature.swift in Sources */,
 				E5A7AA6C2B57F81400590EA6 /* HapticManager.swift in Sources */,
+				E5AC66ED2B62B1CB00F3CBF0 /* PackyAlertManager.swift in Sources */,
 				E5001F872B5BA4C0004B65E6 /* BoxSenderInfo.swift in Sources */,
 				E5A416AF2B5D21B700313E5A /* LetterDesign.swift in Sources */,
 				E5A7AA782B57F81400590EA6 /* TokenRequest.swift in Sources */,
 				E5551B7F2B6001CC00DB81F3 /* BoxStartGuideView+SelectBoxSheet.swift in Sources */,
 				E5A7AA822B57F81400590EA6 /* KakaoLoginController.swift in Sources */,
 				E5001F912B5BE44D004B65E6 /* UploadEndpoint.swift in Sources */,
+				E5AC66EB2B62AB9900F3CBF0 /* PackyAlertClient.swift in Sources */,
 				E5A7AA502B57F81400590EA6 /* BottomSheetModifier.swift in Sources */,
 				E5A7AA572B57F81400590EA6 /* BoxStartGuideView.swift in Sources */,
 				E5A7AA7B2B57F81400590EA6 /* TokenInfoResponse.swift in Sources */,

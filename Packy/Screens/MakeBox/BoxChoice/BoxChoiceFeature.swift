@@ -22,7 +22,6 @@ struct BoxChoiceFeature: Reducer {
         var selectedBox: BoxDesign?
         @BindingState var selectedMessage: Int = 0
         var isPresentingFinishedMotionView: Bool = false
-        @BindingState var isShowAlert: Bool = false
 
         var boxDesigns: [BoxDesign] = []
 
@@ -41,7 +40,6 @@ struct BoxChoiceFeature: Reducer {
         case selectBox(BoxDesign)
         case nextButtonTapped
         case closeButtonTapped
-        case alertConfirmButtonTapped
 
         // MARK: Inner Business Action
         case _onTask
@@ -60,6 +58,7 @@ struct BoxChoiceFeature: Reducer {
     @Dependency(\.continuousClock) var clock
     @Dependency(\.userDefaults) var userDefaults
     @Dependency(\.boxClient) var boxClient
+    @Dependency(\.packyAlert) var packyAlert
 
     var body: some Reducer<State, Action> {
         BindingReducer()
@@ -94,11 +93,22 @@ struct BoxChoiceFeature: Reducer {
                 return showBoxMotion(state.passingData)
 
             case .closeButtonTapped:
-                state.isShowAlert = true
-                return .none
+                // state.isShowAlert = true
+                return .run { send in
+                    await packyAlert.show(
+                        .init(
+                            title: "title",
+                            confirm: "confirm",
+                            confirmAction: {
+                                // TODO: 로직 구현?
+                                // await send(.closeButtonTapped)
+                            }
+                        )
+                    )
+                }
 
-            case .alertConfirmButtonTapped:
-                return .none
+            // case .alertConfirmButtonTapped:
+            //     return .none
 
             case let ._setIsPresentingFinishedMotionView(isPresented):
                 state.isPresentingFinishedMotionView = isPresented
