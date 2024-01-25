@@ -151,7 +151,8 @@ struct BoxStartGuideFeature: Reducer {
                     },
                     // 디자인들 조회...
                     fetchLetterDesigns(),
-                    fetchRecommendedMusics()
+                    fetchRecommendedMusics(),
+                    fetchStickerDesigns()
                 )
 
             case let ._setIsShowingGuideText(isShowing):

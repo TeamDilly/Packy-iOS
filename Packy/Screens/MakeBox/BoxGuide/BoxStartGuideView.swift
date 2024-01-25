@@ -417,11 +417,12 @@ private struct LetterPresentingView: View {
                             .fill(.white)
                     )
 
-                // TODO: input.templateIndex 적용
-                Image(.envelopeSample)
-                    .resizable()
-                    .frame(width: letterContentWidth, height: letterContentHeight, alignment: .top)
-                    .offset(x: spacing, y: spacing)
+                if let imageUrl = input.selectedLetterDesign?.imageUrl {
+                    KFImage(URL(string: imageUrl))
+                        .resizable()
+                        .frame(width: letterContentWidth, height: letterContentHeight, alignment: .top)
+                        .offset(x: spacing, y: spacing)
+                }
             }
             .frame(width: size.width, height: size.height)
             .rotationEffect(.degrees(element.rotationDegree))
