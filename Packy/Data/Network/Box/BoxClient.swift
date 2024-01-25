@@ -25,6 +25,7 @@ struct BoxClient {
     var fetchProfileImages: @Sendable () async throws -> ProfileImageResponse
     var fetchLetterDesigns: @Sendable () async throws -> LetterDesignResponse
     var fetchBoxDesigns: @Sendable () async throws -> BoxDesignResponse
+    var fetchStickerDesigns: @Sendable () async throws -> [StickerDesign]
 }
 
 extension BoxClient: DependencyKey {
@@ -42,6 +43,10 @@ extension BoxClient: DependencyKey {
             },
             fetchBoxDesigns: {
                 try await provider.request(.getBoxDesigns)
+            },
+            fetchStickerDesigns: {
+                let response: StickerDesignResponse = try await provider.request(.getStickerDesigns)
+                return response.contents.sorted(by: \.sequence)
             }
         )
     }()
@@ -51,7 +56,8 @@ extension BoxClient: DependencyKey {
             fetchRecommendedMusics: { .mock },
             fetchProfileImages: { .mock },
             fetchLetterDesigns: { .mock },
-            fetchBoxDesigns: { .mock }
+            fetchBoxDesigns: { .mock },
+            fetchStickerDesigns: { .mock }
         )
     }()
 }

@@ -136,6 +136,8 @@
 		E5AC66EB2B62AB9900F3CBF0 /* PackyAlertClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5AC66EA2B62AB9900F3CBF0 /* PackyAlertClient.swift */; };
 		E5AC66ED2B62B1CB00F3CBF0 /* PackyAlertManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5AC66EC2B62B1CB00F3CBF0 /* PackyAlertManager.swift */; };
 		E5AC66EF2B62B24700F3CBF0 /* PassThroughWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5AC66EE2B62B24700F3CBF0 /* PassThroughWindow.swift */; };
+		E5AC66F12B62B95B00F3CBF0 /* StickerDesign.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5AC66F02B62B95B00F3CBF0 /* StickerDesign.swift */; };
+		E5AC66F32B62BC8400F3CBF0 /* Sequence+SortByKeypath.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5AC66F22B62BC8400F3CBF0 /* Sequence+SortByKeypath.swift */; };
 		E5D0129A2B58086F00236FEF /* SetWindowBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D012992B58086F00236FEF /* SetWindowBackground.swift */; };
 		E5D749762B4A7B9200213F63 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = E5D749752B4A7B9200213F63 /* Alamofire */; };
 		E5D749792B4A7C1A00213F63 /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = E5D749782B4A7C1A00213F63 /* ComposableArchitecture */; };
@@ -271,6 +273,8 @@
 		E5AC66EA2B62AB9900F3CBF0 /* PackyAlertClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackyAlertClient.swift; sourceTree = "<group>"; };
 		E5AC66EC2B62B1CB00F3CBF0 /* PackyAlertManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackyAlertManager.swift; sourceTree = "<group>"; };
 		E5AC66EE2B62B24700F3CBF0 /* PassThroughWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassThroughWindow.swift; sourceTree = "<group>"; };
+		E5AC66F02B62B95B00F3CBF0 /* StickerDesign.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickerDesign.swift; sourceTree = "<group>"; };
+		E5AC66F22B62BC8400F3CBF0 /* Sequence+SortByKeypath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sequence+SortByKeypath.swift"; sourceTree = "<group>"; };
 		E5D012992B58086F00236FEF /* SetWindowBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetWindowBackground.swift; sourceTree = "<group>"; };
 		E5D7495D2B4A72E100213F63 /* Packy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Packy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E5E73D492B597C0200729D99 /* BoxStartGuideView+MusicSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BoxStartGuideView+MusicSheet.swift"; sourceTree = "<group>"; };
@@ -312,6 +316,7 @@
 				E5001F952B5BEAF6004B65E6 /* URL+Trimming.swift */,
 				E58048C02B5BF0D200B974B3 /* UIImage+Compression.swift */,
 				E52470EE2B6134EE003D49DE /* Array+SafeIndex.swift */,
+				E5AC66F22B62BC8400F3CBF0 /* Sequence+SortByKeypath.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -341,11 +346,6 @@
 			children = (
 				E5A416A62B5D20DC00313E5A /* BoxClient.swift */,
 				E5A416A42B5D1F8100313E5A /* BoxEndpoint.swift */,
-				E5A416B02B5D220B00313E5A /* BoxDesign.swift */,
-				E5A416AE2B5D21B700313E5A /* LetterDesign.swift */,
-				E5A416AC2B5D218D00313E5A /* MessageDesign.swift */,
-				E5A416AA2B5D215800313E5A /* ProfileImage.swift */,
-				E5A416A82B5D212300313E5A /* RecommendedMusic.swift */,
 			);
 			path = Box;
 			sourceTree = "<group>";
@@ -594,9 +594,16 @@
 		E5A7AA072B57F81400590EA6 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				E5A7AA082B57F81400590EA6 /* SocialLoginProvider.swift */,
-				E5A7AA092B57F81400590EA6 /* Terms.swift */,
+				E5A416B02B5D220B00313E5A /* BoxDesign.swift */,
 				E5001F862B5BA4C0004B65E6 /* BoxSenderInfo.swift */,
+				E5A416AE2B5D21B700313E5A /* LetterDesign.swift */,
+				E5A416AC2B5D218D00313E5A /* MessageDesign.swift */,
+				E5A416AA2B5D215800313E5A /* ProfileImage.swift */,
+				E5A416A82B5D212300313E5A /* RecommendedMusic.swift */,
+				E5A7AA1F2B57F81400590EA6 /* SocialLoginInfo.swift */,
+				E5A7AA082B57F81400590EA6 /* SocialLoginProvider.swift */,
+				E5AC66F02B62B95B00F3CBF0 /* StickerDesign.swift */,
+				E5A7AA092B57F81400590EA6 /* Terms.swift */,
 			);
 			name = Model;
 			path = Packy/Model;
@@ -686,7 +693,6 @@
 		E5A7AA1E2B57F81400590EA6 /* SocialLogin */ = {
 			isa = PBXGroup;
 			children = (
-				E5A7AA1F2B57F81400590EA6 /* SocialLoginInfo.swift */,
 				E5A7AA202B57F81400590EA6 /* Controller */,
 				E5A7AA232B57F81400590EA6 /* SocialLoginClient.swift */,
 			);
@@ -943,6 +949,7 @@
 				E5A7AA6E2B57F81400590EA6 /* ATTManager.swift in Sources */,
 				E5A7AA452B57F81400590EA6 /* PhotoElement.swift in Sources */,
 				E5A7AA622B57F81400590EA6 /* SignUpProfileFeature.swift in Sources */,
+				E5AC66F12B62B95B00F3CBF0 /* StickerDesign.swift in Sources */,
 				E5A7AA3A2B57F81400590EA6 /* UINavigationController+PopGesture.swift in Sources */,
 				E5A7AA492B57F81400590EA6 /* Checkbox.swift in Sources */,
 				E5A7AA382B57F81400590EA6 /* Image+ScaleToFillFrame.swift in Sources */,
@@ -973,6 +980,7 @@
 				E58048C92B5C36DD00B974B3 /* CornerRadiusWithBorderModifier.swift in Sources */,
 				E5A7AA652B57F81400590EA6 /* LoginView.swift in Sources */,
 				E58048CB2B5C394700B974B3 /* Snackbar.swift in Sources */,
+				E5AC66F32B62BC8400F3CBF0 /* Sequence+SortByKeypath.swift in Sources */,
 				E5AC66EF2B62B24700F3CBF0 /* PassThroughWindow.swift in Sources */,
 				E5A7AA402B57F81400590EA6 /* NavigationBar.swift in Sources */,
 				E5A7AA612B57F81400590EA6 /* SignUpProfileView.swift in Sources */,

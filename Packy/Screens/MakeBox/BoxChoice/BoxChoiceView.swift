@@ -37,7 +37,7 @@ struct BoxChoiceView: View {
 
                 VStack(spacing: 40) {
                     if let selectedBox = viewStore.selectedBox {
-                        KFImage(URL(string: selectedBox.boxTopUrl))
+                        KFImage(URL(string: selectedBox.boxFullUrl))
                             .placeholder {
                                 ProgressView()
                                     .progressViewStyle(.circular)
@@ -45,6 +45,7 @@ struct BoxChoiceView: View {
                             .resizable()
                             .aspectRatio(contentMode: .fit)
                             .frame(width: 250, height: 250)
+                            .animation(nil, value: viewStore.selectedBox)
                     }
                 
                     HStack(spacing: 12) {
@@ -53,7 +54,7 @@ struct BoxChoiceView: View {
                                 viewStore.send(.selectBox(boxDesign))
                                 HapticManager.shared.fireNotification(.success)
                             } label: {
-                                KFImage(URL(string: boxDesign.boxTopUrl))
+                                KFImage(URL(string: boxDesign.boxFullUrl))
                                     .placeholder {
                                         ProgressView()
                                             .progressViewStyle(.circular)

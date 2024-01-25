@@ -41,7 +41,7 @@ extension BoxStartGuideView {
                         Button {
                             viewStore.send(.stickerTapped(stickerDesign), animation: .easeInOut)
                         } label: {
-                            StickerCell(imageUrl: stickerDesign.imageURL, selectedIndex: index)
+                            StickerCell(imageUrl: stickerDesign.imageUrl, selectedIndex: index)
                                 .aspectRatio(1, contentMode: .fit)
                         }
                         .buttonStyle(.bouncy)

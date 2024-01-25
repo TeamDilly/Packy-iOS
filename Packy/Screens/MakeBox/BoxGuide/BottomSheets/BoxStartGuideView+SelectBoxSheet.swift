@@ -39,7 +39,7 @@ extension BoxStartGuideView {
                             viewStore.send(.selectBox(boxDesign))
                             HapticManager.shared.fireNotification(.success)
                         } label: {
-                            KFImage(URL(string: boxDesign.boxTopUrl))
+                            KFImage(URL(string: boxDesign.boxFullUrl))
                                 .placeholder {
                                     ProgressView()
                                         .progressViewStyle(.circular)

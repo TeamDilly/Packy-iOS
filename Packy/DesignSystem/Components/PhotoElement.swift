@@ -10,7 +10,7 @@ import Kingfisher
 import PhotosUI
 
 struct PhotoElement: View {
-    var imageURL: URL?
+    var imageUrl: URL?
     @Binding var text: String
     var placeholder: String = "사진 속 추억을 적어주세요"
 
@@ -21,8 +21,8 @@ struct PhotoElement: View {
     private var isShowDeleteButton: Bool = false
     private var deleteButtonAction: (() -> Void)? = nil
     
-    init(imageURL: URL? = nil, text: Binding<String>) {
-        self.imageURL = imageURL
+    init(imageUrl: URL? = nil, text: Binding<String>) {
+        self.imageUrl = imageUrl
         self._text = text
     }
     
@@ -39,7 +39,7 @@ struct PhotoElement: View {
         }
         .padding(16)
         .background(.gray200)
-        .animation(.spring, value: imageURL)
+        .animation(.spring, value: imageUrl)
     }
 }
 
@@ -76,7 +76,7 @@ private extension PhotoElement {
     }
     
     var imageView: some View {
-        KFImage(imageURL)
+        KFImage(imageUrl)
             .placeholder {
                 placeholderView
             }
@@ -148,7 +148,7 @@ extension PhotoElement {
 #Preview {
     VStack {
         PhotoElement(
-            imageURL: nil,
+            imageUrl: nil,
             text: .constant("")
         )
         .photoPickable { data in
@@ -156,7 +156,7 @@ extension PhotoElement {
         }
         
         PhotoElement(
-            imageURL: URL(string: "https://picsum.photos/id/237/200/300"),
+            imageUrl: URL(string: "https://picsum.photos/id/237/200/300"),
             text: .constant("asdada")
         )
         .deleteButton(isShown: true) {

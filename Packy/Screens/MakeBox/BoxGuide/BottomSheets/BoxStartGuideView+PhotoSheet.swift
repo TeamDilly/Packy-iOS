@@ -31,7 +31,7 @@ extension BoxStartGuideView {
             .padding(.horizontal, 24)
 
             PhotoElement(
-                imageURL: viewStore.photoInput.photoUrl,
+                imageUrl: viewStore.photoInput.photoUrl,
                 text: viewStore.$photoInput.text
             )
             .photoPickable { data in

@@ -27,6 +27,8 @@ final class TokenInterceptor: RequestInterceptor {
         var urlRequest = urlRequest
         urlRequest.setValue(accessToken, forHTTPHeaderField: "Authorization")
         completion(.success(urlRequest))
+
+        print("🧤 Intercepted Token+Request : ", urlRequest.headers)
     }
     
     /// AccessToken 재발급

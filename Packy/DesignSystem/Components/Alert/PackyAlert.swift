@@ -23,7 +23,7 @@ private struct PackyAlertPresentationWindowContext: ViewModifier {
         content.onAppear {
             guard alertWindow == nil else { return }
             let windowScene = UIApplication.shared.connectedScenes
-                .compactMap { $0 as? UIWindowScene}
+                .compactMap { $0 as? UIWindowScene }
                 .first { $0.windows.contains(where: \.isKeyWindow) }
             guard let windowScene else { return assertionFailure("Could not get a UIWindowScene") }
 

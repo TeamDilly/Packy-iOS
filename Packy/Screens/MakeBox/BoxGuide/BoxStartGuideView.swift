@@ -32,10 +32,12 @@ struct BoxStartGuideView: View {
                     guideOverlayView
                         .zIndex(3)
                 } else {
-                    Image(.boxTopCover)
-                        .zIndex(1)
-                        .ignoresSafeArea()
-                        .transition(.move(edge: .top))
+                    if let selectedBox = viewStore.selectedBox {
+                        KFImage(URL(string: selectedBox.boxPartUrl))
+                            .zIndex(1)
+                            .ignoresSafeArea()
+                            .transition(.move(edge: .top))
+                    }
 
                     FloatingNavigationBar(
                         trailingTitle: "완성",
@@ -245,7 +247,7 @@ private extension BoxStartGuideView {
         if let firstSticker = viewStore.selectedStickers.first {
             StickerPresentingView(
                 stickerType: .sticker1,
-                stickerURL: firstSticker.imageURL,
+                stickerURL: firstSticker.imageUrl,
                 screenWidth: screenWidth) {
                     viewStore.send(.binding(.set(\.$isStickerBottomSheetPresented, true)))
                 }
@@ -261,7 +263,7 @@ private extension BoxStartGuideView {
         if let secondSticker = viewStore.selectedStickers[safe: 1] {
             StickerPresentingView(
                 stickerType: .sticker2,
-                stickerURL: secondSticker.imageURL,
+                stickerURL: secondSticker.imageUrl,
                 screenWidth: screenWidth) {
                     viewStore.send(.binding(.set(\.$isStickerBottomSheetPresented, true)))
                 }

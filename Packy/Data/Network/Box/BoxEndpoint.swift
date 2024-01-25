@@ -17,6 +17,8 @@ enum BoxEndpoint {
     case getLetterDesigns
     /// 박스 디자인 조회
     case getBoxDesigns
+    /// 스티커 디자인 조회
+    case getStickerDesigns
 }
 
 extension BoxEndpoint: TargetType {
@@ -34,6 +36,8 @@ extension BoxEndpoint: TargetType {
             return "admin/design/letters"
         case .getBoxDesigns:
             return "admin/design/boxes"
+        case .getStickerDesigns:
+            return "admin/design/stickers"
         }
     }
 

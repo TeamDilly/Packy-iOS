@@ -23,11 +23,11 @@ extension BoxStartGuideView {
                     .frame(maxWidth: .infinity, alignment: .leading)
             }
 
-            PhotoPicker(imageURL: viewStore.giftImageUrl) { data in
+            PhotoPicker(imageUrl: viewStore.giftimageUrl) { data in
                 guard let data else { return }
                 viewStore.send(.selectGiftImage(data))
             }
-            .deleteButton(isShown: viewStore.giftImageUrl != nil) {
+            .deleteButton(isShown: viewStore.giftimageUrl != nil) {
                 viewStore.send(.deleteGiftImageButtonTapped)
             }
             .padding(.top, 32)
@@ -38,7 +38,7 @@ extension BoxStartGuideView {
             PackyButton(title: "저장", colorType: .black) {
                 viewStore.send(.binding(.set(\.$isAddGiftBottomSheetPresented, false)))
             }
-            .disabled(viewStore.giftImageUrl == nil)
+            .disabled(viewStore.giftimageUrl == nil)
             .padding(.bottom, 8)
 
             Button("안 담을래요") {

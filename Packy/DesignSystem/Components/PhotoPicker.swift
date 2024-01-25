@@ -10,7 +10,7 @@ import PhotosUI
 import Kingfisher
 
 struct PhotoPicker: View {
-    var imageURL: URL?
+    var imageUrl: URL?
     var selectedPhotoData: ((Data?) -> Void)
 
     @State private var selectedItem: PhotosPickerItem? = nil
@@ -18,15 +18,15 @@ struct PhotoPicker: View {
     private var isShowDeleteButton: Bool = false
     private var deleteButtonAction: (() -> Void)? = nil
 
-    init(imageURL: URL? = nil, selectedPhotoData: @escaping (Data?) -> Void) {
-        self.imageURL = imageURL
+    init(imageUrl: URL? = nil, selectedPhotoData: @escaping (Data?) -> Void) {
+        self.imageUrl = imageUrl
         self.selectedPhotoData = selectedPhotoData
     }
 
     var body: some View {
         photoPickerView
             .clipShape(RoundedRectangle(cornerRadius: 16))
-            .animation(.spring, value: imageURL)
+            .animation(.spring, value: imageUrl)
     }
 }
 
@@ -65,7 +65,7 @@ private extension PhotoPicker {
     var imageView: some View {
         GeometryReader { proxy in
             let width = proxy.size.width
-            KFImage(imageURL)
+            KFImage(imageUrl)
                 .placeholder {
                     placeholderView
                 }
@@ -107,7 +107,7 @@ extension PhotoPicker {
     VStack {
         let url = URL(string: "https://packy-bucket.s3.ap-northeast-2.amazonaws.com/images/3bea52ca-f174-419f-872c-b0a0b852cdcb-76FE85EC-0AEC-406B-84D8-C2253A83940C.png")!
 
-        PhotoPicker(imageURL: url) { data in
+        PhotoPicker(imageUrl: url) { data in
             print(data)
         }
         .aspectRatio(contentMode: .fit)
@@ -115,7 +115,7 @@ extension PhotoPicker {
         .padding()
 
         PhotoPicker(
-            imageURL: URL(string: "https://packy-bucket.s3.ap-northeast-2.amazonaws.com/images/3bea52ca-f174-419f-872c-b0a0b852cdcb-76FE85EC-0AEC-406B-84D8-C2253A83940C.png")!
+            imageUrl: URL(string: "https://packy-bucket.s3.ap-northeast-2.amazonaws.com/images/3bea52ca-f174-419f-872c-b0a0b852cdcb-76FE85EC-0AEC-406B-84D8-C2253A83940C.png")!
         ) { data in
             print(data)
         }

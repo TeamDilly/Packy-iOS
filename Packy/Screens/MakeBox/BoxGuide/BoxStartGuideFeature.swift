@@ -10,11 +10,6 @@ import ComposableArchitecture
 import YouTubePlayerKit
 import SwiftUI
 
-struct StickerDesign: Hashable, Equatable {
-    var id: Int
-    var imageURL: String
-}
-
 @Reducer
 struct BoxStartGuideFeature: Reducer {
 
@@ -64,13 +59,10 @@ struct BoxStartGuideFeature: Reducer {
         var recommendedMusics: [RecommendedMusic] = []
         var letterDesigns: [LetterDesign] = []
 
-        // TODO: 서버에서 받아와서 반영하는 형태로 변경
-        var stickerDesigns: [StickerDesign] = (0...10).map {
-            StickerDesign(id: $0, imageURL: "https://picsum.photos/200")
-        }
+        var stickerDesigns: [StickerDesign] = []
         var selectedStickers: [StickerDesign] = []
 
-        var giftImageUrl: URL?
+        var giftimageUrl: URL?
 
         let boxDesigns: [BoxDesign]
 
@@ -129,6 +121,7 @@ struct BoxStartGuideFeature: Reducer {
         case _setIsShowingGuideText(Bool)
         case _setLetterDesigns([LetterDesign])
         case _setRecommendedMusics([RecommendedMusic])
+        case _setStickerDesigns([StickerDesign])
 
         // MARK: Child Action
     }
@@ -278,6 +271,10 @@ struct BoxStartGuideFeature: Reducer {
                 state.selectedStickers.append(sticker)
                 return .none
 
+            case let ._setStickerDesigns(designs):
+                state.stickerDesigns = designs
+                return .none
+
             // MARK: Box
 
             case let .selectBox(boxDesign):
@@ -293,15 +290,15 @@ struct BoxStartGuideFeature: Reducer {
                 }
 
             case let ._setUploadedGiftUrl(url):
-                state.giftImageUrl = url
+                state.giftimageUrl = url
                 return .none
 
             case .deleteGiftImageButtonTapped:
-                state.giftImageUrl = nil
+                state.giftimageUrl = nil
                 return .none
 
             case .notSelectGiftButtonTapped, .closeGiftSheetAlertConfirmTapped:
-                state.giftImageUrl = nil
+                state.giftimageUrl = nil
                 state.isAddGiftBottomSheetPresented = false
                 return .none
 
@@ -350,6 +347,17 @@ private extension BoxStartGuideFeature {
             do {
                 let recommendedMusics = try await boxClient.fetchRecommendedMusics()
                 await send(._setRecommendedMusics(recommendedMusics))
+            } catch {
+                print(error)
+            }
+        }
+    }
+
+    func fetchStickerDesigns() -> Effect<Action> {
+        .run { send in
+            do {
+                let stickerDesigns = try await boxClient.fetchStickerDesigns()
+                await send(._setStickerDesigns(stickerDesigns))
             } catch {
                 print(error)
             }

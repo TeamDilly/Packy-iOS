@@ -23,8 +23,8 @@ struct PackyApp: App {
     }
     var body: some Scene {
         WindowGroup {
-            BoxStartGuideView(store: boxStore)
-            // RootView(store: store)
+            // BoxStartGuideView(store: boxStore)
+            RootView(store: store)
                 .packyGlobalAlert()
                 .onOpenURL { url in
                     socialLogin.handleKakaoUrlIfNeeded(url)
