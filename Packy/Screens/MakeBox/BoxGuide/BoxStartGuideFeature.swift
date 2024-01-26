@@ -205,15 +205,17 @@ struct BoxStartGuideFeature: Reducer {
                 return .none
 
             case .musicSaveButtonTapped:
+                let selectedMusicUrl: String?
                 switch state.musicInput.musicBottomSheetMode {
                 case .choice:
-                    break
+                    selectedMusicUrl = nil
                 case .userSelect:
-                    state.musicInput.selectedMusicUrl = state.musicInput.musicLinkUrlInput
+                    selectedMusicUrl = state.musicInput.musicLinkUrlInput
                 case .recommend:
                     // 첫 번째 요소는 가끔 centeredItem 이 안먹기에, nil이면 첫번째 요소로 지정
-                    state.musicInput.selectedMusicUrl = (state.musicInput.selectedRecommendedMusic ?? state.recommendedMusics.first)?.youtubeUrl
+                    selectedMusicUrl = (state.musicInput.selectedRecommendedMusic ?? state.recommendedMusics.first)?.youtubeUrl
                 }
+                state.musicInput = .init(selectedMusicUrl: selectedMusicUrl)
                 state.isMusicBottomSheetPresented = false
                 return .none
 
