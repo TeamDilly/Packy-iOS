@@ -22,11 +22,12 @@ struct BoxAddPhotoFeature: Reducer {
 
     struct State: Equatable {
         var isPhotoBottomSheetPresented: Bool = false
-        var photoInput: PhotoInput = .init()
+        @BindingState var photoInput: PhotoInput = .init()
         var savedPhoto: PhotoInput = .init()
     }
 
-    enum Action {
+    enum Action: BindableAction {
+        case binding(BindingAction<State>)
         case photoSelectButtonTapped
         case selectPhoto(Data)
         case photoDeleteButtonTapped
@@ -43,8 +44,12 @@ struct BoxAddPhotoFeature: Reducer {
     // MARK: - Reducer
 
     var body: some Reducer<State, Action> {
+        BindingReducer()
+
         Reduce { state, action in
             switch action {
+            case .binding:
+                return .none
 
             case .photoSelectButtonTapped:
                 state.isPhotoBottomSheetPresented = true

@@ -133,7 +133,7 @@ struct BoxStartGuideView: View {
             closeButtonAction: { viewStore.send(.addPhoto(.photoBottomSheetCloseButtonTapped)) },
             isDismissible: false
         ) {
-            addPhotoBottomSheet
+            AddPhotoBottomSheet(store: store.scope(state: \.addPhoto, action: \.addPhoto))
         }
         // 편지 쓰기 바텀시트
         .bottomSheet(

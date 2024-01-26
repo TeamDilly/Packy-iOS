@@ -15,7 +15,7 @@
 		E5001F932B5BE5DD004B65E6 /* PreSignedUrlResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5001F922B5BE5DD004B65E6 /* PreSignedUrlResponse.swift */; };
 		E5001F962B5BEAF6004B65E6 /* URL+Trimming.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5001F952B5BEAF6004B65E6 /* URL+Trimming.swift */; };
 		E52037D12B63F97900721F76 /* NetworkImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52037D02B63F97900721F76 /* NetworkImage.swift */; };
-		E52037D52B641FF900721F76 /* BoxStartGuideFeature+Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52037D42B641FF900721F76 /* BoxStartGuideFeature+Photo.swift */; };
+		E52037D52B641FF900721F76 /* BoxAddPhotoFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52037D42B641FF900721F76 /* BoxAddPhotoFeature.swift */; };
 		E52037D72B64203E00721F76 /* BoxStartGuideFeature+Music.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52037D62B64203E00721F76 /* BoxStartGuideFeature+Music.swift */; };
 		E52037D92B6420E100721F76 /* BoxStartGuideFeature+Letter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52037D82B6420E100721F76 /* BoxStartGuideFeature+Letter.swift */; };
 		E52037DD2B64213600721F76 /* BoxStartGuideFeature+Gift.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52037DC2B64213600721F76 /* BoxStartGuideFeature+Gift.swift */; };
@@ -148,7 +148,7 @@
 		E5D749792B4A7C1A00213F63 /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = E5D749782B4A7C1A00213F63 /* ComposableArchitecture */; };
 		E5D7497C2B4A7C3300213F63 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = E5D7497B2B4A7C3300213F63 /* Kingfisher */; };
 		E5E73D4A2B597C0200729D99 /* BoxStartGuideView+MusicSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E73D492B597C0200729D99 /* BoxStartGuideView+MusicSheet.swift */; };
-		E5E73D4C2B597CB600729D99 /* BoxStartGuideView+PhotoSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E73D4B2B597CB600729D99 /* BoxStartGuideView+PhotoSheet.swift */; };
+		E5E73D4C2B597CB600729D99 /* AddPhotoBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E73D4B2B597CB600729D99 /* AddPhotoBottomSheet.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -160,7 +160,7 @@
 		E5001F922B5BE5DD004B65E6 /* PreSignedUrlResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreSignedUrlResponse.swift; sourceTree = "<group>"; };
 		E5001F952B5BEAF6004B65E6 /* URL+Trimming.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+Trimming.swift"; sourceTree = "<group>"; };
 		E52037D02B63F97900721F76 /* NetworkImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkImage.swift; sourceTree = "<group>"; };
-		E52037D42B641FF900721F76 /* BoxStartGuideFeature+Photo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BoxStartGuideFeature+Photo.swift"; sourceTree = "<group>"; };
+		E52037D42B641FF900721F76 /* BoxAddPhotoFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoxAddPhotoFeature.swift; sourceTree = "<group>"; };
 		E52037D62B64203E00721F76 /* BoxStartGuideFeature+Music.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BoxStartGuideFeature+Music.swift"; sourceTree = "<group>"; };
 		E52037D82B6420E100721F76 /* BoxStartGuideFeature+Letter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BoxStartGuideFeature+Letter.swift"; sourceTree = "<group>"; };
 		E52037DC2B64213600721F76 /* BoxStartGuideFeature+Gift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BoxStartGuideFeature+Gift.swift"; sourceTree = "<group>"; };
@@ -288,7 +288,7 @@
 		E5D012992B58086F00236FEF /* SetWindowBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetWindowBackground.swift; sourceTree = "<group>"; };
 		E5D7495D2B4A72E100213F63 /* Packy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Packy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E5E73D492B597C0200729D99 /* BoxStartGuideView+MusicSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BoxStartGuideView+MusicSheet.swift"; sourceTree = "<group>"; };
-		E5E73D4B2B597CB600729D99 /* BoxStartGuideView+PhotoSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BoxStartGuideView+PhotoSheet.swift"; sourceTree = "<group>"; };
+		E5E73D4B2B597CB600729D99 /* AddPhotoBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPhotoBottomSheet.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -335,10 +335,10 @@
 			isa = PBXGroup;
 			children = (
 				E5A7A9E12B57F81400590EA6 /* BoxStartGuideFeature.swift */,
-				E52037D42B641FF900721F76 /* BoxStartGuideFeature+Photo.swift */,
+				E52037D42B641FF900721F76 /* BoxAddPhotoFeature.swift */,
+				E52037D62B64203E00721F76 /* BoxStartGuideFeature+Music.swift */,
 				E52037DC2B64213600721F76 /* BoxStartGuideFeature+Gift.swift */,
 				E52037D82B6420E100721F76 /* BoxStartGuideFeature+Letter.swift */,
-				E52037D62B64203E00721F76 /* BoxStartGuideFeature+Music.swift */,
 			);
 			path = Features;
 			sourceTree = "<group>";
@@ -356,7 +356,7 @@
 			isa = PBXGroup;
 			children = (
 				E5E73D492B597C0200729D99 /* BoxStartGuideView+MusicSheet.swift */,
-				E5E73D4B2B597CB600729D99 /* BoxStartGuideView+PhotoSheet.swift */,
+				E5E73D4B2B597CB600729D99 /* AddPhotoBottomSheet.swift */,
 				E58048C22B5BFF3800B974B3 /* BoxStartGuideView+LetterSheet.swift */,
 				E5A416B22B5D350C00313E5A /* BoxStartGuideView+StickerSheet.swift */,
 				E5551B7E2B6001CC00DB81F3 /* BoxStartGuideView+SelectBoxSheet.swift */,
@@ -972,7 +972,7 @@
 				E58048C32B5BFF3800B974B3 /* BoxStartGuideView+LetterSheet.swift in Sources */,
 				E5A7AA632B57F81400590EA6 /* SignUpNicknameFeature.swift in Sources */,
 				E5A7AA812B57F81400590EA6 /* SocialLoginInfo.swift in Sources */,
-				E52037D52B641FF900721F76 /* BoxStartGuideFeature+Photo.swift in Sources */,
+				E52037D52B641FF900721F76 /* BoxAddPhotoFeature.swift in Sources */,
 				E5A7AA4B2B57F81400590EA6 /* CarouselView.swift in Sources */,
 				E5A7AA5E2B57F81400590EA6 /* TermsAgreementFeature.swift in Sources */,
 				E5A7AA4C2B57F81400590EA6 /* Font+Pretendard.swift in Sources */,
@@ -1017,7 +1017,7 @@
 				E5AC66EF2B62B24700F3CBF0 /* PassThroughWindow.swift in Sources */,
 				E5A7AA402B57F81400590EA6 /* NavigationBar.swift in Sources */,
 				E5A7AA612B57F81400590EA6 /* SignUpProfileView.swift in Sources */,
-				E5E73D4C2B597CB600729D99 /* BoxStartGuideView+PhotoSheet.swift in Sources */,
+				E5E73D4C2B597CB600729D99 /* AddPhotoBottomSheet.swift in Sources */,
 				E5A7AA3E2B57F81400590EA6 /* FloatingNavigationBar.swift in Sources */,
 				E5A7AA3F2B57F81400590EA6 /* PackyTextArea.swift in Sources */,
 				E5A7AA5B2B57F81400590EA6 /* MakeBoxView.swift in Sources */,

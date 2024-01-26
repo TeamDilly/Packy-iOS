@@ -1,18 +1,23 @@
 //
-//  BoxStartGuideView+PhotoSheet.swift
+//  AddPhotoBottomSheet.swift
 //  Packy
 //
 //  Created by Mason Kim on 1/19/24.
 //
 
 import SwiftUI
+import ComposableArchitecture
 
-extension Int: Identifiable {
-    public var id: Int { self }
-}
+struct AddPhotoBottomSheet: View {
+    private let store: StoreOf<BoxAddPhotoFeature>
+    @ObservedObject var viewStore: ViewStoreOf<BoxAddPhotoFeature>
 
-extension BoxStartGuideView {
-    var addPhotoBottomSheet: some View {
+    init(store: StoreOf<BoxAddPhotoFeature>) {
+        self.store = store
+        self.viewStore = ViewStore(store, observe: { $0 })
+    }
+
+    var body: some View {
         VStack(spacing: 0) {
             Group {
                 Text("추억을 담은 사진")
@@ -31,23 +36,24 @@ extension BoxStartGuideView {
             .padding(.horizontal, 24)
 
             PhotoElement(
-                imageUrl: viewStore.addPhoto.photoInput.photoUrl,
-                text: viewStore.$addPhoto.photoInput.text
+                imageUrl: viewStore.photoInput.photoUrl,
+                text: viewStore.$photoInput.text
             )
             .photoPickable { data in
                 guard let data else { return }
-                viewStore.send(.addPhoto(.selectPhoto(data)))
+                viewStore.send(.selectPhoto(data))
             }
-            .deleteButton(isShown: viewStore.addPhoto.photoInput.photoUrl != nil) {
-                viewStore.send(.addPhoto(.photoDeleteButtonTapped))
+            .deleteButton(isShown: viewStore.photoInput.photoUrl != nil) {
+                viewStore.send(.photoDeleteButtonTapped)
             }
             .frame(height: 374)
 
             Spacer()
 
             PackyButton(title: "저장", colorType: .black) {
-                viewStore.send(.addPhoto(.photoSaveButtonTapped))
+                viewStore.send(.photoSaveButtonTapped)
             }
+            .disabled(!viewStore.photoInput.isCompleted)
             .padding(.horizontal, 24)
             .padding(.bottom, 16)
         }
