@@ -17,6 +17,7 @@ struct PhotoPicker: View {
 
     private var isShowDeleteButton: Bool = false
     private var deleteButtonAction: (() -> Void)? = nil
+    private var cropAlignment: Alignment = .center
 
     init(imageUrl: URL? = nil, selectedPhotoData: @escaping (Data?) -> Void) {
         self.imageUrl = imageUrl
@@ -69,7 +70,7 @@ private extension PhotoPicker {
                 .placeholder {
                     placeholderView
                 }
-                .scaleToFillFrame(width: width, height: width)
+                .scaleToFillFrame(width: width, height: width, cropAlignment: cropAlignment)
                 .overlay(alignment: .topTrailing) {
                     if isShowDeleteButton {
                         CloseButton(sizeType: .medium, colorType: .dark) {
@@ -97,6 +98,12 @@ extension PhotoPicker {
         var element = self
         element.isShowDeleteButton = isShown
         element.deleteButtonAction = action
+        return element
+    }
+
+    func cropAlignment(_ cropAlignment: Alignment) -> Self {
+        var element = self
+        element.cropAlignment = cropAlignment
         return element
     }
 }

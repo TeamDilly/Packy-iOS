@@ -40,6 +40,11 @@ struct BoxStartGuideFeature: Reducer {
         var isCompleted: Bool { letter.isEmpty == false }
     }
 
+    struct GiftInput: Equatable {
+        var imageUrl: URL?
+        var isCompleted: Bool { imageUrl != nil }
+    }
+
     struct State: Equatable {
         let senderInfo: BoxSenderInfo
         let boxDesigns: [BoxDesign]
@@ -57,18 +62,18 @@ struct BoxStartGuideFeature: Reducer {
         @BindingState var musicInput: MusicInput = .init()
         @BindingState var photoInput: PhotoInput = .init()
         @BindingState var letterInput: LetterInput = .init()
+        var giftInput: GiftInput = .init()
 
         var savedMusic: MusicInput = .init()
         var savedPhoto: PhotoInput = .init()
         var savedLetter: LetterInput = .init()
+        var savedGift: GiftInput = .init()
 
         var recommendedMusics: [RecommendedMusic] = []
         var letterDesigns: [LetterDesign] = []
 
         var stickerDesigns: [StickerDesign] = []
         var selectedStickers: [StickerDesign] = []
-
-        var giftimageUrl: URL?
 
         /// 모든 요소가 입력되어서, 완성할 수 있는 상태인지
         var isCompletable: Bool {
@@ -116,11 +121,13 @@ struct BoxStartGuideFeature: Reducer {
         case selectBox(BoxDesign)
 
         // 선물
+        case addGiftButtonTapped
         case selectGiftImage(Data)
         case deleteGiftImageButtonTapped
         case notSelectGiftButtonTapped
         case addGiftSheetCloseButtonTapped
         case closeGiftSheetAlertConfirmTapped
+        case giftSaveButtonTapped
 
         // 완성
         case completeButtonTapped
@@ -374,6 +381,11 @@ struct BoxStartGuideFeature: Reducer {
 
             // MARK: Gift
 
+            case .addGiftButtonTapped:
+                state.giftInput = state.savedGift
+                state.isAddGiftBottomSheetPresented = true
+                return .none
+
             case let .selectGiftImage(data):
                 return .run { send in
                     let response = try await uploadClient.upload(.init(fileName: "\(UUID()).png", data: data))
@@ -381,19 +393,34 @@ struct BoxStartGuideFeature: Reducer {
                 }
 
             case let ._setUploadedGiftUrl(url):
-                state.giftimageUrl = url
+                state.giftInput.imageUrl = url
                 return .none
 
             case .deleteGiftImageButtonTapped:
-                state.giftimageUrl = nil
+                state.giftInput.imageUrl = nil
                 return .none
 
-            case .notSelectGiftButtonTapped, .closeGiftSheetAlertConfirmTapped:
-                state.giftimageUrl = nil
+            case .giftSaveButtonTapped:
+                state.savedGift = state.giftInput
+                state.isAddGiftBottomSheetPresented = false
+                return .none
+
+            case .notSelectGiftButtonTapped:
+                state.savedGift = .init()
+                state.isAddGiftBottomSheetPresented = false
+                return .none
+
+            case .closeGiftSheetAlertConfirmTapped:
+                state.giftInput = .init()
                 state.isAddGiftBottomSheetPresented = false
                 return .none
 
             case .addGiftSheetCloseButtonTapped:
+                guard state.savedGift.isCompleted == false, state.giftInput.isCompleted else {
+                    state.isAddGiftBottomSheetPresented = false
+                    return .none
+                }
+
                 return .run { send in
                     await packyAlert.show(
                         .init(title: "선물탭을 진짜 닫겠는가", description: "진짜루?", cancel: "놉,,", confirm: "예쓰", confirmAction: {

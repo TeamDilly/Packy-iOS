@@ -294,7 +294,7 @@ private extension BoxStartGuideView {
             }
 
             Button {
-                viewStore.send(.binding(.set(\.$isAddGiftBottomSheetPresented, true)))
+                viewStore.send(.addGiftButtonTapped)
             } label: {
                 HStack(spacing: 8) {
                     Image(.plus)
