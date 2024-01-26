@@ -14,8 +14,6 @@ extension BoxStartGuideView {
         @ObservedObject var viewStore: ViewStoreOf<BoxStartGuideFeature>
         @FocusState private var isLetterFieldFocused: Bool
 
-        @State private var isShownSnackbar: Bool = false
-
         init(viewStore: ViewStoreOf<BoxStartGuideFeature>) {
             self.viewStore = viewStore
         }
@@ -93,7 +91,6 @@ extension BoxStartGuideView {
                         .disabled(viewStore.letterInput.letter.isEmpty)
                     }
                 }
-                .snackbar(isShown: $isShownSnackbar, text: "최대 10줄까지 작성할 수 있어요")
                 .toolbar {
                     ToolbarItemGroup(placement: .keyboard) {
                         Spacer()

@@ -46,7 +46,7 @@ extension BoxStartGuideView {
             Spacer()
 
             PackyButton(title: "저장", colorType: .black) {
-                viewStore.send(.binding(.set(\.$isPhotoBottomSheetPresented, false)))
+                viewStore.send(.photoSaveButtonTapped)
             }
             .padding(.horizontal, 24)
             .padding(.bottom, 16)

@@ -31,12 +31,14 @@ struct BoxStartGuideFeature: Reducer {
         var photoUrl: String?
         var text: String = ""
         var isCompleted: Bool { text.isEmpty == false }
+        var isSaved: Bool = false
     }
 
     struct LetterInput: Equatable {
         @BindingState var selectedLetterDesign: LetterDesign?
         var letter: String = ""
         var isCompleted: Bool { letter.isEmpty == false }
+        var isSaved: Bool = false
     }
 
     struct State: Equatable {
@@ -89,9 +91,12 @@ struct BoxStartGuideFeature: Reducer {
         // 사진
         case selectPhoto(Data)
         case photoDeleteButtonTapped
+        case photoBottomSheetCloseButtonTapped
+        case photoSaveButtonTapped
 
         // 편지
         case letterSaveButtonTapped
+        case letterBottomSheetCloseButtonTapped
 
         // 스티커
         case stickerTapped(StickerDesign)
@@ -244,19 +249,26 @@ struct BoxStartGuideFeature: Reducer {
                 state.photoInput.photoUrl = nil
                 return .none
 
-            case .completeButtonTapped:
-                return .run { send in
-                    await packyAlert.show(
-                        .init(title: "선물박스를 완성할까요?", description: "완성한 이후에는 수정할 수 없어요", cancel: "다시 볼게요", confirm: "완성할래요", confirmAction: {
-                            await send(.makeBoxConfirmButtonTapped)
-                        })
-                    )
-                }
+            case .photoBottomSheetCloseButtonTapped:
+                guard state.photoInput.isSaved == false else { return .none }
+                state.photoInput = .init()
+                return .none
+
+            case .photoSaveButtonTapped:
+                state.photoInput.isSaved = true
+                state.isPhotoBottomSheetPresented = false
+                return .none
 
             // MARK: Letter
 
             case .letterSaveButtonTapped:
+                state.letterInput.isSaved = true
                 state.isLetterBottomSheetPresented = false
+                return .none
+
+            case .letterBottomSheetCloseButtonTapped:
+                guard state.letterInput.isSaved == false else { return .none }
+                state.letterInput = .init()
                 return .none
 
             // MARK: Sticker
@@ -313,6 +325,17 @@ struct BoxStartGuideFeature: Reducer {
                     )
                 }
 
+            // MARK: Complete
+
+            case .completeButtonTapped:
+                return .run { send in
+                    await packyAlert.show(
+                        .init(title: "선물박스를 완성할까요?", description: "완성한 이후에는 수정할 수 없어요", cancel: "다시 볼게요", confirm: "완성할래요", confirmAction: {
+                            await send(.makeBoxConfirmButtonTapped)
+                        })
+                    )
+                }
+
             case .makeBoxConfirmButtonTapped:
                 // TODO: 실제 서버 통신해서 박스 만드는 과정 마무리
                 return .none
@@ -321,6 +344,16 @@ struct BoxStartGuideFeature: Reducer {
         }
     }
 }
+
+// private extension BoxStartGuideFeature {
+//     var musicReducer: some Reducer {
+//         Reduce { state, action in
+// 
+//         }
+//     }
+// }
+
+// MARK: - Inner Functions
 
 private extension BoxStartGuideFeature {
     /// 바텀시트의 detent를 변경함으로서 사이즈를 조절할 때, 가능한 detents들에 전후의 detent가 포함되어 있어야 애니메이션 적용됨

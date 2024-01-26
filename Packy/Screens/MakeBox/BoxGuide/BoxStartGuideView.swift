@@ -129,7 +129,7 @@ struct BoxStartGuideView: View {
         .bottomSheet(
             isPresented: viewStore.$isPhotoBottomSheetPresented,
             detents: [.large],
-            closeButtonAction: { viewStore.send(.binding(.set(\.$photoInput, .init()))) }
+            closeButtonAction: { viewStore.send(.photoBottomSheetCloseButtonTapped) }
         ) {
             addPhotoBottomSheet
         }
@@ -137,7 +137,7 @@ struct BoxStartGuideView: View {
         .bottomSheet(
             isPresented: viewStore.$isLetterBottomSheetPresented,
             detents: [.large],
-            closeButtonAction: { viewStore.send(.binding(.set(\.$letterInput, .init()))) }
+            closeButtonAction: { viewStore.send(.letterBottomSheetCloseButtonTapped) }
         ) {
             LetterBottomSheet(viewStore: viewStore)
         }
