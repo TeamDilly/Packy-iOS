@@ -25,10 +25,10 @@ final class TokenInterceptor: RequestInterceptor {
         }
 
         var urlRequest = urlRequest
-        urlRequest.setValue(accessToken, forHTTPHeaderField: "Authorization")
+        urlRequest.setValue("Bearer \(accessToken)", forHTTPHeaderField: "Authorization")
         completion(.success(urlRequest))
 
-        print("🧤 Intercepted Token+Request : ", urlRequest.headers)
+        print("🧤 Intercepted Token : ", accessToken)
     }
     
     /// AccessToken 재발급
@@ -38,6 +38,8 @@ final class TokenInterceptor: RequestInterceptor {
             completion(.doNotRetryWithError(error))
             return
         }
+
+        print("🚀 Retry: statusCode: \(response.statusCode)")
 
         guard let accessToken = keychain.read(.accessToken),
               let refreshToken = keychain.read(.refreshToken) else {
@@ -58,6 +60,8 @@ final class TokenInterceptor: RequestInterceptor {
 
                 keychain.save(.accessToken, accessToken)
                 keychain.save(.refreshToken, refreshToken)
+
+                completion(.retryWithDelay(1))
             } catch {
                 completion(.doNotRetryWithError(error))
             }

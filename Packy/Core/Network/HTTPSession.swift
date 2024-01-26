@@ -6,15 +6,15 @@
 //
 
 import Foundation
-import Alamofire
+import Moya
 
 final class HTTPSession {
     static let shared = HTTPSession()
 
     private init() {}
 
-    let session: Alamofire.Session = {
-        let session = Alamofire.Session(interceptor: TokenInterceptor.shared)
+    let session: Moya.Session = {
+        let session = Moya.Session(interceptor: TokenInterceptor.shared)
         return session
     }()
 }
