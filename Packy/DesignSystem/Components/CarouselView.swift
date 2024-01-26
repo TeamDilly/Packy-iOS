@@ -50,9 +50,7 @@ struct CarouselView<Content: View, Item: Identifiable & Hashable>: View {
             .scrollTargetBehavior(.viewAligned)
             .scrollIndicators(.hidden)
             .safeAreaPadding(.horizontal, isCollapsing ? safeAreaPadding(geometryWidth: geometry.size.width) : 0)
-            .ifLet(centeredItem) { view, centeredItem in
-                view.scrollPosition(id: centeredItem)
-            }
+            .scrollPosition(id: centeredItem ?? .constant(items.first))
         }
     }
 
