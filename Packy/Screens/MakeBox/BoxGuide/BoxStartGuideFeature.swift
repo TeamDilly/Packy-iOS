@@ -28,7 +28,7 @@ struct BoxStartGuideFeature: Reducer {
     }
 
     struct PhotoInput: Equatable {
-        var photoUrl: URL?
+        var photoUrl: String?
         var text: String = ""
         var isCompleted: Bool { text.isEmpty == false }
     }
@@ -41,6 +41,7 @@ struct BoxStartGuideFeature: Reducer {
 
     struct State: Equatable {
         let senderInfo: BoxSenderInfo
+        let boxDesigns: [BoxDesign]
         var selectedBox: BoxDesign?
 
         var isShowingGuideText: Bool = true
@@ -63,8 +64,6 @@ struct BoxStartGuideFeature: Reducer {
         var selectedStickers: [StickerDesign] = []
 
         var giftimageUrl: URL?
-
-        let boxDesigns: [BoxDesign]
 
         /// 모든 요소가 입력되어서, 완성할 수 있는 상태인지
         var isCompletable: Bool {
@@ -116,7 +115,7 @@ struct BoxStartGuideFeature: Reducer {
 
         // MARK: Inner SetState Action
         case _setDetents(Set<PresentationDetent>)
-        case _setUploadedPhotoUrl(URL?)
+        case _setUploadedPhotoUrl(String?)
         case _setUploadedGiftUrl(URL?)
         case _setIsShowingGuideText(Bool)
         case _setLetterDesigns([LetterDesign])
@@ -128,7 +127,7 @@ struct BoxStartGuideFeature: Reducer {
 
     @Dependency(\.continuousClock) var clock
     @Dependency(\.uploadClient) var uploadClient
-    @Dependency(\.boxClient) var boxClient
+    @Dependency(\.designClient) var designClient
     @Dependency(\.userDefaults) var userDefaults
     @Dependency(\.packyAlert) var packyAlert
 
@@ -146,7 +145,7 @@ struct BoxStartGuideFeature: Reducer {
                         await userDefaults.setBool(true, .didEnteredBoxGuide)
                     },
                     .run { send in
-                        try? await clock.sleep(for: .seconds(2))
+                        try? await clock.sleep(for: .seconds(1))
                         await send(._setIsShowingGuideText(false), animation: .spring)
                     },
                     // 디자인들 조회...
@@ -234,7 +233,7 @@ struct BoxStartGuideFeature: Reducer {
             case let .selectPhoto(data):
                 return .run { send in
                     let response = try await uploadClient.upload(.init(fileName: "\(UUID()).png", data: data))
-                    await send(._setUploadedPhotoUrl(URL(string: response.uploadedFileUrl)))
+                    await send(._setUploadedPhotoUrl(response.uploadedFileUrl))
                 }
 
             case let ._setUploadedPhotoUrl(url):
@@ -337,7 +336,7 @@ private extension BoxStartGuideFeature {
     func fetchLetterDesigns() -> Effect<Action> {
         .run { send in
             do {
-                let letterDesigns = try await boxClient.fetchLetterDesigns()
+                let letterDesigns = try await designClient.fetchLetterDesigns()
                 await send(._setLetterDesigns(letterDesigns))
             } catch {
                 print(error)
@@ -348,7 +347,7 @@ private extension BoxStartGuideFeature {
     func fetchRecommendedMusics() -> Effect<Action> {
         .run { send in
             do {
-                let recommendedMusics = try await boxClient.fetchRecommendedMusics()
+                let recommendedMusics = try await designClient.fetchRecommendedMusics()
                 await send(._setRecommendedMusics(recommendedMusics))
             } catch {
                 print(error)
@@ -359,7 +358,7 @@ private extension BoxStartGuideFeature {
     func fetchStickerDesigns() -> Effect<Action> {
         .run { send in
             do {
-                let stickerDesigns = try await boxClient.fetchStickerDesigns()
+                let stickerDesigns = try await designClient.fetchStickerDesigns()
                 await send(._setStickerDesigns(stickerDesigns))
             } catch {
                 print(error)

@@ -57,7 +57,7 @@ struct BoxChoiceFeature: Reducer {
 
     @Dependency(\.continuousClock) var clock
     @Dependency(\.userDefaults) var userDefaults
-    @Dependency(\.boxClient) var boxClient
+    @Dependency(\.designClient) var designClient
     @Dependency(\.packyAlert) var packyAlert
 
     var body: some Reducer<State, Action> {
@@ -71,7 +71,7 @@ struct BoxChoiceFeature: Reducer {
             case ._onTask:
                 return .run { send in
                     do {
-                        let boxDesigns = try await boxClient.fetchBoxDesigns()
+                        let boxDesigns = try await designClient.fetchBoxDesigns()
                         await send(._setBoxDesigns(boxDesigns), animation: .spring)
                         if let firstBox = boxDesigns.first {
                             await send(.selectBox(firstBox), animation: .spring)
@@ -132,7 +132,7 @@ private extension BoxChoiceFeature {
         .run { send in
             await send(._setIsPresentingFinishedMotionView(true))
             // TODO: 애니메이션 부여 시간 만큼 지연 _ 차후 기획측과 논의
-            try? await clock.sleep(for: .seconds(3))
+            try? await clock.sleep(for: .seconds(1))
 
             await send(.delegate(.moveToBoxStartGuide(passingData)))
 

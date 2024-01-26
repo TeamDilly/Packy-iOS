@@ -59,7 +59,7 @@ extension BoxStartGuideView {
 #Preview {
     BoxStartGuideView(
         store: .init(
-            initialState: .init(senderInfo: .mock, selectedBox: .mock, isPhotoBottomSheetPresented: true, boxDesigns: .mock),
+            initialState: .init(senderInfo: .mock, boxDesigns: .mock, selectedBox: .mock, isPhotoBottomSheetPresented: true),
             reducer: {
                 BoxStartGuideFeature()
                     ._printChanges()

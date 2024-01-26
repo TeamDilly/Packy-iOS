@@ -39,12 +39,13 @@ extension BoxStartGuideView {
                             viewStore.send(.selectBox(boxDesign))
                             HapticManager.shared.fireNotification(.success)
                         } label: {
-                            KFImage(URL(string: boxDesign.boxFullUrl))
-                                .placeholder {
-                                    ProgressView()
-                                        .progressViewStyle(.circular)
-                                }
-                                .resizable()
+                            NetworkImage(url: boxDesign.boxFullUrl, contentMode: .fit)
+                            // KFImage(URL(string: boxDesign.boxFullUrl))
+                            //     .placeholder {
+                            //         ProgressView()
+                            //             .progressViewStyle(.circular)
+                            //     }
+                            //     .resizable()
                                 .clipShape(RoundedRectangle(cornerRadius: 12))
                                 .aspectRatio(1, contentMode: .fit)
                         }
@@ -62,7 +63,7 @@ extension BoxStartGuideView {
 #Preview {
     BoxStartGuideView(
         store: .init(
-            initialState: .init(senderInfo: .mock, selectedBox: .mock, isSelectBoxBottomSheetPresented: true, boxDesigns: .mock),
+            initialState: .init(senderInfo: .mock, boxDesigns: .mock, selectedBox: .mock, isSelectBoxBottomSheetPresented: true),
             reducer: {
                 BoxStartGuideFeature()
                     ._printChanges()

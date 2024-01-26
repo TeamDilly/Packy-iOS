@@ -353,7 +353,7 @@ private struct ElementGuideView: View {
 }
 
 private struct PhotoPresentingView: View {
-    let photoUrl: URL
+    let photoUrl: String
     let screenWidth: CGFloat
     let action: () -> Void
 
@@ -367,12 +367,7 @@ private struct PhotoPresentingView: View {
             action()
         } label: {
             VStack {
-                KFImage(photoUrl)
-                    .placeholder {
-                        ProgressView()
-                            .progressViewStyle(.circular)
-                    }
-                    .resizable()
+                NetworkImage(url: photoUrl)
                     .aspectRatio(1, contentMode: .fit)
                     .padding(.horizontal, 8)
                     .padding(.top, 8)
@@ -496,7 +491,7 @@ private struct StickerPresentingView: View {
 #Preview {
     BoxStartGuideView(
         store: .init(
-            initialState: .init(senderInfo: .mock, selectedBox: .mock, boxDesigns: .mock),
+            initialState: .init(senderInfo: .mock, boxDesigns: .mock, selectedBox: .mock, photoInput: .init(photoUrl: "https://packy-bucket.s3.ap-northeast-2.amazonaws.com/images/ebe6d8ba-7a04-4f18-bcea-57197bf789b1-9E448F3C-10DD-414E-8692-2DF5BB997522.png")),
             reducer: {
                 BoxStartGuideFeature()
                     ._printChanges()

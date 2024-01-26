@@ -1,5 +1,5 @@
 //
-//  BoxClient.swift
+//  designClient.swift
 //  Packy
 //
 //  Created Mason Kim on 1/21/24.
@@ -12,15 +12,15 @@ import Moya
 // MARK: - Dependency Values
 
 extension DependencyValues {
-    var boxClient: BoxClient {
-        get { self[BoxClient.self] }
-        set { self[BoxClient.self] = newValue }
+    var designClient: DesignClient {
+        get { self[DesignClient.self] }
+        set { self[DesignClient.self] = newValue }
     }
 }
 
-// MARK: - BoxClient Client
+// MARK: - designClient Client
 
-struct BoxClient {
+struct DesignClient {
     var fetchRecommendedMusics: @Sendable () async throws -> RecommendedMusicResponse
     var fetchProfileImages: @Sendable () async throws -> ProfileImageResponse
     var fetchLetterDesigns: @Sendable () async throws -> LetterDesignResponse
@@ -28,15 +28,17 @@ struct BoxClient {
     var fetchStickerDesigns: @Sendable () async throws -> [StickerDesign]
 }
 
-extension BoxClient: DependencyKey {
+extension DesignClient: DependencyKey {
     static let liveValue: Self = {
-        let provider = MoyaProvider<BoxEndpoint>.build()
+        let provider = MoyaProvider<DesignEndpoint>.build()
+        let nonTokenProvider = MoyaProvider<DesignEndpoint>.buildNonToken()
+
         return Self(
             fetchRecommendedMusics: {
                 try await provider.request(.getRecommendedMusics)
             },
             fetchProfileImages: {
-                try await provider.request(.getProfileImageDesigns)
+                try await nonTokenProvider.request(.getProfileImageDesigns)
             },
             fetchLetterDesigns: {
                 try await provider.request(.getEnvelopeDesigns)

@@ -15,4 +15,12 @@ extension MoyaProvider {
             plugins: [MoyaLoggerPlugin()]
         )
     }
+
+    /// 토큰 Interceptor를 제외한 Provider 를 생성함
+    static func buildNonToken() -> MoyaProvider<Target> {
+        return MoyaProvider<Target>(
+            session: Moya.Session(),
+            plugins: [MoyaLoggerPlugin()]
+        )
+    }
 }

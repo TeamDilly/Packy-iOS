@@ -33,20 +33,21 @@ struct AuthClient {
 
 extension AuthClient: DependencyKey {
     static let liveValue: Self = {
+        let nonTokenProvider = MoyaProvider<AuthEndpoint>.buildNonToken()
         let provider = MoyaProvider<AuthEndpoint>.build()
 
         return Self(
             signUp: {
-                try await provider.request(.signUp(authorization: $0, request: $1))
+                try await nonTokenProvider.request(.signUp(authorization: $0, request: $1))
             },
             signIn: {
-                try await provider.request(.signIn(request: $0))
+                try await nonTokenProvider.request(.signIn(request: $0))
             },
             withdraw: {
                 try await provider.requestEmpty(.withdraw)
             },
             reissueToken: {
-                try await provider.request(.reissueToken(request: $0))
+                try await nonTokenProvider.request(.reissueToken(request: $0))
             }
         )
     }()

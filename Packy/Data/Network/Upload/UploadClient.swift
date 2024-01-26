@@ -31,6 +31,8 @@ struct UploadClient {
 extension UploadClient: DependencyKey {
     static let liveValue: Self = {
         let provider = MoyaProvider<UploadEndpoint>.build()
+        let plainProvider = MoyaProvider<UploadEndpoint>() // Log, Token X
+
         return Self(
             upload: { request in
                 let preSignedResponse: PreSignedUrlResponse = try await provider.request(.getPreSignedUrl(fileName: request.fileName))
@@ -38,7 +40,7 @@ extension UploadClient: DependencyKey {
                     throw UploadError.invalidPreSignedURL
                 }
 
-                try await provider.requestPlain(.upload(url: preSignedURL, data: request.data))
+                try await plainProvider.requestPlain(.upload(url: preSignedURL, data: request.data))
                 return .init(uploadedFileUrl: preSignedURL.trimmedUntilPath)
             }
         )

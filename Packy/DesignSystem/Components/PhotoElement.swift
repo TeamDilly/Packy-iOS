@@ -10,7 +10,7 @@ import Kingfisher
 import PhotosUI
 
 struct PhotoElement: View {
-    var imageUrl: URL?
+    var imageUrl: String?
     @Binding var text: String
     var placeholder: String = "사진 속 추억을 적어주세요"
 
@@ -21,7 +21,7 @@ struct PhotoElement: View {
     private var isShowDeleteButton: Bool = false
     private var deleteButtonAction: (() -> Void)? = nil
     
-    init(imageUrl: URL? = nil, text: Binding<String>) {
+    init(imageUrl: String? = nil, text: Binding<String>) {
         self.imageUrl = imageUrl
         self._text = text
     }
@@ -76,11 +76,12 @@ private extension PhotoElement {
     }
     
     var imageView: some View {
-        KFImage(imageUrl)
+        KFImage(URL(string: imageUrl ?? ""))
             .placeholder {
                 placeholderView
             }
             .scaleToFillFrame(width: 280, height: 280)
+            .frame(width: 280, height: 280)
             .overlay(alignment: .topTrailing) {
                 if isShowDeleteButton {
                     CloseButton(sizeType: .medium, colorType: .dark) {
@@ -156,7 +157,7 @@ extension PhotoElement {
         }
         
         PhotoElement(
-            imageUrl: URL(string: "https://picsum.photos/id/237/200/300"),
+            imageUrl: "https://picsum.photos/id/237/200/300",
             text: .constant("asdada")
         )
         .deleteButton(isShown: true) {

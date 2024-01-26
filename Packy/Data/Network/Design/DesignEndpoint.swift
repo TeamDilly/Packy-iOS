@@ -1,5 +1,5 @@
 //
-//  BoxEndpoint.swift
+//  DesignEndpoint.swift
 //  Packy
 //
 //  Created by Mason Kim on 1/21/24.
@@ -8,7 +8,7 @@
 import Foundation
 import Moya
 
-enum BoxEndpoint {
+enum DesignEndpoint {
     /// 패키 추천 음악 조회
     case getRecommendedMusics
     /// 패키 프로필 이미지 디자인 조회
@@ -21,7 +21,7 @@ enum BoxEndpoint {
     case getStickerDesigns
 }
 
-extension BoxEndpoint: TargetType {
+extension DesignEndpoint: TargetType {
     var baseURL: URL {
         URL(string: "https://dev.packyforyou.shop/api/v1/")!
     }

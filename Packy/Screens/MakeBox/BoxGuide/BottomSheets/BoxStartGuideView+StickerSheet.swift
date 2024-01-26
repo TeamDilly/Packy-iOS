@@ -64,13 +64,7 @@ private struct StickerCell: View {
             RoundedRectangle(cornerRadius: 12)
                 .fill(.gray100)
                 .overlay {
-                    KFImage(URL(string: imageUrl))
-                        .placeholder {
-                            ProgressView()
-                                .progressViewStyle(.circular)
-                        }
-                        .resizable()
-                        .aspectRatio(1, contentMode: .fit)
+                    NetworkImage(url: imageUrl, contentMode: .fit)
                         .padding(20)
                 }
 
@@ -96,7 +90,7 @@ private struct StickerCell: View {
 #Preview {
     BoxStartGuideView(
         store: .init(
-            initialState: .init(senderInfo: .mock, selectedBox: .mock, isStickerBottomSheetPresented: true, boxDesigns: .mock),
+            initialState: .init(senderInfo: .mock, boxDesigns: .mock, selectedBox: .mock, isStickerBottomSheetPresented: true),
             reducer: {
                 BoxStartGuideFeature()
                     ._printChanges()

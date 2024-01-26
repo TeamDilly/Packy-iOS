@@ -131,36 +131,38 @@ extension BoxStartGuideView {
                 }
                 .padding(.horizontal, 24)
 
-                CarouselView(items: viewStore.recommendedMusics) { music in
-                    VStack(spacing: 0) {
-                        YouTubePlayerView(.init(stringLiteral: music.youtubeUrl)) { state in
-                            switch state {
-                            case .idle:
-                                ProgressView()
-                            case .ready:
-                                EmptyView()
-                            case .error:
-                                Text("문제가 생겼어요")
-                                    .packyFont(.body1)
+                TabView(selection: viewStore.$musicInput.selectedRecommendedMusic) {
+                    ForEach(viewStore.recommendedMusics) { music in
+                        VStack(spacing: 0) {
+                            YouTubePlayerView(.init(stringLiteral: music.youtubeUrl)) { state in
+                                switch state {
+                                case .idle:
+                                    ProgressView()
+                                case .ready:
+                                    EmptyView()
+                                case .error:
+                                    Text("문제가 생겼어요")
+                                        .packyFont(.body1)
+                                }
                             }
-                        }
-                        .padding(.bottom, 16)
-
-                        Text("제목을 서버에 요청해야 함")
-                            .packyFont(.body1)
-                            .foregroundStyle(.gray900)
-
-                        Text(music.hashtags.joined(separator: " "))
-                            .packyFont(.body4)
-                            .foregroundStyle(.purple500)
                             .padding(.bottom, 16)
+
+                            Text("제목을 서버에 요청해야 함")
+                                .packyFont(.body1)
+                                .foregroundStyle(.gray900)
+
+                            Text(music.hashtags.joined(separator: " "))
+                                .packyFont(.body4)
+                                .foregroundStyle(.purple500)
+                                .padding(.bottom, 16)
+                        }
+                        .tag(Optional(music)) // selectedRecommendedMusic 이 옵셔널이기에, 타입 일치 필요로 Optional 처리
+                        .background(.gray100)
+                        .mask(RoundedRectangle(cornerRadius: 16))
+                        .padding(.horizontal, 24)
                     }
-                    .background(.gray100)
-                    .mask(RoundedRectangle(cornerRadius: 16))
-                    .padding(.horizontal, 24)
                 }
-                .centeredItem(viewStore.$musicInput.selectedRecommendedMusic)
-                .disableCollapsing()
+                .tabViewStyle(.page(indexDisplayMode: .never))
                 .frame(height: cellHeight)
                 .padding(.top, cellTopPadding)
 
@@ -226,7 +228,7 @@ private struct MusicSelectionCell: View {
 #Preview {
     BoxStartGuideView(
         store: .init(
-            initialState: .init(senderInfo: .mock, selectedBox: .mock, isMusicBottomSheetPresented: true, boxDesigns: .mock),
+            initialState: .init(senderInfo: .mock, boxDesigns: .mock, selectedBox: .mock, isMusicBottomSheetPresented: true),
             reducer: {
                 BoxStartGuideFeature()
             }
