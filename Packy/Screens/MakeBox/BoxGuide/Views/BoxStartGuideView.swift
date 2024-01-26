@@ -128,9 +128,9 @@ struct BoxStartGuideView: View {
         }
         // 사진 추가 바텀시트
         .bottomSheet(
-            isPresented: viewStore.$isPhotoBottomSheetPresented,
+            isPresented: viewStore.$addPhoto.isPhotoBottomSheetPresented,
             detents: [.large],
-            closeButtonAction: { viewStore.send(.photoBottomSheetCloseButtonTapped) },
+            closeButtonAction: { viewStore.send(.addPhoto(.photoBottomSheetCloseButtonTapped)) },
             isDismissible: false
         ) {
             addPhotoBottomSheet
@@ -202,16 +202,16 @@ private extension BoxStartGuideView {
 
     @ViewBuilder
     func photoView(_ screenWidth: CGFloat) -> some View {
-        if let photoUrl = viewStore.savedPhoto.photoUrl {
+        if let photoUrl = viewStore.addPhoto.savedPhoto.photoUrl {
             PhotoPresentingView(
                 photoUrl: photoUrl,
                 screenWidth: screenWidth
             ) {
-                viewStore.send(.photoSelectButtonTapped)
+                viewStore.send(.addPhoto(.photoSelectButtonTapped))
             }
         } else {
             ElementGuideView(element: .photo, screenWidth: screenWidth) {
-                viewStore.send(.photoSelectButtonTapped)
+                viewStore.send(.addPhoto(.photoSelectButtonTapped))
             }
         }
     }
@@ -494,7 +494,7 @@ private struct StickerPresentingView: View {
 #Preview {
     BoxStartGuideView(
         store: .init(
-            initialState: .init(senderInfo: .mock, boxDesigns: .mock, selectedBox: .mock, savedPhoto: .init(photoUrl: "https://packy-bucket.s3.ap-northeast-2.amazonaws.com/images/ebe6d8ba-7a04-4f18-bcea-57197bf789b1-9E448F3C-10DD-414E-8692-2DF5BB997522.png")),
+            initialState: .init(senderInfo: .mock, boxDesigns: .mock, selectedBox: .mock),
             reducer: {
                 BoxStartGuideFeature()
                     ._printChanges()

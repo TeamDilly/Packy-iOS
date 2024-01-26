@@ -31,22 +31,22 @@ extension BoxStartGuideView {
             .padding(.horizontal, 24)
 
             PhotoElement(
-                imageUrl: viewStore.photoInput.photoUrl,
-                text: viewStore.$photoInput.text
+                imageUrl: viewStore.addPhoto.photoInput.photoUrl,
+                text: viewStore.$addPhoto.photoInput.text
             )
             .photoPickable { data in
                 guard let data else { return }
-                viewStore.send(.selectPhoto(data))
+                viewStore.send(.addPhoto(.selectPhoto(data)))
             }
-            .deleteButton(isShown: viewStore.photoInput.photoUrl != nil) {
-                viewStore.send(.photoDeleteButtonTapped)
+            .deleteButton(isShown: viewStore.addPhoto.photoInput.photoUrl != nil) {
+                viewStore.send(.addPhoto(.photoDeleteButtonTapped))
             }
             .frame(height: 374)
 
             Spacer()
 
             PackyButton(title: "저장", colorType: .black) {
-                viewStore.send(.photoSaveButtonTapped)
+                viewStore.send(.addPhoto(.photoSaveButtonTapped))
             }
             .padding(.horizontal, 24)
             .padding(.bottom, 16)
@@ -59,7 +59,7 @@ extension BoxStartGuideView {
 #Preview {
     BoxStartGuideView(
         store: .init(
-            initialState: .init(senderInfo: .mock, boxDesigns: .mock, selectedBox: .mock, isPhotoBottomSheetPresented: true),
+            initialState: .init(senderInfo: .mock, boxDesigns: .mock, selectedBox: .mock),
             reducer: {
                 BoxStartGuideFeature()
                     ._printChanges()

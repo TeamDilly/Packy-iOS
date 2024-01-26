@@ -18,13 +18,9 @@ struct PackyApp: App {
 
     let store = Store(initialState: RootFeature.State()) { RootFeature() }
 
-    let boxStore = Store(initialState: BoxStartGuideFeature.State(senderInfo: .mock, boxDesigns: .mock, selectedBox: .mock)) {
-        BoxStartGuideFeature()
-    }
     var body: some Scene {
         WindowGroup {
-            BoxStartGuideView(store: boxStore)
-            // RootView(store: store)
+            RootView(store: store)
                 .packyGlobalAlert()
                 .onOpenURL { url in
                     socialLogin.handleKakaoUrlIfNeeded(url)
