@@ -30,8 +30,8 @@ struct BoxStartGuideFeature: Reducer {
     struct PhotoInput: Equatable {
         var photoUrl: String?
         var text: String = ""
-        var isCompleted: Bool { text.isEmpty == false }
-        var isSaved: Bool = false
+
+        var isCompleted: Bool { photoUrl != nil }
     }
 
     struct LetterInput: Equatable {
@@ -59,6 +59,10 @@ struct BoxStartGuideFeature: Reducer {
         @BindingState var photoInput: PhotoInput = .init()
         @BindingState var letterInput: LetterInput = .init()
 
+        var savedMusic: MusicInput = .init()
+        var savedPhoto: PhotoInput = .init()
+        var savedLetter: LetterInput = .init()
+
         var recommendedMusics: [RecommendedMusic] = []
         var letterDesigns: [LetterDesign] = []
 
@@ -70,7 +74,7 @@ struct BoxStartGuideFeature: Reducer {
         /// 모든 요소가 입력되어서, 완성할 수 있는 상태인지
         var isCompletable: Bool {
             musicInput.isCompleted &&
-            photoInput.isCompleted &&
+            // photoInput.isSaved &&
             letterInput.isCompleted &&
             selectedStickers.count == 2
         }
@@ -81,22 +85,29 @@ struct BoxStartGuideFeature: Reducer {
         case binding(BindingAction<State>)
 
         // 음악
+        case musicSelectButtonTapped
         case musicBottomSheetBackButtonTapped
         case musicChoiceUserSelectButtonTapped
         case musicChoiceRecommendButtonTapped
         case musicLinkConfirmButtonTapped
         case musicSaveButtonTapped
         case musicLinkDeleteButtonTapped
+        case musicLinkDeleteButtonInSheetTapped
+        case musicBottomSheetCloseButtonTapped
+        case closeMusicSheetAlertConfirmTapped
 
         // 사진
+        case photoSelectButtonTapped
         case selectPhoto(Data)
         case photoDeleteButtonTapped
         case photoBottomSheetCloseButtonTapped
         case photoSaveButtonTapped
+        case closePhotoSheetAlertConfirmTapped
 
         // 편지
         case letterSaveButtonTapped
         case letterBottomSheetCloseButtonTapped
+        case closeLetterSheetAlertConfirmTapped
 
         // 스티커
         case stickerTapped(StickerDesign)
@@ -176,6 +187,11 @@ struct BoxStartGuideFeature: Reducer {
 
             // MARK: Music
 
+            case .musicSelectButtonTapped:
+                state.musicInput = state.savedMusic
+                state.isMusicBottomSheetPresented = true
+                return .none
+
             case .binding(\.musicInput.$musicLinkUrlInput):
                 state.musicInput.showInvalidMusicUrlError = false
                 return .none
@@ -219,13 +235,16 @@ struct BoxStartGuideFeature: Reducer {
                     // 첫 번째 요소는 가끔 centeredItem 이 안먹기에, nil이면 첫번째 요소로 지정
                     selectedMusicUrl = (state.musicInput.selectedRecommendedMusic ?? state.recommendedMusics.first)?.youtubeUrl
                 }
-                state.musicInput = .init(selectedMusicUrl: selectedMusicUrl)
+                state.savedMusic = .init(selectedMusicUrl: selectedMusicUrl)
                 state.isMusicBottomSheetPresented = false
                 return .none
 
             case .musicLinkDeleteButtonTapped:
+                state.savedMusic = .init()
+                return .none
+
+            case .musicLinkDeleteButtonInSheetTapped:
                 state.musicInput.musicLinkUrlInput = ""
-                state.musicInput.selectedRecommendedMusic = nil
                 state.musicInput.selectedMusicUrl = nil
                 return .none
 
@@ -233,7 +252,32 @@ struct BoxStartGuideFeature: Reducer {
                 state.musicInput.musicSheetDetents = detents
                 return .none
 
+            case .musicBottomSheetCloseButtonTapped:
+                guard state.savedMusic.isCompleted == false, state.musicInput.isCompleted else {
+                    state.isMusicBottomSheetPresented = false
+                    return .none
+                }
+
+                return .run { send in
+                    await packyAlert.show(
+                        .init(title: "음악 시트 진짜 닫겠는가?", description: "진짜루?", cancel: "놉,,", confirm: "예쓰", confirmAction: {
+                            await send(.closeMusicSheetAlertConfirmTapped)
+                        })
+                    )
+                }
+
+            case .closeMusicSheetAlertConfirmTapped:
+                state.musicInput = .init()
+                state.savedMusic = .init()
+                state.isMusicBottomSheetPresented = false
+                return .none
+
             // MARK: Photo
+
+            case .photoSelectButtonTapped:
+                state.isPhotoBottomSheetPresented = true
+                state.photoInput = state.savedPhoto
+                return .none
 
             case let .selectPhoto(data):
                 return .run { send in
@@ -249,15 +293,31 @@ struct BoxStartGuideFeature: Reducer {
                 state.photoInput.photoUrl = nil
                 return .none
 
-            case .photoBottomSheetCloseButtonTapped:
-                guard state.photoInput.isSaved == false else { return .none }
-                state.photoInput = .init()
-                return .none
-
             case .photoSaveButtonTapped:
-                state.photoInput.isSaved = true
+                state.savedPhoto = state.photoInput
                 state.isPhotoBottomSheetPresented = false
                 return .none
+
+            case .photoBottomSheetCloseButtonTapped:
+                guard state.savedPhoto.isCompleted == false, state.photoInput.isCompleted else {
+                    state.isPhotoBottomSheetPresented = false
+                    return .none
+                }
+
+                return .run { send in
+                    await packyAlert.show(
+                        .init(title: "사진 시트 진짜 닫겠는가?", description: "진짜루?", cancel: "놉,,", confirm: "예쓰", confirmAction: {
+                            await send(.closePhotoSheetAlertConfirmTapped)
+                        })
+                    )
+                }
+
+            case .closePhotoSheetAlertConfirmTapped:
+                state.photoInput = .init()
+                state.savedPhoto = .init()
+                state.isPhotoBottomSheetPresented = false
+                return .none
+
 
             // MARK: Letter
 
@@ -267,8 +327,22 @@ struct BoxStartGuideFeature: Reducer {
                 return .none
 
             case .letterBottomSheetCloseButtonTapped:
-                guard state.letterInput.isSaved == false else { return .none }
+                guard state.letterInput.isSaved == false, !state.letterInput.isCompleted else {
+                    state.isLetterBottomSheetPresented = false
+                    return .none
+                }
+
+                return .run { send in
+                    await packyAlert.show(
+                        .init(title: "편지 시트 진짜 닫겠는가?", description: "진짜루?", cancel: "놉,,", confirm: "예쓰", confirmAction: {
+                            await send(.closeLetterSheetAlertConfirmTapped)
+                        })
+                    )
+                }
+
+            case .closeLetterSheetAlertConfirmTapped:
                 state.letterInput = .init()
+                state.isLetterBottomSheetPresented = false
                 return .none
 
             // MARK: Sticker

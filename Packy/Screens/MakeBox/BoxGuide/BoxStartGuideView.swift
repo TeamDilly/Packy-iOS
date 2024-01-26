@@ -111,7 +111,8 @@ struct BoxStartGuideView: View {
             detents: viewStore.musicInput.musicSheetDetents,
             showLeadingButton: viewStore.musicInput.musicBottomSheetMode != .choice,
             leadingButtonAction: { viewStore.send(.musicBottomSheetBackButtonTapped) },
-            closeButtonAction: { viewStore.send(.binding(.set(\.$musicInput, .init()))) }
+            closeButtonAction: { viewStore.send(.musicBottomSheetCloseButtonTapped) },
+            isDismissible: false
         )  {
             VStack {
                 switch viewStore.musicInput.musicBottomSheetMode {
@@ -129,7 +130,8 @@ struct BoxStartGuideView: View {
         .bottomSheet(
             isPresented: viewStore.$isPhotoBottomSheetPresented,
             detents: [.large],
-            closeButtonAction: { viewStore.send(.photoBottomSheetCloseButtonTapped) }
+            closeButtonAction: { viewStore.send(.photoBottomSheetCloseButtonTapped) },
+            isDismissible: false
         ) {
             addPhotoBottomSheet
         }
@@ -137,7 +139,8 @@ struct BoxStartGuideView: View {
         .bottomSheet(
             isPresented: viewStore.$isLetterBottomSheetPresented,
             detents: [.large],
-            closeButtonAction: { viewStore.send(.letterBottomSheetCloseButtonTapped) }
+            closeButtonAction: { viewStore.send(.letterBottomSheetCloseButtonTapped) },
+            isDismissible: false
         ) {
             LetterBottomSheet(viewStore: viewStore)
         }
@@ -199,16 +202,16 @@ private extension BoxStartGuideView {
 
     @ViewBuilder
     func photoView(_ screenWidth: CGFloat) -> some View {
-        if let photoUrl = viewStore.photoInput.photoUrl {
+        if let photoUrl = viewStore.savedPhoto.photoUrl {
             PhotoPresentingView(
                 photoUrl: photoUrl,
                 screenWidth: screenWidth
             ) {
-                viewStore.send(.binding(.set(\.$isPhotoBottomSheetPresented, true)))
+                viewStore.send(.photoSelectButtonTapped)
             }
         } else {
             ElementGuideView(element: .photo, screenWidth: screenWidth) {
-                viewStore.send(.binding(.set(\.$isPhotoBottomSheetPresented, true)))
+                viewStore.send(.photoSelectButtonTapped)
             }
         }
     }
@@ -231,13 +234,13 @@ private extension BoxStartGuideView {
 
     @ViewBuilder
     func musicView(_ screenWidth: CGFloat) -> some View {
-        if let musicUrl = viewStore.musicInput.selectedMusicUrl {
+        if let musicUrl = viewStore.savedMusic.selectedMusicUrl {
             MusicPresentingView(url: musicUrl, screenWidth: screenWidth) {
                 viewStore.send(.musicLinkDeleteButtonTapped)
             }
         } else {
             ElementGuideView(element: .music, screenWidth: screenWidth) {
-                viewStore.send(.binding(.set(\.$isMusicBottomSheetPresented, true)))
+                viewStore.send(.musicSelectButtonTapped)
             }
         }
     }
@@ -491,7 +494,7 @@ private struct StickerPresentingView: View {
 #Preview {
     BoxStartGuideView(
         store: .init(
-            initialState: .init(senderInfo: .mock, boxDesigns: .mock, selectedBox: .mock, photoInput: .init(photoUrl: "https://packy-bucket.s3.ap-northeast-2.amazonaws.com/images/ebe6d8ba-7a04-4f18-bcea-57197bf789b1-9E448F3C-10DD-414E-8692-2DF5BB997522.png")),
+            initialState: .init(senderInfo: .mock, boxDesigns: .mock, selectedBox: .mock, savedPhoto: .init(photoUrl: "https://packy-bucket.s3.ap-northeast-2.amazonaws.com/images/ebe6d8ba-7a04-4f18-bcea-57197bf789b1-9E448F3C-10DD-414E-8692-2DF5BB997522.png")),
             reducer: {
                 BoxStartGuideFeature()
                     ._printChanges()

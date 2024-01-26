@@ -71,7 +71,7 @@ extension BoxStartGuideView {
                 .clipShape(RoundedRectangle(cornerRadius: 16))
                 .overlay(alignment: .topTrailing) {
                     CloseButton(sizeType: .medium, colorType: .dark) {
-                        viewStore.send(.musicLinkDeleteButtonTapped)
+                        viewStore.send(.musicLinkDeleteButtonInSheetTapped)
                     }
                     .offset(x: 4, y: -4)
                 }
