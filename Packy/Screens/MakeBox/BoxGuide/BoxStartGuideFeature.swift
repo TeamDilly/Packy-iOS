@@ -38,7 +38,6 @@ struct BoxStartGuideFeature: Reducer {
         @BindingState var selectedLetterDesign: LetterDesign?
         var letter: String = ""
         var isCompleted: Bool { letter.isEmpty == false }
-        var isSaved: Bool = false
     }
 
     struct State: Equatable {
@@ -73,9 +72,9 @@ struct BoxStartGuideFeature: Reducer {
 
         /// 모든 요소가 입력되어서, 완성할 수 있는 상태인지
         var isCompletable: Bool {
-            musicInput.isCompleted &&
-            // photoInput.isSaved &&
-            letterInput.isCompleted &&
+            savedMusic.isCompleted &&
+            savedPhoto.isCompleted &&
+            savedLetter.isCompleted &&
             selectedStickers.count == 2
         }
     }
@@ -105,6 +104,7 @@ struct BoxStartGuideFeature: Reducer {
         case closePhotoSheetAlertConfirmTapped
 
         // 편지
+        case letterInputButtonTapped
         case letterSaveButtonTapped
         case letterBottomSheetCloseButtonTapped
         case closeLetterSheetAlertConfirmTapped
@@ -268,7 +268,6 @@ struct BoxStartGuideFeature: Reducer {
 
             case .closeMusicSheetAlertConfirmTapped:
                 state.musicInput = .init()
-                state.savedMusic = .init()
                 state.isMusicBottomSheetPresented = false
                 return .none
 
@@ -314,20 +313,24 @@ struct BoxStartGuideFeature: Reducer {
 
             case .closePhotoSheetAlertConfirmTapped:
                 state.photoInput = .init()
-                state.savedPhoto = .init()
                 state.isPhotoBottomSheetPresented = false
                 return .none
 
 
             // MARK: Letter
 
+            case .letterInputButtonTapped:
+                state.letterInput = state.savedLetter
+                state.isLetterBottomSheetPresented = true
+                return .none
+
             case .letterSaveButtonTapped:
-                state.letterInput.isSaved = true
+                state.savedLetter = state.letterInput
                 state.isLetterBottomSheetPresented = false
                 return .none
 
             case .letterBottomSheetCloseButtonTapped:
-                guard state.letterInput.isSaved == false, !state.letterInput.isCompleted else {
+                guard state.savedLetter.isCompleted == false, state.letterInput.isCompleted else {
                     state.isLetterBottomSheetPresented = false
                     return .none
                 }

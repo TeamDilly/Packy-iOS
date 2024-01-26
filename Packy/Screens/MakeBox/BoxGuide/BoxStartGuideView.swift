@@ -218,16 +218,16 @@ private extension BoxStartGuideView {
 
     @ViewBuilder
     func letterView(_ screenWidth: CGFloat) -> some View {
-        if !viewStore.letterInput.letter.isEmpty {
+        if viewStore.savedLetter.isCompleted {
             LetterPresentingView(
-                input: viewStore.letterInput,
+                input: viewStore.savedLetter,
                 screenWidth: screenWidth
             ) {
-                viewStore.send(.binding(.set(\.$isLetterBottomSheetPresented, true)))
+                viewStore.send(.letterInputButtonTapped)
             }
         } else {
             ElementGuideView(element: .letter, screenWidth: screenWidth) {
-                viewStore.send(.binding(.set(\.$isLetterBottomSheetPresented, true)))
+                viewStore.send(.letterInputButtonTapped)
             }
         }
     }
