@@ -54,12 +54,14 @@ struct AddPhotoBottomSheet: View {
 
             Spacer()
 
-            PackyButton(title: "저장", colorType: .black) {
-                viewStore.send(.photoSaveButtonTapped)
+            if !textFieldFocused {
+                PackyButton(title: "저장", colorType: .black) {
+                    viewStore.send(.photoSaveButtonTapped)
+                }
+                .disabled(!viewStore.photoInput.isCompleted)
+                .padding(.horizontal, 24)
+                .padding(.bottom, 16)
             }
-            .disabled(!viewStore.photoInput.isCompleted)
-            .padding(.horizontal, 24)
-            .padding(.bottom, 16)
         }
         .keyboardHideToolbar()
         .makeTapToHideKeyboard()
