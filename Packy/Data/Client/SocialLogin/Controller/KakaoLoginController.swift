@@ -15,7 +15,9 @@ enum KakaoLoginError: Error {
     case invalidUser
 }
 
-struct KakaoLoginController {
+final class KakaoLoginController {
+    private var continuation: CheckedContinuation<SocialLoginInfo, Error>? = nil
+
     func initSDK() {
         KakaoSDK.initSDK(appKey: APIKey.kakao)
     }
@@ -28,55 +30,62 @@ struct KakaoLoginController {
     @MainActor
     func login() async throws -> SocialLoginInfo {
         return try await withCheckedThrowingContinuation { continuation in
+            self.continuation = continuation
+
             if UserApi.isKakaoTalkLoginAvailable() {
-                loginWithKakaoTalk(continuation)
+                loginWithKakaoTalk()
             } else {
-                loginWithKakaoAccount(continuation)
+                loginWithKakaoAccount()
             }
         }
     }
 
-    private func loginWithKakaoTalk(_ continuation: CheckedContinuation<SocialLoginInfo, Error>) {
-        UserApi.shared.loginWithKakaoTalk { oauthToken, error in
+    private func loginWithKakaoTalk() {
+        UserApi.shared.loginWithKakaoTalk { [weak self] oauthToken, error in
+            guard let self else { return }
+
             if let error {
-                continuation.resume(throwing: error)
+                continuation?.resume(throwing: error)
                 return
             }
             guard let oauthToken else {
-                continuation.resume(throwing: KakaoLoginError.invalidToken)
+                continuation?.resume(throwing: KakaoLoginError.invalidToken)
                 return
             }
 
-            fetchUserInfo(continuation, accessToken: oauthToken.accessToken)
+            fetchUserInfo(accessToken: oauthToken.accessToken)
         }
     }
 
-    private func loginWithKakaoAccount(_ continuation: CheckedContinuation<SocialLoginInfo, Error>) {
-        UserApi.shared.loginWithKakaoAccount { (oauthToken, error) in
+    private func loginWithKakaoAccount() {
+        UserApi.shared.loginWithKakaoAccount { [weak self] (oauthToken, error) in
+            guard let self else { return }
+
             if let error {
-                continuation.resume(throwing: error)
+                continuation?.resume(throwing: error)
                 return
             }
             guard let oauthToken else {
-                continuation.resume(throwing: KakaoLoginError.invalidToken)
+                continuation?.resume(throwing: KakaoLoginError.invalidToken)
                 return
             }
 
-            fetchUserInfo(continuation, accessToken: oauthToken.accessToken)
+            fetchUserInfo(accessToken: oauthToken.accessToken)
         }
     }
 
-    private func fetchUserInfo(_ continuation: CheckedContinuation<SocialLoginInfo, Error>, accessToken: String) {
-        // TODO: 차후 서버 스펙에 따라 변경 필요
-        UserApi.shared.me { user, error in
+    private func fetchUserInfo(accessToken: String) {
+        UserApi.shared.me { [weak self] user, error in
+            guard let self else { return }
+
             if let error {
-                continuation.resume(throwing: error)
+                continuation?.resume(throwing: error)
                 return
             }
 
             guard let user,
                   let userId = user.id else {
-                continuation.resume(throwing: KakaoLoginError.invalidUser)
+                continuation?.resume(throwing: KakaoLoginError.invalidUser)
                 return
             }
 
@@ -88,7 +97,8 @@ struct KakaoLoginController {
                 provider: .kakao
             )
 
-            continuation.resume(returning: info)
+            continuation?.resume(returning: info)
+            continuation = nil
         }
     }
 }
