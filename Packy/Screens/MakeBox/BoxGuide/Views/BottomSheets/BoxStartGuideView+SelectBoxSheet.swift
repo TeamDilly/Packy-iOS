@@ -8,6 +8,8 @@
 import SwiftUI
 import Kingfisher
 
+// TODO: 하위 뷰, 리듀서로 분리
+
 extension BoxStartGuideView {
     var selectBoxBottomSheet: some View {
         ScrollView {

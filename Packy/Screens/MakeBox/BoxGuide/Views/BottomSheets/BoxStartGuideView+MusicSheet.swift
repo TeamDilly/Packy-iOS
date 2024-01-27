@@ -8,6 +8,8 @@
 import SwiftUI
 import YouTubePlayerKit
 
+// TODO: 하위 뷰, 리듀서로 분리
+
 extension BoxStartGuideView {
 
     // MARK: 음악 추가 방식 선택 바텀시트
@@ -131,6 +133,7 @@ extension BoxStartGuideView {
                 }
                 .padding(.horizontal, 24)
 
+                // FIXME: 차후) 좌우 보이는 무한 캐러셀 구현
                 TabView(selection: viewStore.$musicInput.selectedRecommendedMusic) {
                     ForEach(viewStore.recommendedMusics) { music in
                         VStack(spacing: 0) {

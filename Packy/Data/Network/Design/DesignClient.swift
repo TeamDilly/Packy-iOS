@@ -25,7 +25,7 @@ struct DesignClient {
     var fetchProfileImages: @Sendable () async throws -> ProfileImageResponse
     var fetchLetterDesigns: @Sendable () async throws -> LetterDesignResponse
     var fetchBoxDesigns: @Sendable () async throws -> BoxDesignResponse
-    var fetchStickerDesigns: @Sendable () async throws -> [StickerDesign]
+    var fetchStickerDesigns: @Sendable (_ lastStickerId: Int) async throws -> StickerDesignResponse
 }
 
 extension DesignClient: DependencyKey {
@@ -47,8 +47,7 @@ extension DesignClient: DependencyKey {
                 try await provider.request(.getBoxDesigns)
             },
             fetchStickerDesigns: {
-                let response: StickerDesignResponse = try await provider.request(.getStickerDesigns)
-                return response.contents.sorted(by: \.sequence)
+                try await provider.request(.getStickerDesigns(lastStickerId: $0))
             }
         )
     }()
@@ -59,7 +58,10 @@ extension DesignClient: DependencyKey {
             fetchProfileImages: { .mock },
             fetchLetterDesigns: { .mock },
             fetchBoxDesigns: { .mock },
-            fetchStickerDesigns: { .mock }
+            fetchStickerDesigns: { _ in
+                try? await _Concurrency.Task.sleep(for: .seconds(2))
+                return .mock
+            }
         )
     }()
 }

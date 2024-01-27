@@ -46,7 +46,7 @@ struct BoxChoiceView: View {
                         ForEach(viewStore.boxDesigns, id: \.id) { boxDesign in
                             Button {
                                 viewStore.send(.selectBox(boxDesign))
-                                HapticManager.shared.fireNotification(.success)
+                                HapticManager.shared.fireFeedback(.medium)
                             } label: {
                                 NetworkImage(url: boxDesign.boxFullUrl, contentMode: .fit)
                                     .clipShape(RoundedRectangle(cornerRadius: 12))

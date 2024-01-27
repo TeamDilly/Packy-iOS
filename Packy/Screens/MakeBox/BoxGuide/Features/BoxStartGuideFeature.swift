@@ -34,14 +34,12 @@ struct BoxStartGuideFeature: Reducer {
         var giftInput: GiftInput = .init()
 
         var savedMusic: MusicInput = .init()
-
         var savedLetter: LetterInput = .init()
         var savedGift: GiftInput = .init()
 
         var recommendedMusics: [RecommendedMusic] = []
         var letterDesigns: [LetterDesign] = []
-
-        var stickerDesigns: [StickerDesign] = []
+        var stickerDesigns: [StickerDesignResponse] = []
         var selectedStickers: [StickerDesign] = []
 
         /// 모든 요소가 입력되어서, 완성할 수 있는 상태인지
@@ -57,6 +55,8 @@ struct BoxStartGuideFeature: Reducer {
         // MARK: User Action
         case binding(BindingAction<State>)
 
+        case fetchMoreStickers
+
         // 음악
         case musicSelectButtonTapped
         case musicBottomSheetBackButtonTapped
@@ -68,9 +68,6 @@ struct BoxStartGuideFeature: Reducer {
         case musicLinkDeleteButtonInSheetTapped
         case musicBottomSheetCloseButtonTapped
         case closeMusicSheetAlertConfirmTapped
-
-        // 사진
-
 
         // 편지
         case letterInputButtonTapped
@@ -107,7 +104,7 @@ struct BoxStartGuideFeature: Reducer {
         case _setIsShowingGuideText(Bool)
         case _setLetterDesigns([LetterDesign])
         case _setRecommendedMusics([RecommendedMusic])
-        case _setStickerDesigns([StickerDesign])
+        case _setStickerDesigns(StickerDesignResponse)
 
         // MARK: Child Action
         case addPhoto(BoxAddPhotoFeature.Action)
@@ -145,8 +142,12 @@ struct BoxStartGuideFeature: Reducer {
                     // 디자인들 조회...
                     fetchLetterDesigns(),
                     fetchRecommendedMusics(),
-                    fetchStickerDesigns()
+                    fetchStickerDesigns(lastStickerId: 0)
                 )
+
+            case .fetchMoreStickers:
+                let lastStickerId = state.stickerDesigns.last?.contents.last?.id ?? 0
+                return fetchStickerDesigns(lastStickerId: lastStickerId)
 
             case let ._setIsShowingGuideText(isShowing):
                 state.isShowingGuideText = isShowing
@@ -177,8 +178,8 @@ struct BoxStartGuideFeature: Reducer {
                 state.selectedStickers.append(sticker)
                 return .none
 
-            case let ._setStickerDesigns(designs):
-                state.stickerDesigns = designs
+            case let ._setStickerDesigns(response):
+                state.stickerDesigns.append(response)
                 return .none
 
             // MARK: Box
@@ -234,11 +235,11 @@ private extension BoxStartGuideFeature {
         }
     }
 
-    func fetchStickerDesigns() -> Effect<Action> {
+    func fetchStickerDesigns(lastStickerId: Int) -> Effect<Action> {
         .run { send in
             do {
-                let stickerDesigns = try await designClient.fetchStickerDesigns()
-                await send(._setStickerDesigns(stickerDesigns))
+                let response = try await designClient.fetchStickerDesigns(lastStickerId)
+                await send(._setStickerDesigns(response))
             } catch {
                 print(error)
             }

@@ -31,10 +31,15 @@ struct StickerDesign: Equatable, Decodable {
     }
 }
 
-extension [StickerDesign] {
+extension StickerDesignResponse {
     static var mock: Self {
-        (0...10).map {
-            StickerDesign(id: $0, sequence: $0, imageUrl: "https://picsum.photos/200")
-        }
+        .init(
+            contents: (0...10).map {
+                StickerDesign(id: Int.random(in: 0...1000), sequence: $0, imageUrl: "https://picsum.photos/200")
+            },
+            isFirstPage: true,
+            isLastPage: false
+        )
+
     }
 }

@@ -8,6 +8,8 @@
 import SwiftUI
 import Kingfisher
 
+// TODO: 하위 뷰, 리듀서로 분리
+
 extension BoxStartGuideView {
     var addStickerBottomSheet: some View {
         ScrollView {
@@ -35,7 +37,7 @@ extension BoxStartGuideView {
 
                 let columns = [GridItem(spacing: 12), GridItem(spacing: 12), GridItem(spacing: 12)]
                 LazyVGrid(columns: columns, spacing: 12) {
-                    ForEach(viewStore.stickerDesigns, id: \.id) { stickerDesign in
+                    ForEach(viewStore.stickerDesigns.flatMap(\.contents), id: \.id) { stickerDesign in
                         let index = viewStore.selectedStickers.firstIndex(of: stickerDesign)
 
                         Button {
@@ -45,6 +47,13 @@ extension BoxStartGuideView {
                                 .aspectRatio(1, contentMode: .fit)
                         }
                         .buttonStyle(.bouncy)
+                    }
+
+                    if viewStore.stickerDesigns.last?.isLastPage == false {
+                        ProgressView()
+                            .onAppear {
+                                viewStore.send(.fetchMoreStickers)
+                            }
                     }
                 }
                 .padding(.horizontal, 24)
@@ -93,7 +102,7 @@ private struct StickerCell: View {
             initialState: .init(senderInfo: .mock, boxDesigns: .mock, selectedBox: .mock, isStickerBottomSheetPresented: true),
             reducer: {
                 BoxStartGuideFeature()
-                    ._printChanges()
+                    // ._printChanges()
             }
         )
     )

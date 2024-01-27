@@ -147,6 +147,7 @@
 		E5D749762B4A7B9200213F63 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = E5D749752B4A7B9200213F63 /* Alamofire */; };
 		E5D749792B4A7C1A00213F63 /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = E5D749782B4A7C1A00213F63 /* ComposableArchitecture */; };
 		E5D7497C2B4A7C3300213F63 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = E5D7497B2B4A7C3300213F63 /* Kingfisher */; };
+		E5E06B2D2B651D2200F6FD01 /* Throttle.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E06B2C2B651D2200F6FD01 /* Throttle.swift */; };
 		E5E73D4A2B597C0200729D99 /* BoxStartGuideView+MusicSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E73D492B597C0200729D99 /* BoxStartGuideView+MusicSheet.swift */; };
 		E5E73D4C2B597CB600729D99 /* AddPhotoBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E73D4B2B597CB600729D99 /* AddPhotoBottomSheet.swift */; };
 /* End PBXBuildFile section */
@@ -287,6 +288,7 @@
 		E5AC66F22B62BC8400F3CBF0 /* Sequence+SortByKeypath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sequence+SortByKeypath.swift"; sourceTree = "<group>"; };
 		E5D012992B58086F00236FEF /* SetWindowBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetWindowBackground.swift; sourceTree = "<group>"; };
 		E5D7495D2B4A72E100213F63 /* Packy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Packy.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E5E06B2C2B651D2200F6FD01 /* Throttle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Throttle.swift; sourceTree = "<group>"; };
 		E5E73D492B597C0200729D99 /* BoxStartGuideView+MusicSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BoxStartGuideView+MusicSheet.swift"; sourceTree = "<group>"; };
 		E5E73D4B2B597CB600729D99 /* AddPhotoBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPhotoBottomSheet.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -605,6 +607,7 @@
 				E5A7AA002B57F81400590EA6 /* APIKey.swift */,
 				E5A7AA012B57F81400590EA6 /* ATTManager.swift */,
 				E5AC66EE2B62B24700F3CBF0 /* PassThroughWindow.swift */,
+				E5E06B2C2B651D2200F6FD01 /* Throttle.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -964,6 +967,7 @@
 				E5A7AA532B57F81400590EA6 /* HomeView.swift in Sources */,
 				E5A416A22B5D076C00313E5A /* PopGestureDisableModifier.swift in Sources */,
 				E5A7AA732B57F81400590EA6 /* SocialLoginProvider.swift in Sources */,
+				E5E06B2D2B651D2200F6FD01 /* Throttle.swift in Sources */,
 				E5A7AA802B57F81400590EA6 /* UserDefaultsClient.swift in Sources */,
 				E5001F852B5BA011004B65E6 /* Line.swift in Sources */,
 				E5A7AA482B57F81400590EA6 /* PageIndicator.swift in Sources */,

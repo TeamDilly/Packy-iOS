@@ -18,7 +18,7 @@ enum DesignEndpoint {
     /// 박스 디자인 조회
     case getBoxDesigns
     /// 스티커 디자인 조회
-    case getStickerDesigns
+    case getStickerDesigns(lastStickerId: Int, size: Int = 10)
 }
 
 extension DesignEndpoint: TargetType {
@@ -50,6 +50,14 @@ extension DesignEndpoint: TargetType {
 
     var task: Moya.Task {
         switch self {
+        case let .getStickerDesigns(lastStickerId: lastStickerId, size: size):
+            return .requestParameters(
+                parameters: [
+                    "lastStickerId": lastStickerId,
+                    "size": size
+                ],
+                encoding: URLEncoding.queryString
+            )
         default:
             return .requestPlain
         }

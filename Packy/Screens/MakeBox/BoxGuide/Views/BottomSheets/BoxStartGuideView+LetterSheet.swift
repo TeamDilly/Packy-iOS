@@ -9,6 +9,8 @@ import SwiftUI
 import ComposableArchitecture
 import Kingfisher
 
+// TODO: 하위 뷰, 리듀서로 분리
+
 extension BoxStartGuideView {
     struct LetterBottomSheet: View {
         @ObservedObject var viewStore: ViewStoreOf<BoxStartGuideFeature>
