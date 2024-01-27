@@ -19,4 +19,21 @@ extension View {
                 hideKeyboard()
             }
     }
+
+    func keyboardHideToolbar() -> some View {
+        NavigationView {
+            self
+                .toolbar {
+                    ToolbarItemGroup(placement: .keyboard) {
+                        Spacer()
+
+                        Button {
+                            hideKeyboard()
+                        } label: {
+                            Image(.keyboardDown)
+                        }
+                    }
+                }
+        }
+    }
 }

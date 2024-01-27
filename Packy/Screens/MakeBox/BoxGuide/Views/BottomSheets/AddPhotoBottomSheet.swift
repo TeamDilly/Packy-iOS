@@ -11,6 +11,7 @@ import ComposableArchitecture
 struct AddPhotoBottomSheet: View {
     private let store: StoreOf<BoxAddPhotoFeature>
     @ObservedObject var viewStore: ViewStoreOf<BoxAddPhotoFeature>
+    @FocusState private var textFieldFocused: Bool
 
     init(store: StoreOf<BoxAddPhotoFeature>) {
         self.store = store
@@ -19,21 +20,23 @@ struct AddPhotoBottomSheet: View {
 
     var body: some View {
         VStack(spacing: 0) {
-            Group {
-                Text("추억을 담은 사진")
-                    .packyFont(.heading1)
-                    .foregroundStyle(.gray900)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(.top, 8)
-                    .padding(.bottom, 4)
+            if !textFieldFocused {
+                Group {
+                    Text("추억을 담은 사진")
+                        .packyFont(.heading1)
+                        .foregroundStyle(.gray900)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding(.top, 8)
+                        .padding(.bottom, 4)
 
-                Text("우리의 추억을 담아보세요")
-                    .packyFont(.body4)
-                    .foregroundStyle(.gray600)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(.bottom, 32)
+                    Text("우리의 추억을 담아보세요")
+                        .packyFont(.body4)
+                        .foregroundStyle(.gray600)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding(.bottom, 32)
+                }
+                .padding(.horizontal, 24)
             }
-            .padding(.horizontal, 24)
 
             PhotoElement(
                 imageUrl: viewStore.photoInput.photoUrl,
@@ -46,6 +49,7 @@ struct AddPhotoBottomSheet: View {
             .deleteButton(isShown: viewStore.photoInput.photoUrl != nil) {
                 viewStore.send(.photoDeleteButtonTapped)
             }
+            .focused($textFieldFocused)
             .frame(height: 374)
 
             Spacer()
@@ -57,6 +61,9 @@ struct AddPhotoBottomSheet: View {
             .padding(.horizontal, 24)
             .padding(.bottom, 16)
         }
+        .keyboardHideToolbar()
+        .makeTapToHideKeyboard()
+        .animation(.spring, value: textFieldFocused)
     }
 }
 
