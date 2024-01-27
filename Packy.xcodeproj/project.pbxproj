@@ -148,6 +148,15 @@
 		E5D749792B4A7C1A00213F63 /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = E5D749782B4A7C1A00213F63 /* ComposableArchitecture */; };
 		E5D7497C2B4A7C3300213F63 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = E5D7497B2B4A7C3300213F63 /* Kingfisher */; };
 		E5E06B2D2B651D2200F6FD01 /* Throttle.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E06B2C2B651D2200F6FD01 /* Throttle.swift */; };
+		E5E06B312B654A1000F6FD01 /* BoxAddTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E06B2F2B654A1000F6FD01 /* BoxAddTitleView.swift */; };
+		E5E06B322B654A1000F6FD01 /* BoxAddTitleFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E06B302B654A1000F6FD01 /* BoxAddTitleFeature.swift */; };
+		E5E06B342B654D7700F6FD01 /* GiftBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E06B332B654D7700F6FD01 /* GiftBox.swift */; };
+		E5E06B362B654D8A00F6FD01 /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E06B352B654D8A00F6FD01 /* Photo.swift */; };
+		E5E06B382B654D9A00F6FD01 /* Gift.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E06B372B654D9A00F6FD01 /* Gift.swift */; };
+		E5E06B3A2B654DA200F6FD01 /* Sticker.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E06B392B654DA200F6FD01 /* Sticker.swift */; };
+		E5E06B402B654EF200F6FD01 /* BoxClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E06B3F2B654EF200F6FD01 /* BoxClient.swift */; };
+		E5E06B422B654EF600F6FD01 /* BoxEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E06B412B654EF600F6FD01 /* BoxEndpoint.swift */; };
+		E5E06B442B654FC500F6FD01 /* GiftBoxResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E06B432B654FC500F6FD01 /* GiftBoxResponse.swift */; };
 		E5E73D4A2B597C0200729D99 /* BoxStartGuideView+MusicSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E73D492B597C0200729D99 /* BoxStartGuideView+MusicSheet.swift */; };
 		E5E73D4C2B597CB600729D99 /* AddPhotoBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E73D4B2B597CB600729D99 /* AddPhotoBottomSheet.swift */; };
 /* End PBXBuildFile section */
@@ -289,6 +298,15 @@
 		E5D012992B58086F00236FEF /* SetWindowBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetWindowBackground.swift; sourceTree = "<group>"; };
 		E5D7495D2B4A72E100213F63 /* Packy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Packy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E5E06B2C2B651D2200F6FD01 /* Throttle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Throttle.swift; sourceTree = "<group>"; };
+		E5E06B2F2B654A1000F6FD01 /* BoxAddTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoxAddTitleView.swift; sourceTree = "<group>"; };
+		E5E06B302B654A1000F6FD01 /* BoxAddTitleFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoxAddTitleFeature.swift; sourceTree = "<group>"; };
+		E5E06B332B654D7700F6FD01 /* GiftBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GiftBox.swift; sourceTree = "<group>"; };
+		E5E06B352B654D8A00F6FD01 /* Photo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
+		E5E06B372B654D9A00F6FD01 /* Gift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gift.swift; sourceTree = "<group>"; };
+		E5E06B392B654DA200F6FD01 /* Sticker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sticker.swift; sourceTree = "<group>"; };
+		E5E06B3F2B654EF200F6FD01 /* BoxClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoxClient.swift; sourceTree = "<group>"; };
+		E5E06B412B654EF600F6FD01 /* BoxEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoxEndpoint.swift; sourceTree = "<group>"; };
+		E5E06B432B654FC500F6FD01 /* GiftBoxResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GiftBoxResponse.swift; sourceTree = "<group>"; };
 		E5E73D492B597C0200729D99 /* BoxStartGuideView+MusicSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BoxStartGuideView+MusicSheet.swift"; sourceTree = "<group>"; };
 		E5E73D4B2B597CB600729D99 /* AddPhotoBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPhotoBottomSheet.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -506,6 +524,7 @@
 				E5E73D482B597BE000729D99 /* MakeBox */,
 				E5E73D462B597BC200729D99 /* BoxChoice */,
 				E5E73D472B597BCD00729D99 /* BoxGuide */,
+				E5E06B2E2B6549FB00F6FD01 /* BoxAddTitle */,
 			);
 			path = MakeBox;
 			sourceTree = "<group>";
@@ -629,16 +648,9 @@
 		E5A7AA072B57F81400590EA6 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				E5A416B02B5D220B00313E5A /* BoxDesign.swift */,
-				E5001F862B5BA4C0004B65E6 /* BoxSenderInfo.swift */,
-				E5A416AE2B5D21B700313E5A /* LetterDesign.swift */,
-				E5A416AC2B5D218D00313E5A /* MessageDesign.swift */,
-				E5A416AA2B5D215800313E5A /* ProfileImage.swift */,
-				E5A416A82B5D212300313E5A /* RecommendedMusic.swift */,
-				E5A7AA1F2B57F81400590EA6 /* SocialLoginInfo.swift */,
-				E5A7AA082B57F81400590EA6 /* SocialLoginProvider.swift */,
-				E5AC66F02B62B95B00F3CBF0 /* StickerDesign.swift */,
-				E5A7AA092B57F81400590EA6 /* Terms.swift */,
+				E5E06B3D2B654DD800F6FD01 /* Box */,
+				E5E06B3C2B654DCE00F6FD01 /* Design */,
+				E5E06B3B2B654DBE00F6FD01 /* Auth */,
 			);
 			name = Model;
 			path = Packy/Model;
@@ -668,6 +680,7 @@
 		E5A7AA0E2B57F81400590EA6 /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				E5E06B3E2B654EE500F6FD01 /* Box */,
 				E5A416A32B5D1F6900313E5A /* Design */,
 				E5001F8F2B5BE43E004B65E6 /* Upload */,
 				E5A7AA0F2B57F81400590EA6 /* Auth */,
@@ -828,6 +841,60 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		E5E06B2E2B6549FB00F6FD01 /* BoxAddTitle */ = {
+			isa = PBXGroup;
+			children = (
+				E5E06B2F2B654A1000F6FD01 /* BoxAddTitleView.swift */,
+				E5E06B302B654A1000F6FD01 /* BoxAddTitleFeature.swift */,
+			);
+			path = BoxAddTitle;
+			sourceTree = "<group>";
+		};
+		E5E06B3B2B654DBE00F6FD01 /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				E5A416AA2B5D215800313E5A /* ProfileImage.swift */,
+				E5A7AA1F2B57F81400590EA6 /* SocialLoginInfo.swift */,
+				E5A7AA082B57F81400590EA6 /* SocialLoginProvider.swift */,
+				E5A7AA092B57F81400590EA6 /* Terms.swift */,
+			);
+			path = Auth;
+			sourceTree = "<group>";
+		};
+		E5E06B3C2B654DCE00F6FD01 /* Design */ = {
+			isa = PBXGroup;
+			children = (
+				E5A416B02B5D220B00313E5A /* BoxDesign.swift */,
+				E5A416AE2B5D21B700313E5A /* LetterDesign.swift */,
+				E5A416AC2B5D218D00313E5A /* MessageDesign.swift */,
+				E5A416A82B5D212300313E5A /* RecommendedMusic.swift */,
+				E5AC66F02B62B95B00F3CBF0 /* StickerDesign.swift */,
+			);
+			path = Design;
+			sourceTree = "<group>";
+		};
+		E5E06B3D2B654DD800F6FD01 /* Box */ = {
+			isa = PBXGroup;
+			children = (
+				E5001F862B5BA4C0004B65E6 /* BoxSenderInfo.swift */,
+				E5E06B372B654D9A00F6FD01 /* Gift.swift */,
+				E5E06B332B654D7700F6FD01 /* GiftBox.swift */,
+				E5E06B352B654D8A00F6FD01 /* Photo.swift */,
+				E5E06B392B654DA200F6FD01 /* Sticker.swift */,
+			);
+			path = Box;
+			sourceTree = "<group>";
+		};
+		E5E06B3E2B654EE500F6FD01 /* Box */ = {
+			isa = PBXGroup;
+			children = (
+				E5E06B3F2B654EF200F6FD01 /* BoxClient.swift */,
+				E5E06B432B654FC500F6FD01 /* GiftBoxResponse.swift */,
+				E5E06B412B654EF600F6FD01 /* BoxEndpoint.swift */,
+			);
+			path = Box;
+			sourceTree = "<group>";
+		};
 		E5E73D462B597BC200729D99 /* BoxChoice */ = {
 			isa = PBXGroup;
 			children = (
@@ -965,12 +1032,14 @@
 				E5A7AA562B57F81400590EA6 /* BoxChoiceFeature.swift in Sources */,
 				E5A7AA852B57F81400590EA6 /* UserNotificationClient.swift in Sources */,
 				E5A7AA532B57F81400590EA6 /* HomeView.swift in Sources */,
+				E5E06B312B654A1000F6FD01 /* BoxAddTitleView.swift in Sources */,
 				E5A416A22B5D076C00313E5A /* PopGestureDisableModifier.swift in Sources */,
 				E5A7AA732B57F81400590EA6 /* SocialLoginProvider.swift in Sources */,
 				E5E06B2D2B651D2200F6FD01 /* Throttle.swift in Sources */,
 				E5A7AA802B57F81400590EA6 /* UserDefaultsClient.swift in Sources */,
 				E5001F852B5BA011004B65E6 /* Line.swift in Sources */,
 				E5A7AA482B57F81400590EA6 /* PageIndicator.swift in Sources */,
+				E5E06B402B654EF200F6FD01 /* BoxClient.swift in Sources */,
 				E5551B7B2B5FF2AF00DB81F3 /* HTTPSession.swift in Sources */,
 				E5A7AA4E2B57F81400590EA6 /* Font+Packy.swift in Sources */,
 				E58048C32B5BFF3800B974B3 /* BoxStartGuideView+LetterSheet.swift in Sources */,
@@ -981,6 +1050,7 @@
 				E5A7AA5E2B57F81400590EA6 /* TermsAgreementFeature.swift in Sources */,
 				E5A7AA4C2B57F81400590EA6 /* Font+Pretendard.swift in Sources */,
 				E5A7AA582B57F81400590EA6 /* MakeBoxFeature+Navigation.swift in Sources */,
+				E5E06B3A2B654DA200F6FD01 /* Sticker.swift in Sources */,
 				E5A7AA5C2B57F81400590EA6 /* IntroFeature.swift in Sources */,
 				E5A7AA6E2B57F81400590EA6 /* ATTManager.swift in Sources */,
 				E5A7AA452B57F81400590EA6 /* PhotoElement.swift in Sources */,
@@ -996,12 +1066,15 @@
 				E5A416B52B5D439300313E5A /* PackyAlert.swift in Sources */,
 				E52470EF2B6134EE003D49DE /* Array+SafeIndex.swift in Sources */,
 				E5A7AA792B57F81400590EA6 /* SignUpRequest.swift in Sources */,
+				E5E06B362B654D8A00F6FD01 /* Photo.swift in Sources */,
+				E5E06B442B654FC500F6FD01 /* GiftBoxResponse.swift in Sources */,
 				E5001F8E2B5BE422004B65E6 /* UploadClient.swift in Sources */,
 				E5A7AA3D2B57F81400590EA6 /* PackyNavigationLink.swift in Sources */,
 				E5A7AA5D2B57F81400590EA6 /* IntroView.swift in Sources */,
 				E5A7AA3B2B57F81400590EA6 /* View+GetSize.swift in Sources */,
 				E5A7AA392B57F81400590EA6 /* View+If.swift in Sources */,
 				E5A416A92B5D212300313E5A /* RecommendedMusic.swift in Sources */,
+				E5E06B422B654EF600F6FD01 /* BoxEndpoint.swift in Sources */,
 				E5A7AA4F2B57F81400590EA6 /* PretendardFont.swift in Sources */,
 				E52470F22B6142EB003D49DE /* BoxStartGuideView+AddGiftSheet.swift in Sources */,
 				E5A7AA422B57F81400590EA6 /* CloseButton.swift in Sources */,
@@ -1055,6 +1128,7 @@
 				E5551B792B5FE8E300DB81F3 /* TokenInterceptor.swift in Sources */,
 				E5A7AA682B57F81400590EA6 /* OnboardingFeature.swift in Sources */,
 				E5A416B32B5D350C00313E5A /* BoxStartGuideView+StickerSheet.swift in Sources */,
+				E5E06B322B654A1000F6FD01 /* BoxAddTitleFeature.swift in Sources */,
 				E5A7AA472B57F81400590EA6 /* MusicPlayerView.swift in Sources */,
 				E5A7AA462B57F81400590EA6 /* PackyButton.swift in Sources */,
 				E5551B7D2B5FF5AD00DB81F3 /* MoyaProvider+Build.swift in Sources */,
@@ -1062,6 +1136,7 @@
 				E5A7AA6D2B57F81400590EA6 /* APIKey.swift in Sources */,
 				E5A7AA542B57F81400590EA6 /* HomeFeature.swift in Sources */,
 				E5A416AB2B5D215800313E5A /* ProfileImage.swift in Sources */,
+				E5E06B382B654D9A00F6FD01 /* Gift.swift in Sources */,
 				E5A7AA592B57F81400590EA6 /* BoxStartGuideFeature.swift in Sources */,
 				E5D0129A2B58086F00236FEF /* SetWindowBackground.swift in Sources */,
 				E5A7AA362B57F81400590EA6 /* Color+Hex.swift in Sources */,
@@ -1075,6 +1150,7 @@
 				E5001F962B5BEAF6004B65E6 /* URL+Trimming.swift in Sources */,
 				E5A7AA602B57F81400590EA6 /* SignUpNavigation.swift in Sources */,
 				E5A7AA722B57F81400590EA6 /* MoyaProvider+Request.swift in Sources */,
+				E5E06B342B654D7700F6FD01 /* GiftBox.swift in Sources */,
 				E5A7AA772B57F81400590EA6 /* SignInResponse.swift in Sources */,
 				E5A7AA672B57F81400590EA6 /* OnboardingPage.swift in Sources */,
 			);
