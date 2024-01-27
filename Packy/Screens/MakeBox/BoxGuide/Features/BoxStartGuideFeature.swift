@@ -92,7 +92,7 @@ struct BoxStartGuideFeature: Reducer {
 
         // 완성
         case completeButtonTapped
-        case makeBoxConfirmButtonTapped
+        case makeBoxAlertConfirmButtonTapped
 
         // MARK: Inner Business Action
         case _onTask
@@ -108,6 +108,12 @@ struct BoxStartGuideFeature: Reducer {
 
         // MARK: Child Action
         case addPhoto(BoxAddPhotoFeature.Action)
+
+        // MARK: Delegate Action
+        enum Delegate {
+            case moveToAddTitle(GiftBox, BoxDesign)
+        }
+        case delegate(Delegate)
     }
 
     @Dependency(\.continuousClock) var clock
@@ -194,14 +200,15 @@ struct BoxStartGuideFeature: Reducer {
                 return .run { send in
                     await packyAlert.show(
                         .init(title: "선물박스를 완성할까요?", description: "완성한 이후에는 수정할 수 없어요", cancel: "다시 볼게요", confirm: "완성할래요", confirmAction: {
-                            await send(.makeBoxConfirmButtonTapped)
+                            await send(.makeBoxAlertConfirmButtonTapped)
                         })
                     )
                 }
 
-            case .makeBoxConfirmButtonTapped:
-                // TODO: 실제 서버 통신해서 박스 만드는 과정 마무리
-                return .none
+            case .makeBoxAlertConfirmButtonTapped:
+                let giftBox = giftBoxFrom(state: state)
+                let boxDesign = state.selectedBox ?? .mock
+                return .send(.delegate(.moveToAddTitle(giftBox, boxDesign)))
 
             default:
                 return .none
@@ -244,5 +251,43 @@ private extension BoxStartGuideFeature {
                 print(error)
             }
         }
+    }
+
+    func giftBoxFrom(state: State) -> GiftBox {
+        let senderName = state.senderInfo.to
+        let receiverName = state.senderInfo.from
+        let boxId = state.selectedBox?.id ?? 0
+        let envelopeId = state.savedLetter.selectedLetterDesign?.id ?? 0
+        let letterContent = state.savedLetter.letter
+        let youtubeUrl = state.savedMusic.selectedMusicUrl ?? ""
+        let photo = Photo(
+            photoUrl: state.addPhoto.savedPhoto.photoUrl ?? "",
+            description: state.addPhoto.savedPhoto.text,
+            sequence: 0
+        )
+
+        let gift: Gift?
+        if let giftImageUrl = state.savedGift.imageUrl {
+            gift = .init(type: "photo", url: giftImageUrl.absoluteString)
+        } else {
+            gift = nil
+        }
+
+        let stickers: [Sticker] = state.selectedStickers.enumerated().map { index, stickerDesign in
+            Sticker(id: stickerDesign.id, location: index)
+        }
+
+        return GiftBox(
+            name: "",
+            senderName: senderName,
+            receiverName: receiverName,
+            boxId: boxId,
+            envelopeId: envelopeId,
+            letterContent: letterContent,
+            youtubeUrl: youtubeUrl,
+            photos: [photo],
+            gift: gift,
+            stickers: stickers
+        )
     }
 }

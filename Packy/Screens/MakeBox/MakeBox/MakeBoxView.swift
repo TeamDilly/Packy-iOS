@@ -37,6 +37,13 @@ struct MakeBoxView: View {
                      action: MakeBoxNavigationPath.Action.startGuide,
                      then: BoxStartGuideView.init
                 )
+
+            case .addTitle:
+                CaseLet(
+                    \MakeBoxNavigationPath.State.addTitle,
+                     action: MakeBoxNavigationPath.Action.addTitle,
+                     then: BoxAddTitleView.init
+                )
             }
         }
     }
