@@ -1,5 +1,5 @@
 //
-//  BoxAddTitleView.swift
+//  BoxAddTitleAndShareView.swift
 //  Packy
 //
 //  Created Mason Kim on 1/27/24.
@@ -10,12 +10,12 @@ import ComposableArchitecture
 
 // MARK: - View
 
-struct BoxAddTitleView: View {
-    private let store: StoreOf<BoxAddTitleFeature>
-    @ObservedObject private var viewStore: ViewStoreOf<BoxAddTitleFeature>
+struct BoxAddTitleAndShareView: View {
+    private let store: StoreOf<BoxAddTitleAndShareFeature>
+    @ObservedObject private var viewStore: ViewStoreOf<BoxAddTitleAndShareFeature>
     @FocusState private var isFocused: Bool
 
-    init(store: StoreOf<BoxAddTitleFeature>) {
+    init(store: StoreOf<BoxAddTitleAndShareFeature>) {
         self.store = store
         self.viewStore = ViewStore(store, observe: { $0 })
     }
@@ -25,7 +25,9 @@ struct BoxAddTitleView: View {
             if viewStore.showingState != .addTitle {
                 boxFinalDoneAndShareView
             } else {
-                NavigationBar.onlyBackButton()
+                NavigationBar.onlyBackButton {
+                    viewStore.send(.backButtonTapped)
+                }
 
                 Text("마지막으로 선물박스에\n이름을 붙여주세요")
                     .packyFont(.heading1)
@@ -39,8 +41,8 @@ struct BoxAddTitleView: View {
                     .padding(.top, 8)
                     .multilineTextAlignment(.center)
 
-                PackyTextField(text: viewStore.$textInput, placeholder: "12자 이내로 입력해주세요")
-                    .limitTextLength(text: viewStore.$textInput, length: 12)
+                PackyTextField(text: viewStore.$boxNameInput, placeholder: "12자 이내로 입력해주세요")
+                    .limitTextLength(text: viewStore.$boxNameInput, length: 12)
                     .padding(.horizontal, 24)
                     .padding(.top, 40)
                     .focused($isFocused)
@@ -48,14 +50,19 @@ struct BoxAddTitleView: View {
                 Spacer()
 
                 Button("다음") {
+                    isFocused = false
                     viewStore.send(.nextButtonTapped)
                 }
                 .buttonStyle(PackyButtonStyle(colorType: .black))
-                .disabled(viewStore.textInput.isEmpty)
+                .disabled(viewStore.boxNameInput.isEmpty)
+                .animation(.spring, value: viewStore.boxNameInput)
                 .padding(.horizontal, 24)
                 .padding(.bottom, 16)
             }
         }
+        .popGestureDisabled()
+        .makeTapToHideKeyboard()
+        .navigationBarBackButtonHidden(true)
         .onAppear {
             isFocused = true
         }
@@ -64,29 +71,32 @@ struct BoxAddTitleView: View {
                 .send(._onTask)
                 .finish()
         }
+        .onDisappear(perform: {
+            print("disappear???")
+        })
     }
 }
 
 // MARK: - Inner Views
 
-private extension BoxAddTitleView {
+private extension BoxAddTitleAndShareView {
     var boxFinalDoneAndShareView: some View {
-        VStack(spacing: 0) {
+        let isSendState = viewStore.showingState == .send
+
+        return VStack(spacing: 0) {
             Spacer()
 
-            let isSendState = viewStore.showingState == .send
-
-            let title = if isSendState {
-                "\(viewStore.giftBox.receiverName)님에게\n선물박스를 보내보세요"
-            } else {
-                "\(viewStore.giftBox.receiverName)님을 위한\n선물박스가 완성되었어요!"
+            Group {
+                if isSendState {
+                    Text("\(viewStore.giftBox.receiverName)님에게\n선물박스를 보내보세요")
+                } else {
+                    Text("\(viewStore.giftBox.receiverName)님을 위한\n선물박스가 완성되었어요!")
+                }
             }
-
-            Text(title)
-                .packyFont(.heading1)
-                .foregroundStyle(.gray900)
-                .padding(.top, 24)
-                .multilineTextAlignment(.center)
+            .packyFont(.heading1)
+            .foregroundStyle(.gray900)
+            .padding(.top, 24)
+            .multilineTextAlignment(.center)
 
             if isSendState {
                 Text(viewStore.giftBox.name)
@@ -101,8 +111,9 @@ private extension BoxAddTitleView {
                     )
                     .padding(.top, 20)
             } else {
-                EmptyView()
+                Spacer()
                     .frame(height: 46)
+                    .padding(.top, 20)
             }
 
             Spacer()
@@ -127,13 +138,13 @@ private extension BoxAddTitleView {
                     }
                     .buttonStyle(.text)
                     .frame(width: 129, height: 34)
-                    .border(Color.black)
                 }
                 .frame(height: 100)
                 .padding(.bottom, 20)
             } else {
-                EmptyView()
+                Spacer()
                     .frame(height: 100)
+                    .padding(.bottom, 20)
             }
         }
     }
@@ -142,11 +153,11 @@ private extension BoxAddTitleView {
 // MARK: - Preview
 
 #Preview {
-    BoxAddTitleView(
+    BoxAddTitleAndShareView(
         store: .init(
-            initialState: .init(giftBox: .mock, boxDesign: .mock),
+            initialState: .init(giftBox: .mock, boxDesign: .mock, boxNameInput: "hello"),
             reducer: {
-                BoxAddTitleFeature()
+                BoxAddTitleAndShareFeature()
                     ._printChanges()
             }
         )
