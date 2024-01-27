@@ -16,42 +16,62 @@ struct SignUpProfileFeature: Reducer {
         let nickName: String
 
         @BindingState var textInput: String = ""
-        var selectedProfileIndex: Int = 0
+        var selectedProfileImage: ProfileImage?
+        var profileImages: [ProfileImage] = []
     }
 
     enum Action: BindableAction {
         // MARK: User Action
         case binding(BindingAction<State>)
         case backButtonTapped
-        case selectProfile(Int)
+        case selectProfile(ProfileImage)
 
         // MARK: Inner Business Action
-        case _onAppear
+        case _onTask
 
         // MARK: Inner SetState Action
+        case _setProfileImages([ProfileImage])
 
         // MARK: Child Action
     }
 
     @Dependency(\.dismiss) var dismiss
+    @Dependency(\.designClient) var designClient
 
     var body: some Reducer<State, Action> {
         BindingReducer()
 
         Reduce<State, Action> { state, action in
             switch action {
+            case ._onTask:
+                return fetchProfileImages()
+
             case .binding:
                 return .none
 
             case .backButtonTapped:
                 return .run { _ in await dismiss() }
 
-            case let .selectProfile(index):
-                state.selectedProfileIndex = index
+            case let .selectProfile(profileImage):
+                state.selectedProfileImage = profileImage
                 return .none
 
-            case ._onAppear:
+            case let ._setProfileImages(profileImages):
+                state.profileImages = profileImages
+                state.selectedProfileImage = profileImages.first
+                print("✅ selected: \(state.selectedProfileImage?.id)")
                 return .none
+            }
+        }
+    }
+
+    private func fetchProfileImages() -> Effect<Action> {
+        .run { send in
+            do {
+                let profileImages = try await designClient.fetchProfileImages()
+                await send(._setProfileImages(profileImages))
+            } catch {
+                print(error)
             }
         }
     }

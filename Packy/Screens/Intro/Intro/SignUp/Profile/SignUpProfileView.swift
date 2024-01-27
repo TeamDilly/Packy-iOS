@@ -34,26 +34,25 @@ struct SignUpProfileView: View {
                 .padding(.horizontal, 24)
 
             VStack(spacing: 40) {
-                Image(.mock)
-                    .resizable()
-                    .frame(width: 160, height: 160)
-                    .mask(Circle())
+                if let selectedImageUrl = viewStore.selectedProfileImage?.imageUrl {
+                    NetworkImage(url: selectedImageUrl)
+                        .frame(width: 160, height: 160)
+                }
 
                 HStack(spacing: 16) {
-                    ForEach(0...4, id: \.self) { index in
+                    ForEach(viewStore.profileImages, id: \.id) { profileImage in
                         Button {
-                            viewStore.send(.selectProfile(index))
+                            viewStore.send(.selectProfile(profileImage))
                             HapticManager.shared.fireFeedback(.medium)
                         } label: {
-                            Image(.mock) // TODO: 선택된 프로필 이미지 인덱스에 따라 업뎃
-                                .resizable()
+                            NetworkImage(url: profileImage.imageUrl)
                                 .frame(width: 60, height: 60)
-                                .mask(Circle())
                         }
                         .buttonStyle(.bouncy)
                     }
                 }
             }
+            .animation(.spring, value: viewStore.selectedProfileImage)
 
             Spacer()
 
@@ -63,18 +62,17 @@ struct SignUpProfileView: View {
                     .init(
                         socialLoginInfo: viewStore.socialLoginInfo,
                         nickName: viewStore.nickName,
-                        selectedProfileIndex: viewStore.selectedProfileIndex
+                        selectedProfileId: viewStore.selectedProfileImage?.id ?? 0
                     )
                 )
             )
             .padding(.horizontal, 24)
             .padding(.bottom, 16)
         }
-        // .animation(.spring, value: viewStore.nickname) // TODO: 프로필 변경에 따라 애니메이션 부옇!
         .navigationBarBackButtonHidden(true)
         .task {
             await viewStore
-                .send(._onAppear)
+                .send(._onTask)
                 .finish()
         }
     }

@@ -13,6 +13,12 @@ struct ProfileImage: Decodable, Equatable {
     let id: Int
     let sequence: Int
     let imageUrl: String
+
+    enum CodingKeys: String, CodingKey {
+        case id
+        case sequence
+        case imageUrl = "imgUrl"
+    }
 }
 
 // MARK: - Mock

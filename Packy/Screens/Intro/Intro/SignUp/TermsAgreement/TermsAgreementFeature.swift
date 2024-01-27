@@ -14,7 +14,7 @@ struct TermsAgreementFeature: Reducer {
     struct State: Equatable {
         let socialLoginInfo: SocialLoginInfo
         let nickName: String
-        let selectedProfileIndex: Int
+        let selectedProfileId: Int
 
         var termsStates: [Terms: Bool] = Terms.allCases.reduce(into: [Terms: Bool]()) {
             $0[$1] = false
@@ -163,7 +163,7 @@ struct TermsAgreementFeature: Reducer {
         SignUpRequest(
             provider: state.socialLoginInfo.provider,
             nickname: state.nickName,
-            profileImg: state.selectedProfileIndex,
+            profileImg: state.selectedProfileId,
             pushNotification: state.isNotificationAllowed,
             marketingAgreement: state.isATTAuthorized
         )
