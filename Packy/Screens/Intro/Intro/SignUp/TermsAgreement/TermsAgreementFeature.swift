@@ -38,6 +38,7 @@ struct TermsAgreementFeature: Reducer {
     enum Action: BindableAction {
         // MARK: User Action
         case binding(BindingAction<State>)
+        case backButtonTapped
         case agreeTermsButtonTapped(Terms)
         case agreeAllTermsButtonTapped
         case confirmButtonTapped
@@ -64,6 +65,7 @@ struct TermsAgreementFeature: Reducer {
     @Dependency(\.userNotification) var userNotification
     @Dependency(\.authClient) var authClient
     @Dependency(\.keychain) var keychain
+    @Dependency(\.dismiss) var dismiss
 
     var body: some Reducer<State, Action> {
         BindingReducer()
@@ -74,6 +76,9 @@ struct TermsAgreementFeature: Reducer {
                 return .run { send in
                     try await clock.sleep(for: .seconds(1))
                 }
+
+            case .backButtonTapped:
+                return .run { _ in await dismiss() }
 
             case .confirmButtonTapped:
                 return .run { send in

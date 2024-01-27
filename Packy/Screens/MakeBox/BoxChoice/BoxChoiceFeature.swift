@@ -38,6 +38,7 @@ struct BoxChoiceFeature: Reducer {
         // MARK: User Action
         case binding(BindingAction<State>)
         case selectBox(BoxDesign)
+        case backButtonTapped
         case nextButtonTapped
         case closeButtonTapped
 
@@ -59,6 +60,7 @@ struct BoxChoiceFeature: Reducer {
     @Dependency(\.userDefaults) var userDefaults
     @Dependency(\.designClient) var designClient
     @Dependency(\.packyAlert) var packyAlert
+    @Dependency(\.dismiss) var dismiss
 
     var body: some Reducer<State, Action> {
         BindingReducer()
@@ -84,6 +86,9 @@ struct BoxChoiceFeature: Reducer {
             case let .selectBox(id):
                 state.selectedBox = id
                 return .none
+
+            case .backButtonTapped:
+                return .run { _ in await dismiss() }
 
             case .nextButtonTapped:
                 // 이미 사용자가 BoxGuide 에 진입했던 경우에는, BoxMotion 을 나타내지 않음

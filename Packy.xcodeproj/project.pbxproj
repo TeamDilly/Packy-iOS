@@ -148,8 +148,8 @@
 		E5D749792B4A7C1A00213F63 /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = E5D749782B4A7C1A00213F63 /* ComposableArchitecture */; };
 		E5D7497C2B4A7C3300213F63 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = E5D7497B2B4A7C3300213F63 /* Kingfisher */; };
 		E5E06B2D2B651D2200F6FD01 /* Throttle.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E06B2C2B651D2200F6FD01 /* Throttle.swift */; };
-		E5E06B312B654A1000F6FD01 /* BoxAddTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E06B2F2B654A1000F6FD01 /* BoxAddTitleView.swift */; };
-		E5E06B322B654A1000F6FD01 /* BoxAddTitleFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E06B302B654A1000F6FD01 /* BoxAddTitleFeature.swift */; };
+		E5E06B312B654A1000F6FD01 /* BoxAddTitleAndShareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E06B2F2B654A1000F6FD01 /* BoxAddTitleAndShareView.swift */; };
+		E5E06B322B654A1000F6FD01 /* BoxAddTitleAndShareFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E06B302B654A1000F6FD01 /* BoxAddTitleAndShareFeature.swift */; };
 		E5E06B342B654D7700F6FD01 /* GiftBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E06B332B654D7700F6FD01 /* GiftBox.swift */; };
 		E5E06B362B654D8A00F6FD01 /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E06B352B654D8A00F6FD01 /* Photo.swift */; };
 		E5E06B382B654D9A00F6FD01 /* Gift.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E06B372B654D9A00F6FD01 /* Gift.swift */; };
@@ -298,8 +298,8 @@
 		E5D012992B58086F00236FEF /* SetWindowBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetWindowBackground.swift; sourceTree = "<group>"; };
 		E5D7495D2B4A72E100213F63 /* Packy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Packy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E5E06B2C2B651D2200F6FD01 /* Throttle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Throttle.swift; sourceTree = "<group>"; };
-		E5E06B2F2B654A1000F6FD01 /* BoxAddTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoxAddTitleView.swift; sourceTree = "<group>"; };
-		E5E06B302B654A1000F6FD01 /* BoxAddTitleFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoxAddTitleFeature.swift; sourceTree = "<group>"; };
+		E5E06B2F2B654A1000F6FD01 /* BoxAddTitleAndShareView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoxAddTitleAndShareView.swift; sourceTree = "<group>"; };
+		E5E06B302B654A1000F6FD01 /* BoxAddTitleAndShareFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoxAddTitleAndShareFeature.swift; sourceTree = "<group>"; };
 		E5E06B332B654D7700F6FD01 /* GiftBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GiftBox.swift; sourceTree = "<group>"; };
 		E5E06B352B654D8A00F6FD01 /* Photo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
 		E5E06B372B654D9A00F6FD01 /* Gift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gift.swift; sourceTree = "<group>"; };
@@ -524,7 +524,7 @@
 				E5E73D482B597BE000729D99 /* MakeBox */,
 				E5E73D462B597BC200729D99 /* BoxChoice */,
 				E5E73D472B597BCD00729D99 /* BoxGuide */,
-				E5E06B2E2B6549FB00F6FD01 /* BoxAddTitle */,
+				E5E06B2E2B6549FB00F6FD01 /* BoxAddTitleAndShare */,
 			);
 			path = MakeBox;
 			sourceTree = "<group>";
@@ -841,13 +841,13 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		E5E06B2E2B6549FB00F6FD01 /* BoxAddTitle */ = {
+		E5E06B2E2B6549FB00F6FD01 /* BoxAddTitleAndShare */ = {
 			isa = PBXGroup;
 			children = (
-				E5E06B2F2B654A1000F6FD01 /* BoxAddTitleView.swift */,
-				E5E06B302B654A1000F6FD01 /* BoxAddTitleFeature.swift */,
+				E5E06B2F2B654A1000F6FD01 /* BoxAddTitleAndShareView.swift */,
+				E5E06B302B654A1000F6FD01 /* BoxAddTitleAndShareFeature.swift */,
 			);
-			path = BoxAddTitle;
+			path = BoxAddTitleAndShare;
 			sourceTree = "<group>";
 		};
 		E5E06B3B2B654DBE00F6FD01 /* Auth */ = {
@@ -1032,7 +1032,7 @@
 				E5A7AA562B57F81400590EA6 /* BoxChoiceFeature.swift in Sources */,
 				E5A7AA852B57F81400590EA6 /* UserNotificationClient.swift in Sources */,
 				E5A7AA532B57F81400590EA6 /* HomeView.swift in Sources */,
-				E5E06B312B654A1000F6FD01 /* BoxAddTitleView.swift in Sources */,
+				E5E06B312B654A1000F6FD01 /* BoxAddTitleAndShareView.swift in Sources */,
 				E5A416A22B5D076C00313E5A /* PopGestureDisableModifier.swift in Sources */,
 				E5A7AA732B57F81400590EA6 /* SocialLoginProvider.swift in Sources */,
 				E5E06B2D2B651D2200F6FD01 /* Throttle.swift in Sources */,
@@ -1128,7 +1128,7 @@
 				E5551B792B5FE8E300DB81F3 /* TokenInterceptor.swift in Sources */,
 				E5A7AA682B57F81400590EA6 /* OnboardingFeature.swift in Sources */,
 				E5A416B32B5D350C00313E5A /* BoxStartGuideView+StickerSheet.swift in Sources */,
-				E5E06B322B654A1000F6FD01 /* BoxAddTitleFeature.swift in Sources */,
+				E5E06B322B654A1000F6FD01 /* BoxAddTitleAndShareFeature.swift in Sources */,
 				E5A7AA472B57F81400590EA6 /* MusicPlayerView.swift in Sources */,
 				E5A7AA462B57F81400590EA6 /* PackyButton.swift in Sources */,
 				E5551B7D2B5FF5AD00DB81F3 /* MoyaProvider+Build.swift in Sources */,

@@ -22,6 +22,7 @@ struct SignUpProfileFeature: Reducer {
     enum Action: BindableAction {
         // MARK: User Action
         case binding(BindingAction<State>)
+        case backButtonTapped
         case selectProfile(Int)
 
         // MARK: Inner Business Action
@@ -30,8 +31,9 @@ struct SignUpProfileFeature: Reducer {
         // MARK: Inner SetState Action
 
         // MARK: Child Action
-        
     }
+
+    @Dependency(\.dismiss) var dismiss
 
     var body: some Reducer<State, Action> {
         BindingReducer()
@@ -41,14 +43,14 @@ struct SignUpProfileFeature: Reducer {
             case .binding:
                 return .none
 
+            case .backButtonTapped:
+                return .run { _ in await dismiss() }
+
             case let .selectProfile(index):
                 state.selectedProfileIndex = index
                 return .none
 
             case ._onAppear:
-                return .none
-                
-            default:
                 return .none
             }
         }

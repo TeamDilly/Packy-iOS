@@ -14,18 +14,10 @@ struct NavigationBar: View {
     var leftIconAction: () -> Void = {}
     var rightIcon: Image?
     var rightIconAction: () -> Void = {}
-    var dismissible: Bool = true
-
-    @Dependency(\.dismiss) var dismiss
 
     var body: some View {
         HStack {
             IconView(image: leftIcon) {
-                if dismissible {
-                    Task {
-                        await dismiss()
-                    }
-                }
                 leftIconAction()
             }
 
@@ -70,20 +62,20 @@ private struct IconView: View {
 // MARK: - Static var
 
 extension NavigationBar {
-    static func onlyBackButton(action: (() -> Void)? = nil) -> Self {
+    static func onlyBackButton(backButtonAction: @escaping () -> Void) -> Self {
         NavigationBar(leftIcon: Image(.arrowLeft), leftIconAction: {
-            action?()
+            backButtonAction()
         })
     }
 
     static func backAndCloseButton(
-        backButtonAction: (() -> Void)? = nil,
+        backButtonAction: @escaping () -> Void,
         closeButtonAction: (() -> Void)? = nil
     ) -> Self {
         NavigationBar(
             leftIcon: Image(.arrowLeft),
             leftIconAction: {
-                backButtonAction?()
+                backButtonAction()
             },
             rightIcon: Image(.xmark),
             rightIconAction: {

@@ -25,9 +25,14 @@ struct BoxChoiceView: View {
             if viewStore.isPresentingFinishedMotionView {
                 finishedBoxMotionView
             } else {
-                NavigationBar.backAndCloseButton(closeButtonAction: {
-                    viewStore.send(.closeButtonTapped)
-                })
+                NavigationBar.backAndCloseButton(
+                    backButtonAction: {
+                        viewStore.send(.backButtonTapped)
+                    },
+                    closeButtonAction: {
+                        viewStore.send(.closeButtonTapped)
+                    }
+                )
                 .padding(.top, 8)
 
                 Text("마음에 드는 선물박스를 골라주세요")

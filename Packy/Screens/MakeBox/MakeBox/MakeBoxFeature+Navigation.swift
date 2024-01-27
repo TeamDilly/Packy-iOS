@@ -14,19 +14,19 @@ struct MakeBoxNavigationPath {
     enum State: Equatable {
         case boxChoice(BoxChoiceFeature.State)
         case startGuide(BoxStartGuideFeature.State)
-        case addTitle(BoxAddTitleFeature.State)
+        case addTitle(BoxAddTitleAndShareFeature.State)
     }
 
     enum Action {
         case boxChoice(BoxChoiceFeature.Action)
         case startGuide(BoxStartGuideFeature.Action)
-        case addTitle(BoxAddTitleFeature.Action)
+        case addTitle(BoxAddTitleAndShareFeature.Action)
     }
 
     var body: some Reducer<State, Action> {
         Scope(state: \.boxChoice, action: \.boxChoice) { BoxChoiceFeature() }
         Scope(state: \.startGuide, action: \.startGuide) { BoxStartGuideFeature() }
-        Scope(state: \.addTitle, action: \.addTitle) { BoxAddTitleFeature() }
+        Scope(state: \.addTitle, action: \.addTitle) { BoxAddTitleAndShareFeature() }
     }
 }
 

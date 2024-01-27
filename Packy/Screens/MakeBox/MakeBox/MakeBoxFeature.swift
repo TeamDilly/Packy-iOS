@@ -21,9 +21,12 @@ struct MakeBoxFeature: Reducer {
         var path: StackState<MakeBoxNavigationPath.State> = .init()
     }
 
+    @Dependency(\.dismiss) var dismiss
+
     enum Action: BindableAction {
         // MARK: User Action
         case binding(BindingAction<State>)
+        case backButtonTapped
 
         // MARK: Inner Business Action
         case _onTask
@@ -41,15 +44,8 @@ struct MakeBoxFeature: Reducer {
 
         Reduce<State, Action> { state, action in
             switch action {
-            case .binding(\.$boxSendFrom):
-                print("FROM!!!")
-                return .none
-
-            case ._onTask:
-                return .none
-                
-            case .path:
-                return .none
+            case .backButtonTapped:
+                return .run { _ in await dismiss() }
 
             default:
                 return .none

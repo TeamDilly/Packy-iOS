@@ -42,7 +42,7 @@ struct MakeBoxView: View {
                 CaseLet(
                     \MakeBoxNavigationPath.State.addTitle,
                      action: MakeBoxNavigationPath.Action.addTitle,
-                     then: BoxAddTitleView.init
+                     then: BoxAddTitleAndShareView.init
                 )
             }
         }
@@ -55,8 +55,10 @@ private extension MakeBoxView {
 
     var content: some View {
         VStack(spacing: 0) {
-            NavigationBar.onlyBackButton()
-                .padding(.bottom, 66)
+            NavigationBar.onlyBackButton {
+                viewStore.send(.backButtonTapped)
+            }
+            .padding(.bottom, 66)
 
             Text("패키와 함께 마음을 담은\n선물박스를 만들어볼까요?")
                 .packyFont(.heading1)

@@ -21,8 +21,10 @@ struct TermsAgreementView: View {
 
     var body: some View {
         VStack {
-            NavigationBar.onlyBackButton()
-                .padding(.bottom, 8)
+            NavigationBar.onlyBackButton {
+                viewStore.send(.backButtonTapped)
+            }
+            .padding(.bottom, 8)
 
             Text("서비스 사용을 위한\n약관에 동의해주세요")
                 .packyFont(.heading1)

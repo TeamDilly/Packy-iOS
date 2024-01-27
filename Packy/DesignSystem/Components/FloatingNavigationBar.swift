@@ -13,20 +13,12 @@ struct FloatingNavigationBar: View {
     var leadingAction: (() -> Void)? = nil
     var trailingTitle: String = "다음"
     let trailingAction: () -> Void
-    var dismissible: Bool = true
     var trailingDisabled: Bool = false
-
-    @Dependency(\.dismiss) var dismiss
 
     var body: some View {
         HStack {
             Button {
                 leadingAction?()
-                if dismissible {
-                    Task {
-                        await dismiss()
-                    }
-                }
                 HapticManager.shared.fireFeedback(.medium)
             } label: {
                 Circle()

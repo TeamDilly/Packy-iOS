@@ -175,7 +175,7 @@ struct BoxStartGuideView: View {
         }
         .accentColor(.black)
         .navigationBarBackButtonHidden(true)
-        .popGestureDisabled()
+        .popGestureOnlyDisabled()
         .task {
             await viewStore
                 .send(._onTask)
