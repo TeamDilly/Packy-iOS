@@ -113,9 +113,17 @@ struct TermsAgreementFeature: Reducer {
 
             // TODO: ATT, Push Noti 이미 해제했을 땐 안띄우게 로직 구현 필요
             case ._setATTCompleted:
+                /// 알림 권한 부여 하는 릴리즈라면 해당 코드 사용
+                // state.isATTCompleted = true
+                // state.isAllowNotificationBottomSheetPresented = true
+                // return .none
+
+                /// 1차 릴리즈 범위에서는 알림 기능 제거
                 state.isATTCompleted = true
-                state.isAllowNotificationBottomSheetPresented = true
-                return .none
+                return .run { send in
+                    await send(._signUp)
+                }
+
 
             case let ._setATTAuthorized(isATTAuthorized):
                 state.isATTAuthorized = isATTAuthorized
