@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 typealias LetterDesignResponse = [LetterDesign]
 
@@ -19,6 +20,12 @@ struct LetterDesign: Decodable, Equatable {
     enum CodingKeys: String, CodingKey {
         case id, sequence, borderColorCode
         case imageUrl = "imgUrl"
+    }
+}
+
+extension LetterDesign {
+    var borderColor: Color {
+        Color(hexString: borderColorCode)
     }
 }
 

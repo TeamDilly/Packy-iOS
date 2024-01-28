@@ -41,7 +41,10 @@ extension BoxStartGuideView {
 
                 PackyTextArea(
                     text: viewStore.$letterInput.letter,
-                    placeholder: "어떤 마음을 담아볼까요?\n따뜻한 인사, 잊지 못할 추억, 고마웠던 순간까지\n모두 좋아요 :)"
+                    placeholder: "어떤 마음을 담아볼까요?\n따뜻한 인사, 잊지 못할 추억, 고마웠던 순간까지\n모두 좋아요 :)",
+                    borderColor:
+                        // TODO: 기획에 따라 변경 필요
+                        viewStore.letterInput.selectedLetterDesign?.borderColor.opacity(0.3) ?? .gray200
                 )
                 .focused($isLetterFieldFocused)
                 .padding(.horizontal, 24)
@@ -64,7 +67,7 @@ extension BoxStartGuideView {
                                         .scaledToFit()
                                         .cornerRadiusWithBorder(
                                             radius: 16,
-                                            borderColor: .black,
+                                            borderColor: letterDesign.borderColor,
                                             lineWidth: isSelected ? 5 : 0
                                         )
                                         .animation(.spring, value: isSelected)

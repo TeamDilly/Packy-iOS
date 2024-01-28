@@ -12,6 +12,7 @@ struct PackyTextArea: View {
 
     let placeholder: String
     var isCompleted: Bool = false
+    var borderColor: Color = .gray200
 
     @FocusState var isFocused: Bool
 
@@ -19,7 +20,7 @@ struct PackyTextArea: View {
         ZStack(alignment: .center) {
             RoundedRectangle(cornerRadius: 16)
                 .fill(.gray100)
-                .stroke(.gray200, lineWidth: 4)
+                .stroke(borderColor, lineWidth: 4)
 
             Text(placeholder)
                 .foregroundStyle(.gray400)
