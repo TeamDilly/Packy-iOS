@@ -7,6 +7,8 @@
 
 import Foundation
 
+// MARK: - Sticker Design Response
+
 struct StickerDesignResponse: Equatable, Decodable {
     let contents: [StickerDesign]
     /// 페이지네이션 관련
@@ -20,6 +22,15 @@ struct StickerDesignResponse: Equatable, Decodable {
     }
 }
 
+extension StickerDesignResponse {
+    func sorted() -> Self {
+        .init(contents: contents.sorted(by: \.sequence), isFirstPage: isFirstPage, isLastPage: isLastPage)
+    }
+}
+
+
+// MARK: - Sticker Design
+
 struct StickerDesign: Equatable, Decodable {
     let id: Int
     let sequence: Int
@@ -30,6 +41,8 @@ struct StickerDesign: Equatable, Decodable {
         case imageUrl = "imgUrl"
     }
 }
+
+// MARK: - Mock Data
 
 extension StickerDesignResponse {
     static var mock: Self {

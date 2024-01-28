@@ -35,19 +35,24 @@ extension DesignClient: DependencyKey {
 
         return Self(
             fetchRecommendedMusics: {
-                try await provider.request(.getRecommendedMusics)
+                let response: RecommendedMusicResponse = try await provider.request(.getRecommendedMusics)
+                return response.sorted(by: \.sequence)
             },
             fetchProfileImages: {
-                try await nonTokenProvider.request(.getProfileImageDesigns)
+                let response: ProfileImageResponse = try await nonTokenProvider.request(.getProfileImageDesigns)
+                return response.sorted(by: \.sequence)
             },
             fetchLetterDesigns: {
-                try await provider.request(.getEnvelopeDesigns)
+                let response: LetterDesignResponse = try await provider.request(.getEnvelopeDesigns)
+                return response.sorted(by: \.sequence)
             },
             fetchBoxDesigns: {
-                try await provider.request(.getBoxDesigns)
+                let response: BoxDesignResponse = try await provider.request(.getBoxDesigns)
+                return response.sorted(by: \.sequence)
             },
             fetchStickerDesigns: {
-                try await provider.request(.getStickerDesigns(lastStickerId: $0))
+                let response: StickerDesignResponse = try await provider.request(.getStickerDesigns(lastStickerId: $0))
+                return response.sorted()
             }
         )
     }()
@@ -59,7 +64,7 @@ extension DesignClient: DependencyKey {
             fetchLetterDesigns: { .mock },
             fetchBoxDesigns: { .mock },
             fetchStickerDesigns: { _ in
-                try? await _Concurrency.Task.sleep(for: .seconds(2))
+                try? await _Concurrency.Task.sleep(for: .seconds(1))
                 return .mock
             }
         )
