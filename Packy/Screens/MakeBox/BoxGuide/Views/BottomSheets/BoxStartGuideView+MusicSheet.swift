@@ -150,7 +150,7 @@ extension BoxStartGuideView {
                             }
                             .padding(.bottom, 16)
 
-                            Text("제목을 서버에 요청해야 함")
+                            Text(music.title)
                                 .packyFont(.body1)
                                 .foregroundStyle(.gray900)
 
