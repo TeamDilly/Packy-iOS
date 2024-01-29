@@ -55,7 +55,12 @@ struct BoxStartGuideFeature: Reducer {
         // MARK: User Action
         case binding(BindingAction<State>)
 
-        case fetchMoreStickers
+        // 뒤로가기
+        case backButtonTapped
+
+        // 완성
+        case completeButtonTapped
+        case makeBoxAlertConfirmButtonTapped
 
         // 음악
         case musicSelectButtonTapped
@@ -76,6 +81,7 @@ struct BoxStartGuideFeature: Reducer {
         case closeLetterSheetAlertConfirmTapped
 
         // 스티커
+        case fetchMoreStickers
         case stickerTapped(StickerDesign)
 
         // 박스
@@ -89,10 +95,6 @@ struct BoxStartGuideFeature: Reducer {
         case addGiftSheetCloseButtonTapped
         case closeGiftSheetAlertConfirmTapped
         case giftSaveButtonTapped
-
-        // 완성
-        case completeButtonTapped
-        case makeBoxAlertConfirmButtonTapped
 
         // MARK: Inner Business Action
         case _onTask
@@ -121,6 +123,7 @@ struct BoxStartGuideFeature: Reducer {
     @Dependency(\.designClient) var designClient
     @Dependency(\.userDefaults) var userDefaults
     @Dependency(\.packyAlert) var packyAlert
+    @Dependency(\.dismiss) var dismiss
 
     var body: some Reducer<State, Action> {
         BindingReducer()
@@ -135,6 +138,9 @@ struct BoxStartGuideFeature: Reducer {
             switch action {
             case .binding:
                 return .none
+
+            case .backButtonTapped:
+                return .run { _ in await dismiss() }
 
             case ._onTask:
                 return .merge(

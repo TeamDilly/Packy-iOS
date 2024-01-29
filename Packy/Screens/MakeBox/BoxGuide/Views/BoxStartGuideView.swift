@@ -40,7 +40,10 @@ struct BoxStartGuideView: View {
                     }
 
                     FloatingNavigationBar(
-                        trailingTitle: "완성",
+                        leadingAction: {
+                            viewStore.send(.backButtonTapped)
+                        },
+                        trailingType: .text("완성"),
                         trailingAction: {
                             viewStore.send(.completeButtonTapped)
                         },
@@ -203,7 +206,7 @@ private extension BoxStartGuideView {
     @ViewBuilder
     func photoView(_ screenWidth: CGFloat) -> some View {
         if let photoUrl = viewStore.addPhoto.savedPhoto.photoUrl {
-            PhotoPresentingView(
+            PhotoElementView(
                 photoUrl: photoUrl,
                 screenWidth: screenWidth
             ) {
@@ -219,7 +222,7 @@ private extension BoxStartGuideView {
     @ViewBuilder
     func letterView(_ screenWidth: CGFloat) -> some View {
         if viewStore.savedLetter.isCompleted {
-            LetterPresentingView(
+            LetterElementView(
                 input: viewStore.savedLetter,
                 screenWidth: screenWidth
             ) {
@@ -235,7 +238,7 @@ private extension BoxStartGuideView {
     @ViewBuilder
     func musicView(_ screenWidth: CGFloat) -> some View {
         if let musicUrl = viewStore.savedMusic.selectedMusicUrl {
-            MusicPresentingView(url: musicUrl, screenWidth: screenWidth) {
+            MusicElementView(url: musicUrl, screenWidth: screenWidth, isPresentCloseButton: true) {
                 viewStore.send(.musicLinkDeleteButtonTapped)
             }
         } else {
@@ -248,7 +251,7 @@ private extension BoxStartGuideView {
     @ViewBuilder
     func firstStickerView(_ screenWidth: CGFloat) -> some View {
         if let firstSticker = viewStore.selectedStickers.first {
-            StickerPresentingView(
+            StickerElementView(
                 stickerType: .sticker1,
                 stickerURL: firstSticker.imageUrl,
                 screenWidth: screenWidth) {
@@ -264,7 +267,7 @@ private extension BoxStartGuideView {
     @ViewBuilder
     func secondStickerView(_ screenWidth: CGFloat) -> some View {
         if let secondSticker = viewStore.selectedStickers[safe: 1] {
-            StickerPresentingView(
+            StickerElementView(
                 stickerType: .sticker2,
                 stickerURL: secondSticker.imageUrl,
                 screenWidth: screenWidth) {
@@ -319,13 +322,13 @@ private extension BoxStartGuideView {
 }
 
 private struct ElementGuideView: View {
-
+    
     let element: BoxElementShape
     let screenWidth: CGFloat
     let action: () -> Void
-
+    
     private let strokeStyle: StrokeStyle = .init(lineWidth: 1.5, dash: [5])
-
+    
     var body: some View {
         Button {
             HapticManager.shared.fireFeedback(.soft)
@@ -342,7 +345,7 @@ private struct ElementGuideView: View {
                         element.image
                             .renderingMode(.template)
                             .foregroundStyle(.white)
-
+                        
                         if !element.title.isEmpty {
                             Text(element.title)
                                 .packyFont(.body4)
@@ -354,140 +357,6 @@ private struct ElementGuideView: View {
         .buttonStyle(.bouncy)
     }
 }
-
-private struct PhotoPresentingView: View {
-    let photoUrl: String
-    let screenWidth: CGFloat
-    let action: () -> Void
-
-    private let element = BoxElementShape.photo
-
-    var body: some View {
-        let size = element.size(fromScreenWidth: screenWidth)
-
-        Button {
-            HapticManager.shared.fireFeedback(.soft)
-            action()
-        } label: {
-            VStack {
-                NetworkImage(url: photoUrl)
-                    .aspectRatio(1, contentMode: .fit)
-                    .padding(.horizontal, 8)
-                    .padding(.top, 8)
-
-                Spacer()
-            }
-            .frame(width: size.width, height: size.height)
-            .background(.white)
-            .rotationEffect(.degrees(element.rotationDegree))
-        }
-        .buttonStyle(.bouncy)
-    }
-}
-
-private struct LetterPresentingView: View {
-    let input: BoxStartGuideFeature.LetterInput
-    let screenWidth: CGFloat
-    let action: () -> Void
-
-    private let element = BoxElementShape.letter
-    private let letterContentWidthRatio: CGFloat = 160 / 180
-    private let letterContentHeightRatio: CGFloat = 130 / 150
-
-    var body: some View {
-        let size = element.size(fromScreenWidth: screenWidth)
-        let letterContentWidth = letterContentWidthRatio * size.width
-        let letterContentHeight = letterContentHeightRatio * size.height
-        let spacing = letterContentWidth * (20 / 160)
-
-        Button {
-            HapticManager.shared.fireFeedback(.soft)
-            action()
-        } label: {
-            ZStack {
-                Text(input.letter)
-                    .packyFont(.body6)
-                    .foregroundStyle(.gray900)
-                    .padding(8)
-                    .frame(width: letterContentWidth, height: letterContentHeight, alignment: .top)
-                    .background(
-                        RoundedRectangle(cornerRadius: 8)
-                            .fill(.white)
-                    )
-
-                if let imageUrl = input.selectedLetterDesign?.imageUrl {
-                    KFImage(URL(string: imageUrl))
-                        .resizable()
-                        .frame(width: letterContentWidth, height: letterContentHeight, alignment: .top)
-                        .offset(x: spacing, y: spacing)
-                }
-            }
-            .frame(width: size.width, height: size.height)
-            .rotationEffect(.degrees(element.rotationDegree))
-        }
-        .buttonStyle(.bouncy)
-    }
-}
-
-private struct MusicPresentingView: View {
-    let url: String
-    let screenWidth: CGFloat
-    let deleteAction: () -> Void
-
-    private let element = BoxElementShape.music
-    private var size: CGSize {
-        element.size(fromScreenWidth: screenWidth)
-    }
-
-    var body: some View {
-        YouTubePlayerView(.init(stringLiteral: url)) { state in
-            switch state {
-            case .idle:
-                ProgressView()
-            case .ready:
-                EmptyView()
-            case .error:
-                Text("문제가 생겼어요")
-                    .packyFont(.body1)
-            }
-        }
-        .frame(width: size.width, height: size.height)
-        .mask(RoundedRectangle(cornerRadius: 8))
-        .overlay(alignment: .topTrailing) {
-            CloseButton(sizeType: .medium, colorType: .light) {
-                deleteAction()
-            }
-            .offset(x: 4, y: -4)
-        }
-    }
-}
-
-private struct StickerPresentingView: View {
-    let stickerType: BoxElementShape
-    let stickerURL: String
-    let screenWidth: CGFloat
-    let action: () -> Void
-
-    private var size: CGSize {
-        stickerType.size(fromScreenWidth: screenWidth)
-    }
-
-    var body: some View {
-        Button {
-            HapticManager.shared.fireFeedback(.soft)
-            action()
-        } label: {
-            KFImage(URL(string: stickerURL))
-                .placeholder {
-                    ProgressView()
-                        .progressViewStyle(.circular)
-                }
-                .scaleToFillFrame(width: size.width, height: size.height)
-                .rotationEffect(.degrees(stickerType.rotationDegree))
-        }
-    }
-}
-
 
 // MARK: - Preview
 

@@ -9,16 +9,21 @@ import SwiftUI
 import Dependencies
 
 struct FloatingNavigationBar: View {
+    enum TrailingButtonType {
+        case text(String)
+        case close
+    }
+
     var leadingIcon: Image = Image(.arrowLeft)
-    var leadingAction: (() -> Void)? = nil
-    var trailingTitle: String = "다음"
+    var leadingAction: () -> Void
+    var trailingType: TrailingButtonType
     let trailingAction: () -> Void
     var trailingDisabled: Bool = false
 
     var body: some View {
         HStack {
             Button {
-                leadingAction?()
+                leadingAction()
                 HapticManager.shared.fireFeedback(.medium)
             } label: {
                 Circle()
@@ -36,15 +41,7 @@ struct FloatingNavigationBar: View {
                 trailingAction()
                 HapticManager.shared.fireFeedback(.medium)
             } label: {
-                Capsule()
-                    .fill(.white)
-                    .frame(width: 60, height: 40)
-                    .shadow(color: .black.opacity(0.12), radius: 8, x: 0, y: 4)
-                    .overlay {
-                        Text(trailingTitle)
-                            .packyFont(.body2)
-                            .foregroundStyle(trailingDisabled ? .gray600 : .gray900)
-                    }
+                trailingButton
             }
             .disabled(trailingDisabled)
         }
@@ -53,10 +50,51 @@ struct FloatingNavigationBar: View {
     }
 }
 
+// MARK: - Inner Views
+
+private extension FloatingNavigationBar {
+    @ViewBuilder
+    var trailingButton: some View {
+        switch trailingType {
+        case let .text(title):
+            Capsule()
+                .fill(.white)
+                .frame(width: 60, height: 40)
+                .shadow(color: .black.opacity(0.12), radius: 8, x: 0, y: 4)
+                .overlay {
+                    Text(title)
+                        .packyFont(.body2)
+                        .foregroundStyle(trailingDisabled ? .gray600 : .gray900)
+                }
+
+        case .close:
+            Circle()
+                .fill(.white)
+                .frame(width: 40, height: 40)
+                .shadow(color: .black.opacity(0.12), radius: 8, x: 0, y: 4)
+                .overlay {
+                    Image(.xmark)
+                }
+        }
+    }
+}
+
 // MARK: - Preview
 
 #Preview {
-    FloatingNavigationBar {
-        print("Go!")
+    VStack {
+        FloatingNavigationBar(
+            leadingAction: { },
+            trailingType: .text("다음")
+        ) {
+            print("Go!")
+        }
+
+        FloatingNavigationBar(
+            leadingAction: { },
+            trailingType: .close
+        ) {
+            print("Go!")
+        }
     }
 }
