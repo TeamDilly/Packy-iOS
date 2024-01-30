@@ -22,6 +22,9 @@ struct BoxDetailView: View {
 
     var body: some View {
         ZStack {
+            // blur 가 가장자리를 하얗게 만들기 때문에 뒤에 black을 깔아줌
+            Color.gray900.ignoresSafeArea()
+
             Color.black
                 .opacity(viewStore.presentingState == .detail ? 0 : 0.6)
                 .ignoresSafeArea()
@@ -30,19 +33,22 @@ struct BoxDetailView: View {
                     viewStore.send(.binding(.set(\.$presentingState, .detail)))
                 }
 
-            switch viewStore.presentingState {
-            case .photo:
-                BoxDetailPhotoView(
-                    imageUrl: "https://picsum.photos/id/237/200/300",
-                    text: "기억나니 우리의 추억"
-                )
-                .transition(.scale)
-                .transition(.scale(scale: 0.9))
-                .zIndex(10)
+            BoxDetailPhotoView(
+                imageUrl: "https://picsum.photos/id/237/200/300",
+                text: "기억나니 우리의 추억"
+            )
+            .opacity(viewStore.presentingState == .photo ? 1 : 0)
+            .transition(.push(from: .top))
+            .zIndex(10)
 
-            default:
-                EmptyView()
-            }
+            BoxDetailPhotoView(
+                imageUrl: "https://picsum.photos/id/237/200/300",
+                text: "기억나니 우리의 추억"
+            )
+            .opacity(viewStore.presentingState == .photo ? 1 : 0)
+            .transition(.push(from: .top))
+            .zIndex(10)
+
 
             GeometryReader { proxy in
                 let screenWidth = proxy.size.width
@@ -100,6 +106,7 @@ struct BoxDetailView: View {
                             stickerURL: "https://picsum.photos/100", // TODO: API 응답 viewStore.stickers.first.imageUrl
                             screenWidth: screenWidth
                         )
+                        .disabled(true)
                         .offset(y: 10)
                     }
                     .padding(.leading, 33)
@@ -113,6 +120,7 @@ struct BoxDetailView: View {
                             stickerURL: "https://picsum.photos/150", // TODO: API 응답 viewStore.stickers.last.imageUrl
                             screenWidth: screenWidth
                         )
+                        .disabled(true)
 
                         Spacer()
 
@@ -121,7 +129,7 @@ struct BoxDetailView: View {
                             input: .init(selectedLetterDesign: nil, letter: viewStore.letterContent),
                             screenWidth: screenWidth
                         ) {
-                            // TODO: 편지 탭
+                            viewStore.send(.binding(.set(\.$presentingState, .letter)))
                         }
                     }
                     .padding(.leading, 36)
@@ -141,7 +149,7 @@ struct BoxDetailView: View {
                 }
             }
             .background(.gray900)
-            .blur(radius: viewStore.presentingState != .detail ? 3 : 0, opaque: false)
+            .blur(radius: viewStore.presentingState != .detail ? 3 : 0)
         }
         .animation(.spring, value: viewStore.presentingState)
         .task {
