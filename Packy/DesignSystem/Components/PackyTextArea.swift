@@ -13,6 +13,7 @@ struct PackyTextArea: View {
     let placeholder: String
     var isCompleted: Bool = false
     var borderColor: Color = .gray200
+    var showTextLength: Bool = true
 
     @FocusState var isFocused: Bool
 
@@ -46,6 +47,7 @@ struct PackyTextArea: View {
                 Text("/")
                 Text("200")
             }
+            .opacity(showTextLength ? 1 : 0)
             .packyFont(.body4)
             .foregroundStyle(.gray600)
             .padding(16)
