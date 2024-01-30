@@ -122,12 +122,12 @@ private extension BoxDetailView {
         )
         .padding(.horizontal, 24)
         .opacity(viewStore.presentingState == .letter ? 1 : 0)
-
-        Rectangle()
-            .fill(.blue.opacity(0.3))
-            .frame(width: 300, height: 300)
-            .padding(.horizontal, 24)
-            .opacity(viewStore.presentingState == .gift ? 1 : 0)
+        
+        ImageViewer {
+            NetworkImage(url: "https://picsum.photos/300", contentMode: .fit)
+                .padding(.horizontal, 55)
+        }
+        .opacity(viewStore.presentingState == .gift ? 1 : 0)
     }
 
     func mainPageView(scrollProxy: ScrollViewProxy) -> some View {
@@ -241,7 +241,7 @@ private extension BoxDetailView {
                 .padding(35)
                 .overlay(alignment: .bottom) {
                     Button{
-
+                        viewStore.send(.binding(.set(\.$presentingState, .gift)))
                     } label: {
                         Text("이미지 전체보기")
                             .packyFont(.body6)
