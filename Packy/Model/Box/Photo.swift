@@ -18,7 +18,7 @@ struct Photo: Encodable, Equatable {
 extension Photo {
     static var mock: Self {
         return .init(
-            photoUrl: "www.test.com",
+            photoUrl: "https://picsum.photos/220",
             description: "우리 같이 놀러갔던 날 :)",
             sequence: 1
         )

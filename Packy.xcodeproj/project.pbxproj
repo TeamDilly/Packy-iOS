@@ -163,6 +163,7 @@
 		E5E06B402B654EF200F6FD01 /* BoxClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E06B3F2B654EF200F6FD01 /* BoxClient.swift */; };
 		E5E06B422B654EF600F6FD01 /* BoxEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E06B412B654EF600F6FD01 /* BoxEndpoint.swift */; };
 		E5E06B442B654FC500F6FD01 /* GiftBoxResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E06B432B654FC500F6FD01 /* GiftBoxResponse.swift */; };
+		E5E5110D2B6915CA00CE86AF /* BoxDetailPhotoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E5110C2B6915CA00CE86AF /* BoxDetailPhotoView.swift */; };
 		E5E73D4A2B597C0200729D99 /* BoxStartGuideView+MusicSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E73D492B597C0200729D99 /* BoxStartGuideView+MusicSheet.swift */; };
 		E5E73D4C2B597CB600729D99 /* AddPhotoBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E73D4B2B597CB600729D99 /* AddPhotoBottomSheet.swift */; };
 /* End PBXBuildFile section */
@@ -319,6 +320,7 @@
 		E5E06B3F2B654EF200F6FD01 /* BoxClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoxClient.swift; sourceTree = "<group>"; };
 		E5E06B412B654EF600F6FD01 /* BoxEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoxEndpoint.swift; sourceTree = "<group>"; };
 		E5E06B432B654FC500F6FD01 /* GiftBoxResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GiftBoxResponse.swift; sourceTree = "<group>"; };
+		E5E5110C2B6915CA00CE86AF /* BoxDetailPhotoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoxDetailPhotoView.swift; sourceTree = "<group>"; };
 		E5E73D492B597C0200729D99 /* BoxStartGuideView+MusicSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BoxStartGuideView+MusicSheet.swift"; sourceTree = "<group>"; };
 		E5E73D4B2B597CB600729D99 /* AddPhotoBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPhotoBottomSheet.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -421,6 +423,7 @@
 			children = (
 				E539378F2B67B599000F3A86 /* BoxDetailView.swift */,
 				E53937902B67B599000F3A86 /* BoxDetailFeature.swift */,
+				E5E5110C2B6915CA00CE86AF /* BoxDetailPhotoView.swift */,
 			);
 			path = BoxDetail;
 			sourceTree = "<group>";
@@ -1138,6 +1141,7 @@
 				E5AC66F32B62BC8400F3CBF0 /* Sequence+SortByKeypath.swift in Sources */,
 				E5AC66EF2B62B24700F3CBF0 /* PassThroughWindow.swift in Sources */,
 				E539378A2B67B43E000F3A86 /* MusicElementView.swift in Sources */,
+				E5E5110D2B6915CA00CE86AF /* BoxDetailPhotoView.swift in Sources */,
 				E5A7AA402B57F81400590EA6 /* NavigationBar.swift in Sources */,
 				E5A7AA612B57F81400590EA6 /* SignUpProfileView.swift in Sources */,
 				E5E73D4C2B597CB600729D99 /* AddPhotoBottomSheet.swift in Sources */,

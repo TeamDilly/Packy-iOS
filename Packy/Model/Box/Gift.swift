@@ -18,7 +18,7 @@ extension Gift {
     static var mock: Self {
         return Gift(
             type: "photo",
-            url: "www.example.com"
+            url: "https://picsum.photos/200"
         )
     }
 }

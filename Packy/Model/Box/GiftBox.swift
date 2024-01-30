@@ -31,7 +31,7 @@ extension GiftBox {
             boxId: 1,
             envelopeId: 1,
             letterContent: "생일 축하해~",
-            youtubeUrl: "https://www.youtube.com",
+            youtubeUrl: "https://www.youtube.com/watch?v=E13YdUGCq8w&list=RDYsGfmziPJ_Y&index=3",
             photos: [Photo.mock],
             gift: Gift.mock,
             stickers: [Sticker.mock]

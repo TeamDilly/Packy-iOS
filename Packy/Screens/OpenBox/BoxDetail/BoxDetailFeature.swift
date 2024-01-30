@@ -11,17 +11,26 @@ import ComposableArchitecture
 @Reducer
 struct BoxDetailFeature: Reducer {
 
+    enum PresentingState {
+        case detail
+        case gift
+        case photo
+        case letter
+    }
+
     @dynamicMemberLookup
     struct State: Equatable {
         let giftBox: GiftBox = .mock
+        @BindingState var presentingState: PresentingState = .detail
 
         subscript<T>(dynamicMember keyPath: KeyPath<GiftBox, T>) -> T {
             giftBox[keyPath: keyPath]
         }
     }
 
-    enum Action {
+    enum Action: BindableAction {
         // MARK: User Action
+        case binding(BindingAction<State>)
 
         // MARK: Inner Business Action
         case _onTask
@@ -33,8 +42,13 @@ struct BoxDetailFeature: Reducer {
 
 
     var body: some Reducer<State, Action> {
+        BindingReducer()
+        
         Reduce<State, Action> { state, action in
             switch action {
+            case .binding:
+                return .none
+
             case ._onTask:
                 return .none
             }
