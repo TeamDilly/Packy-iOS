@@ -17,6 +17,9 @@ struct BoxDetailView: View {
     @ObservedObject private var viewStore: ViewStoreOf<BoxDetailFeature>
     @ObservedObject private var player: YouTubePlayer = .init()
 
+    @Namespace private var mainPage
+    @Namespace private var giftPage
+
     init(store: StoreOf<BoxDetailFeature>) {
         self.store = store
         self.viewStore = ViewStore(store, observe: { $0 })
@@ -41,39 +44,16 @@ struct BoxDetailView: View {
                     .zIndex(2)
 
                 GeometryReader { proxy in
-                    ScrollView {
-                        mainContentView
-                            .frame(height: proxy.size.height)
+                    ScrollViewReader { scrollProxy in
+                        ScrollView {
+                            mainPageView(scrollProxy: scrollProxy)
+                                .id(mainPage)
+                                .frame(height: proxy.size.height)
 
-                        VStack {
-                            Image(.giftFrame)
-                                .resizable()
-                                .renderingMode(.template)
-                                .foregroundStyle(.gray950)
-                                .scaledToFit()
-                                .overlay {
-                                    NetworkImage(url: "https://picsum.photos/id/100/200/300")
-                                        .aspectRatio(1, contentMode: .fit)
-                                        .padding(20)
-                                }
-                                .padding(35)
-                                .overlay(alignment: .bottom) {
-                                    Button{
-
-                                    } label: {
-                                        Text("이미지 전체보기")
-                                            .packyFont(.body6)
-                                            .foregroundStyle(.white)
-                                            .frame(width: 141, height: 34)
-                                            .background(
-                                                Capsule()
-                                                    .fill(.black.opacity(0.3))
-                                            )
-                                    }
-                                    .offset(y: -95)
-                                }
+                            giftPageView
+                                .id(giftPage)
+                                .frame(height: proxy.size.height)
                         }
-                        .frame(height: proxy.size.height)
 
                         ZStack {
                             // TODO: 박스 디자인 띄우기
@@ -139,7 +119,7 @@ private extension BoxDetailView {
             .opacity(viewStore.presentingState == .gift ? 1 : 0)
     }
 
-    var mainContentView: some View {
+    func mainPageView(scrollProxy: ScrollViewProxy) -> some View {
         GeometryReader { proxy in
             let screenWidth = proxy.size.width
             VStack(spacing: 0) {
@@ -214,7 +194,9 @@ private extension BoxDetailView {
                 Spacer()
 
                 Button {
-                    viewStore.send(.binding(.set(\.$presentingState, .gift)))
+                    withAnimation(.spring) {
+                        scrollProxy.scrollTo(giftPage, anchor: .top)
+                    }
                 } label: {
                     VStack(spacing: 0) {
                         Image(.arrowUp)
@@ -227,6 +209,37 @@ private extension BoxDetailView {
                 }
                 .padding(.bottom, 32)
             }
+        }
+    }
+
+    var giftPageView: some View {
+        VStack {
+            Image(.giftFrame)
+                .resizable()
+                .renderingMode(.template)
+                .foregroundStyle(.gray950)
+                .scaledToFit()
+                .overlay {
+                    NetworkImage(url: "https://picsum.photos/id/100/200/300")
+                        .aspectRatio(1, contentMode: .fit)
+                        .padding(20)
+                }
+                .padding(35)
+                .overlay(alignment: .bottom) {
+                    Button{
+
+                    } label: {
+                        Text("이미지 전체보기")
+                            .packyFont(.body6)
+                            .foregroundStyle(.white)
+                            .frame(width: 141, height: 34)
+                            .background(
+                                Capsule()
+                                    .fill(.black.opacity(0.3))
+                            )
+                    }
+                    .offset(y: -95)
+                }
         }
     }
 
