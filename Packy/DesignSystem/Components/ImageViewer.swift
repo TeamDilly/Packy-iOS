@@ -10,6 +10,7 @@ import SwiftUI
 struct ImageViewer<ImageContent: View>: View {
 
     let imageContent: ImageContent
+    let dismissedImage: () -> Void
 
     @State private var scale: CGFloat = 1
     @State private var lastScale: CGFloat = 1
@@ -17,8 +18,12 @@ struct ImageViewer<ImageContent: View>: View {
     @State private var offset: CGPoint = .zero
     @State private var lastTranslation: CGSize = .zero
 
-    init(@ViewBuilder imageContent: () -> ImageContent) {
+    init(
+        @ViewBuilder imageContent: () -> ImageContent,
+        dismissedImage: @escaping () -> Void = {}
+    ) {
         self.imageContent = imageContent()
+        self.dismissedImage = dismissedImage
     }
 
     var body: some View {
@@ -74,8 +79,12 @@ private extension ImageViewer {
                 offset = offset + translationChange
                 lastTranslation = value.translation
             }
-            .onEnded { _ in
+            .onEnded { value in
                 adjustMaxOffset(size: size)
+
+                if abs(value.velocity.height) > 1000 {
+                    dismissedImage()
+                }
             }
     }
 

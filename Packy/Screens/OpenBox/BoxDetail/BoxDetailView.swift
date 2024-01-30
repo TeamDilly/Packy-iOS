@@ -21,6 +21,7 @@ struct BoxDetailView: View {
     @Namespace private var giftPage
 
     @State private var isOnNextPage: Bool = false
+    @State private var scrollProxy: ScrollViewProxy?
 
     init(store: StoreOf<BoxDetailFeature>) {
         self.store = store
@@ -59,6 +60,9 @@ struct BoxDetailView: View {
 
                         } offsetChanged: { offset in
                             updatePage(byOffset: offset)
+                        }
+                        .onAppear {
+                            self.scrollProxy = scrollProxy
                         }
 
                         ZStack {
@@ -123,11 +127,14 @@ private extension BoxDetailView {
         .padding(.horizontal, 24)
         .opacity(viewStore.presentingState == .letter ? 1 : 0)
         
-        ImageViewer {
-            NetworkImage(url: "https://picsum.photos/300", contentMode: .fit)
-                .padding(.horizontal, 55)
+        if viewStore.presentingState == .gift {
+            ImageViewer {
+                NetworkImage(url: "https://picsum.photos/300", contentMode: .fit)
+                    .padding(.horizontal, 55)
+            } dismissedImage: {
+                viewStore.send(.binding(.set(\.$presentingState, .detail)))
+            }
         }
-        .opacity(viewStore.presentingState == .gift ? 1 : 0)
     }
 
     func mainPageView(scrollProxy: ScrollViewProxy) -> some View {
@@ -261,7 +268,13 @@ private extension BoxDetailView {
         FloatingNavigationBar(
             leadingIcon: isOnNextPage ? Image(.arrowDown) : Image(.arrowLeft),
             leadingAction: {
-
+                if isOnNextPage {
+                    withAnimation {
+                        scrollProxy?.scrollTo(mainPage)
+                    }
+                } else {
+                    // 뒤로이동
+                }
             },
             trailingType: isOnNextPage ? .none : .close,
             trailingAction: {
