@@ -11,12 +11,22 @@ extension ButtonStyle where Self == TextButtonStyle {
     static var text: TextButtonStyle {
         TextButtonStyle()
     }
+
+    static var textWhite: TextButtonStyle {
+        TextButtonStyle(colorType: .white)
+    }
 }
 
 // MARK: - Button Style
 
 struct TextButtonStyle: ButtonStyle {
     @Environment(\.isEnabled) private var isEnabled
+    var colorType: ColorType = .black
+
+    enum ColorType {
+        case black
+        case white
+    }
 
     func makeBody(configuration: Configuration) -> some View {
         let isPressed = configuration.isPressed
@@ -33,6 +43,12 @@ struct TextButtonStyle: ButtonStyle {
 private extension TextButtonStyle {
     func textColor(isPressed: Bool) -> Color {
         guard isEnabled else { return .gray400 }
-        return isPressed ? .gray600 : .gray900
+        switch colorType {
+        case .black:
+            return isPressed ? .gray600 : .gray900
+        case .white:
+            return isPressed ? .gray300 : .white
+        }
+
     }
 }
