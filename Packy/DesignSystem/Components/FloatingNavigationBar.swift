@@ -12,6 +12,7 @@ struct FloatingNavigationBar: View {
     enum TrailingButtonType {
         case text(String)
         case close
+        case none
     }
 
     var leadingIcon: Image = Image(.arrowLeft)
@@ -75,6 +76,9 @@ private extension FloatingNavigationBar {
                 .overlay {
                     Image(.xmark)
                 }
+
+        case .none:
+            EmptyView()
         }
     }
 }

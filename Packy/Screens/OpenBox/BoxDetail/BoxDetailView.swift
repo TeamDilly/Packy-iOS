@@ -20,6 +20,8 @@ struct BoxDetailView: View {
     @Namespace private var mainPage
     @Namespace private var giftPage
 
+    @State private var isOnNextPage: Bool = false
+
     init(store: StoreOf<BoxDetailFeature>) {
         self.store = store
         self.viewStore = ViewStore(store, observe: { $0 })
@@ -45,7 +47,8 @@ struct BoxDetailView: View {
 
                 GeometryReader { proxy in
                     ScrollViewReader { scrollProxy in
-                        ScrollView {
+                        ReadableScrollView(isPageStyle: true) {
+
                             mainPageView(scrollProxy: scrollProxy)
                                 .id(mainPage)
                                 .frame(height: proxy.size.height)
@@ -53,6 +56,9 @@ struct BoxDetailView: View {
                             giftPageView
                                 .id(giftPage)
                                 .frame(height: proxy.size.height)
+
+                        } offsetChanged: { offset in
+                            updatePage(byOffset: offset)
                         }
 
                         ZStack {
@@ -66,7 +72,6 @@ struct BoxDetailView: View {
                             // }
                         }
                     }
-                    .scrollTargetBehavior(.paging)
                     .blur(radius: viewStore.presentingState != .detail ? 3 : 0)
                 }
             }
@@ -82,6 +87,13 @@ struct BoxDetailView: View {
                 .finish()
         }
     }
+
+    private func updatePage(byOffset offset: CGFloat) {
+        let halfScreen = UIScreen.main.bounds.height / 2
+        let isOnNext = offset < -halfScreen
+        guard isOnNextPage != isOnNext else { return }
+        isOnNextPage = isOnNext
+    }
 }
 
 // MARK: - Inner Views
@@ -91,7 +103,6 @@ private extension BoxDetailView {
         Color.black
             .opacity(viewStore.presentingState == .detail ? 0 : 0.6)
             .ignoresSafeArea()
-            .border(Color.red)
             .onTapGesture {
                 viewStore.send(.binding(.set(\.$presentingState, .detail)))
             }
@@ -193,22 +204,25 @@ private extension BoxDetailView {
 
                 Spacer()
 
-                Button {
-                    withAnimation(.spring) {
-                        scrollProxy.scrollTo(giftPage, anchor: .top)
-                    }
-                } label: {
-                    VStack(spacing: 0) {
-                        Image(.arrowUp)
-                            .renderingMode(.template)
-                            .foregroundStyle(.white)
+                if !isOnNextPage {
+                    Button {
+                        withAnimation(.spring) {
+                            scrollProxy.scrollTo(giftPage, anchor: .top)
+                        }
+                    } label: {
+                        VStack(spacing: 0) {
+                            Image(.arrowUp)
+                                .renderingMode(.template)
+                                .foregroundStyle(.white)
 
-                        Text("밀어서 선물 확인하기")
-                            .foregroundStyle(.white)
+                            Text("밀어서 선물 확인하기")
+                                .foregroundStyle(.white)
+                        }
                     }
+                    .padding(.bottom, 32)
                 }
-                .padding(.bottom, 32)
             }
+            .animation(.easeInOut, value: isOnNextPage)
         }
     }
 
@@ -245,14 +259,16 @@ private extension BoxDetailView {
 
     var navigationBar: some View {
         FloatingNavigationBar(
+            leadingIcon: isOnNextPage ? Image(.arrowDown) : Image(.arrowLeft),
             leadingAction: {
 
             },
-            trailingType: .close,
+            trailingType: isOnNextPage ? .none : .close,
             trailingAction: {
 
             }
         )
+        .animation(.easeInOut, value: isOnNextPage)
     }
 }
 
