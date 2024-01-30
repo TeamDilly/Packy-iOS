@@ -238,7 +238,11 @@ private extension BoxStartGuideView {
     @ViewBuilder
     func musicView(_ screenWidth: CGFloat) -> some View {
         if let musicUrl = viewStore.savedMusic.selectedMusicUrl {
-            MusicElementView(url: musicUrl, screenWidth: screenWidth, isPresentCloseButton: true) {
+            MusicElementView(
+                player: .init(stringLiteral: musicUrl),
+                screenWidth: screenWidth,
+                isPresentCloseButton: true
+            ) {
                 viewStore.send(.musicLinkDeleteButtonTapped)
             }
         } else {

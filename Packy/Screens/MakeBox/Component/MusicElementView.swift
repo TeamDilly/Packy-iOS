@@ -9,10 +9,23 @@ import SwiftUI
 import YouTubePlayerKit
 
 struct MusicElementView: View {
-    let url: String
     let screenWidth: CGFloat
-    var deleteAction: () -> Void = {}
+    var deleteAction: () -> Void
     var isPresentCloseButton: Bool = false
+
+    @ObservedObject var youtubePlayer: YouTubePlayer
+
+    init(
+        player: YouTubePlayer,
+        screenWidth: CGFloat,
+        deleteAction: @escaping () -> Void = {},
+        isPresentCloseButton: Bool = false
+    ) {
+        self.youtubePlayer = player
+        self.screenWidth = screenWidth
+        self.deleteAction = deleteAction
+        self.isPresentCloseButton = isPresentCloseButton
+    }
 
     private let element = BoxElementShape.music
     private var size: CGSize {
@@ -20,7 +33,7 @@ struct MusicElementView: View {
     }
 
     var body: some View {
-        YouTubePlayerView(.init(stringLiteral: url)) { state in
+        YouTubePlayerView(youtubePlayer) { state in
             switch state {
             case .idle:
                 ProgressView()
@@ -40,6 +53,9 @@ struct MusicElementView: View {
                 }
                 .offset(x: 4, y: -4)
             }
+        }
+        .onAppear {
+            youtubePlayer.play()
         }
     }
 }
