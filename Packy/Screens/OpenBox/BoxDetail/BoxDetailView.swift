@@ -22,6 +22,7 @@ struct BoxDetailView: View {
 
     @State private var isOnNextPage: Bool = false
     @State private var scrollProxy: ScrollViewProxy?
+    @State private var isBoxPartPresented: Bool = false
 
     init(store: StoreOf<BoxDetailFeature>) {
         self.store = store
@@ -42,6 +43,13 @@ struct BoxDetailView: View {
 
             ZStack(alignment: .topTrailing) {
 
+                if isBoxPartPresented {
+                    KFImage(URL(string: viewStore.box.boxPartUrl))
+                        .zIndex(1)
+                        .ignoresSafeArea()
+                        .transition(.move(edge: .top))
+                }
+
                 navigationBar
                     .blur(radius: viewStore.presentingState != .detail ? 3 : 0)
                     .zIndex(2)
@@ -49,31 +57,21 @@ struct BoxDetailView: View {
                 GeometryReader { proxy in
                     ScrollViewReader { scrollProxy in
                         ReadableScrollView(isPageStyle: true) {
-
                             mainPageView(scrollProxy: scrollProxy)
                                 .id(mainPage)
                                 .frame(height: proxy.size.height)
 
-                            giftPageView
-                                .id(giftPage)
-                                .frame(height: proxy.size.height)
+                            if viewStore.gift != nil {
+                                giftPageView
+                                    .id(giftPage)
+                                    .frame(height: proxy.size.height)
+                            }
 
                         } offsetChanged: { offset in
                             updatePage(byOffset: offset)
                         }
                         .onAppear {
                             self.scrollProxy = scrollProxy
-                        }
-
-                        ZStack {
-                            // TODO: 박스 디자인 띄우기
-                            // viewStore.boxId
-                            // if let selectedBox = viewStore.selectedBox {
-                            //     KFImage(URL(string: viewStore.boxId))
-                            //         .zIndex(1)
-                            //         .ignoresSafeArea()
-                            //         .transition(.move(edge: .top))
-                            // }
                         }
                     }
                     .blur(radius: viewStore.presentingState != .detail ? 3 : 0)
@@ -84,6 +82,9 @@ struct BoxDetailView: View {
         .animation(.easeInOut, value: viewStore.presentingState)
         .onAppear {
             // player.play()
+            withAnimation(.spring) {
+                isBoxPartPresented = true
+            }
         }
         .task {
             await viewStore
@@ -114,11 +115,13 @@ private extension BoxDetailView {
 
     @ViewBuilder
     var overlayPresentingViews: some View {
-        BoxDetailPhotoView(
-            imageUrl: "https://picsum.photos/id/237/200/300",
-            text: "기억나니 우리의 추억"
-        )
-        .opacity(viewStore.presentingState == .photo ? 1 : 0)
+        if let photo = viewStore.photos.first {
+            BoxDetailPhotoView(
+                imageUrl: photo.photoUrl,
+                text: photo.description
+            )
+            .opacity(viewStore.presentingState == .photo ? 1 : 0)
+        }
 
         BoxDetailLetterView(
             text: viewStore.letterContent,
@@ -129,7 +132,7 @@ private extension BoxDetailView {
         
         if viewStore.presentingState == .gift {
             ImageViewer {
-                NetworkImage(url: "https://picsum.photos/300", contentMode: .fit)
+                NetworkImage(url: viewStore.gift?.url ?? "", contentMode: .fit)
                     .padding(.horizontal, 55)
             } dismissedImage: {
                 viewStore.send(.binding(.set(\.$presentingState, .detail)))
@@ -156,7 +159,7 @@ private extension BoxDetailView {
                 HStack {
                     // 추억 사진
                     PhotoElementView(
-                        photoUrl: "https://picsum.photos/id/237/200/300",
+                        photoUrl: viewStore.photos.first?.photoUrl ?? "",
                         screenWidth: screenWidth
                     ) {
                         viewStore.send(.binding(.set(\.$presentingState, .photo)))
@@ -164,27 +167,30 @@ private extension BoxDetailView {
 
                     Spacer()
 
-                    // 스티커1
-                    StickerElementView(
-                        stickerType: .sticker1,
-                        stickerURL: "https://picsum.photos/100", // TODO: API 응답 viewStore.stickers.first.imageUrl
-                        screenWidth: screenWidth
-                    )
-                    .disabled(true)
-                    .offset(y: 10)
+                    if let firstSticker = viewStore.stickers.first(where: { $0.location == 0 }) {
+                        // 스티커1
+                        StickerElementView(
+                            stickerType: .sticker1,
+                            stickerURL: firstSticker.imgUrl,
+                            screenWidth: screenWidth
+                        )
+                        .disabled(true)
+                        .offset(y: 10)
+                    }
                 }
                 .padding(.leading, 33)
                 .padding(.trailing, 36)
                 .padding(.top, 36)
 
                 HStack {
-                    // 스티커2
-                    StickerElementView(
-                        stickerType: .sticker2,
-                        stickerURL: "https://picsum.photos/150", // TODO: API 응답 viewStore.stickers.last.imageUrl
-                        screenWidth: screenWidth
-                    )
-                    .disabled(true)
+                    if let secondSticker = viewStore.stickers.first(where: { $0.location == 0 }) {
+                        StickerElementView(
+                            stickerType: .sticker2,
+                            stickerURL: secondSticker.imgUrl,
+                            screenWidth: screenWidth
+                        )
+                        .disabled(true)
+                    }
 
                     Spacer()
 
@@ -211,7 +217,7 @@ private extension BoxDetailView {
 
                 Spacer()
 
-                if !isOnNextPage {
+                if !isOnNextPage, viewStore.gift != nil {
                     Button {
                         withAnimation(.spring) {
                             scrollProxy.scrollTo(giftPage, anchor: .top)
@@ -241,7 +247,7 @@ private extension BoxDetailView {
                 .foregroundStyle(.gray950)
                 .scaledToFit()
                 .overlay {
-                    NetworkImage(url: "https://picsum.photos/id/100/200/300")
+                    NetworkImage(url: viewStore.gift?.url ?? "")
                         .aspectRatio(1, contentMode: .fit)
                         .padding(20)
                 }

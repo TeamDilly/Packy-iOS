@@ -22,6 +22,7 @@ extension DependencyValues {
 
 struct BoxClient {
     var makeGiftBox: @Sendable (SendingGiftBox) async throws -> GiftBoxResponse
+    var openGiftBox: @Sendable (Int) async throws -> ReceivedGiftBox
 }
 
 extension BoxClient: DependencyKey {
@@ -32,6 +33,9 @@ extension BoxClient: DependencyKey {
         return Self(
             makeGiftBox: {
                 try await provider.request(.postGiftbox($0))
+            },
+            openGiftBox: {
+                try await provider.request(.getGiftbox($0))
             }
         )
     }()
@@ -40,6 +44,9 @@ extension BoxClient: DependencyKey {
         Self(
             makeGiftBox: { _ in
                 return .init(id: Int.random(in: 0...100), uuid: UUID().uuidString)
+            },
+            openGiftBox: { _ in
+                return .mock
             }
         )
     }()
