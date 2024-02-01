@@ -18,7 +18,7 @@ struct MusicPlayerView: View {
                 ProgressView()
             case .ready:
                 EmptyView()
-            case .error(let error):
+            case .error:
                 Text(verbatim: "YouTube player couldn't be loaded")
             }
         }

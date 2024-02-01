@@ -2,13 +2,13 @@
 //  Sticker.swift
 //  Packy
 //
-//  Created by Mason Kim on 1/27/24.
+//  Created by Mason Kim on 2/1/24.
 //
 
 import Foundation
 
-struct Sticker: Encodable, Equatable {
-    let id: Int
+struct Sticker: Decodable, Equatable {
+    let imgUrl: String
     let location: Int
 }
 
@@ -17,7 +17,7 @@ struct Sticker: Encodable, Equatable {
 extension Sticker {
     static var mock: Self {
         return Sticker(
-            id: 1,
+            imgUrl: "https://picsum.photos/150",
             location: 1
         )
     }

@@ -1,5 +1,5 @@
 //
-//  GiftBox.swift
+//  SendGiftBox.swift
 //  Packy
 //
 //  Created by Mason Kim on 1/27/24.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct GiftBox: Encodable, Equatable {
+struct SendingGiftBox: Encodable, Equatable {
     var name: String
     let senderName: String
     let receiverName: String
@@ -17,12 +17,12 @@ struct GiftBox: Encodable, Equatable {
     let youtubeUrl: String
     let photos: [Photo]
     let gift: Gift?
-    let stickers: [Sticker]
+    let stickers: [SendingSticker]
 }
 
 // MARK: - Mock Data
 
-extension GiftBox {
+extension SendingGiftBox {
     static var mock: Self {
         return .init(
             name: "오늘을 위한 특별한 생일 선물",
@@ -31,10 +31,10 @@ extension GiftBox {
             boxId: 1,
             envelopeId: 1,
             letterContent: "생일 축하해~",
-            youtubeUrl: "https://www.youtube.com/watch?v=E13YdUGCq8w&list=RDYsGfmziPJ_Y&index=3",
+            youtubeUrl: "",//"https://www.youtube.com/watch?v=E13YdUGCq8w&list=RDYsGfmziPJ_Y&index=3",
             photos: [Photo.mock],
             gift: Gift.mock,
-            stickers: [Sticker.mock]
+            stickers: [SendingSticker.mock]
         )
     }
 }

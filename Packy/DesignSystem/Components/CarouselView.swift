@@ -130,9 +130,6 @@ extension Color: Identifiable {
                 }
                 .minifyScale(0.5)
             }
-            .onChange(of: selectedColor) {
-                print($0, $1)
-            }
         }
     }
 

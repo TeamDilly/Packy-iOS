@@ -21,7 +21,7 @@ struct TextFieldLimitModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
             .onChange(of: text) {
-                text = String($0.prefix(length))
+                text = String($1.prefix(length))
             }
     }
 }

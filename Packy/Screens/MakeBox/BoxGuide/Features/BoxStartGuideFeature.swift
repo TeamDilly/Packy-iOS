@@ -113,7 +113,7 @@ struct BoxStartGuideFeature: Reducer {
 
         // MARK: Delegate Action
         enum Delegate {
-            case moveToAddTitle(GiftBox, BoxDesign)
+            case moveToAddTitle(SendingGiftBox, BoxDesign)
         }
         case delegate(Delegate)
     }
@@ -259,7 +259,7 @@ private extension BoxStartGuideFeature {
         }
     }
 
-    func giftBoxFrom(state: State) -> GiftBox {
+    func giftBoxFrom(state: State) -> SendingGiftBox {
         let senderName = state.senderInfo.to
         let receiverName = state.senderInfo.from
         let boxId = state.selectedBox?.id ?? 0
@@ -279,11 +279,11 @@ private extension BoxStartGuideFeature {
             gift = nil
         }
 
-        let stickers: [Sticker] = state.selectedStickers.enumerated().map { index, stickerDesign in
-            Sticker(id: stickerDesign.id, location: index)
+        let stickers: [SendingSticker] = state.selectedStickers.enumerated().map { index, stickerDesign in
+            SendingSticker(id: stickerDesign.id, location: index)
         }
 
-        return GiftBox(
+        return SendingGiftBox(
             name: "",
             senderName: senderName,
             receiverName: receiverName,

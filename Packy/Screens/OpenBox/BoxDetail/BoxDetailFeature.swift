@@ -20,10 +20,10 @@ struct BoxDetailFeature: Reducer {
 
     @dynamicMemberLookup
     struct State: Equatable {
-        let giftBox: GiftBox = .mock
+        let giftBox: SendingGiftBox = .mock
         @BindingState var presentingState: PresentingState = .detail
 
-        subscript<T>(dynamicMember keyPath: KeyPath<GiftBox, T>) -> T {
+        subscript<T>(dynamicMember keyPath: KeyPath<SendingGiftBox, T>) -> T {
             giftBox[keyPath: keyPath]
         }
     }

@@ -18,7 +18,7 @@ struct BoxAddTitleAndShareFeature: Reducer {
     }
 
     struct State: Equatable {
-        var giftBox: GiftBox
+        var giftBox: SendingGiftBox
         let boxDesign: BoxDesign
         @BindingState var boxNameInput: String = ""
         @BindingState var showingState: ShowingState = .addTitle
@@ -78,7 +78,7 @@ struct BoxAddTitleAndShareFeature: Reducer {
 // MARK: - Inner Functions
 
 private extension BoxAddTitleAndShareFeature {
-    func saveGiftBox(_ giftBox: GiftBox) -> Effect<Action> {
+    func saveGiftBox(_ giftBox: SendingGiftBox) -> Effect<Action> {
         return .run { send in
             do {
                 let response = try await boxClient.makeGiftBox(giftBox)

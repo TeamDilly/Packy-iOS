@@ -10,7 +10,9 @@ import Moya
 
 enum BoxEndpoint {
     /// 선물박스 만들기
-    case postGiftbox(GiftBox)
+    case postGiftbox(SendingGiftBox)
+    /// 선물박스 열기
+    case getGiftbox(Int)
 }
 
 extension BoxEndpoint: TargetType {
@@ -22,6 +24,8 @@ extension BoxEndpoint: TargetType {
         switch self {
         case .postGiftbox:
             return "giftbox"
+        case let .getGiftbox(boxId):
+            return "giftbox/\(boxId)"
         }
     }
 
@@ -29,6 +33,8 @@ extension BoxEndpoint: TargetType {
         switch self {
         case .postGiftbox:
             return .post
+        case .getGiftbox:
+            return .get
         }
     }
 
@@ -36,6 +42,8 @@ extension BoxEndpoint: TargetType {
         switch self {
         case let .postGiftbox(giftbox):
             return .requestJSONEncodable(giftbox)
+        default:
+            return .requestPlain
         }
     }
 

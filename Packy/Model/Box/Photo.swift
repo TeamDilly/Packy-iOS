@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Photo: Encodable, Equatable {
+struct Photo: Codable, Equatable {
     let photoUrl: String
     let description: String
     let sequence: Int

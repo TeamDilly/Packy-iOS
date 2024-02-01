@@ -158,10 +158,10 @@
 		E5E06B2D2B651D2200F6FD01 /* Throttle.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E06B2C2B651D2200F6FD01 /* Throttle.swift */; };
 		E5E06B312B654A1000F6FD01 /* BoxAddTitleAndShareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E06B2F2B654A1000F6FD01 /* BoxAddTitleAndShareView.swift */; };
 		E5E06B322B654A1000F6FD01 /* BoxAddTitleAndShareFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E06B302B654A1000F6FD01 /* BoxAddTitleAndShareFeature.swift */; };
-		E5E06B342B654D7700F6FD01 /* GiftBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E06B332B654D7700F6FD01 /* GiftBox.swift */; };
+		E5E06B342B654D7700F6FD01 /* SendingGiftBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E06B332B654D7700F6FD01 /* SendingGiftBox.swift */; };
 		E5E06B362B654D8A00F6FD01 /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E06B352B654D8A00F6FD01 /* Photo.swift */; };
 		E5E06B382B654D9A00F6FD01 /* Gift.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E06B372B654D9A00F6FD01 /* Gift.swift */; };
-		E5E06B3A2B654DA200F6FD01 /* Sticker.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E06B392B654DA200F6FD01 /* Sticker.swift */; };
+		E5E06B3A2B654DA200F6FD01 /* SendingSticker.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E06B392B654DA200F6FD01 /* SendingSticker.swift */; };
 		E5E06B402B654EF200F6FD01 /* BoxClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E06B3F2B654EF200F6FD01 /* BoxClient.swift */; };
 		E5E06B422B654EF600F6FD01 /* BoxEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E06B412B654EF600F6FD01 /* BoxEndpoint.swift */; };
 		E5E06B442B654FC500F6FD01 /* GiftBoxResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E06B432B654FC500F6FD01 /* GiftBoxResponse.swift */; };
@@ -169,6 +169,10 @@
 		E5E5110F2B69212900CE86AF /* BoxDetailLetterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E5110E2B69212900CE86AF /* BoxDetailLetterView.swift */; };
 		E5E73D4A2B597C0200729D99 /* BoxStartGuideView+MusicSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E73D492B597C0200729D99 /* BoxStartGuideView+MusicSheet.swift */; };
 		E5E73D4C2B597CB600729D99 /* AddPhotoBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E73D4B2B597CB600729D99 /* AddPhotoBottomSheet.swift */; };
+		E5FDE0572B6BAC4900E00B00 /* ReceivedGiftBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FDE0562B6BAC4900E00B00 /* ReceivedGiftBox.swift */; };
+		E5FDE05B2B6BACFA00E00B00 /* Envelope.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FDE05A2B6BACFA00E00B00 /* Envelope.swift */; };
+		E5FDE05D2B6BAD1F00E00B00 /* Sticker.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FDE05C2B6BAD1F00E00B00 /* Sticker.swift */; };
+		E5FDE05F2B6BAD6D00E00B00 /* ReceivedBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FDE05E2B6BAD6D00E00B00 /* ReceivedBox.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -318,10 +322,10 @@
 		E5E06B2C2B651D2200F6FD01 /* Throttle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Throttle.swift; sourceTree = "<group>"; };
 		E5E06B2F2B654A1000F6FD01 /* BoxAddTitleAndShareView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoxAddTitleAndShareView.swift; sourceTree = "<group>"; };
 		E5E06B302B654A1000F6FD01 /* BoxAddTitleAndShareFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoxAddTitleAndShareFeature.swift; sourceTree = "<group>"; };
-		E5E06B332B654D7700F6FD01 /* GiftBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GiftBox.swift; sourceTree = "<group>"; };
+		E5E06B332B654D7700F6FD01 /* SendingGiftBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendingGiftBox.swift; sourceTree = "<group>"; };
 		E5E06B352B654D8A00F6FD01 /* Photo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
 		E5E06B372B654D9A00F6FD01 /* Gift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gift.swift; sourceTree = "<group>"; };
-		E5E06B392B654DA200F6FD01 /* Sticker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sticker.swift; sourceTree = "<group>"; };
+		E5E06B392B654DA200F6FD01 /* SendingSticker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendingSticker.swift; sourceTree = "<group>"; };
 		E5E06B3F2B654EF200F6FD01 /* BoxClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoxClient.swift; sourceTree = "<group>"; };
 		E5E06B412B654EF600F6FD01 /* BoxEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoxEndpoint.swift; sourceTree = "<group>"; };
 		E5E06B432B654FC500F6FD01 /* GiftBoxResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GiftBoxResponse.swift; sourceTree = "<group>"; };
@@ -329,6 +333,10 @@
 		E5E5110E2B69212900CE86AF /* BoxDetailLetterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoxDetailLetterView.swift; sourceTree = "<group>"; };
 		E5E73D492B597C0200729D99 /* BoxStartGuideView+MusicSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BoxStartGuideView+MusicSheet.swift"; sourceTree = "<group>"; };
 		E5E73D4B2B597CB600729D99 /* AddPhotoBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPhotoBottomSheet.swift; sourceTree = "<group>"; };
+		E5FDE0562B6BAC4900E00B00 /* ReceivedGiftBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceivedGiftBox.swift; sourceTree = "<group>"; };
+		E5FDE05A2B6BACFA00E00B00 /* Envelope.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Envelope.swift; sourceTree = "<group>"; };
+		E5FDE05C2B6BAD1F00E00B00 /* Sticker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sticker.swift; sourceTree = "<group>"; };
+		E5FDE05E2B6BAD6D00E00B00 /* ReceivedBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceivedBox.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -931,10 +939,14 @@
 			isa = PBXGroup;
 			children = (
 				E5001F862B5BA4C0004B65E6 /* BoxSenderInfo.swift */,
+				E5FDE05A2B6BACFA00E00B00 /* Envelope.swift */,
 				E5E06B372B654D9A00F6FD01 /* Gift.swift */,
-				E5E06B332B654D7700F6FD01 /* GiftBox.swift */,
 				E5E06B352B654D8A00F6FD01 /* Photo.swift */,
-				E5E06B392B654DA200F6FD01 /* Sticker.swift */,
+				E5FDE05E2B6BAD6D00E00B00 /* ReceivedBox.swift */,
+				E5FDE0562B6BAC4900E00B00 /* ReceivedGiftBox.swift */,
+				E5E06B332B654D7700F6FD01 /* SendingGiftBox.swift */,
+				E5E06B392B654DA200F6FD01 /* SendingSticker.swift */,
+				E5FDE05C2B6BAD1F00E00B00 /* Sticker.swift */,
 			);
 			path = Box;
 			sourceTree = "<group>";
@@ -1094,6 +1106,7 @@
 				E5A7AA802B57F81400590EA6 /* UserDefaultsClient.swift in Sources */,
 				E5001F852B5BA011004B65E6 /* Line.swift in Sources */,
 				E5A7AA482B57F81400590EA6 /* PageIndicator.swift in Sources */,
+				E5FDE05D2B6BAD1F00E00B00 /* Sticker.swift in Sources */,
 				E5E06B402B654EF200F6FD01 /* BoxClient.swift in Sources */,
 				E5551B7B2B5FF2AF00DB81F3 /* HTTPSession.swift in Sources */,
 				E5A7AA4E2B57F81400590EA6 /* Font+Packy.swift in Sources */,
@@ -1104,10 +1117,11 @@
 				E52037D52B641FF900721F76 /* BoxAddPhotoFeature.swift in Sources */,
 				E5A7AA4B2B57F81400590EA6 /* CarouselView.swift in Sources */,
 				E5A7AA5E2B57F81400590EA6 /* TermsAgreementFeature.swift in Sources */,
+				E5FDE05F2B6BAD6D00E00B00 /* ReceivedBox.swift in Sources */,
 				E5A7AA4C2B57F81400590EA6 /* Font+Pretendard.swift in Sources */,
 				E5A7AA582B57F81400590EA6 /* MakeBoxFeature+Navigation.swift in Sources */,
 				E539378C2B67B44F000F3A86 /* StickerElementView.swift in Sources */,
-				E5E06B3A2B654DA200F6FD01 /* Sticker.swift in Sources */,
+				E5E06B3A2B654DA200F6FD01 /* SendingSticker.swift in Sources */,
 				E5A7AA5C2B57F81400590EA6 /* IntroFeature.swift in Sources */,
 				E53937882B67B42D000F3A86 /* LetterElementView.swift in Sources */,
 				E5A7AA6E2B57F81400590EA6 /* ATTManager.swift in Sources */,
@@ -1173,10 +1187,12 @@
 				E52037D72B64203E00721F76 /* BoxStartGuideFeature+Music.swift in Sources */,
 				E5AC66EB2B62AB9900F3CBF0 /* PackyAlertClient.swift in Sources */,
 				E5A7AA502B57F81400590EA6 /* BottomSheetModifier.swift in Sources */,
+				E5FDE0572B6BAC4900E00B00 /* ReceivedGiftBox.swift in Sources */,
 				E5A7AA572B57F81400590EA6 /* BoxStartGuideView.swift in Sources */,
 				E5A7AA7B2B57F81400590EA6 /* TokenInfoResponse.swift in Sources */,
 				E52037DD2B64213600721F76 /* BoxStartGuideFeature+Gift.swift in Sources */,
 				E5257CB42B693FB9000A091E /* ImageViewer.swift in Sources */,
+				E5FDE05B2B6BACFA00E00B00 /* Envelope.swift in Sources */,
 				E5A416A72B5D20DC00313E5A /* DesignClient.swift in Sources */,
 				E5A7AA702B57F81400590EA6 /* BaseResponse.swift in Sources */,
 				E5A7AA372B57F81400590EA6 /* TextField+LimitInputLength.swift in Sources */,
@@ -1214,7 +1230,7 @@
 				E5001F962B5BEAF6004B65E6 /* URL+Trimming.swift in Sources */,
 				E5A7AA602B57F81400590EA6 /* SignUpNavigation.swift in Sources */,
 				E5A7AA722B57F81400590EA6 /* MoyaProvider+Request.swift in Sources */,
-				E5E06B342B654D7700F6FD01 /* GiftBox.swift in Sources */,
+				E5E06B342B654D7700F6FD01 /* SendingGiftBox.swift in Sources */,
 				E5A7AA772B57F81400590EA6 /* SignInResponse.swift in Sources */,
 				E5A7AA672B57F81400590EA6 /* OnboardingPage.swift in Sources */,
 			);

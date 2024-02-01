@@ -18,7 +18,6 @@ extension MoyaProvider {
                         let networkResponse = try JSONDecoder().decode(BaseResponse<T>.self, from: result.data)
                         continuation.resume(returning: networkResponse.data)
                     } catch {
-                        print("✅ \(result.statusCode) \(String(data: result.data, encoding: .utf8)), \(result.description)")
                         let errorResponse = try? JSONDecoder().decode(ErrorResponse.self, from: result.data)
                         continuation.resume(throwing: errorResponse ?? .base)
                     }

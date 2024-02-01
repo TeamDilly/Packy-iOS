@@ -21,7 +21,7 @@ extension DependencyValues {
 // MARK: - boxClient Client
 
 struct BoxClient {
-    var makeGiftBox: @Sendable (GiftBox) async throws -> GiftBoxResponse
+    var makeGiftBox: @Sendable (SendingGiftBox) async throws -> GiftBoxResponse
 }
 
 extension BoxClient: DependencyKey {
