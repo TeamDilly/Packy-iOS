@@ -47,19 +47,23 @@ struct BoxChoiceView: View {
                             .animation(nil, value: viewStore.selectedBox)
                     }
                 
-                    HStack(spacing: 12) {
-                        ForEach(viewStore.boxDesigns, id: \.id) { boxDesign in
-                            Button {
-                                viewStore.send(.selectBox(boxDesign))
-                                HapticManager.shared.fireFeedback(.medium)
-                            } label: {
-                                NetworkImage(url: boxDesign.boxFullUrl, contentMode: .fit)
-                                    .clipShape(RoundedRectangle(cornerRadius: 12))
+                    ScrollView(.horizontal) {
+                        HStack(spacing: 12) {
+                            ForEach(viewStore.boxDesigns, id: \.id) { boxDesign in
+                                Button {
+                                    viewStore.send(.selectBox(boxDesign))
+                                    HapticManager.shared.fireFeedback(.medium)
+                                } label: {
+                                    NetworkImage(url: boxDesign.boxFullUrl, contentMode: .fit)
+                                        .clipShape(RoundedRectangle(cornerRadius: 12))
+                                        .frame(width: 64, height: 64)
+                                }
+                                .buttonStyle(.bouncy)
                             }
-                            .buttonStyle(.bouncy)
                         }
                     }
-                    .padding(.horizontal, 40)
+                    .scrollIndicators(.hidden)
+                    .safeAreaPadding(.horizontal, 40)
                 }
                 .padding(.top, UIScreen.main.isWiderThan375pt ? 48 : 20)
 

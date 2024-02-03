@@ -37,7 +37,7 @@ extension BoxDesign {
 }
 
 extension BoxDesignResponse {
-    static let mock: Self = (1...4).map {
+    static let mock: Self = (1...6).map {
         .init(
             id: $0,
             sequence: $0,

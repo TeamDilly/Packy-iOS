@@ -35,26 +35,23 @@ extension BoxStartGuideView {
                 .padding(.horizontal, 24)
                 .padding(.vertical, 24)
 
-                HStack(spacing: 12) {
-                    ForEach(viewStore.boxDesigns, id: \.id) { boxDesign in
-                        Button {
-                            viewStore.send(.selectBox(boxDesign))
-                            HapticManager.shared.fireNotification(.success)
-                        } label: {
-                            NetworkImage(url: boxDesign.boxFullUrl, contentMode: .fit)
-                            // KFImage(URL(string: boxDesign.boxFullUrl))
-                            //     .placeholder {
-                            //         ProgressView()
-                            //             .progressViewStyle(.circular)
-                            //     }
-                            //     .resizable()
-                                .clipShape(RoundedRectangle(cornerRadius: 12))
-                                .aspectRatio(1, contentMode: .fit)
+                ScrollView(.horizontal) {
+                    HStack(spacing: 12) {
+                        ForEach(viewStore.boxDesigns, id: \.id) { boxDesign in
+                            Button {
+                                viewStore.send(.selectBox(boxDesign))
+                                HapticManager.shared.fireFeedback(.medium)
+                            } label: {
+                                NetworkImage(url: boxDesign.boxFullUrl, contentMode: .fit)
+                                    .clipShape(RoundedRectangle(cornerRadius: 12))
+                                    .frame(width: 64, height: 64)
+                            }
+                            .buttonStyle(.bouncy)
                         }
-                        .buttonStyle(.bouncy)
                     }
                 }
-                .padding(.horizontal, 40)
+                .scrollIndicators(.hidden)
+                .safeAreaPadding(.horizontal, 40)
             }
         }
     }
