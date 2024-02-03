@@ -30,9 +30,9 @@ extension ReceivedGiftBox {
         box: .mock,
         envelope: .mock,
         letterContent: "생일 축하해~",
-        youtubeUrl: "https://www.youtube.com",
+        youtubeUrl: "https://www.youtube.com/watch?v=neaxGr8_trU",
         photos: [.mock],
-        stickers: [.mock],
+        stickers: .mock,
         gift: .mock
     )
 }

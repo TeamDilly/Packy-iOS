@@ -19,6 +19,7 @@ enum DesignEndpoint {
     case getBoxDesigns
     /// 스티커 디자인 조회
     case getStickerDesigns(lastStickerId: Int, size: Int = 10)
+    case getValidateYoutubeLink(url: String)
 }
 
 extension DesignEndpoint: TargetType {
@@ -38,6 +39,8 @@ extension DesignEndpoint: TargetType {
             return "admin/design/boxes"
         case .getStickerDesigns:
             return "admin/design/stickers"
+        case .getValidateYoutubeLink:
+            return "admin/youtube"
         }
     }
 
@@ -56,6 +59,11 @@ extension DesignEndpoint: TargetType {
                     "lastStickerId": lastStickerId,
                     "size": size
                 ],
+                encoding: URLEncoding.queryString
+            )
+        case let .getValidateYoutubeLink(url: url):
+            return .requestParameters(
+                parameters: ["url": url],
                 encoding: URLEncoding.queryString
             )
         default:

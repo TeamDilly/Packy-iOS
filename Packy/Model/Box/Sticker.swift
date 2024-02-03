@@ -22,3 +22,18 @@ extension Sticker {
         )
     }
 }
+
+extension [Sticker] {
+    static var mock: Self {
+        return [
+            Sticker(
+                imgUrl: "https://picsum.photos/150",
+                location: 0
+            ),
+            Sticker(
+                imgUrl: "https://picsum.photos/180",
+                location: 1
+            ),
+        ]
+    }
+}

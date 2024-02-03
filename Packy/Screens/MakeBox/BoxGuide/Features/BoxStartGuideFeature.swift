@@ -107,6 +107,8 @@ struct BoxStartGuideFeature: Reducer {
         case _setLetterDesigns([LetterDesign])
         case _setRecommendedMusics([RecommendedMusic])
         case _setStickerDesigns(StickerDesignResponse)
+        case _setShowInvalidMusicUrlError(Bool)
+        case _setSelectedMusicUrl(String)
 
         // MARK: Child Action
         case addPhoto(BoxAddPhotoFeature.Action)

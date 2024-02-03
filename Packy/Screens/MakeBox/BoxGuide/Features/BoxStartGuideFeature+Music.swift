@@ -57,17 +57,18 @@ extension BoxStartGuideFeature {
                 return changeDetentsForSmoothAnimation(for: .recommend)
 
             case .musicLinkConfirmButtonTapped:
-                // TODO: 서버 통신해서 유효성 검사
-                // state.musicLinkUrlInput 가지고 서버 validation...
-                let isValidMusicUrl: Bool = .random()
+                let youtubeLinkUrl = state.musicInput.musicLinkUrlInput
+                return .run { send in
+                    do {
+                        let isValidLink = try await designClient.validateYoutubeUrl(youtubeLinkUrl)
+                        await send(._setShowInvalidMusicUrlError(isValidLink))
 
-                guard isValidMusicUrl else {
-                    state.musicInput.showInvalidMusicUrlError = false
-                    return .none
+                        guard isValidLink else { return }
+                        await send(._setSelectedMusicUrl(youtubeLinkUrl))
+                    } catch {
+                        await send(._setShowInvalidMusicUrlError(false))
+                    }
                 }
-
-                state.musicInput.selectedMusicUrl = state.musicInput.musicLinkUrlInput
-                return .none
 
             case .musicSaveButtonTapped:
                 let selectedMusicUrl: String?
@@ -95,6 +96,14 @@ extension BoxStartGuideFeature {
 
             case let ._setDetents(detents):
                 state.musicInput.musicSheetDetents = detents
+                return .none
+
+            case let ._setShowInvalidMusicUrlError(isError):
+                state.musicInput.showInvalidMusicUrlError = isError
+                return .none
+
+            case let ._setSelectedMusicUrl(url):
+                state.musicInput.selectedMusicUrl = url
                 return .none
 
             case .musicBottomSheetCloseButtonTapped:

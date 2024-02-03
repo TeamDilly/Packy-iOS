@@ -26,6 +26,7 @@ struct DesignClient {
     var fetchLetterDesigns: @Sendable () async throws -> LetterDesignResponse
     var fetchBoxDesigns: @Sendable () async throws -> BoxDesignResponse
     var fetchStickerDesigns: @Sendable (_ lastStickerId: Int) async throws -> StickerDesignResponse
+    var validateYoutubeUrl: @Sendable (_ url: String) async throws -> Bool
 }
 
 extension DesignClient: DependencyKey {
@@ -53,6 +54,10 @@ extension DesignClient: DependencyKey {
             fetchStickerDesigns: {
                 let response: StickerDesignResponse = try await provider.request(.getStickerDesigns(lastStickerId: $0))
                 return response.sorted()
+            },
+            validateYoutubeUrl: {
+                let response: YoutubeLinkValidationResponse = try await provider.request(.getValidateYoutubeLink(url: $0))
+                return response.status
             }
         )
     }()
@@ -66,7 +71,8 @@ extension DesignClient: DependencyKey {
             fetchStickerDesigns: { _ in
                 try? await _Concurrency.Task.sleep(for: .seconds(1))
                 return .mock
-            }
+            },
+            validateYoutubeUrl: { _ in return true }
         )
     }()
 }
