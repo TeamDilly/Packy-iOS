@@ -64,7 +64,7 @@ struct BoxAddTitleAndShareFeature: Reducer {
                     // 이후 화면 전환
                     .run { send in
                         await send(.binding(.set(\.$showingState, .completed)), animation: .spring)
-                        try? await clock.sleep(for: .seconds(1.5))
+                        try? await clock.sleep(for: .seconds(2.6))
                         await send(.binding(.set(\.$showingState, .send)), animation: .spring(duration: 1))
                     }
                 )
