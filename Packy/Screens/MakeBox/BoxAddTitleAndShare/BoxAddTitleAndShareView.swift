@@ -129,12 +129,12 @@ private extension BoxAddTitleAndShareView {
             if isSendState {
                 VStack(spacing: 8) {
                     PackyButton(title: "카카오톡으로 보내기", colorType: .black) {
-
+                        viewStore.send(.sendButtonTapped)
                     }
                     .padding(.horizontal, 24)
 
                     Button("나중에 보낼래요") {
-
+                        // TODO: 나중에 보내기 시 선물함 페이지로 이동?
                     }
                     .buttonStyle(.text)
                     .frame(width: 129, height: 34)

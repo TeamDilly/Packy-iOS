@@ -10,6 +10,7 @@ import Dependencies
 
 import KakaoSDKShare
 import KakaoSDKTemplate
+import UIKit
 
 // MARK: - Dependency Values
 
@@ -24,22 +25,24 @@ extension DependencyValues {
 // MARK: - KakaoShareClient Client
 
 struct KakaoShareClient {
-    var doSomething: @Sendable () async throws -> String
+    var share: @Sendable (KakaoShareMessage) async throws -> Void
 }
 
 extension KakaoShareClient: DependencyKey {
     static let liveValue: Self = {
-        Self(
-            doSomething: { 
-                return "실제 로직"
+        let controller = KakaoShareController()
+
+        return Self(
+            share: {
+                try await controller.share(message: $0)
             }
         )
     }()
 
     static let testValue: Self = {
         Self(
-            doSomething: {  
-                return "테스트 로직"
+            share: { _ in
+                return
             }
         )
     }()
@@ -53,29 +56,12 @@ enum KakaoShareError: Error {
     case invalidUrl
 }
 
-struct KakaoShareMessage {
-    let title: String
-    let description: String
-    let link: String
-    let imageUrl: String
-}
-
-extension KakaoShareMessage {
-    init(sender: String, receiver: String, imageUrl: String, link: String) {
-        self.title = "\(sender)님이 만든 선물박스가 도착했어요!"
-        self.description = "\(receiver)님을 위해 만든 세상에 하나뿐인 선물박스를 열어보세요"
-        self.link = link
-        self.imageUrl = imageUrl
-    }
-}
-
 private final class KakaoShareController {
     @MainActor
-    func share() async throws {
+    func share(message: KakaoShareMessage) async throws {
         return try await withCheckedThrowingContinuation { continuation in
-            let templateId: Int64 = 0
-            let templateArguments = ["title": "제목입니다.", "description": "설명입니다.", "image_url": "https://www.naver.com", "link": "packy open link"]
-
+            let templateId: Int64 = 103895
+            let templateArguments = message.toStringDictionary()
 
             if ShareApi.isKakaoTalkSharingAvailable() {
                 ShareApi.shared.shareCustom(templateId: templateId, templateArgs: templateArguments) { result, error in

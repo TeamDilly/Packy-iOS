@@ -29,6 +29,7 @@ struct BoxAddTitleAndShareFeature: Reducer {
         case binding(BindingAction<State>)
         case backButtonTapped
         case nextButtonTapped
+        case sendButtonTapped
 
         // MARK: Inner Business Action
         case _onTask
@@ -41,6 +42,7 @@ struct BoxAddTitleAndShareFeature: Reducer {
     @Dependency(\.continuousClock) var clock
     @Dependency(\.boxClient) var boxClient
     @Dependency(\.dismiss) var dismiss
+    @Dependency(\.kakaoShare) var kakaoShare
 
     var body: some Reducer<State, Action> {
         BindingReducer()
@@ -67,6 +69,13 @@ struct BoxAddTitleAndShareFeature: Reducer {
                     }
                 )
 
+            case .sendButtonTapped:
+                let kakaoMessage = makeKakaoShareMessage(from: state)
+
+                return .run { send in
+                    try await kakaoShare.share(kakaoMessage)
+                }
+
             case ._onTask:
                 return .none
             }
@@ -87,5 +96,14 @@ private extension BoxAddTitleAndShareFeature {
                 print(error)
             }
         }
+    }
+
+    func makeKakaoShareMessage(from state: State) -> KakaoShareMessage {
+        let sender = state.giftBox.senderName
+        let receiver = state.giftBox.receiverName
+        let imageUrl = state.boxDesign.boxFullUrl
+        let link = "https://www.naver.com" // TODO: 링크???
+
+        return KakaoShareMessage(sender: sender, receiver: receiver, imageUrl: imageUrl, link: link)
     }
 }
