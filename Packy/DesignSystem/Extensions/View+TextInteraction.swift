@@ -7,14 +7,26 @@
 
 import SwiftUI
 
-struct TextInteractionAnimationValue {
+extension View {
+    /// 나타났다 사라지는 텍스트 인터액션 표시 (onAppear 에서 즉시 표시되고, duration은 2.4초임)
+    func textInteraction() -> some View {
+        modifier(TextInteractionViewModifier())
+    }
+}
+
+private struct TextInteractionAnimationValue {
     var opacity: CGFloat = 0.3
     var position: CGFloat = 0
 }
 
-extension View {
-    func textInteraction(isShowing: Bool) -> some View {
-        self
+private struct TextInteractionViewModifier: ViewModifier {
+    @State private var isShowing: Bool = false
+
+    func body(content: Content) -> some View {
+        content
+            .onAppear {
+                isShowing = true
+            }
             .keyframeAnimator(
                 initialValue: TextInteractionAnimationValue(),
                 trigger: isShowing
@@ -34,5 +46,6 @@ extension View {
                     LinearKeyframe(0, duration: 0.6)
                 }
             }
+
     }
 }

@@ -89,13 +89,14 @@ struct BoxChoiceView: View {
 private extension BoxChoiceView {
     @ViewBuilder
     var finishedBoxMotionView: some View {
-        // TODO: Text Interaction 구현
         Text("이제 선물박스를\n채우러 가볼까요?")
             .packyFont(.heading1)
+            .textInteraction()
             .foregroundStyle(.gray900)
             .padding(.top, 104)
 
         // Motion Design
+        // TODO: Lottie View 띄우기
         Image(.mock)
             .padding(.top, 50)
 

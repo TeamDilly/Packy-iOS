@@ -137,7 +137,7 @@ private extension BoxChoiceFeature {
         .run { send in
             await send(._setIsPresentingFinishedMotionView(true))
             // TODO: 애니메이션 부여 시간 만큼 지연 _ 차후 기획측과 논의
-            try? await clock.sleep(for: .seconds(1))
+            try? await clock.sleep(for: .seconds(1.6))
 
             await send(.delegate(.moveToBoxStartGuide(passingData)))
 

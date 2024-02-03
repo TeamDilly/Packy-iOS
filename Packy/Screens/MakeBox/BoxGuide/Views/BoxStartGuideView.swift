@@ -202,7 +202,7 @@ private extension BoxStartGuideView {
                 .packyFont(.heading2)
                 .foregroundStyle(.white)
                 .multilineTextAlignment(.center)
-                .textInteraction(isShowing: isShowingGuideText)
+                .textInteraction()
         }
         .onAppear {
             isShowingGuideText = true

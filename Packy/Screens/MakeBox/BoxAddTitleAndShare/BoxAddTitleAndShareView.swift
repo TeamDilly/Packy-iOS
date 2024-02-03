@@ -91,6 +91,7 @@ private extension BoxAddTitleAndShareView {
                     Text("\(viewStore.giftBox.receiverName)님에게\n선물박스를 보내보세요")
                 } else {
                     Text("\(viewStore.giftBox.receiverName)님을 위한\n선물박스가 완성되었어요!")
+                        
                 }
             }
             .packyFont(.heading1)
