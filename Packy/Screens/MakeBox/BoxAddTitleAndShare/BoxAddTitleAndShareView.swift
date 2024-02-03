@@ -63,13 +63,13 @@ struct BoxAddTitleAndShareView: View {
         .popGestureDisabled()
         .makeTapToHideKeyboard()
         .navigationBarBackButtonHidden(true)
-        .onAppear {
-            isFocused = true
-        }
         .task {
             await viewStore
                 .send(._onTask)
                 .finish()
+
+            try? await Task.sleep(for: .seconds(0.1))
+            isFocused = true
         }
         .onDisappear(perform: {
             print("disappear???")

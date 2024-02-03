@@ -83,6 +83,10 @@ extension NavigationBar {
             }
         )
     }
+
+    static func onlyLeftCloseButton(action: @escaping () -> Void) -> Self {
+        NavigationBar(leftIcon: Image(.xmark), leftIconAction: { action() })
+    }
 }
 
 // MARK: - Preview
