@@ -26,7 +26,6 @@ struct CloseButton: View {
 
     var body: some View {
         Button("") {
-            HapticManager.shared.fireFeedback(.soft)
             action()
         }
         .buttonStyle(

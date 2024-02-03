@@ -39,8 +39,10 @@ struct FloatingNavigationBar: View {
             Spacer()
 
             Button {
+                if case .text = trailingType {
+                    HapticManager.shared.fireFeedback(.medium)
+                }
                 trailingAction()
-                HapticManager.shared.fireFeedback(.medium)
             } label: {
                 trailingButton
             }

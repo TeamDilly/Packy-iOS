@@ -95,7 +95,7 @@ private extension BoxChoiceView {
     var finishedBoxMotionView: some View {
         Text("이제 선물박스를\n채우러 가볼까요?")
             .packyFont(.heading1)
-            .textInteraction()
+            .textInteraction(initialDelay: 0.5)
             .foregroundStyle(.gray900)
             .padding(.top, 104)
 
