@@ -11,22 +11,25 @@ import SwiftUI
 public struct ReadableScrollView<Content: View>: View {
     @Namespace var offsetReadSpace
 
+    let axis: Axis.Set
     let content: Content
     let offsetChanged: (CGFloat) -> Void
     let isPageStyle: Bool
 
     public init(
+        axis: Axis.Set = .vertical,
         isPageStyle: Bool = false,
         @ViewBuilder content: @escaping () -> Content,
         offsetChanged: @escaping (CGFloat) -> Void
     ) {
+        self.axis = axis
         self.content = content()
         self.isPageStyle = isPageStyle
         self.offsetChanged = offsetChanged
     }
 
     public var body: some View {
-        ScrollView(showsIndicators: false) {
+        ScrollView(axis, showsIndicators: false) {
             VStack(spacing: 0) {
                 offsetReaderView
 
