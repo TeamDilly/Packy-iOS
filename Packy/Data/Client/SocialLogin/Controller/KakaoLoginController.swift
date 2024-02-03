@@ -46,10 +46,12 @@ final class KakaoLoginController {
 
             if let error {
                 continuation?.resume(throwing: error)
+                continuation = nil
                 return
             }
             guard let oauthToken else {
                 continuation?.resume(throwing: KakaoLoginError.invalidToken)
+                continuation = nil
                 return
             }
 
@@ -63,10 +65,12 @@ final class KakaoLoginController {
 
             if let error {
                 continuation?.resume(throwing: error)
+                continuation = nil
                 return
             }
             guard let oauthToken else {
                 continuation?.resume(throwing: KakaoLoginError.invalidToken)
+                continuation = nil
                 return
             }
 
@@ -77,6 +81,7 @@ final class KakaoLoginController {
     private func fetchUserInfo(accessToken: String) {
         UserApi.shared.me { [weak self] user, error in
             guard let self else { return }
+            defer { continuation = nil }
 
             if let error {
                 continuation?.resume(throwing: error)

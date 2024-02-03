@@ -39,6 +39,7 @@ final class AppleLoginController: NSObject, ASAuthorizationControllerDelegate {
     ) {
         guard let credential = authorization.credential as? ASAuthorizationAppleIDCredential else {
             continuation?.resume(throwing: AppleLoginError.invalidCredential)
+            continuation = nil
             return
         }
 
@@ -51,12 +52,14 @@ final class AppleLoginController: NSObject, ASAuthorizationControllerDelegate {
         guard let tokenData = credential.identityToken,
               let token = String(data: tokenData, encoding: .utf8) else {
             continuation?.resume(throwing: AppleLoginError.invalidIdentityToken)
+            continuation = nil
             return
         }
 
         guard let authorizationCode = credential.authorizationCode,
               let codeString = String(data: authorizationCode, encoding: .utf8) else {
             continuation?.resume(throwing: AppleLoginError.invalidAuthorizationCode)
+            continuation = nil
             return
         }
         print("🍎 appleLogin token \(token)")
@@ -72,6 +75,7 @@ final class AppleLoginController: NSObject, ASAuthorizationControllerDelegate {
             provider: .apple
         )
         continuation?.resume(returning: info)
+        continuation = nil
     }
 
     func authorizationController(
@@ -79,5 +83,6 @@ final class AppleLoginController: NSObject, ASAuthorizationControllerDelegate {
         didCompleteWithError error: Error
     ) {
         continuation?.resume(throwing: error)
+        continuation = nil
     }
 }
