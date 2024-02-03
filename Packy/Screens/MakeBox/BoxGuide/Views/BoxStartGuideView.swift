@@ -223,7 +223,8 @@ private extension BoxStartGuideView {
     func letterView(_ screenWidth: CGFloat) -> some View {
         if viewStore.savedLetter.isCompleted {
             LetterElementView(
-                input: viewStore.savedLetter,
+                lettetContent: viewStore.savedLetter.letter,
+                letterImageUrl: viewStore.savedLetter.selectedLetterDesign?.imageUrl ?? "",
                 screenWidth: screenWidth
             ) {
                 viewStore.send(.letterInputButtonTapped)

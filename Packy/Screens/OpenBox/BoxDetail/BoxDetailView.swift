@@ -48,6 +48,7 @@ struct BoxDetailView: View {
                         .zIndex(1)
                         .ignoresSafeArea()
                         .transition(.move(edge: .top))
+                        .offset(y: isOnNextPage ? -200 : 0)
                 }
 
                 navigationBar
@@ -77,6 +78,7 @@ struct BoxDetailView: View {
                     .blur(radius: viewStore.presentingState != .detail ? 3 : 0)
                 }
             }
+            .animation(.spring, value: isOnNextPage)
         }
         .background(.gray900)
         .animation(.easeInOut, value: viewStore.presentingState)
@@ -125,7 +127,7 @@ private extension BoxDetailView {
 
         BoxDetailLetterView(
             text: viewStore.letterContent,
-            borderColor: .pink300
+            borderColor: Color(hexString: viewStore.envelope.borderColorCode)
         )
         .padding(.horizontal, 24)
         .opacity(viewStore.presentingState == .letter ? 1 : 0)
@@ -196,7 +198,8 @@ private extension BoxDetailView {
 
                     // 편지
                     LetterElementView(
-                        input: .init(selectedLetterDesign: nil, letter: viewStore.letterContent),
+                        lettetContent: viewStore.letterContent,
+                        letterImageUrl: viewStore.envelope.imgUrl,
                         screenWidth: screenWidth
                     ) {
                         viewStore.send(.binding(.set(\.$presentingState, .letter)))
