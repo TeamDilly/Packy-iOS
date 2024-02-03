@@ -15,6 +15,8 @@ import YouTubePlayerKit
 struct BoxStartGuideView: View {
     private let store: StoreOf<BoxStartGuideFeature>
     @ObservedObject var viewStore: ViewStoreOf<BoxStartGuideFeature>
+    
+    @State private var isShowingGuideText: Bool = false
 
     private let strokeStyle: StrokeStyle = .init(lineWidth: 1.5, dash: [5])
 
@@ -191,16 +193,21 @@ struct BoxStartGuideView: View {
 
 private extension BoxStartGuideView {
     var guideOverlayView: some View {
-        Color.black
-            .opacity(0.7)
-            .ignoresSafeArea()
-            .zIndex(1)
-            .overlay {
-                Text("빈 공간을 눌러서\n선물박스를 채워보세요")
-                    .packyFont(.heading2)
-                    .foregroundStyle(.white)
-                    .multilineTextAlignment(.center)
-            }
+        return ZStack {
+            Color.black
+                .opacity(0.7)
+                .ignoresSafeArea()
+
+            Text("빈 공간을 눌러서\n선물박스를 채워보세요")
+                .packyFont(.heading2)
+                .foregroundStyle(.white)
+                .multilineTextAlignment(.center)
+                .textInteraction(isShowing: isShowingGuideText)
+        }
+        .onAppear {
+            isShowingGuideText = true
+        }
+        .zIndex(1)
     }
 
     @ViewBuilder

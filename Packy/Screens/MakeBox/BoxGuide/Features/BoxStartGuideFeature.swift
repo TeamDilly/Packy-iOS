@@ -150,8 +150,8 @@ struct BoxStartGuideFeature: Reducer {
                         await userDefaults.setBool(true, .didEnteredBoxGuide)
                     },
                     .run { send in
-                        try? await clock.sleep(for: .seconds(1))
-                        await send(._setIsShowingGuideText(false), animation: .spring)
+                        try? await clock.sleep(for: .seconds(1.6))
+                        await send(._setIsShowingGuideText(false), animation: .spring(duration: 1))
                     },
                     // 디자인들 조회...
                     fetchLetterDesigns(),
