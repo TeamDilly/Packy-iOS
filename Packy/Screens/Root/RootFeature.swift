@@ -24,6 +24,7 @@ struct RootFeature: Reducer {
         // MARK: Inner Business Action
         case _onAppear
         case _changeScreen(State)
+        case _handleScheme(QueryParameters)
 
         // MARK: Inner SetState Action
 
@@ -54,6 +55,17 @@ struct RootFeature: Reducer {
             case let ._changeScreen(newState):
                 state = newState
                 return .none
+
+            case let ._handleScheme(queryParameters):
+                guard let boxIdString = queryParameters["boxId"],
+                      let boxId = Int(boxIdString),
+                      keychain.read(.accessToken) != nil else {
+                    return .none
+                }
+
+                return .run { send in
+                    await send(._changeScreen(.home(.init(path: .init([.boxOpen(BoxOpenFeature.State(boxId: boxId))])))))
+                }
 
             case let .intro(action):
                 switch action {

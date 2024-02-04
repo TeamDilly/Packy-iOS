@@ -24,12 +24,7 @@ struct PackyApp: App {
                 .packyGlobalAlert()
                 .onOpenURL { url in
                     socialLogin.handleKakaoUrlIfNeeded(url)
-
-                    // TODO: DeepLink Scheme 처리
-                    print(url)
-                    print(url.scheme)
-                    print(url.pathComponents)
-                    print(url.path())
+                    store.send(._handleScheme(url.queryParameters))
                 }
         }
     }
