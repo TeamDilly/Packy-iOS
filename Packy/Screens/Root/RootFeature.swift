@@ -70,6 +70,10 @@ struct RootFeature: Reducer {
                     return .none
                 }
 
+            // 회원탈퇴 완료 시 로그인 화면으로 이동
+            case .home(.path(.element(id: _, action: .deleteAccount(.delegate(.completedSignOut))))):
+                return .send(._changeScreen(.intro(.login())), animation: .spring)
+
             default:
                 return .none
             }
