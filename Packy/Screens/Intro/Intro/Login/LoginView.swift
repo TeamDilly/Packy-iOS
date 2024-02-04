@@ -23,7 +23,7 @@ struct LoginView: View {
         VStack(spacing: 0) {
             Spacer()
 
-            Image(.packyLogo)
+            Image(.packyLogoPurple)
                 .padding(.bottom, 24)
                 .padding(.top, 24)
             Text("마음으로 채우는 특별한 선물박스")

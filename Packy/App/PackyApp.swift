@@ -17,11 +17,9 @@ struct PackyApp: App {
     }
 
     let store = Store(initialState: RootFeature.State()) { RootFeature() }
-    let boxDetailStore = Store(initialState: BoxDetailFeature.State()) { BoxDetailFeature() }
 
     var body: some Scene {
         WindowGroup {
-            // BoxDetailView(store: boxDetailStore)
             RootView(store: store)
                 .packyGlobalAlert()
                 .onOpenURL { url in

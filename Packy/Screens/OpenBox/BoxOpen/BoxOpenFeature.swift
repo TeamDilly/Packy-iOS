@@ -32,11 +32,15 @@ struct BoxOpenFeature: Reducer {
         // MARK: Inner SetState Action
         case _setReceivedGiftBox(ReceivedGiftBox)
 
-        // MARK: Child Action
-
+        // MARK: Delegate Action
+        enum Delegate {
+            case moveToBoxDetail(ReceivedGiftBox)
+        }
+        case delegate(Delegate)
     }
 
     @Dependency(\.boxClient) var boxClient
+    @Dependency(\.continuousClock) var clock
 
     var body: some Reducer<State, Action> {
         Reduce<State, Action> { state, action in
@@ -49,11 +53,18 @@ struct BoxOpenFeature: Reducer {
                 }
 
             case .openBoxButtonTapped:
+                guard let giftBox = state.giftBox else { return .none }
                 state.showingState = .openMotion
-                return .none
+                return .run { send in
+                    try? await clock.sleep(for: .seconds(3)) // TODO: 모션디자인 시간만큼 지연
+                    await send(.delegate(.moveToBoxDetail(giftBox)))
+                }
 
             case let ._setReceivedGiftBox(giftBox):
                 state.giftBox = giftBox
+                return .none
+
+            default:
                 return .none
             }
         }

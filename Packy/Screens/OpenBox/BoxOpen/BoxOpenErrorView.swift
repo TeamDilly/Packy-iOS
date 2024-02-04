@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import ComposableArchitecture
 
 struct BoxOpenErrorView: View {
     var body: some View {
