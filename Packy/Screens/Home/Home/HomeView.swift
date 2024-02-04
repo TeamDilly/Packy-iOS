@@ -51,6 +51,13 @@ struct HomeView: View {
                      action: HomeNavigationPath.Action.manageAccount,
                      then: ManageAccountView.init
                 )
+
+            case .deleteAccount:
+                CaseLet(
+                    \HomeNavigationPath.State.deleteAccount,
+                     action: HomeNavigationPath.Action.deleteAccount,
+                     then: DeleteAccountView.init
+                )
             }
         }
     }

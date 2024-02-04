@@ -20,14 +20,54 @@ struct ManageAccountView: View {
     }
 
     var body: some View {
-        List {
-            Text("Hello, ManageAccount!")
-            TextField("Binding Text", text: viewStore.$textInput)
+        VStack(spacing: 0) {
+            NavigationBar(title: "계정 관리", leftIcon: Image(.arrowLeft), leftIconAction: {
+                viewStore.send(.backButtonTapped)
+            })
+            .padding(.top, 8)
+
+            VStack(spacing: 24) {
+                connectedSocialAccountView
+
+                NavigationLink(state: HomeNavigationPath.State.deleteAccount()) {
+                    SettingListCell(title: "회원탈퇴")
+                }
+            }
+            .padding(24)
+
+            Spacer()
         }
+        .navigationBarBackButtonHidden(true)
         .task {
             await viewStore
                 .send(._onTask)
                 .finish()
+        }
+    }
+}
+
+private extension ManageAccountView {
+    var connectedSocialAccountView: some View {
+        HStack(spacing: 4) {
+            Text("연결된 계정")
+                .packyFont(.body2)
+                .foregroundStyle(.gray900)
+
+            Spacer()
+
+            let provider: SocialLoginProvider = .apple
+            Text(provider.description)
+                .packyFont(.body4)
+                .foregroundStyle(.gray600)
+
+            Circle()
+                .fill(provider.backgroundColor)
+                .frame(width: 24, height: 24)
+                .overlay {
+                    Image(provider.imageResource)
+                        .resizable()
+                        .frame(width: 12, height: 12)
+                }
         }
     }
 }

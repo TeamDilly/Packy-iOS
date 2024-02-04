@@ -6,8 +6,34 @@
 //
 
 import Foundation
+import SwiftUI
 
 enum SocialLoginProvider: String, Encodable {
     case kakao
     case apple
+}
+
+// MARK: - Presenting
+
+extension SocialLoginProvider {
+    var description: String {
+        switch self {
+        case .apple:    return "Apple"
+        case .kakao:    return "카카오"
+        }
+    }
+
+    var imageResource: ImageResource {
+        switch self {
+        case .apple:    return .apple
+        case .kakao:    return .kakao
+        }
+    }
+
+    var backgroundColor: Color {
+        switch self {
+        case .apple:    return .black
+        case .kakao:    return .init(hex: 0xFEE500)
+        }
+    }
 }

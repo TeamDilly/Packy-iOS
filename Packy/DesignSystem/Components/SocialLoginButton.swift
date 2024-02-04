@@ -8,30 +8,25 @@
 import SwiftUI
 
 struct SocialLoginButton: View {
-    enum LoginType {
-        case apple
-        case kakao
-    }
-
-    let loginType: LoginType
+    let loginType: SocialLoginProvider
     let action: () -> Void
 
     var body: some View {
         Button(action: action) {
             HStack(spacing: 8) {
-                logoImage
+                Image(loginType.imageResource)
                     .resizable()
                     .scaledToFit()
                     .frame(width: 22, height: 22)
 
-                Text(title)
+                Text("\(loginType.description)로 로그인")
                     .packyFont(.body2)
                     .foregroundStyle(textColor)
             }
             .padding(.vertical, 16)
             .padding(.horizontal, 12)
             .frame(maxWidth: .infinity)
-            .background(backgroundColor)
+            .background(loginType.backgroundColor)
             .clipShape(RoundedRectangle(cornerRadius: 16))
         }
     }
@@ -40,28 +35,6 @@ struct SocialLoginButton: View {
 // MARK: - Inner Properties
 
 private extension SocialLoginButton {
-    // TODO: 아직 상세 디자인 가이드가 안나와서, 차후 변경해야 함
-    var logoImage: Image {
-        switch loginType {
-        case .apple:    return Image(.apple)
-        case .kakao:    return Image(.kakao)
-        }
-    }
-
-    var title: String {
-        switch loginType {
-        case .apple:    return "Apple로 로그인"
-        case .kakao:    return "카카오로 로그인"
-        }
-    }
-
-    var backgroundColor: Color {
-        switch loginType {
-        case .apple:    return .black
-        case .kakao:    return .init(hex: 0xFEE500)
-        }
-    }
-
     var textColor: Color {
         switch loginType {
         case .apple:    return .white
