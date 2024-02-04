@@ -74,7 +74,14 @@ private extension LoginFeature {
         do {
             await send(._setSocialLoginInfo(info))
 
-            let response = try await authClient.signIn(.init(provider: info.provider, authorization: info.authorization))
+            let response: SignInResponse
+            switch info.provider {
+            case .kakao:
+                response = try await authClient.signIn(.init(provider: info.provider, authorization: info.authorization))
+            case .apple:
+                // 애플은 로그인 시 identityToken
+                response = try await authClient.signIn(.init(provider: info.provider, authorization: info.identityToken ?? ""))
+            }
 
             guard response.status == .registered,
                   let tokenInfo = response.tokenInfo,

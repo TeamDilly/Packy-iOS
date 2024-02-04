@@ -10,13 +10,14 @@ import Foundation
 struct SocialLoginInfo: Equatable {
     let id: String
     let authorization: String
-    let name: String?
-    let email: String?
+    var identityToken: String?
+    var name: String?
+    var email: String?
     let provider: SocialLoginProvider
 }
 
 // MARK: - Mock Data
 
 extension SocialLoginInfo {
-    static let mock = SocialLoginInfo(id: "", authorization: "", name: "mason", email: "packy@dilly.com", provider: .apple)
+    static let mock = SocialLoginInfo(id: "", authorization: "", identityToken: "", name: "mason", email: "packy@dilly.com", provider: .apple)
 }

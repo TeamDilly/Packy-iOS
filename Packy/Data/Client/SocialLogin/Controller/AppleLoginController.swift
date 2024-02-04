@@ -69,7 +69,8 @@ final class AppleLoginController: NSObject, ASAuthorizationControllerDelegate {
 
         let info = SocialLoginInfo(
             id: userIdentifier,
-            authorization: codeString,
+            authorization: codeString, 
+            identityToken: token,
             name: String(describing: fullName),
             email: email,
             provider: .apple
