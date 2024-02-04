@@ -11,12 +11,12 @@ struct KakaoShareMessage: Encodable {
     let sender: String
     let receiver: String
     let imageUrl: String
-    let link: String
+    let boxId: String
 
     enum CodingKeys: String, CodingKey {
         case sender
         case receiver
         case imageUrl = "image_url"
-        case link
+        case boxId
     }
 }

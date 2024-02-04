@@ -42,10 +42,10 @@ struct BoxAddTitleAndShareView: View {
                     .multilineTextAlignment(.center)
 
                 PackyTextField(text: viewStore.$boxNameInput, placeholder: "12자 이내로 입력해주세요")
+                    .focused($isFocused)
                     .limitTextLength(text: viewStore.$boxNameInput, length: 12)
                     .padding(.horizontal, 24)
                     .padding(.top, 40)
-                    .focused($isFocused)
 
                 Spacer()
 

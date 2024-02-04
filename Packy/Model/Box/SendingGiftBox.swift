@@ -11,7 +11,7 @@ struct SendingGiftBox: Encodable, Equatable {
     var name: String
     let senderName: String
     let receiverName: String
-    let boxId: Int
+    var boxId: Int?
     let envelopeId: Int
     let letterContent: String
     let youtubeUrl: String

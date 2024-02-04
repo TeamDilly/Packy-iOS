@@ -35,6 +35,7 @@ struct BoxAddTitleAndShareFeature: Reducer {
         case _onTask
 
         // MARK: Inner SetState Action
+        case _setBoxId(Int)
 
         // MARK: Child Action
     }
@@ -76,6 +77,10 @@ struct BoxAddTitleAndShareFeature: Reducer {
                     try await kakaoShare.share(kakaoMessage)
                 }
 
+            case let ._setBoxId(boxId):
+                state.giftBox.boxId = boxId
+                return .none
+
             case ._onTask:
                 return .none
             }
@@ -91,7 +96,7 @@ private extension BoxAddTitleAndShareFeature {
         return .run { send in
             do {
                 let response = try await boxClient.makeGiftBox(giftBox)
-                print(response)
+                await send(._setBoxId(response.id))
             } catch {
                 print(error)
             }
@@ -102,8 +107,8 @@ private extension BoxAddTitleAndShareFeature {
         let sender = state.giftBox.senderName
         let receiver = state.giftBox.receiverName
         let imageUrl = state.boxDesign.boxFullUrl
-        let link = "https://www.naver.com" // TODO: 링크???
+        let boxId = state.giftBox.boxId
 
-        return KakaoShareMessage(sender: sender, receiver: receiver, imageUrl: imageUrl, link: link)
+        return KakaoShareMessage(sender: sender, receiver: receiver, imageUrl: imageUrl, boxId: "\(boxId ?? -1)")
     }
 }

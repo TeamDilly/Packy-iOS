@@ -264,7 +264,7 @@ private extension BoxStartGuideFeature {
     func giftBoxFrom(state: State) -> SendingGiftBox {
         let senderName = state.senderInfo.to
         let receiverName = state.senderInfo.from
-        let boxId = state.selectedBox?.id ?? 0
+        let boxId = state.selectedBox?.id
         let envelopeId = state.savedLetter.selectedLetterDesign?.id ?? 0
         let letterContent = state.savedLetter.letter
         let youtubeUrl = state.savedMusic.selectedMusicUrl ?? ""
