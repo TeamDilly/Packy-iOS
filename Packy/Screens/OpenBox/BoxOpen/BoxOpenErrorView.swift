@@ -9,6 +9,12 @@ import SwiftUI
 import ComposableArchitecture
 
 struct BoxOpenErrorView: View {
+    @ObservedObject private var viewStore: ViewStoreOf<BoxOpenFeature>
+
+    init(viewStore: ViewStoreOf<BoxOpenFeature>) {
+        self.viewStore = viewStore
+    }
+
     var body: some View {
         VStack(spacing: 0) {
 
@@ -31,12 +37,12 @@ struct BoxOpenErrorView: View {
 
             VStack(spacing: 8) {
                 PackyButton(title: "확인", colorType: .black) {
-
+                    viewStore.send(.errorConfirmButtonTapped)
                 }
                 .padding(.bottom, 8)
 
                 Button("문의하기") {
-
+                    // TODO: 문의하기 액션?
                 }
                 .buttonStyle(TextButtonStyle())
                 .padding(.bottom, 20)
@@ -47,5 +53,13 @@ struct BoxOpenErrorView: View {
 }
 
 #Preview {
-    BoxOpenErrorView()
+    BoxOpenErrorView(
+        viewStore: .init(.init(
+            initialState: .init(boxId: 0),
+            reducer: {
+                BoxOpenFeature()
+                    ._printChanges()
+            }
+        ), observe: { $0 })
+    )
 }

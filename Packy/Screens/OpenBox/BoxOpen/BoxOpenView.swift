@@ -28,8 +28,12 @@ struct BoxOpenView: View {
                 }
             case .openMotion:
                 motionView
+
+            case .openError:
+                BoxOpenErrorView(viewStore: viewStore)
             }
         }
+        .navigationBarBackButtonHidden()
         .task {
             await viewStore
                 .send(._onTask)
@@ -44,7 +48,7 @@ private extension BoxOpenView {
     func openBoxContent(_ giftBox: ReceivedGiftBox) -> some View {
         VStack(spacing: 0) {
             NavigationBar.onlyLeftCloseButton {
-                // TODO: dismiss
+                viewStore.send(.closeButtonTapped)
             }
             Spacer()
 

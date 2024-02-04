@@ -14,6 +14,7 @@ struct HomeNavigationPath {
     enum State: Equatable {
         case myBox(MyBoxFeature.State = .init())
         case boxDetail(BoxDetailFeature.State)
+        case boxOpen(BoxOpenFeature.State)
 
         case setting(SettingFeature.State = .init())
         case manageAccount(ManageAccountFeature.State = .init())
@@ -28,6 +29,8 @@ struct HomeNavigationPath {
     enum Action {
         case myBox(MyBoxFeature.Action)
         case boxDetail(BoxDetailFeature.Action)
+        case boxOpen(BoxOpenFeature.Action)
+
         case setting(SettingFeature.Action)
         case manageAccount(ManageAccountFeature.Action)
         case deleteAccount(DeleteAccountFeature.Action)
@@ -41,6 +44,7 @@ struct HomeNavigationPath {
     var body: some Reducer<State, Action> {
         Scope(state: \.myBox, action: \.myBox) { MyBoxFeature() }
         Scope(state: \.boxDetail, action: \.boxDetail) { BoxDetailFeature() }
+        Scope(state: \.boxOpen, action: \.boxOpen) { BoxOpenFeature() }
 
         Scope(state: \.setting, action: \.setting) { SettingFeature() }
         Scope(state: \.manageAccount, action: \.manageAccount) { ManageAccountFeature() }
@@ -72,6 +76,21 @@ extension HomeFeature {
 
                 case let .element(id: _, action: .startGuide(.delegate(.moveToAddTitle(giftBox, boxDesign)))):
                     state.path.append(.addTitle(.init(giftBox: giftBox, boxDesign: boxDesign)))
+                    return .none
+
+                case let .element(id: _, action: .boxOpen(.delegate(.moveToBoxDetail(giftBox)))):
+                    state.path.append(.boxDetail(.init(giftBox: giftBox)))
+                    return .none
+
+                /// Box Open 닫기 시,
+                case .element(id: _, action: .boxDetail(.delegate(.closeBoxOpen))):
+                    let hasBoxOpen = state.path.contains { state in
+                        guard case .boxOpen = state else { return false }
+                        return true
+                    }
+                    if hasBoxOpen {
+                        state.path.removeAll()
+                    }
                     return .none
 
                 default:

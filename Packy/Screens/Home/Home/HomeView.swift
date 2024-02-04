@@ -39,6 +39,13 @@ struct HomeView: View {
                      then: BoxDetailView.init
                 )
 
+            case .boxOpen:
+                CaseLet(
+                    \HomeNavigationPath.State.boxOpen,
+                     action: HomeNavigationPath.Action.boxOpen,
+                     then: BoxOpenView.init
+                )
+
             case .setting:
                 CaseLet(
                     \HomeNavigationPath.State.setting,
