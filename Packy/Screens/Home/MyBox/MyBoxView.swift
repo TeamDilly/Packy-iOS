@@ -32,8 +32,13 @@ struct MyBoxView: View {
             )
             .padding(.top, 26)
 
-            // boxGridView
-            emptyStateView
+            Group {
+                boxGridTabView
+                // emptyStateView
+            }
+            .animation(.spring, value: viewStore.selectedTab)
+            .background(.gray100)
+            .safeAreaPadding(.bottom, 30)
 
             Spacer()
         }
@@ -49,14 +54,26 @@ struct MyBoxView: View {
 // MARK: - Inner Views
 
 private extension MyBoxView {
-    var boxGridView: some View {
+    var boxGridTabView: some View {
+        TabView(selection: viewStore.$selectedTab) {
+            boxGridView(.sentBox)
+                .tag(MyBoxTab.sentBox)
+
+            boxGridView(.receivedBox)
+                .tag(MyBoxTab.receivedBox)
+        }
+        .tabViewStyle(.page(indexDisplayMode: .never))
+        .ignoresSafeArea(edges: .bottom)
+    }
+
+    func boxGridView(_ tab: MyBoxTab) -> some View {
         let columns = [GridItem(spacing: 16), GridItem(spacing: 16)]
 
         return ScrollView {
             LazyVGrid(columns: columns, spacing: 16) {
                 ForEach(1...10, id: \.self) { index in
                     MyBoxInfoCell(
-                        tabInfo: viewStore.selectedTab,
+                        tabInfo: tab,
                         boxUrl: "https://picsum.photos/200",
                         senderReceiver: "hello",
                         boxTitle: String(repeating: "선물", count: index),
@@ -67,17 +84,26 @@ private extension MyBoxView {
             .padding(24)
         }
         .scrollIndicators(.hidden)
-        .background(.gray100)
-        .safeAreaPadding(.bottom, 30)
     }
 
     var emptyStateView: some View {
-        VStack {
+        VStack(spacing: 0) {
             Text("아직 보낸 선물박스가 없어요")
-            Text("패키의 선물박스로 마음을 나눠보아요")
-            
+                .packyFont(.heading2)
+                .foregroundStyle(.gray900)
+                .padding(.bottom, 4)
 
+            Text("패키의 선물박스로 마음을 나눠보아요")
+                .packyFont(.body4)
+                .foregroundStyle(.gray900)
+                .padding(.bottom, 24)
+
+            Button("선물박스 만들기") {
+
+            }
+            .buttonStyle(.box(color: .primary, size: .roundMedium, trailingImage: .arrowRight))
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
     }
 }
 
