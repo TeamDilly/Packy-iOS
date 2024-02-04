@@ -116,7 +116,6 @@
 		E5A7AA552B57F81400590EA6 /* BoxChoiceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7A9DD2B57F81400590EA6 /* BoxChoiceView.swift */; };
 		E5A7AA562B57F81400590EA6 /* BoxChoiceFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7A9DE2B57F81400590EA6 /* BoxChoiceFeature.swift */; };
 		E5A7AA572B57F81400590EA6 /* BoxStartGuideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7A9DF2B57F81400590EA6 /* BoxStartGuideView.swift */; };
-		E5A7AA582B57F81400590EA6 /* MakeBoxFeature+Navigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7A9E02B57F81400590EA6 /* MakeBoxFeature+Navigation.swift */; };
 		E5A7AA592B57F81400590EA6 /* BoxStartGuideFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7A9E12B57F81400590EA6 /* BoxStartGuideFeature.swift */; };
 		E5A7AA5A2B57F81400590EA6 /* MakeBoxFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7A9E22B57F81400590EA6 /* MakeBoxFeature.swift */; };
 		E5A7AA5B2B57F81400590EA6 /* MakeBoxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7A9E32B57F81400590EA6 /* MakeBoxView.swift */; };
@@ -306,7 +305,6 @@
 		E5A7A9DD2B57F81400590EA6 /* BoxChoiceView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoxChoiceView.swift; sourceTree = "<group>"; };
 		E5A7A9DE2B57F81400590EA6 /* BoxChoiceFeature.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoxChoiceFeature.swift; sourceTree = "<group>"; };
 		E5A7A9DF2B57F81400590EA6 /* BoxStartGuideView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoxStartGuideView.swift; sourceTree = "<group>"; };
-		E5A7A9E02B57F81400590EA6 /* MakeBoxFeature+Navigation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MakeBoxFeature+Navigation.swift"; sourceTree = "<group>"; };
 		E5A7A9E12B57F81400590EA6 /* BoxStartGuideFeature.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoxStartGuideFeature.swift; sourceTree = "<group>"; };
 		E5A7A9E22B57F81400590EA6 /* MakeBoxFeature.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MakeBoxFeature.swift; sourceTree = "<group>"; };
 		E5A7A9E32B57F81400590EA6 /* MakeBoxView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MakeBoxView.swift; sourceTree = "<group>"; };
@@ -1128,7 +1126,6 @@
 		E5E73D482B597BE000729D99 /* MakeBox */ = {
 			isa = PBXGroup;
 			children = (
-				E5A7A9E02B57F81400590EA6 /* MakeBoxFeature+Navigation.swift */,
 				E5A7A9E22B57F81400590EA6 /* MakeBoxFeature.swift */,
 				E5A7A9E32B57F81400590EA6 /* MakeBoxView.swift */,
 			);
@@ -1275,7 +1272,6 @@
 				E54484ED2B6F3E00003DFA1B /* MyBoxView.swift in Sources */,
 				E5FDE05F2B6BAD6D00E00B00 /* ReceivedBox.swift in Sources */,
 				E5A7AA4C2B57F81400590EA6 /* Font+Pretendard.swift in Sources */,
-				E5A7AA582B57F81400590EA6 /* MakeBoxFeature+Navigation.swift in Sources */,
 				E539378C2B67B44F000F3A86 /* StickerElementView.swift in Sources */,
 				E5E06B3A2B654DA200F6FD01 /* SendingSticker.swift in Sources */,
 				E5A7AA5C2B57F81400590EA6 /* IntroFeature.swift in Sources */,

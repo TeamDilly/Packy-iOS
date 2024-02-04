@@ -20,40 +20,6 @@ struct MakeBoxView: View {
     }
 
     var body: some View {
-        NavigationStackStore(store.scope(state: \.path, action: \.path)) {
-            content
-        } destination: { state in
-            switch state {
-            case .boxChoice:
-                CaseLet(
-                    \MakeBoxNavigationPath.State.boxChoice,
-                     action: MakeBoxNavigationPath.Action.boxChoice,
-                     then: BoxChoiceView.init
-                )
-
-            case .startGuide:
-                CaseLet(
-                    \MakeBoxNavigationPath.State.startGuide,
-                     action: MakeBoxNavigationPath.Action.startGuide,
-                     then: BoxStartGuideView.init
-                )
-
-            case .addTitle:
-                CaseLet(
-                    \MakeBoxNavigationPath.State.addTitle,
-                     action: MakeBoxNavigationPath.Action.addTitle,
-                     then: BoxAddTitleAndShareView.init
-                )
-            }
-        }
-    }
-}
-
-// MARK: - Inner Views
-
-private extension MakeBoxView {
-
-    var content: some View {
         VStack(spacing: 0) {
             NavigationBar.onlyBackButton {
                 viewStore.send(.backButtonTapped)
@@ -81,7 +47,7 @@ private extension MakeBoxView {
 
             Spacer()
 
-            let destinationState = MakeBoxNavigationPath.State.boxChoice(
+            let destinationState = HomeNavigationPath.State.boxChoice(
                 .init(senderInfo: .init(to: viewStore.boxSendTo, from: viewStore.boxSendFrom))
             )
 

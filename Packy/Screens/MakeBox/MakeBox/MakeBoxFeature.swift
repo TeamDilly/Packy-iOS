@@ -17,8 +17,6 @@ struct MakeBoxFeature: Reducer {
         var nextButtonEnabled: Bool {
             !boxSendTo.isEmpty && !boxSendFrom.isEmpty
         }
-
-        var path: StackState<MakeBoxNavigationPath.State> = .init()
     }
 
     @Dependency(\.dismiss) var dismiss
@@ -30,17 +28,11 @@ struct MakeBoxFeature: Reducer {
 
         // MARK: Inner Business Action
         case _onTask
-
-        // MARK: Inner SetState Action
-
-        // MARK: Child Action
-        case path(StackAction<MakeBoxNavigationPath.State, MakeBoxNavigationPath.Action>)
     }
 
 
     var body: some Reducer<State, Action> {
         BindingReducer()
-        navigationReducer
 
         Reduce<State, Action> { state, action in
             switch action {

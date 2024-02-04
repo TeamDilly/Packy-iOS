@@ -24,12 +24,6 @@ struct HomeView: View {
             content
         } destination: { state in
             switch state {
-            case .makeBox:
-                CaseLet(
-                    \HomeNavigationPath.State.makeBox,
-                     action: HomeNavigationPath.Action.makeBox,
-                     then: MakeBoxView.init
-                )
 
             case .myBox:
                 CaseLet(
@@ -65,6 +59,34 @@ struct HomeView: View {
                      action: HomeNavigationPath.Action.deleteAccount,
                      then: DeleteAccountView.init
                 )
+
+            case .makeBox:
+                CaseLet(
+                    \HomeNavigationPath.State.makeBox,
+                     action: HomeNavigationPath.Action.makeBox,
+                     then: MakeBoxView.init
+                )
+
+            case .boxChoice:
+                CaseLet(
+                    \HomeNavigationPath.State.boxChoice,
+                     action: HomeNavigationPath.Action.boxChoice,
+                     then: BoxChoiceView.init
+                )
+
+            case .startGuide:
+                CaseLet(
+                    \HomeNavigationPath.State.startGuide,
+                     action: HomeNavigationPath.Action.startGuide,
+                     then: BoxStartGuideView.init
+                )
+
+            case .addTitle:
+                CaseLet(
+                    \HomeNavigationPath.State.addTitle,
+                     action: HomeNavigationPath.Action.addTitle,
+                     then: BoxAddTitleAndShareView.init
+                )
             }
         }
     }
@@ -78,9 +100,11 @@ private extension HomeView {
             navigationBar
                 .padding(.top, 8)
 
-            RoundedRectangle(cornerRadius: 24)
-                .fill(.black)
-                .frame(height: 320)
+            NavigationLink(state: HomeNavigationPath.State.makeBox()) {
+                RoundedRectangle(cornerRadius: 24)
+                    .fill(.black)
+                    .frame(height: 320)
+            }
 
             VStack(spacing: 24) {
                 HStack {
