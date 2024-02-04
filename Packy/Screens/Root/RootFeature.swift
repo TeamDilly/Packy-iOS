@@ -14,7 +14,6 @@ struct RootFeature: Reducer {
     enum State: Equatable {
         case intro(IntroFeature.State = .init())
         case home(HomeFeature.State = .init())
-        case makeBox(MakeBoxFeature.State = .init())
 
         init() { self = .intro() }
     }
@@ -31,7 +30,6 @@ struct RootFeature: Reducer {
         // MARK: Child Action
         case intro(IntroFeature.Action)
         case home(HomeFeature.Action)
-        case makeBox(MakeBoxFeature.Action)
     }
 
     @Dependency(\.socialLogin) var socialLogin
@@ -51,8 +49,7 @@ struct RootFeature: Reducer {
                 return .run { send in
                     /// AccessToken 존재 시, home 으로 이동
                     if keychain.read(.accessToken) != nil {
-                        // TODO: 테스트를 위해 makeBox로 이동하도록 처리. 차후 home 으로 변경 필요
-                        await send(._changeScreen(.makeBox()), animation: .spring)
+                        await send(._changeScreen(.home()), animation: .spring)
                     }
 
                     await userDefaults.setBool(true, .isPopGestureEnabled)
@@ -67,7 +64,7 @@ struct RootFeature: Reducer {
                     // 로그인 완료, 회원가입 완료 시 홈으로 이동
                 case .login(.delegate(.completeLogin)),
                      .signUp(.delegate(.completeSignUp)):
-                    return .send(._changeScreen(.makeBox()), animation: .spring)
+                    return .send(._changeScreen(.home()), animation: .spring)
 
                 default:
                     return .none
@@ -79,6 +76,5 @@ struct RootFeature: Reducer {
         }
         .ifCaseLet(\.intro, action: \.intro) { IntroFeature() }
         .ifCaseLet(\.home, action: \.home) { HomeFeature() }
-        .ifCaseLet(\.makeBox, action: \.makeBox) { MakeBoxFeature() }
     }
 }

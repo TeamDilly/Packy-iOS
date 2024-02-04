@@ -24,6 +24,13 @@ struct HomeView: View {
             content
         } destination: { state in
             switch state {
+            case .makeBox:
+                CaseLet(
+                    \HomeNavigationPath.State.makeBox,
+                     action: HomeNavigationPath.Action.makeBox,
+                     then: MakeBoxView.init
+                )
+
             case .myBox:
                 CaseLet(
                     \HomeNavigationPath.State.myBox,
