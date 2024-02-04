@@ -308,20 +308,22 @@ private extension BoxStartGuideView {
                     }
             }
 
+            let isGiftAdded: Bool = viewStore.savedGift.imageUrl != nil
             Button {
                 viewStore.send(.addGiftButtonTapped)
             } label: {
                 HStack(spacing: 8) {
-                    Image(.plus)
+                    Image(isGiftAdded ? .check : .plus)
                         .renderingMode(.template)
                         .resizable()
                         .frame(width: 16, height: 16)
                         .foregroundStyle(.white)
 
-                    Text("선물 담기")
+                    Text(isGiftAdded ? "담은 선물 보기" : "선물 담기")
                         .foregroundStyle(.white)
                         .packyFont(.body4)
                 }
+                .animation(.spring(duration: 1).delay(0.5), value: isGiftAdded)
                 .padding(.vertical, 14)
                 .frame(maxWidth: .infinity)
                 .background {

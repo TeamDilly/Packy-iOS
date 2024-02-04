@@ -40,7 +40,7 @@ extension BoxStartGuideView {
                         ForEach(viewStore.boxDesigns, id: \.id) { boxDesign in
                             Button {
                                 viewStore.send(.selectBox(boxDesign))
-                                HapticManager.shared.fireFeedback(.medium)
+                                HapticManager.shared.fireFeedback(.soft)
                             } label: {
                                 NetworkImage(url: boxDesign.boxFullUrl, contentMode: .fit)
                                     .clipShape(RoundedRectangle(cornerRadius: 12))
