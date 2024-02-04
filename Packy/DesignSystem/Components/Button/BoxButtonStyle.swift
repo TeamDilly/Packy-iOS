@@ -8,8 +8,13 @@
 import SwiftUI
 
 extension ButtonStyle where Self == BoxButtonStyle {
-    static func box() -> BoxButtonStyle {
-        BoxButtonStyle()
+    static func box(
+        color: BoxButtonStyle.ColorType,
+        size: BoxButtonStyle.SizeType,
+        leadingImage: ImageResource? = nil,
+        trailingImage: ImageResource? = nil
+    ) -> BoxButtonStyle {
+        BoxButtonStyle(colorType: color, sizeType: size, leadingImage: leadingImage, trailingImage: trailingImage)
     }
 }
 
@@ -17,9 +22,10 @@ extension ButtonStyle where Self == BoxButtonStyle {
 
 struct BoxButtonStyle: ButtonStyle {
     @Environment(\.isEnabled) private var isEnabled
-    var colorType: ColorType = .primary
-    var sizeType: SizeType = .rectLarge
-    var imageResource: ImageResource = .plus
+    var colorType: ColorType
+    var sizeType: SizeType
+    var leadingImage: ImageResource?
+    var trailingImage: ImageResource?
 
     enum ColorType {
         case primary
@@ -38,16 +44,29 @@ struct BoxButtonStyle: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
         let isPressed = configuration.isPressed
 
-        return HStack(spacing: 12) {
-            Image(imageResource)
-                .renderingMode(.template)
-                .foregroundStyle(textColor)
+        return HStack(spacing: iconSpacing) {
+            if let leadingImage {
+                Image(leadingImage)
+                    .renderingMode(.template)
+                    .resizable()
+                    .frame(width: iconSize, height: iconSize)
+                    .foregroundStyle(textColor)
+            }
 
             configuration.label
                 .packyFont(packyFont)
                 .foregroundStyle(textColor)
+
+            if let trailingImage {
+                Image(trailingImage)
+                    .renderingMode(.template)
+                    .resizable()
+                    .frame(width: iconSize, height: iconSize)
+                    .foregroundStyle(textColor)
+            }
         }
         .padding(.horizontal, 24)
+        .padding(.vertical, verticalPadding)
         .background {
             RoundedRectangle(cornerRadius: cornerRadius)
                 .fill(backgroundColor(isPressed: isPressed))
@@ -76,6 +95,39 @@ private extension BoxButtonStyle {
         case .rectSmall:    return 8
         case .roundMedium:  return 100
         case .roundSmall:   return 100
+        }
+    }
+
+    var verticalPadding: CGFloat {
+        switch sizeType {
+        case .rectLarge:    
+            return 16
+        case .rectMedium, .roundMedium:
+            return 14
+        case .rectSmall, .roundSmall:
+            return 8
+        }
+    }
+
+    var iconSpacing: CGFloat {
+        switch sizeType {
+        case .rectLarge:    
+            return 12
+        case .rectMedium, .roundMedium:
+            return 8
+        case .rectSmall, .roundSmall:
+            return 4
+        }
+    }
+
+    var iconSize: CGFloat {
+        switch sizeType {
+        case .rectLarge:
+            return 24
+        case .rectMedium, .roundMedium:
+            return 16
+        case .rectSmall, .roundSmall:
+            return 12
         }
     }
 
@@ -112,6 +164,18 @@ private extension BoxButtonStyle {
 #Preview {
     VStack {
         Button("Button") {}
-            .buttonStyle(.box())
+            .buttonStyle(.box(color: .primary, size: .rectLarge, leadingImage: .plus))
+
+        Button("Button") {}
+            .buttonStyle(.box(color: .primary, size: .rectMedium, trailingImage: .pause))
+
+        Button("Button") {}
+            .buttonStyle(.box(color: .tertiary, size: .rectSmall))
+
+        Button("Button") {}
+            .buttonStyle(.box(color: .primary, size: .roundMedium, leadingImage: .arrowDown))
+
+        Button("Button") {}
+            .buttonStyle(.box(color: .secondary, size: .roundSmall, leadingImage: .arrowLeft, trailingImage: .arrowRight))
     }
 }
