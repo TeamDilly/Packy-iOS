@@ -91,7 +91,7 @@ extension BoxStartGuideView {
                     }
                     .padding(.bottom, 16)
                     .padding(.horizontal, 24)
-                    .disabled(viewStore.letterInput.letter.isEmpty)
+                    .disabled(viewStore.letterInput.letter.isEmpty || viewStore.letterInput.selectedLetterDesign == nil)
                 }
             }
             .keyboardHideToolbar()

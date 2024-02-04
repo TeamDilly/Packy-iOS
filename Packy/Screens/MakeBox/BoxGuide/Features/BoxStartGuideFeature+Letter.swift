@@ -50,6 +50,7 @@ extension BoxStartGuideFeature {
 
             case .closeLetterSheetAlertConfirmTapped:
                 state.letterInput = .init()
+                state.letterInput.selectedLetterDesign = state.letterDesigns.first
                 state.isLetterBottomSheetPresented = false
                 return .none
 
