@@ -15,18 +15,24 @@ struct HomeNavigationPath {
         case myBox(MyBoxFeature.State = .init())
         case boxDetail(BoxDetailFeature.State)
         case setting(SettingFeature.State = .init())
+        case manageAccount(ManageAccountFeature.State = .init())
+        case deleteAccount(DeleteAccountFeature.State = .init())
     }
 
     enum Action {
         case myBox(MyBoxFeature.Action)
         case boxDetail(BoxDetailFeature.Action)
         case setting(SettingFeature.Action)
+        case manageAccount(ManageAccountFeature.Action)
+        case deleteAccount(DeleteAccountFeature.Action)
     }
 
     var body: some Reducer<State, Action> {
         Scope(state: \.myBox, action: \.myBox) { MyBoxFeature() }
         Scope(state: \.boxDetail, action: \.boxDetail) { BoxDetailFeature() }
         Scope(state: \.setting, action: \.setting) { SettingFeature() }
+        Scope(state: \.manageAccount, action: \.manageAccount) { ManageAccountFeature() }
+        Scope(state: \.deleteAccount, action: \.deleteAccount) { DeleteAccountFeature() }
     }
 }
 

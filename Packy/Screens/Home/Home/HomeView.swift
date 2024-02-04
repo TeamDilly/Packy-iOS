@@ -44,6 +44,13 @@ struct HomeView: View {
                      action: HomeNavigationPath.Action.setting,
                      then: SettingView.init
                 )
+
+            case .manageAccount:
+                CaseLet(
+                    \HomeNavigationPath.State.manageAccount,
+                     action: HomeNavigationPath.Action.manageAccount,
+                     then: ManageAccountView.init
+                )
             }
         }
     }

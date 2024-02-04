@@ -47,6 +47,11 @@
 		E54485042B6F838C003DFA1B /* HomeFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54485022B6F838C003DFA1B /* HomeFeature.swift */; };
 		E54485072B6F86BC003DFA1B /* AppConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54485062B6F86BC003DFA1B /* AppConstants.swift */; };
 		E544850B2B6F8A34003DFA1B /* PackyDivider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E544850A2B6F8A34003DFA1B /* PackyDivider.swift */; };
+		E544850F2B6F8E2C003DFA1B /* SettingListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E544850E2B6F8E2C003DFA1B /* SettingListCell.swift */; };
+		E54485122B6F9053003DFA1B /* ManageAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54485102B6F9053003DFA1B /* ManageAccountView.swift */; };
+		E54485132B6F9053003DFA1B /* ManageAccountFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54485112B6F9053003DFA1B /* ManageAccountFeature.swift */; };
+		E54485162B6F9116003DFA1B /* DeleteAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54485142B6F9116003DFA1B /* DeleteAccountView.swift */; };
+		E54485172B6F9116003DFA1B /* DeleteAccountFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54485152B6F9116003DFA1B /* DeleteAccountFeature.swift */; };
 		E5551B792B5FE8E300DB81F3 /* TokenInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5551B782B5FE8E300DB81F3 /* TokenInterceptor.swift */; };
 		E5551B7B2B5FF2AF00DB81F3 /* HTTPSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5551B7A2B5FF2AF00DB81F3 /* HTTPSession.swift */; };
 		E5551B7D2B5FF5AD00DB81F3 /* MoyaProvider+Build.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5551B7C2B5FF5AD00DB81F3 /* MoyaProvider+Build.swift */; };
@@ -240,6 +245,11 @@
 		E54485022B6F838C003DFA1B /* HomeFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeFeature.swift; sourceTree = "<group>"; };
 		E54485062B6F86BC003DFA1B /* AppConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConstants.swift; sourceTree = "<group>"; };
 		E544850A2B6F8A34003DFA1B /* PackyDivider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackyDivider.swift; sourceTree = "<group>"; };
+		E544850E2B6F8E2C003DFA1B /* SettingListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingListCell.swift; sourceTree = "<group>"; };
+		E54485102B6F9053003DFA1B /* ManageAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageAccountView.swift; sourceTree = "<group>"; };
+		E54485112B6F9053003DFA1B /* ManageAccountFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageAccountFeature.swift; sourceTree = "<group>"; };
+		E54485142B6F9116003DFA1B /* DeleteAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteAccountView.swift; sourceTree = "<group>"; };
+		E54485152B6F9116003DFA1B /* DeleteAccountFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteAccountFeature.swift; sourceTree = "<group>"; };
 		E5551B782B5FE8E300DB81F3 /* TokenInterceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenInterceptor.swift; sourceTree = "<group>"; };
 		E5551B7A2B5FF2AF00DB81F3 /* HTTPSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPSession.swift; sourceTree = "<group>"; };
 		E5551B7C2B5FF5AD00DB81F3 /* MoyaProvider+Build.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MoyaProvider+Build.swift"; sourceTree = "<group>"; };
@@ -528,6 +538,9 @@
 			children = (
 				E54484FB2B6F8339003DFA1B /* SettingView.swift */,
 				E54484FC2B6F8339003DFA1B /* SettingFeature.swift */,
+				E544850E2B6F8E2C003DFA1B /* SettingListCell.swift */,
+				E544850C2B6F8DC5003DFA1B /* ManageAccount */,
+				E544850D2B6F8DEA003DFA1B /* DeleteAccount */,
 			);
 			path = Setting;
 			sourceTree = "<group>";
@@ -540,6 +553,24 @@
 				E5A7A9DA2B57F81400590EA6 /* HomeView.swift */,
 			);
 			path = Home;
+			sourceTree = "<group>";
+		};
+		E544850C2B6F8DC5003DFA1B /* ManageAccount */ = {
+			isa = PBXGroup;
+			children = (
+				E54485102B6F9053003DFA1B /* ManageAccountView.swift */,
+				E54485112B6F9053003DFA1B /* ManageAccountFeature.swift */,
+			);
+			path = ManageAccount;
+			sourceTree = "<group>";
+		};
+		E544850D2B6F8DEA003DFA1B /* DeleteAccount */ = {
+			isa = PBXGroup;
+			children = (
+				E54485142B6F9116003DFA1B /* DeleteAccountView.swift */,
+				E54485152B6F9116003DFA1B /* DeleteAccountFeature.swift */,
+			);
+			path = DeleteAccount;
 			sourceTree = "<group>";
 		};
 		E55D16C22B6CF11F005E71A4 /* KakaoShare */ = {
@@ -1237,6 +1268,7 @@
 				E5A7AA632B57F81400590EA6 /* SignUpNicknameFeature.swift in Sources */,
 				E53937922B67B599000F3A86 /* BoxDetailFeature.swift in Sources */,
 				E5A7AA812B57F81400590EA6 /* SocialLoginInfo.swift in Sources */,
+				E544850F2B6F8E2C003DFA1B /* SettingListCell.swift in Sources */,
 				E52037D52B641FF900721F76 /* BoxAddPhotoFeature.swift in Sources */,
 				E5A7AA4B2B57F81400590EA6 /* CarouselView.swift in Sources */,
 				E5A7AA5E2B57F81400590EA6 /* TermsAgreementFeature.swift in Sources */,
@@ -1251,6 +1283,7 @@
 				E54484E92B6E84E9003DFA1B /* BoxOpenErrorView.swift in Sources */,
 				E5A7AA6E2B57F81400590EA6 /* ATTManager.swift in Sources */,
 				E54485072B6F86BC003DFA1B /* AppConstants.swift in Sources */,
+				E54485172B6F9116003DFA1B /* DeleteAccountFeature.swift in Sources */,
 				E5A7AA452B57F81400590EA6 /* PhotoElement.swift in Sources */,
 				E5A7AA622B57F81400590EA6 /* SignUpProfileFeature.swift in Sources */,
 				E5AC66F12B62B95B00F3CBF0 /* StickerDesign.swift in Sources */,
@@ -1261,6 +1294,7 @@
 				E5A7AA7D2B57F81400590EA6 /* AuthEndpoint.swift in Sources */,
 				E5A7AA7F2B57F81400590EA6 /* UserDefaultsKey.swift in Sources */,
 				E5A7AA6F2B57F81400590EA6 /* MoyaLoggerPlugin.swift in Sources */,
+				E54485132B6F9053003DFA1B /* ManageAccountFeature.swift in Sources */,
 				E5A416B52B5D439300313E5A /* PackyAlert.swift in Sources */,
 				E52470EF2B6134EE003D49DE /* Array+SafeIndex.swift in Sources */,
 				E5A7AA792B57F81400590EA6 /* SignUpRequest.swift in Sources */,
@@ -1280,6 +1314,7 @@
 				E5A7AA5F2B57F81400590EA6 /* TermsAgreementView.swift in Sources */,
 				E5A7AA662B57F81400590EA6 /* LoginFeature.swift in Sources */,
 				E54485032B6F838C003DFA1B /* HomeFeature+Navigation.swift in Sources */,
+				E54485162B6F9116003DFA1B /* DeleteAccountView.swift in Sources */,
 				E5A7AA742B57F81400590EA6 /* Terms.swift in Sources */,
 				E52037D92B6420E100721F76 /* BoxStartGuideFeature+Letter.swift in Sources */,
 				E54484FD2B6F8339003DFA1B /* SettingView.swift in Sources */,
@@ -1334,6 +1369,7 @@
 				E5A416A72B5D20DC00313E5A /* DesignClient.swift in Sources */,
 				E5A7AA702B57F81400590EA6 /* BaseResponse.swift in Sources */,
 				E5A7AA372B57F81400590EA6 /* TextField+LimitInputLength.swift in Sources */,
+				E54485122B6F9053003DFA1B /* ManageAccountView.swift in Sources */,
 				E58048CD2B5CE2A300B974B3 /* UIScreen+CheckScreenSize.swift in Sources */,
 				E5A7AA712B57F81400590EA6 /* Encodable+ToDictionary.swift in Sources */,
 				E52037D12B63F97900721F76 /* NetworkImage.swift in Sources */,

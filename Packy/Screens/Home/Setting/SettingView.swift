@@ -30,7 +30,9 @@ struct SettingView: View {
                 VStack(alignment: .leading, spacing: 24) {
                     profileView
 
-                    SettingListCell(title: "계정 관리")
+                    NavigationLink(state: HomeNavigationPath.State.manageAccount()) {
+                        SettingListCell(title: "계정 관리")
+                    }
 
                     PackyDivider()
 
@@ -88,29 +90,6 @@ private extension SettingView {
             Text(Constants.appVersion)
                 .packyFont(.body4)
                 .foregroundStyle(.gray600)
-        }
-    }
-}
-
-private struct SettingListCell: View {
-    var title: String
-    var showRightIcon: Bool = true
-
-    var body: some View {
-        HStack {
-            Text(title)
-                .packyFont(.body2)
-                .foregroundStyle(.gray900)
-
-            Spacer()
-
-            if showRightIcon {
-                Image(.arrowRight)
-                    .renderingMode(.template)
-                    .resizable()
-                    .foregroundStyle(.gray600)
-                    .frame(width: 16, height: 16)
-            }
         }
     }
 }
