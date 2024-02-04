@@ -35,7 +35,7 @@ extension BoxClient: DependencyKey {
                 try await provider.request(.postGiftbox($0))
             },
             openGiftBox: {
-                try await provider.request(.getGiftbox($0))
+                try await provider.request(.getOpenGiftbox($0))
             }
         )
     }()

@@ -12,7 +12,7 @@ enum BoxEndpoint {
     /// 선물박스 만들기
     case postGiftbox(SendingGiftBox)
     /// 선물박스 열기
-    case getGiftbox(Int)
+    case getOpenGiftbox(Int)
 }
 
 extension BoxEndpoint: TargetType {
@@ -23,9 +23,9 @@ extension BoxEndpoint: TargetType {
     var path: String {
         switch self {
         case .postGiftbox:
-            return "giftbox"
-        case let .getGiftbox(boxId):
-            return "giftbox/\(boxId)"
+            return "giftboxes"
+        case let .getOpenGiftbox(boxId):
+            return "giftboxes/\(boxId)"
         }
     }
 
@@ -33,7 +33,7 @@ extension BoxEndpoint: TargetType {
         switch self {
         case .postGiftbox:
             return .post
-        case .getGiftbox:
+        case .getOpenGiftbox:
             return .get
         }
     }

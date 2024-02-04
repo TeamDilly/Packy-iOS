@@ -27,6 +27,7 @@ struct MyBoxFeature: Reducer {
         // MARK: Child Action
     }
 
+    @Dependency(\.boxClient) var boxClient
 
     var body: some Reducer<State, Action> {
         BindingReducer()
@@ -37,7 +38,12 @@ struct MyBoxFeature: Reducer {
                 return .none
 
             case ._onTask:
-                return .none
+                return .run { send in
+                    do {
+                        // try await boxClient
+                    }
+
+                }
             }
         }
     }
