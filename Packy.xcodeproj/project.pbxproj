@@ -183,7 +183,7 @@
 		E5E06B3A2B654DA200F6FD01 /* SendingSticker.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E06B392B654DA200F6FD01 /* SendingSticker.swift */; };
 		E5E06B402B654EF200F6FD01 /* BoxClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E06B3F2B654EF200F6FD01 /* BoxClient.swift */; };
 		E5E06B422B654EF600F6FD01 /* BoxEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E06B412B654EF600F6FD01 /* BoxEndpoint.swift */; };
-		E5E06B442B654FC500F6FD01 /* GiftBoxResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E06B432B654FC500F6FD01 /* GiftBoxResponse.swift */; };
+		E5E06B442B654FC500F6FD01 /* SentGiftBoxInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E06B432B654FC500F6FD01 /* SentGiftBoxInfo.swift */; };
 		E5E5110D2B6915CA00CE86AF /* BoxDetailPhotoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E5110C2B6915CA00CE86AF /* BoxDetailPhotoView.swift */; };
 		E5E5110F2B69212900CE86AF /* BoxDetailLetterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E5110E2B69212900CE86AF /* BoxDetailLetterView.swift */; };
 		E5E73D4A2B597C0200729D99 /* BoxStartGuideView+MusicSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E73D492B597C0200729D99 /* BoxStartGuideView+MusicSheet.swift */; };
@@ -361,7 +361,7 @@
 		E5E06B392B654DA200F6FD01 /* SendingSticker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendingSticker.swift; sourceTree = "<group>"; };
 		E5E06B3F2B654EF200F6FD01 /* BoxClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoxClient.swift; sourceTree = "<group>"; };
 		E5E06B412B654EF600F6FD01 /* BoxEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoxEndpoint.swift; sourceTree = "<group>"; };
-		E5E06B432B654FC500F6FD01 /* GiftBoxResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GiftBoxResponse.swift; sourceTree = "<group>"; };
+		E5E06B432B654FC500F6FD01 /* SentGiftBoxInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SentGiftBoxInfo.swift; sourceTree = "<group>"; };
 		E5E5110C2B6915CA00CE86AF /* BoxDetailPhotoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoxDetailPhotoView.swift; sourceTree = "<group>"; };
 		E5E5110E2B69212900CE86AF /* BoxDetailLetterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoxDetailLetterView.swift; sourceTree = "<group>"; };
 		E5E73D492B597C0200729D99 /* BoxStartGuideView+MusicSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BoxStartGuideView+MusicSheet.swift"; sourceTree = "<group>"; };
@@ -1030,6 +1030,7 @@
 				E5FDE0562B6BAC4900E00B00 /* ReceivedGiftBox.swift */,
 				E5E06B332B654D7700F6FD01 /* SendingGiftBox.swift */,
 				E5E06B392B654DA200F6FD01 /* SendingSticker.swift */,
+				E5E06B432B654FC500F6FD01 /* SentGiftBoxInfo.swift */,
 				E5FDE05C2B6BAD1F00E00B00 /* Sticker.swift */,
 			);
 			path = Box;
@@ -1039,7 +1040,6 @@
 			isa = PBXGroup;
 			children = (
 				E5E06B3F2B654EF200F6FD01 /* BoxClient.swift */,
-				E5E06B432B654FC500F6FD01 /* GiftBoxResponse.swift */,
 				E5E06B412B654EF600F6FD01 /* BoxEndpoint.swift */,
 			);
 			path = Box;
@@ -1233,7 +1233,7 @@
 				E52470EF2B6134EE003D49DE /* Array+SafeIndex.swift in Sources */,
 				E5A7AA792B57F81400590EA6 /* SignUpRequest.swift in Sources */,
 				E5E06B362B654D8A00F6FD01 /* Photo.swift in Sources */,
-				E5E06B442B654FC500F6FD01 /* GiftBoxResponse.swift in Sources */,
+				E5E06B442B654FC500F6FD01 /* SentGiftBoxInfo.swift in Sources */,
 				E5001F8E2B5BE422004B65E6 /* UploadClient.swift in Sources */,
 				E5A7AA3D2B57F81400590EA6 /* PackyNavigationLink.swift in Sources */,
 				E5A7AA5D2B57F81400590EA6 /* IntroView.swift in Sources */,

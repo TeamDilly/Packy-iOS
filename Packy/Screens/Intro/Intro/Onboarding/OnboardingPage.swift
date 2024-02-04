@@ -22,8 +22,8 @@ enum OnboardingPage: Int, CaseIterable {
 
     var image: Image {
         switch self {
-        case .makeBox:          return Image(.mock)
-        case .rememberEvent:    return Image(.mock)
+        case .makeBox:          return Image(.packyLogoPurple)
+        case .rememberEvent:    return Image(.packyLogoPurple)
         }
     }
 

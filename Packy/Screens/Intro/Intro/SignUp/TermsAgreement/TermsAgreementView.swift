@@ -122,7 +122,8 @@ private extension TermsAgreementView {
                 .packyFont(.body4)
                 .foregroundStyle(.gray600)
 
-            Image(.mock)
+            // TODO: 이미지 반영
+            Image(.packyLogoPurple)
                 .resizable()
                 .scaledToFill()
                 .frame(width: 300, height: 240)

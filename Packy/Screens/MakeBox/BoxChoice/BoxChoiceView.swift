@@ -101,7 +101,7 @@ private extension BoxChoiceView {
 
         // Motion Design
         // TODO: Lottie View 띄우기
-        Image(.mock)
+        Image(.packyLogoPurple)
             .padding(.top, 50)
 
         Spacer()

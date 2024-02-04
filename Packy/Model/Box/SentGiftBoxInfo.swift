@@ -7,7 +7,8 @@
 
 import Foundation
 
-struct GiftBoxResponse: Decodable {
+/// 보내는데 성공한 선물 박스 정보
+struct SentGiftBoxInfo: Decodable {
     let id: Int
     let uuid: String
 }
