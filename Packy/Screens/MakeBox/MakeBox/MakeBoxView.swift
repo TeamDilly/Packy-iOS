@@ -48,7 +48,7 @@ struct MakeBoxView: View {
             Spacer()
 
             let destinationState = HomeNavigationPath.State.boxChoice(
-                .init(senderInfo: .init(to: viewStore.boxSendTo, from: viewStore.boxSendFrom))
+                .init(senderInfo: .init(receiver: viewStore.boxSendTo, sender: viewStore.boxSendFrom))
             )
 
             NavigationLink("다음", state: destinationState)

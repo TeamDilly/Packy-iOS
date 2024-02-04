@@ -56,7 +56,7 @@ struct BoxStartGuideView: View {
 
                 VStack(spacing: 0) {
                     ZStack {
-                        Text("To. \(viewStore.senderInfo.to)")
+                        Text("To. \(viewStore.senderInfo.receiver)")
                             .packyFont(.body2)
                             .foregroundStyle(.white)
                             .frame(maxWidth: .infinity, alignment: .leading)

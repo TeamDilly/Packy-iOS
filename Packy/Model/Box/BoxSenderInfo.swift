@@ -8,10 +8,10 @@
 import Foundation
 
 struct BoxSenderInfo: Equatable {
-    let to: String
-    let from: String
+    let receiver: String
+    let sender: String
 }
 
 extension BoxSenderInfo {
-    static let mock: BoxSenderInfo = .init(to: "Mason", from: "Packy")
+    static let mock: BoxSenderInfo = .init(receiver: "Mason", sender: "Packy")
 }
