@@ -17,7 +17,7 @@ extension BoxStartGuideFeature {
         var musicBottomSheetMode: MusicBottomSheetMode = .choice
         var musicSheetDetents: Set<PresentationDetent> = MusicBottomSheetMode.allDetents
 
-        @BindingState var musicLinkUrlInput: String = "https://www.youtube.com/watch?v=OZRLiBSeAG8"
+        @BindingState var musicLinkUrlInput: String = ""
         var showInvalidMusicUrlError: Bool = false
 
         var selectedRecommendedMusic: RecommendedMusic? = nil

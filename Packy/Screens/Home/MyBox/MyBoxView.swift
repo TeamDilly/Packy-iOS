@@ -32,24 +32,8 @@ struct MyBoxView: View {
             )
             .padding(.top, 26)
 
-            let columns = [GridItem(spacing: 16), GridItem(spacing: 16)]
-            ScrollView {
-                LazyVGrid(columns: columns, spacing: 16) {
-                    ForEach(1...10, id: \.self) { index in
-                        BoxInfoCell(
-                            tabInfo: viewStore.selectedTab,
-                            boxUrl: "https://picsum.photos/200",
-                            senderReceiver: "hello",
-                            boxTitle: String(repeating: "선물", count: index),
-                            date: Date()
-                        )
-                    }
-                }
-                .padding(24)
-            }
-            .scrollIndicators(.hidden)
-            .background(.gray100)
-            .safeAreaPadding(.bottom, 30)
+            // boxGridView
+            emptyStateView
 
             Spacer()
         }
@@ -64,7 +48,40 @@ struct MyBoxView: View {
 
 // MARK: - Inner Views
 
-private struct BoxInfoCell: View {
+private extension MyBoxView {
+    var boxGridView: some View {
+        let columns = [GridItem(spacing: 16), GridItem(spacing: 16)]
+
+        return ScrollView {
+            LazyVGrid(columns: columns, spacing: 16) {
+                ForEach(1...10, id: \.self) { index in
+                    MyBoxInfoCell(
+                        tabInfo: viewStore.selectedTab,
+                        boxUrl: "https://picsum.photos/200",
+                        senderReceiver: "hello",
+                        boxTitle: String(repeating: "선물", count: index),
+                        date: Date()
+                    )
+                }
+            }
+            .padding(24)
+        }
+        .scrollIndicators(.hidden)
+        .background(.gray100)
+        .safeAreaPadding(.bottom, 30)
+    }
+
+    var emptyStateView: some View {
+        VStack {
+            Text("아직 보낸 선물박스가 없어요")
+            Text("패키의 선물박스로 마음을 나눠보아요")
+            
+
+        }
+    }
+}
+
+private struct MyBoxInfoCell: View {
     var tabInfo: MyBoxTab
     var boxUrl: String
     var senderReceiver: String
