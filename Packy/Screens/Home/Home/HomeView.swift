@@ -20,6 +20,39 @@ struct HomeView: View {
     }
 
     var body: some View {
+        NavigationStackStore(store.scope(state: \.path, action: \.path)) {
+            content
+        } destination: { state in
+            switch state {
+            case .myBox:
+                CaseLet(
+                    \HomeNavigationPath.State.myBox,
+                     action: HomeNavigationPath.Action.myBox,
+                     then: MyBoxView.init
+                )
+
+            case .boxDetail:
+                CaseLet(
+                    \HomeNavigationPath.State.boxDetail,
+                     action: HomeNavigationPath.Action.boxDetail,
+                     then: BoxDetailView.init
+                )
+
+            case .setting:
+                CaseLet(
+                    \HomeNavigationPath.State.setting,
+                     action: HomeNavigationPath.Action.setting,
+                     then: SettingView.init
+                )
+            }
+        }
+    }
+}
+
+// MARK: - Inner Views
+
+private extension HomeView {
+    var content: some View {
         VStack(spacing: 16) {
             navigationBar
                 .padding(.top, 8)
@@ -73,15 +106,11 @@ struct HomeView: View {
         .background(.gray100)
         .task {
             await viewStore
-                .send(._onAppear)
+                .send(._onTask)
                 .finish()
         }
     }
-}
 
-// MARK: - Inner Views
-
-private extension HomeView {
     var navigationBar: some View {
         HStack {
             Image(.logo)

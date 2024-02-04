@@ -2,7 +2,7 @@
 //  HomeFeature.swift
 //  Packy
 //
-//  Created Mason Kim on 1/7/24.
+//  Created Mason Kim on 2/4/24.
 //
 
 import Foundation
@@ -12,31 +12,31 @@ import ComposableArchitecture
 struct HomeFeature: Reducer {
 
     struct State: Equatable {
-        @BindingState var textInput: String = ""
+        var path: StackState<HomeNavigationPath.State> = .init()
     }
 
-    enum Action: BindableAction {
+    enum Action {
         // MARK: User Action
-        case binding(BindingAction<State>)
 
         // MARK: Inner Business Action
-        case _onAppear
+        case _onTask
 
         // MARK: Inner SetState Action
 
         // MARK: Child Action
+        case path(StackAction<HomeNavigationPath.State, HomeNavigationPath.Action>)
     }
 
 
     var body: some Reducer<State, Action> {
-        BindingReducer()
+        navigationReducer
 
         Reduce<State, Action> { state, action in
             switch action {
-            case .binding:
+            case ._onTask:
                 return .none
 
-            case ._onAppear:
+            case .path:
                 return .none
             }
         }
