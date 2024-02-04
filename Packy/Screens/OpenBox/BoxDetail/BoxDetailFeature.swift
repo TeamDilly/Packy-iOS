@@ -31,26 +31,36 @@ struct BoxDetailFeature: Reducer {
     enum Action: BindableAction {
         // MARK: User Action
         case binding(BindingAction<State>)
+        case closeButtonTapped
+        case backButtonTapped
 
         // MARK: Inner Business Action
         case _onTask
 
         // MARK: Inner SetState Action
 
-        // MARK: Child Action
+        // MARK: Delegate Action
+        enum Delegate {
+            case closeBoxOpen
+        }
+        case delegate(Delegate)
     }
 
     @Dependency(\.boxClient) var boxClient
+    @Dependency(\.dismiss) var dismiss
 
     var body: some Reducer<State, Action> {
         BindingReducer()
         
         Reduce<State, Action> { state, action in
             switch action {
-            case .binding:
-                return .none
+            case .backButtonTapped:
+                return .run { _ in await dismiss() }
 
-            case ._onTask:
+            case .closeButtonTapped:
+                return .send(.delegate(.closeBoxOpen))
+
+            default:
                 return .none
             }
         }

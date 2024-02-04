@@ -80,10 +80,10 @@ struct BoxDetailView: View {
             }
             .animation(.spring, value: isOnNextPage)
         }
+        .navigationBarBackButtonHidden()
         .background(.gray900)
         .animation(.easeInOut, value: viewStore.presentingState)
         .onAppear {
-            // player.play()
             withAnimation(.spring) {
                 isBoxPartPresented = true
             }
@@ -282,12 +282,12 @@ private extension BoxDetailView {
                         scrollProxy?.scrollTo(mainPage)
                     }
                 } else {
-                    // 뒤로이동
+                    viewStore.send(.backButtonTapped)
                 }
             },
             trailingType: isOnNextPage ? .none : .close,
             trailingAction: {
-
+                viewStore.send(.closeButtonTapped)
             }
         )
         .animation(.easeInOut, value: isOnNextPage)

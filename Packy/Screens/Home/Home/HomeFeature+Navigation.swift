@@ -82,14 +82,18 @@ extension HomeFeature {
                     state.path.append(.boxDetail(.init(giftBox: giftBox)))
                     return .none
 
-                /// Box Open 닫기 시,
+                /// Box Detail 에서 닫기 시,
                 case .element(id: _, action: .boxDetail(.delegate(.closeBoxOpen))):
+                    // BoxOpen 에서 열린 BoxDetail 이면 Home 까지 다 닫아줌
                     let hasBoxOpen = state.path.contains { state in
                         guard case .boxOpen = state else { return false }
                         return true
                     }
                     if hasBoxOpen {
                         state.path.removeAll()
+                    } else {
+                        // 아니면 BoxDetail 만 닫음 (ex. List에서 진입 시)
+                        state.path.removeLast()
                     }
                     return .none
 
