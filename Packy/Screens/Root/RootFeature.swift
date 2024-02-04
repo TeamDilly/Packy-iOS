@@ -42,10 +42,6 @@ struct RootFeature: Reducer {
             case ._onAppear:
                 socialLogin.initKakaoSDK()
 
-                // TODO: 테스트를 위한 로직 (토큰 삭제)
-                keychain.delete(.accessToken)
-                keychain.delete(.refreshToken)
-
                 return .run { send in
                     /// AccessToken 존재 시, home 으로 이동
                     if keychain.read(.accessToken) != nil {

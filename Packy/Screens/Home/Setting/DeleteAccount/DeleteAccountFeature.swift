@@ -31,6 +31,7 @@ struct DeleteAccountFeature: Reducer {
         case _onTask
 
         // MARK: Inner SetState Action
+        case _setShowingState(ShowingState)
 
         // MARK: Child Action
         enum Delegate {
@@ -41,6 +42,7 @@ struct DeleteAccountFeature: Reducer {
 
     @Dependency(\.dismiss) var dismiss
     @Dependency(\.packyAlert) var packyAlert
+    @Dependency(\.keychain) var keychain
 
     var body: some Reducer<State, Action> {
         Reduce<State, Action> { state, action in
@@ -61,11 +63,22 @@ struct DeleteAccountFeature: Reducer {
                 }
 
             case .signOutConfirmButtonTapped:
-                // TODO: 실제 회원탈퇴 로직 수행 후...
-                state.showingState = .completed
-                return .none
+                return .run { send in
+                    // TODO: 실제 서버 회원탈퇴 로직 수행 후...
+
+                    keychain.delete(.accessToken)
+                    keychain.delete(.refreshToken)
+
+                    await send(._setShowingState(.completed), animation: .spring)
+                }
 
             case .completedConfirmButtonTapped:
+                return .run { send in
+                    await send(.delegate(.completedSignOut), animation: .spring)
+                }
+
+            case let ._setShowingState(showingState):
+                state.showingState = showingState
                 return .none
 
             default:
