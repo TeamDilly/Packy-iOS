@@ -19,7 +19,7 @@ struct BoxDetailPhotoView: View {
 
 #Preview {
     BoxDetailPhotoView(
-        imageUrl: "https://picsum.photos/id/237/200/300",
+        imageUrl: Constants.mockImageUrl,
         text: "기억나니 우리의 추억"
     )
 }

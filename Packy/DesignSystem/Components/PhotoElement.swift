@@ -157,7 +157,7 @@ extension PhotoElement {
         }
         
         PhotoElement(
-            imageUrl: "https://picsum.photos/id/237/200/300",
+            imageUrl: Constants.mockImageUrl,
             text: .constant("asdada")
         )
         .deleteButton(isShown: true) {

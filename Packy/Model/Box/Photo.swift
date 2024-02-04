@@ -18,7 +18,7 @@ struct Photo: Codable, Equatable {
 extension Photo {
     static var mock: Self {
         return .init(
-            photoUrl: "https://picsum.photos/220",
+            photoUrl: Constants.mockImageUrl,
             description: "우리 같이 놀러갔던 날 :)",
             sequence: 1
         )

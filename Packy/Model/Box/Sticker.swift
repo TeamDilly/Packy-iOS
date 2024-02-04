@@ -17,7 +17,7 @@ struct Sticker: Decodable, Equatable {
 extension Sticker {
     static var mock: Self {
         return Sticker(
-            imgUrl: "https://picsum.photos/150",
+            imgUrl: Constants.mockImageUrl,
             location: 1
         )
     }
@@ -27,11 +27,11 @@ extension [Sticker] {
     static var mock: Self {
         return [
             Sticker(
-                imgUrl: "https://picsum.photos/150",
+                imgUrl: Constants.mockImageUrl,
                 location: 0
             ),
             Sticker(
-                imgUrl: "https://picsum.photos/180",
+                imgUrl: Constants.mockImageUrl,
                 location: 1
             ),
         ]

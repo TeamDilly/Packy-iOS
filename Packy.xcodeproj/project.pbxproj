@@ -45,6 +45,7 @@
 		E54484FE2B6F8339003DFA1B /* SettingFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54484FC2B6F8339003DFA1B /* SettingFeature.swift */; };
 		E54485032B6F838C003DFA1B /* HomeFeature+Navigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54485012B6F838C003DFA1B /* HomeFeature+Navigation.swift */; };
 		E54485042B6F838C003DFA1B /* HomeFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54485022B6F838C003DFA1B /* HomeFeature.swift */; };
+		E54485072B6F86BC003DFA1B /* AppConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54485062B6F86BC003DFA1B /* AppConstants.swift */; };
 		E5551B792B5FE8E300DB81F3 /* TokenInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5551B782B5FE8E300DB81F3 /* TokenInterceptor.swift */; };
 		E5551B7B2B5FF2AF00DB81F3 /* HTTPSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5551B7A2B5FF2AF00DB81F3 /* HTTPSession.swift */; };
 		E5551B7D2B5FF5AD00DB81F3 /* MoyaProvider+Build.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5551B7C2B5FF5AD00DB81F3 /* MoyaProvider+Build.swift */; };
@@ -236,6 +237,7 @@
 		E54484FC2B6F8339003DFA1B /* SettingFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingFeature.swift; sourceTree = "<group>"; };
 		E54485012B6F838C003DFA1B /* HomeFeature+Navigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HomeFeature+Navigation.swift"; sourceTree = "<group>"; };
 		E54485022B6F838C003DFA1B /* HomeFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeFeature.swift; sourceTree = "<group>"; };
+		E54485062B6F86BC003DFA1B /* AppConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConstants.swift; sourceTree = "<group>"; };
 		E5551B782B5FE8E300DB81F3 /* TokenInterceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenInterceptor.swift; sourceTree = "<group>"; };
 		E5551B7A2B5FF2AF00DB81F3 /* HTTPSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPSession.swift; sourceTree = "<group>"; };
 		E5551B7C2B5FF5AD00DB81F3 /* MoyaProvider+Build.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MoyaProvider+Build.swift"; sourceTree = "<group>"; };
@@ -831,6 +833,7 @@
 			children = (
 				E5A7AA0B2B57F81400590EA6 /* PackyApp.swift */,
 				E5A7AA0C2B57F81400590EA6 /* APIKeys.xcconfig */,
+				E54485062B6F86BC003DFA1B /* AppConstants.swift */,
 			);
 			name = App;
 			path = Packy/App;
@@ -1244,6 +1247,7 @@
 				E53937882B67B42D000F3A86 /* LetterElementView.swift in Sources */,
 				E54484E92B6E84E9003DFA1B /* BoxOpenErrorView.swift in Sources */,
 				E5A7AA6E2B57F81400590EA6 /* ATTManager.swift in Sources */,
+				E54485072B6F86BC003DFA1B /* AppConstants.swift in Sources */,
 				E5A7AA452B57F81400590EA6 /* PhotoElement.swift in Sources */,
 				E5A7AA622B57F81400590EA6 /* SignUpProfileFeature.swift in Sources */,
 				E5AC66F12B62B95B00F3CBF0 /* StickerDesign.swift in Sources */,

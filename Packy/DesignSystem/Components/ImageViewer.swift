@@ -127,7 +127,7 @@ private extension CGPoint {
             .ignoresSafeArea()
 
         ImageViewer {
-            NetworkImage(url: "https://picsum.photos/200", contentMode: .fit)
+            NetworkImage(url: Constants.mockImageUrl, contentMode: .fit)
                 .padding(.horizontal, 55)
         }
     }

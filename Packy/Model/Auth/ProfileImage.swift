@@ -24,10 +24,7 @@ struct ProfileImage: Decodable, Equatable {
 // MARK: - Mock
 
 extension ProfileImageResponse {
-    static let mock: Self = [
-        .init(id: 0, sequence: 0, imageUrl: "https://picsum.photos/200"),
-        .init(id: 1, sequence: 1, imageUrl: "https://picsum.photos/300"),
-        .init(id: 2, sequence: 2, imageUrl: "https://picsum.photos/250"),
-        .init(id: 3, sequence: 3, imageUrl: "https://picsum.photos/350")
-    ]
+    static let mock: Self = (0...3).map {
+        .init(id: $0, sequence: $0, imageUrl: Constants.mockImageUrl)
+    }
 }

@@ -48,7 +48,7 @@ extension StickerDesignResponse {
     static var mock: Self {
         .init(
             contents: (0...10).map {
-                StickerDesign(id: Int.random(in: 0...1000), sequence: $0, imageUrl: "https://picsum.photos/200")
+                StickerDesign(id: Int.random(in: 0...1000), sequence: $0, imageUrl: Constants.mockImageUrl)
             },
             isFirstPage: true,
             isLastPage: false
