@@ -34,7 +34,10 @@
 		E54484E52B6E80BE003DFA1B /* BoxOpenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54484E32B6E80BE003DFA1B /* BoxOpenView.swift */; };
 		E54484E62B6E80BE003DFA1B /* BoxOpenFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54484E42B6E80BE003DFA1B /* BoxOpenFeature.swift */; };
 		E54484E92B6E84E9003DFA1B /* BoxOpenErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54484E82B6E84E9003DFA1B /* BoxOpenErrorView.swift */; };
+		E54484ED2B6F3E00003DFA1B /* MyBoxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54484EB2B6F3E00003DFA1B /* MyBoxView.swift */; };
+		E54484EE2B6F3E00003DFA1B /* MyBoxFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54484EC2B6F3E00003DFA1B /* MyBoxFeature.swift */; };
 		E54484F02B6F3E63003DFA1B /* TabSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54484EF2B6F3E63003DFA1B /* TabSegmentedControl.swift */; };
+		E54484F22B6F434C003DFA1B /* MyBoxTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54484F12B6F434C003DFA1B /* MyBoxTab.swift */; };
 		E5551B792B5FE8E300DB81F3 /* TokenInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5551B782B5FE8E300DB81F3 /* TokenInterceptor.swift */; };
 		E5551B7B2B5FF2AF00DB81F3 /* HTTPSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5551B7A2B5FF2AF00DB81F3 /* HTTPSession.swift */; };
 		E5551B7D2B5FF5AD00DB81F3 /* MoyaProvider+Build.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5551B7C2B5FF5AD00DB81F3 /* MoyaProvider+Build.swift */; };
@@ -216,7 +219,10 @@
 		E54484E32B6E80BE003DFA1B /* BoxOpenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoxOpenView.swift; sourceTree = "<group>"; };
 		E54484E42B6E80BE003DFA1B /* BoxOpenFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoxOpenFeature.swift; sourceTree = "<group>"; };
 		E54484E82B6E84E9003DFA1B /* BoxOpenErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoxOpenErrorView.swift; sourceTree = "<group>"; };
+		E54484EB2B6F3E00003DFA1B /* MyBoxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyBoxView.swift; sourceTree = "<group>"; };
+		E54484EC2B6F3E00003DFA1B /* MyBoxFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyBoxFeature.swift; sourceTree = "<group>"; };
 		E54484EF2B6F3E63003DFA1B /* TabSegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabSegmentedControl.swift; sourceTree = "<group>"; };
+		E54484F12B6F434C003DFA1B /* MyBoxTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyBoxTab.swift; sourceTree = "<group>"; };
 		E5551B782B5FE8E300DB81F3 /* TokenInterceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenInterceptor.swift; sourceTree = "<group>"; };
 		E5551B7A2B5FF2AF00DB81F3 /* HTTPSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPSession.swift; sourceTree = "<group>"; };
 		E5551B7C2B5FF5AD00DB81F3 /* MoyaProvider+Build.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MoyaProvider+Build.swift"; sourceTree = "<group>"; };
@@ -480,6 +486,16 @@
 			path = BoxOpen;
 			sourceTree = "<group>";
 		};
+		E54484EA2B6F3DF0003DFA1B /* MyBox */ = {
+			isa = PBXGroup;
+			children = (
+				E54484EB2B6F3E00003DFA1B /* MyBoxView.swift */,
+				E54484EC2B6F3E00003DFA1B /* MyBoxFeature.swift */,
+				E54484F12B6F434C003DFA1B /* MyBoxTab.swift */,
+			);
+			path = MyBox;
+			sourceTree = "<group>";
+		};
 		E55D16C22B6CF11F005E71A4 /* KakaoShare */ = {
 			isa = PBXGroup;
 			children = (
@@ -622,6 +638,7 @@
 		E5A7A9D92B57F81400590EA6 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				E54484EA2B6F3DF0003DFA1B /* MyBox */,
 				E5A7A9DA2B57F81400590EA6 /* HomeView.swift */,
 				E5A7A9DB2B57F81400590EA6 /* HomeFeature.swift */,
 			);
@@ -1157,6 +1174,7 @@
 				E5E5110F2B69212900CE86AF /* BoxDetailLetterView.swift in Sources */,
 				E5E06B312B654A1000F6FD01 /* BoxAddTitleAndShareView.swift in Sources */,
 				E5A416A22B5D076C00313E5A /* PopGestureDisableModifier.swift in Sources */,
+				E54484F22B6F434C003DFA1B /* MyBoxTab.swift in Sources */,
 				E5A7AA732B57F81400590EA6 /* SocialLoginProvider.swift in Sources */,
 				E5E06B2D2B651D2200F6FD01 /* Throttle.swift in Sources */,
 				E5A7AA802B57F81400590EA6 /* UserDefaultsClient.swift in Sources */,
@@ -1174,6 +1192,7 @@
 				E52037D52B641FF900721F76 /* BoxAddPhotoFeature.swift in Sources */,
 				E5A7AA4B2B57F81400590EA6 /* CarouselView.swift in Sources */,
 				E5A7AA5E2B57F81400590EA6 /* TermsAgreementFeature.swift in Sources */,
+				E54484ED2B6F3E00003DFA1B /* MyBoxView.swift in Sources */,
 				E5FDE05F2B6BAD6D00E00B00 /* ReceivedBox.swift in Sources */,
 				E5A7AA4C2B57F81400590EA6 /* Font+Pretendard.swift in Sources */,
 				E5A7AA582B57F81400590EA6 /* MakeBoxFeature+Navigation.swift in Sources */,
@@ -1220,6 +1239,7 @@
 				E58048C92B5C36DD00B974B3 /* CornerRadiusWithBorderModifier.swift in Sources */,
 				E5A7AA652B57F81400590EA6 /* LoginView.swift in Sources */,
 				E58048CB2B5C394700B974B3 /* Snackbar.swift in Sources */,
+				E54484EE2B6F3E00003DFA1B /* MyBoxFeature.swift in Sources */,
 				E5AC66F32B62BC8400F3CBF0 /* Sequence+SortByKeypath.swift in Sources */,
 				E5AC66EF2B62B24700F3CBF0 /* PassThroughWindow.swift in Sources */,
 				E539378A2B67B43E000F3A86 /* MusicElementView.swift in Sources */,

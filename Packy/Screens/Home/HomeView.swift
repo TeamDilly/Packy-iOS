@@ -22,6 +22,7 @@ struct HomeView: View {
     var body: some View {
         VStack(spacing: 16) {
             navigationBar
+                .padding(.top, 8)
 
             RoundedRectangle(cornerRadius: 24)
                 .fill(.black)
@@ -48,7 +49,11 @@ struct HomeView: View {
                 ScrollView(.horizontal) {
                     HStack(alignment: .top, spacing: 16) {
                         ForEach(1...10, id: \.self) { index in
-                            GiftInfoCell(boxUrl: "https://picsum.photos/200", sender: "hello", boxTitle: String(repeating: "선물", count: index))
+                            BoxInfoCell(
+                                boxUrl: "https://picsum.photos/200",
+                                sender: "hello",
+                                boxTitle: String(repeating: "선물", count: index)
+                            )
                         }
                     }
                 }
@@ -93,7 +98,7 @@ private extension HomeView {
     }
 }
 
-struct GiftInfoCell: View {
+private struct BoxInfoCell: View {
     var boxUrl: String
     var sender: String
     var boxTitle: String
