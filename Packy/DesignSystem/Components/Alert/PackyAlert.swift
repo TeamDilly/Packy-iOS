@@ -136,7 +136,7 @@ struct PackyAlert: View {
             }
             .frame(height: 56)
         }
-        .frame(width: 294, height: 170)
+        .frame(width: 294)
         .background(.white)
         .clipShape(RoundedRectangle(cornerRadius: 16))
     }
@@ -152,13 +152,17 @@ struct PackyAlert: View {
                 Task {
                     await PackyAlertManager.shared.show(
                         configuration: .init(
-                            title: "선물박스를 완성할까요?",
-                            confirm: "ok"
-                        ) {
-                            print("fire")
-                            try? await Task.sleep(for: .seconds(5))
-                            print("confirm")
-                        }
+                            title: "hello",
+                            // description: "hi",
+                            cancel: "cancel",
+                            confirm: "confirm",
+                            cancelAction: {
+
+                            },
+                            confirmAction: {
+
+                            }
+                        )
                     )
 
                     print("finish?")
