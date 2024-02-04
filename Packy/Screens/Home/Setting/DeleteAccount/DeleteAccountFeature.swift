@@ -43,6 +43,7 @@ struct DeleteAccountFeature: Reducer {
     @Dependency(\.dismiss) var dismiss
     @Dependency(\.packyAlert) var packyAlert
     @Dependency(\.keychain) var keychain
+    @Dependency(\.authClient) var authClient
 
     var body: some Reducer<State, Action> {
         Reduce<State, Action> { state, action in
@@ -64,7 +65,11 @@ struct DeleteAccountFeature: Reducer {
 
             case .signOutConfirmButtonTapped:
                 return .run { send in
-                    // TODO: 실제 서버 회원탈퇴 로직 수행 후...
+                    do {
+                        _ = try await authClient.withdraw()
+                    } catch {
+                        print(error)
+                    }
 
                     keychain.delete(.accessToken)
                     keychain.delete(.refreshToken)

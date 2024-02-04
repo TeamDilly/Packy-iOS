@@ -39,10 +39,12 @@ extension AuthEndpoint: TargetType {
     
     var method: Moya.Method {
         switch self {
-        case .signUp, .reissueToken, .withdraw:  
+        case .signUp, .reissueToken:
             return .post
         case .signIn:
             return .get
+        case .withdraw:
+            return .delete
         }
     }
     
