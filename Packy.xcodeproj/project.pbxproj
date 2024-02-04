@@ -38,6 +38,8 @@
 		E54484EE2B6F3E00003DFA1B /* MyBoxFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54484EC2B6F3E00003DFA1B /* MyBoxFeature.swift */; };
 		E54484F02B6F3E63003DFA1B /* TabSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54484EF2B6F3E63003DFA1B /* TabSegmentedControl.swift */; };
 		E54484F22B6F434C003DFA1B /* MyBoxTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54484F12B6F434C003DFA1B /* MyBoxTab.swift */; };
+		E54484F42B6F4A17003DFA1B /* DateFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54484F32B6F4A17003DFA1B /* DateFormat.swift */; };
+		E54484F62B6F4A41003DFA1B /* Date+Format.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54484F52B6F4A41003DFA1B /* Date+Format.swift */; };
 		E5551B792B5FE8E300DB81F3 /* TokenInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5551B782B5FE8E300DB81F3 /* TokenInterceptor.swift */; };
 		E5551B7B2B5FF2AF00DB81F3 /* HTTPSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5551B7A2B5FF2AF00DB81F3 /* HTTPSession.swift */; };
 		E5551B7D2B5FF5AD00DB81F3 /* MoyaProvider+Build.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5551B7C2B5FF5AD00DB81F3 /* MoyaProvider+Build.swift */; };
@@ -223,6 +225,8 @@
 		E54484EC2B6F3E00003DFA1B /* MyBoxFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyBoxFeature.swift; sourceTree = "<group>"; };
 		E54484EF2B6F3E63003DFA1B /* TabSegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabSegmentedControl.swift; sourceTree = "<group>"; };
 		E54484F12B6F434C003DFA1B /* MyBoxTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyBoxTab.swift; sourceTree = "<group>"; };
+		E54484F32B6F4A17003DFA1B /* DateFormat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormat.swift; sourceTree = "<group>"; };
+		E54484F52B6F4A41003DFA1B /* Date+Format.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Format.swift"; sourceTree = "<group>"; };
 		E5551B782B5FE8E300DB81F3 /* TokenInterceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenInterceptor.swift; sourceTree = "<group>"; };
 		E5551B7A2B5FF2AF00DB81F3 /* HTTPSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPSession.swift; sourceTree = "<group>"; };
 		E5551B7C2B5FF5AD00DB81F3 /* MoyaProvider+Build.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MoyaProvider+Build.swift"; sourceTree = "<group>"; };
@@ -407,6 +411,7 @@
 				E58048C02B5BF0D200B974B3 /* UIImage+Compression.swift */,
 				E52470EE2B6134EE003D49DE /* Array+SafeIndex.swift */,
 				E5AC66F22B62BC8400F3CBF0 /* Sequence+SortByKeypath.swift */,
+				E54484F52B6F4A41003DFA1B /* Date+Format.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -755,6 +760,7 @@
 				E5A7AA012B57F81400590EA6 /* ATTManager.swift */,
 				E5AC66EE2B62B24700F3CBF0 /* PassThroughWindow.swift */,
 				E5E06B2C2B651D2200F6FD01 /* Throttle.swift */,
+				E54484F32B6F4A17003DFA1B /* DateFormat.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -1255,6 +1261,7 @@
 				E5A7AA692B57F81400590EA6 /* OnboardingView.swift in Sources */,
 				E5A7AA3C2B57F81400590EA6 /* View+HideKeyboard.swift in Sources */,
 				E5A7AA6B2B57F81400590EA6 /* RootFeature.swift in Sources */,
+				E54484F62B6F4A41003DFA1B /* Date+Format.swift in Sources */,
 				E5A7AA6C2B57F81400590EA6 /* HapticManager.swift in Sources */,
 				E5AC66ED2B62B1CB00F3CBF0 /* PackyAlertManager.swift in Sources */,
 				E5001F872B5BA4C0004B65E6 /* BoxSenderInfo.swift in Sources */,
@@ -1263,6 +1270,7 @@
 				E5A7AA782B57F81400590EA6 /* TokenRequest.swift in Sources */,
 				E5551B7F2B6001CC00DB81F3 /* BoxStartGuideView+SelectBoxSheet.swift in Sources */,
 				E5A7AA822B57F81400590EA6 /* KakaoLoginController.swift in Sources */,
+				E54484F42B6F4A17003DFA1B /* DateFormat.swift in Sources */,
 				E5001F912B5BE44D004B65E6 /* UploadEndpoint.swift in Sources */,
 				E55558282B6E10AC00461352 /* YoutubeLinkValidationResponse.swift in Sources */,
 				E52037D72B64203E00721F76 /* BoxStartGuideFeature+Music.swift in Sources */,

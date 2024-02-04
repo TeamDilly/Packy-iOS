@@ -47,6 +47,7 @@ struct MyBoxView: View {
                 }
                 .padding(24)
             }
+            .scrollIndicators(.hidden)
             .background(.gray100)
             .safeAreaPadding(.bottom, 30)
 
@@ -90,7 +91,7 @@ private struct BoxInfoCell: View {
                     .lineLimit(2)
                     .frame(height: 44, alignment: .top)
 
-                Text(date.formatted())
+                Text(date.formattedString(by: .yyyyMMdd))
                     .packyFont(.body6)
                     .foregroundStyle(.gray600)
                     .frame(maxWidth: .infinity, alignment: .leading)
