@@ -18,6 +18,7 @@ struct MyBoxFeature: Reducer {
     enum Action: BindableAction {
         // MARK: User Action
         case binding(BindingAction<State>)
+        case backButtonTapped
 
         // MARK: Inner Business Action
         case _onTask
@@ -28,6 +29,7 @@ struct MyBoxFeature: Reducer {
     }
 
     @Dependency(\.boxClient) var boxClient
+    @Dependency(\.dismiss) var dismiss
 
     var body: some Reducer<State, Action> {
         BindingReducer()
@@ -36,6 +38,9 @@ struct MyBoxFeature: Reducer {
             switch action {
             case .binding:
                 return .none
+
+            case .backButtonTapped:
+                return .run { _ in await dismiss() }
 
             case ._onTask:
                 return .run { send in

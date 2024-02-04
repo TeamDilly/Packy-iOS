@@ -69,12 +69,8 @@ private extension HomeView {
 
                     Spacer()
 
-                    // TODO: 네비게이션 링크로 대체
-                    // NavigationLink("더보기", state: )
-                    Button("더보기") {
-
-                    }
-                    .buttonStyle(.text)
+                    NavigationLink("더보기", state: HomeNavigationPath.State.myBox())
+                        .buttonStyle(.text)
                 }
                 .padding(.horizontal, 24)
 
@@ -82,6 +78,7 @@ private extension HomeView {
                 ScrollView(.horizontal) {
                     HStack(alignment: .top, spacing: 16) {
                         ForEach(1...10, id: \.self) { index in
+                            // TODO: 실제 연결 필요
                             BoxInfoCell(
                                 boxUrl: "https://picsum.photos/200",
                                 sender: "hello",
@@ -117,9 +114,7 @@ private extension HomeView {
 
             Spacer()
 
-            // TODO: 네비게이션 링크로 대체
-            Button {} label: {
-                // NavigationLink(state: ) {
+            NavigationLink(state: HomeNavigationPath.State.setting()) {
                 Image(.setting)
             }
         }

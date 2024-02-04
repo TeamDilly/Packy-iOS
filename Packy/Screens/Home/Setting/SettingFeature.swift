@@ -16,6 +16,7 @@ struct SettingFeature: Reducer {
 
     enum Action {
         // MARK: User Action
+        case backButtonTapped
 
         // MARK: Inner Business Action
         case _onTask
@@ -25,12 +26,16 @@ struct SettingFeature: Reducer {
         // MARK: Child Action
     }
 
+    @Dependency(\.dismiss) var dismiss
 
     var body: some Reducer<State, Action> {
         Reduce<State, Action> { state, action in
             switch action {
             case ._onTask:
                 return .none
+
+            case .backButtonTapped:
+                return .run { _ in await dismiss() }
             }
         }
     }

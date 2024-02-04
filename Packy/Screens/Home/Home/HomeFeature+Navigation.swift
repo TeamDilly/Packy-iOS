@@ -14,7 +14,7 @@ struct HomeNavigationPath {
     enum State: Equatable {
         case myBox(MyBoxFeature.State = .init())
         case boxDetail(BoxDetailFeature.State)
-        case setting(SettingFeature.State)
+        case setting(SettingFeature.State = .init())
     }
 
     enum Action {

@@ -22,7 +22,7 @@ struct MyBoxView: View {
     var body: some View {
         VStack(spacing: 0) {
             NavigationBar.onlyBackButton {
-
+                viewStore.send(.backButtonTapped)
             }
             .padding(.top, 8)
 
@@ -42,6 +42,7 @@ struct MyBoxView: View {
 
             Spacer()
         }
+        .navigationBarBackButtonHidden(true)
         .ignoresSafeArea(edges: .bottom)
         .task {
             await viewStore
@@ -72,6 +73,7 @@ private extension MyBoxView {
         return ScrollView {
             LazyVGrid(columns: columns, spacing: 16) {
                 ForEach(1...10, id: \.self) { index in
+                    // TODO: 실제 연결 필요
                     MyBoxInfoCell(
                         tabInfo: tab,
                         boxUrl: "https://picsum.photos/200",
