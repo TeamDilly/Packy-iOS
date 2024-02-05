@@ -94,6 +94,13 @@ struct HomeView: View {
                      action: HomeNavigationPath.Action.addTitle,
                      then: BoxAddTitleAndShareView.init
                 )
+
+            case .webContent:
+                CaseLet(
+                    \HomeNavigationPath.State.webContent,
+                     action: HomeNavigationPath.Action.webContent,
+                     then: WebContentView.init
+                )
             }
         }
     }

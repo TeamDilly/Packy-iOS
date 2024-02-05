@@ -60,6 +60,10 @@ struct SettingFeature: Reducer {
             case .backButtonTapped:
                 return .run { _ in await dismiss() }
 
+            case let ._setSettingMenus(menus):
+                state.settingMenus = menus
+                return .none
+
             default:
                 return .none
             }

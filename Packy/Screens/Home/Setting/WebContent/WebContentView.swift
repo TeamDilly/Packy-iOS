@@ -23,11 +23,13 @@ struct WebContentView: View {
         VStack {
             NavigationBar(
                 title: viewStore.navigationTitle,
-                leftIcon: Image(.arrowLeft)) {
-                    viewStore.send(.backButtonTapped)
-                }
+                leftIcon: Image(.arrowLeft), 
+                leftIconAction: { viewStore.send(.backButtonTapped) }
+            )
+
             WebView(urlString: viewStore.urlString)
         }
+        .navigationBarBackButtonHidden()
         .task {
             await viewStore
                 .send(._onTask)
