@@ -38,6 +38,10 @@ struct LoginFeature: Reducer {
     @Dependency(\.authClient) var authClient
     @Dependency(\.keychain) var keychain
 
+    enum ThrottleId {
+        case loginButton
+    }
+
     var body: some Reducer<State, Action> {
         Reduce<State, Action> { state, action in
             switch action {
@@ -46,12 +50,14 @@ struct LoginFeature: Reducer {
                     let info = try await socialLogin.kakaoLogin()
                     try await handleSocialLogin(info, send: send)
                 }
+                .throttle(id: ThrottleId.loginButton, for: .seconds(1), scheduler: DispatchQueue.main, latest: false)
 
             case .appleLoginButtonTapped:
                 return .run { send in
                     let info = try await socialLogin.appleLogin()
                     try await handleSocialLogin(info, send: send)
                 }
+                .throttle(id: ThrottleId.loginButton, for: .seconds(1), scheduler: DispatchQueue.main, latest: false)
 
             case let ._setSocialLoginInfo(info):
                 state.socialLoginInfo = info
