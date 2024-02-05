@@ -21,6 +21,7 @@ struct BoxChoiceView: View {
     }
 
     var body: some View {
+        let isWiderThan375pt = UIScreen.main.isWiderThan375pt
         VStack(spacing: 0) {
             if viewStore.isPresentingFinishedMotionView {
                 finishedBoxMotionView
@@ -35,37 +36,51 @@ struct BoxChoiceView: View {
                 )
                 .padding(.top, 8)
 
-                Text("마음에 드는 선물박스를 골라주세요")
+                Text("마음에 드는 선물박스를\n골라주세요")
                     .packyFont(.heading1)
+                    .multilineTextAlignment(.center)
                     .foregroundStyle(.gray900)
-                    .padding(.vertical, UIScreen.main.isWiderThan375pt ? 48 : 30)
+                    .padding(.top, isWiderThan375pt ? 48 : 30)
 
-                VStack(spacing: 40) {
+                VStack(spacing: isWiderThan375pt ? 80 : 64) {
                     if let selectedBox = viewStore.selectedBox {
-                        NetworkImage(url: selectedBox.boxFullUrl, contentMode: .fit)
-                            .frame(width: 250, height: 250)
-                            .animation(nil, value: viewStore.selectedBox)
-                    }
-                
-                    ScrollView(.horizontal) {
-                        HStack(spacing: 12) {
-                            ForEach(viewStore.boxDesigns, id: \.id) { boxDesign in
-                                Button {
-                                    viewStore.send(.selectBox(boxDesign))
-                                    HapticManager.shared.fireFeedback(.medium)
-                                } label: {
-                                    NetworkImage(url: boxDesign.boxFullUrl, contentMode: .fit)
-                                        .clipShape(RoundedRectangle(cornerRadius: 12))
-                                        .frame(width: 64, height: 64)
+                        // TODO: 사이즈 변경 대응
+                        let frameWidth: CGFloat = isWiderThan375pt ? 220 : 180
+
+                        ZStack {
+                            NetworkImage(url: selectedBox.boxBottomUrl, contentMode: .fit)
+                                .offset(x: -20, y: 20)
+
+                            NetworkImage(url: selectedBox.boxFullUrl, contentMode: .fit)
+                                .offset(x: 20, y: -20)
+
+                        }
+                        .transition(.slide)
+                        .animation(nil, value: viewStore.selectedBox)
+                        .frame(width: frameWidth, height: frameWidth)
+
+                        ScrollView(.horizontal) {
+                            HStack(spacing: 12) {
+                                ForEach(viewStore.boxDesigns, id: \.id) { boxDesign in
+                                    Button {
+                                        viewStore.send(.selectBox(boxDesign))
+                                        HapticManager.shared.fireFeedback(.medium)
+                                    } label: {
+                                        NetworkImage(url: boxDesign.boxFullUrl, contentMode: .fit)
+                                            .clipShape(RoundedRectangle(cornerRadius: 12))
+                                            .frame(width: 64, height: 64)
+                                    }
+                                    .buttonStyle(.bouncy)
                                 }
-                                .buttonStyle(.bouncy)
                             }
                         }
+                        .animation(.spring, value: viewStore.boxDesigns)
+                        .transition(.slide)
+                        .scrollIndicators(.hidden)
+                        .safeAreaPadding(.horizontal, 40)
                     }
-                    .scrollIndicators(.hidden)
-                    .safeAreaPadding(.horizontal, 40)
                 }
-                .padding(.top, UIScreen.main.isWiderThan375pt ? 48 : 20)
+                .padding(.top, isWiderThan375pt ? 60 : 48)
 
                 Spacer()
 
