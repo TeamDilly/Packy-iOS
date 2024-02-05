@@ -71,9 +71,10 @@ extension HomeFeature {
             switch action {
             case let .path(action):
                 switch action {
-                /// 회원탈퇴, 로그아웃 완료 시 Stack 전부 비우기
+                /// 회원탈퇴, 로그아웃 완료, 박스 공유창 닫기 시 Stack 전부 비우기
                 case .element(id: _, action: .deleteAccount(.delegate(.completedSignOut))),
-                     .element(id: _, action: .setting(.delegate(.completeSignOut))):
+                     .element(id: _, action: .setting(.delegate(.completeSignOut))),
+                     .element(id: _, action: .addTitle(.delegate(.moveToHome))):
                     state.path.removeAll()
                     return .none
 

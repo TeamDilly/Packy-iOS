@@ -28,6 +28,7 @@ struct BoxAddTitleAndShareFeature: Reducer {
         // MARK: User Action
         case binding(BindingAction<State>)
         case backButtonTapped
+        case closeButtonTapped
         case nextButtonTapped
         case sendButtonTapped
 
@@ -37,7 +38,11 @@ struct BoxAddTitleAndShareFeature: Reducer {
         // MARK: Inner SetState Action
         case _setBoxId(Int)
 
-        // MARK: Child Action
+        // MARK: Delegate Action
+        enum Delegate {
+            case moveToHome
+        }
+        case delegate(Delegate)
     }
 
     @Dependency(\.continuousClock) var clock
@@ -55,6 +60,9 @@ struct BoxAddTitleAndShareFeature: Reducer {
 
             case .backButtonTapped:
                 return .run { _ in await dismiss() }
+
+            case .closeButtonTapped:
+                return .send(.delegate(.moveToHome))
 
             case .nextButtonTapped:
                 state.giftBox.name = state.boxNameInput
@@ -82,6 +90,9 @@ struct BoxAddTitleAndShareFeature: Reducer {
                 return .none
 
             case ._onTask:
+                return .none
+
+            default:
                 return .none
             }
         }

@@ -84,6 +84,10 @@ private extension BoxAddTitleAndShareView {
         let isSendState = viewStore.showingState == .send
 
         return VStack(spacing: 0) {
+            NavigationBar(rightIcon: isSendState ? Image(.xmark) : nil) {
+                viewStore.send(.closeButtonTapped)
+            }
+
             Spacer()
 
             Group {
@@ -96,7 +100,7 @@ private extension BoxAddTitleAndShareView {
             }
             .packyFont(.heading1)
             .foregroundStyle(.gray900)
-            .padding(.top, 24)
+            .padding(.top, -24)
             .multilineTextAlignment(.center)
 
             if isSendState {
@@ -124,7 +128,6 @@ private extension BoxAddTitleAndShareView {
                 .frame(width: 240, height: 240)
                 .padding(.bottom, 20)
 
-            Spacer()
             Spacer()
 
             if isSendState {
@@ -156,7 +159,7 @@ private extension BoxAddTitleAndShareView {
 #Preview {
     BoxAddTitleAndShareView(
         store: .init(
-            initialState: .init(giftBox: .mock, boxDesign: .mock, boxNameInput: "hello"),
+            initialState: .init(giftBox: .mock, boxDesign: .mock, boxNameInput: "hello", showingState: .send),
             reducer: {
                 BoxAddTitleAndShareFeature()
                     ._printChanges()
