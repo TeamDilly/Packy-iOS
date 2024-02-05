@@ -29,6 +29,8 @@ struct AuthClient {
     var withdraw: @Sendable () async throws -> String
     /// 토큰 재발급
     var reissueToken: @Sendable (TokenRequest) async throws -> TokenInfoResponse
+    /// 설정 메뉴 링크들 조회
+    var fetchSettingMenus: @Sendable () async throws -> SettingMenuResponse
 }
 
 extension AuthClient: DependencyKey {
@@ -48,6 +50,9 @@ extension AuthClient: DependencyKey {
             },
             reissueToken: {
                 try await nonTokenProvider.request(.reissueToken(request: $0))
+            },
+            fetchSettingMenus: {
+                try await provider.request(.settings)
             }
         )
     }()
@@ -57,7 +62,8 @@ extension AuthClient: DependencyKey {
             signUp: { _, _ in .mock },
             signIn: { _ in .mock },
             withdraw: { "" },
-            reissueToken: { _ in .mock }
+            reissueToken: { _ in .mock },
+            fetchSettingMenus: { .mock }
         )
     }()
 }

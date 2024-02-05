@@ -12,6 +12,7 @@ import ComposableArchitecture
 struct SettingFeature: Reducer {
 
     struct State: Equatable {
+        var settingMenus: [SettingMenu] = []
     }
 
     enum Action {
@@ -24,6 +25,7 @@ struct SettingFeature: Reducer {
         case _onTask
 
         // MARK: Inner SetState Action
+        case _setSettingMenus([SettingMenu])
 
         // MARK: Delegate Action
         enum Delegate {
@@ -35,12 +37,13 @@ struct SettingFeature: Reducer {
     @Dependency(\.dismiss) var dismiss
     @Dependency(\.packyAlert) var packyAlert
     @Dependency(\.keychain) var keychain
+    @Dependency(\.authClient) var authClient
 
     var body: some Reducer<State, Action> {
         Reduce<State, Action> { state, action in
             switch action {
             case ._onTask:
-                return .none
+                return fetchSettingMenus()
 
             case .logoutButtonTapped:
                 return .run { send in
@@ -59,6 +62,19 @@ struct SettingFeature: Reducer {
 
             default:
                 return .none
+            }
+        }
+    }
+}
+
+private extension SettingFeature {
+    func fetchSettingMenus() -> Effect<Action> {
+        .run { send in
+            do {
+                let settingMenus = try await authClient.fetchSettingMenus()
+                await send(._setSettingMenus(settingMenus))
+            } catch {
+                print("🐛 \(error)")
             }
         }
     }

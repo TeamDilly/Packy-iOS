@@ -36,14 +36,17 @@ struct SettingView: View {
 
                     PackyDivider()
 
-                    SettingListCell(title: "패키 공식 SNS")
-                    SettingListCell(title: "1:1 문의하기")
-                    SettingListCell(title: "패키에게 의견 보내기")
+                    // 서버에서 받아온 설정 링크들
+                    ForEach(SettingMenuType.allCases, id: \.self) { menuType in
+                        let url = viewStore.settingMenus.first { $0.type == menuType }?.url ?? ""
 
-                    PackyDivider()
+                        SettingListCell(title: menuType.title)
 
-                    SettingListCell(title: "개인정보처리방침")
-                    SettingListCell(title: "이용약관")
+                        if case .sendComment = menuType {
+                            PackyDivider()
+                        }
+                    }
+
                     versionView
 
                     PackyDivider()

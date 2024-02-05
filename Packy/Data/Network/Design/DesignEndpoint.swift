@@ -19,6 +19,7 @@ enum DesignEndpoint {
     case getBoxDesigns
     /// 스티커 디자인 조회
     case getStickerDesigns(lastStickerId: Int, size: Int = 10)
+    /// 유튜브 링크 유효성 검사
     case getValidateYoutubeLink(url: String)
 }
 

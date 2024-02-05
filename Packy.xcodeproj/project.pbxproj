@@ -180,6 +180,8 @@
 		E5AC66F12B62B95B00F3CBF0 /* StickerDesign.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5AC66F02B62B95B00F3CBF0 /* StickerDesign.swift */; };
 		E5AC66F32B62BC8400F3CBF0 /* Sequence+SortByKeypath.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5AC66F22B62BC8400F3CBF0 /* Sequence+SortByKeypath.swift */; };
 		E5B22CE32B6FC774003DAC7B /* URL+QueryParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B22CE22B6FC774003DAC7B /* URL+QueryParameter.swift */; };
+		E5B22CF42B70F834003DAC7B /* SettingMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B22CF32B70F834003DAC7B /* SettingMenu.swift */; };
+		E5B22CF62B70F8F2003DAC7B /* SettingMenuType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B22CF52B70F8F2003DAC7B /* SettingMenuType.swift */; };
 		E5D0129A2B58086F00236FEF /* SetWindowBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D012992B58086F00236FEF /* SetWindowBackground.swift */; };
 		E5D749762B4A7B9200213F63 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = E5D749752B4A7B9200213F63 /* Alamofire */; };
 		E5D749792B4A7C1A00213F63 /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = E5D749782B4A7C1A00213F63 /* ComposableArchitecture */; };
@@ -370,6 +372,8 @@
 		E5AC66F02B62B95B00F3CBF0 /* StickerDesign.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickerDesign.swift; sourceTree = "<group>"; };
 		E5AC66F22B62BC8400F3CBF0 /* Sequence+SortByKeypath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sequence+SortByKeypath.swift"; sourceTree = "<group>"; };
 		E5B22CE22B6FC774003DAC7B /* URL+QueryParameter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+QueryParameter.swift"; sourceTree = "<group>"; };
+		E5B22CF32B70F834003DAC7B /* SettingMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingMenu.swift; sourceTree = "<group>"; };
+		E5B22CF52B70F8F2003DAC7B /* SettingMenuType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingMenuType.swift; sourceTree = "<group>"; };
 		E5D012992B58086F00236FEF /* SetWindowBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetWindowBackground.swift; sourceTree = "<group>"; };
 		E5D7495D2B4A72E100213F63 /* Packy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Packy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E5E06B2C2B651D2200F6FD01 /* Throttle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Throttle.swift; sourceTree = "<group>"; };
@@ -855,9 +859,10 @@
 		E5A7AA072B57F81400590EA6 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				E5E06B3B2B654DBE00F6FD01 /* Auth */,
 				E5E06B3D2B654DD800F6FD01 /* Box */,
 				E5E06B3C2B654DCE00F6FD01 /* Design */,
-				E5E06B3B2B654DBE00F6FD01 /* Auth */,
+				E5B22CF22B70F80F003DAC7B /* Setting */,
 			);
 			name = Model;
 			path = Packy/Model;
@@ -1025,6 +1030,15 @@
 				E5AC66EA2B62AB9900F3CBF0 /* PackyAlertClient.swift */,
 			);
 			path = DesignSystem;
+			sourceTree = "<group>";
+		};
+		E5B22CF22B70F80F003DAC7B /* Setting */ = {
+			isa = PBXGroup;
+			children = (
+				E5B22CF32B70F834003DAC7B /* SettingMenu.swift */,
+				E5B22CF52B70F8F2003DAC7B /* SettingMenuType.swift */,
+			);
+			path = Setting;
 			sourceTree = "<group>";
 		};
 		E5D749542B4A72E100213F63 = {
@@ -1251,6 +1265,7 @@
 				E5A7AA852B57F81400590EA6 /* UserNotificationClient.swift in Sources */,
 				E5A7AA532B57F81400590EA6 /* HomeView.swift in Sources */,
 				E5E5110F2B69212900CE86AF /* BoxDetailLetterView.swift in Sources */,
+				E5B22CF62B70F8F2003DAC7B /* SettingMenuType.swift in Sources */,
 				E5E06B312B654A1000F6FD01 /* BoxAddTitleAndShareView.swift in Sources */,
 				E5A416A22B5D076C00313E5A /* PopGestureDisableModifier.swift in Sources */,
 				E54484F22B6F434C003DFA1B /* MyBoxTab.swift in Sources */,
@@ -1297,6 +1312,7 @@
 				E5A416B52B5D439300313E5A /* PackyAlert.swift in Sources */,
 				E52470EF2B6134EE003D49DE /* Array+SafeIndex.swift in Sources */,
 				E5A7AA792B57F81400590EA6 /* SignUpRequest.swift in Sources */,
+				E5B22CF42B70F834003DAC7B /* SettingMenu.swift in Sources */,
 				E5E06B362B654D8A00F6FD01 /* Photo.swift in Sources */,
 				E5E06B442B654FC500F6FD01 /* SentGiftBoxInfo.swift in Sources */,
 				E5001F8E2B5BE422004B65E6 /* UploadClient.swift in Sources */,
