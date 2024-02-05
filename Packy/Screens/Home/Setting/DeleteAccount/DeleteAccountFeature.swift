@@ -67,14 +67,14 @@ struct DeleteAccountFeature: Reducer {
                 return .run { send in
                     do {
                         _ = try await authClient.withdraw()
+
+                        keychain.delete(.accessToken)
+                        keychain.delete(.refreshToken)
+
+                        await send(._setShowingState(.completed), animation: .spring)
                     } catch {
-                        print(error)
+                        print("🐛 \(error)")
                     }
-
-                    keychain.delete(.accessToken)
-                    keychain.delete(.refreshToken)
-
-                    await send(._setShowingState(.completed), animation: .spring)
                 }
 
             case .completedConfirmButtonTapped:

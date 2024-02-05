@@ -48,7 +48,11 @@ struct SettingView: View {
 
                     PackyDivider()
 
-                    SettingListCell(title: "로그아웃", showRightIcon: false)
+                    Button {
+                        viewStore.send(.logoutButtonTapped)
+                    } label: {
+                        SettingListCell(title: "로그아웃", showRightIcon: false)
+                    }
                 }
                 .padding(24)
 
