@@ -187,6 +187,7 @@
 		E5B22CFD2B70FF85003DAC7B /* WebContentFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B22CFB2B70FF85003DAC7B /* WebContentFeature.swift */; };
 		E5B22D012B711D33003DAC7B /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B22CFF2B711D33003DAC7B /* SplashView.swift */; };
 		E5B22D022B711D33003DAC7B /* SplashFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B22D002B711D33003DAC7B /* SplashFeature.swift */; };
+		E5C5C9DB2B71314F003F0AB9 /* ShakeAnimationModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C5C9DA2B71314F003F0AB9 /* ShakeAnimationModifier.swift */; };
 		E5D0129A2B58086F00236FEF /* SetWindowBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D012992B58086F00236FEF /* SetWindowBackground.swift */; };
 		E5D749762B4A7B9200213F63 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = E5D749752B4A7B9200213F63 /* Alamofire */; };
 		E5D749792B4A7C1A00213F63 /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = E5D749782B4A7C1A00213F63 /* ComposableArchitecture */; };
@@ -384,6 +385,7 @@
 		E5B22CFB2B70FF85003DAC7B /* WebContentFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebContentFeature.swift; sourceTree = "<group>"; };
 		E5B22CFF2B711D33003DAC7B /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
 		E5B22D002B711D33003DAC7B /* SplashFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashFeature.swift; sourceTree = "<group>"; };
+		E5C5C9DA2B71314F003F0AB9 /* ShakeAnimationModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShakeAnimationModifier.swift; sourceTree = "<group>"; };
 		E5D012992B58086F00236FEF /* SetWindowBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetWindowBackground.swift; sourceTree = "<group>"; };
 		E5D7495D2B4A72E100213F63 /* Packy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Packy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E5E06B2C2B651D2200F6FD01 /* Throttle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Throttle.swift; sourceTree = "<group>"; };
@@ -710,8 +712,9 @@
 				E5A7A9D52B57F81400590EA6 /* BottomSheetModifier.swift */,
 				E5A7A9D62B57F81400590EA6 /* BouncyButtonStyle.swift */,
 				E58048C82B5C36DD00B974B3 /* CornerRadiusWithBorderModifier.swift */,
-				E5A7A9D72B57F81400590EA6 /* SpinningModifier.swift */,
 				E5A416A12B5D076C00313E5A /* PopGestureDisableModifier.swift */,
+				E5C5C9DA2B71314F003F0AB9 /* ShakeAnimationModifier.swift */,
+				E5A7A9D72B57F81400590EA6 /* SpinningModifier.swift */,
 			);
 			path = ViewModifiers;
 			sourceTree = "<group>";
@@ -1347,6 +1350,7 @@
 				E5A7AA792B57F81400590EA6 /* SignUpRequest.swift in Sources */,
 				E5B22CF42B70F834003DAC7B /* SettingMenu.swift in Sources */,
 				E5E06B362B654D8A00F6FD01 /* Photo.swift in Sources */,
+				E5C5C9DB2B71314F003F0AB9 /* ShakeAnimationModifier.swift in Sources */,
 				E5E06B442B654FC500F6FD01 /* SentGiftBoxInfo.swift in Sources */,
 				E5001F8E2B5BE422004B65E6 /* UploadClient.swift in Sources */,
 				E5A7AA3D2B57F81400590EA6 /* PackyNavigationLink.swift in Sources */,

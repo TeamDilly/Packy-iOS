@@ -13,6 +13,7 @@ import ComposableArchitecture
 struct HomeView: View {
     private let store: StoreOf<HomeFeature>
     @ObservedObject private var viewStore: ViewStoreOf<HomeFeature>
+    @State private var easterEggShakeAnimation: Bool = false
 
     init(store: StoreOf<HomeFeature>) {
         self.store = store
@@ -170,12 +171,18 @@ private extension HomeView {
     var navigationBar: some View {
         HStack {
             Image(.logo)
+                .shake(isOn: $easterEggShakeAnimation)
+                .onTapGesture(count: 5) {
+                    easterEggShakeAnimation = true
+                }
+                .sensoryFeedback(.increase, trigger: easterEggShakeAnimation)
 
             Spacer()
 
             NavigationLink(state: HomeNavigationPath.State.setting()) {
                 Image(.setting)
             }
+            .frame(width: 40, height: 40)
         }
         .frame(height: 48)
     }
