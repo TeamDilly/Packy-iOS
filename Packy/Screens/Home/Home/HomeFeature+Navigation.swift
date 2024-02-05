@@ -24,6 +24,8 @@ struct HomeNavigationPath {
         case boxChoice(BoxChoiceFeature.State)
         case startGuide(BoxStartGuideFeature.State)
         case addTitle(BoxAddTitleAndShareFeature.State)
+
+        case webContent(WebContentFeature.State)
     }
 
     enum Action {
@@ -39,6 +41,8 @@ struct HomeNavigationPath {
         case boxChoice(BoxChoiceFeature.Action)
         case startGuide(BoxStartGuideFeature.Action)
         case addTitle(BoxAddTitleAndShareFeature.Action)
+
+        case webContent(WebContentFeature.Action)
     }
 
     var body: some Reducer<State, Action> {
@@ -54,6 +58,8 @@ struct HomeNavigationPath {
         Scope(state: \.boxChoice, action: \.boxChoice) { BoxChoiceFeature() }
         Scope(state: \.startGuide, action: \.startGuide) { BoxStartGuideFeature() }
         Scope(state: \.addTitle, action: \.addTitle) { BoxAddTitleAndShareFeature() }
+
+        Scope(state: \.webContent, action: \.webContent) { WebContentFeature() }
     }
 }
 

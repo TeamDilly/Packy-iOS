@@ -183,6 +183,8 @@
 		E5B22CF42B70F834003DAC7B /* SettingMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B22CF32B70F834003DAC7B /* SettingMenu.swift */; };
 		E5B22CF62B70F8F2003DAC7B /* SettingMenuType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B22CF52B70F8F2003DAC7B /* SettingMenuType.swift */; };
 		E5B22CF82B70FD36003DAC7B /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B22CF72B70FD36003DAC7B /* WebView.swift */; };
+		E5B22CFC2B70FF85003DAC7B /* WebContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B22CFA2B70FF85003DAC7B /* WebContentView.swift */; };
+		E5B22CFD2B70FF85003DAC7B /* WebContentFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B22CFB2B70FF85003DAC7B /* WebContentFeature.swift */; };
 		E5D0129A2B58086F00236FEF /* SetWindowBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D012992B58086F00236FEF /* SetWindowBackground.swift */; };
 		E5D749762B4A7B9200213F63 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = E5D749752B4A7B9200213F63 /* Alamofire */; };
 		E5D749792B4A7C1A00213F63 /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = E5D749782B4A7C1A00213F63 /* ComposableArchitecture */; };
@@ -376,6 +378,8 @@
 		E5B22CF32B70F834003DAC7B /* SettingMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingMenu.swift; sourceTree = "<group>"; };
 		E5B22CF52B70F8F2003DAC7B /* SettingMenuType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingMenuType.swift; sourceTree = "<group>"; };
 		E5B22CF72B70FD36003DAC7B /* WebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
+		E5B22CFA2B70FF85003DAC7B /* WebContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebContentView.swift; sourceTree = "<group>"; };
+		E5B22CFB2B70FF85003DAC7B /* WebContentFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebContentFeature.swift; sourceTree = "<group>"; };
 		E5D012992B58086F00236FEF /* SetWindowBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetWindowBackground.swift; sourceTree = "<group>"; };
 		E5D7495D2B4A72E100213F63 /* Packy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Packy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E5E06B2C2B651D2200F6FD01 /* Throttle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Throttle.swift; sourceTree = "<group>"; };
@@ -548,6 +552,7 @@
 				E544850E2B6F8E2C003DFA1B /* SettingListCell.swift */,
 				E544850C2B6F8DC5003DFA1B /* ManageAccount */,
 				E544850D2B6F8DEA003DFA1B /* DeleteAccount */,
+				E5B22CF92B70FF76003DAC7B /* WebContent */,
 			);
 			path = Setting;
 			sourceTree = "<group>";
@@ -1044,6 +1049,15 @@
 			path = Setting;
 			sourceTree = "<group>";
 		};
+		E5B22CF92B70FF76003DAC7B /* WebContent */ = {
+			isa = PBXGroup;
+			children = (
+				E5B22CFA2B70FF85003DAC7B /* WebContentView.swift */,
+				E5B22CFB2B70FF85003DAC7B /* WebContentFeature.swift */,
+			);
+			path = WebContent;
+			sourceTree = "<group>";
+		};
 		E5D749542B4A72E100213F63 = {
 			isa = PBXGroup;
 			children = (
@@ -1340,6 +1354,7 @@
 				E5A416B12B5D220B00313E5A /* BoxDesign.swift in Sources */,
 				E5A7AA442B57F81400590EA6 /* SocialLoginButton.swift in Sources */,
 				E5A7AA4A2B57F81400590EA6 /* Radio.swift in Sources */,
+				E5B22CFC2B70FF85003DAC7B /* WebContentView.swift in Sources */,
 				E58048C92B5C36DD00B974B3 /* CornerRadiusWithBorderModifier.swift in Sources */,
 				E5A7AA652B57F81400590EA6 /* LoginView.swift in Sources */,
 				E58048CB2B5C394700B974B3 /* Snackbar.swift in Sources */,
@@ -1386,6 +1401,7 @@
 				E5257CB42B693FB9000A091E /* ImageViewer.swift in Sources */,
 				E5FDE05B2B6BACFA00E00B00 /* Envelope.swift in Sources */,
 				E5B22CF82B70FD36003DAC7B /* WebView.swift in Sources */,
+				E5B22CFD2B70FF85003DAC7B /* WebContentFeature.swift in Sources */,
 				E5A416A72B5D20DC00313E5A /* DesignClient.swift in Sources */,
 				E5A7AA702B57F81400590EA6 /* BaseResponse.swift in Sources */,
 				E5A7AA372B57F81400590EA6 /* TextField+LimitInputLength.swift in Sources */,

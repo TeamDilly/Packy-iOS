@@ -18,6 +18,7 @@ struct WebView: View {
             WebViewRepresentable(urlString: urlString, isLoading: $isLoading)
                 .edgesIgnoringSafeArea(.all)
             if isLoading {
+                // TODO: 커스텀 로딩 인디케이터 연결
                 ProgressView()
             }
         }
