@@ -185,6 +185,8 @@
 		E5B22CF82B70FD36003DAC7B /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B22CF72B70FD36003DAC7B /* WebView.swift */; };
 		E5B22CFC2B70FF85003DAC7B /* WebContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B22CFA2B70FF85003DAC7B /* WebContentView.swift */; };
 		E5B22CFD2B70FF85003DAC7B /* WebContentFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B22CFB2B70FF85003DAC7B /* WebContentFeature.swift */; };
+		E5B22D012B711D33003DAC7B /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B22CFF2B711D33003DAC7B /* SplashView.swift */; };
+		E5B22D022B711D33003DAC7B /* SplashFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B22D002B711D33003DAC7B /* SplashFeature.swift */; };
 		E5D0129A2B58086F00236FEF /* SetWindowBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D012992B58086F00236FEF /* SetWindowBackground.swift */; };
 		E5D749762B4A7B9200213F63 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = E5D749752B4A7B9200213F63 /* Alamofire */; };
 		E5D749792B4A7C1A00213F63 /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = E5D749782B4A7C1A00213F63 /* ComposableArchitecture */; };
@@ -380,6 +382,8 @@
 		E5B22CF72B70FD36003DAC7B /* WebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
 		E5B22CFA2B70FF85003DAC7B /* WebContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebContentView.swift; sourceTree = "<group>"; };
 		E5B22CFB2B70FF85003DAC7B /* WebContentFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebContentFeature.swift; sourceTree = "<group>"; };
+		E5B22CFF2B711D33003DAC7B /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
+		E5B22D002B711D33003DAC7B /* SplashFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashFeature.swift; sourceTree = "<group>"; };
 		E5D012992B58086F00236FEF /* SetWindowBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetWindowBackground.swift; sourceTree = "<group>"; };
 		E5D7495D2B4A72E100213F63 /* Packy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Packy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E5E06B2C2B651D2200F6FD01 /* Throttle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Throttle.swift; sourceTree = "<group>"; };
@@ -752,6 +756,7 @@
 			children = (
 				E5A7A9E62B57F81400590EA6 /* IntroFeature.swift */,
 				E5A7A9E72B57F81400590EA6 /* IntroView.swift */,
+				E5B22CFE2B711D2B003DAC7B /* Splash */,
 				E5A7A9F62B57F81400590EA6 /* Onboarding */,
 				E5A7A9F32B57F81400590EA6 /* Login */,
 				E5A7A9E82B57F81400590EA6 /* SignUp */,
@@ -1058,6 +1063,15 @@
 			path = WebContent;
 			sourceTree = "<group>";
 		};
+		E5B22CFE2B711D2B003DAC7B /* Splash */ = {
+			isa = PBXGroup;
+			children = (
+				E5B22CFF2B711D33003DAC7B /* SplashView.swift */,
+				E5B22D002B711D33003DAC7B /* SplashFeature.swift */,
+			);
+			path = Splash;
+			sourceTree = "<group>";
+		};
 		E5D749542B4A72E100213F63 = {
 			isa = PBXGroup;
 			children = (
@@ -1270,10 +1284,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				E58048C12B5BF0D200B974B3 /* UIImage+Compression.swift in Sources */,
+				E5B22D012B711D33003DAC7B /* SplashView.swift in Sources */,
 				E5A7AA412B57F81400590EA6 /* BoxElementShape.swift in Sources */,
 				E5A7AA4D2B57F81400590EA6 /* PackyFont.swift in Sources */,
 				E5A7AA752B57F81400590EA6 /* PackyApp.swift in Sources */,
 				E5A7AA642B57F81400590EA6 /* SignUpNicknameView.swift in Sources */,
+				E5B22D022B711D33003DAC7B /* SplashFeature.swift in Sources */,
 				E5A7AA522B57F81400590EA6 /* SpinningModifier.swift in Sources */,
 				E555582A2B6E248300461352 /* View+TextInteraction.swift in Sources */,
 				E5001F892B5BC09A004B65E6 /* AlertButtonTint.swift in Sources */,

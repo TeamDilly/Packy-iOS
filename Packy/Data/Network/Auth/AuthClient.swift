@@ -46,7 +46,7 @@ extension AuthClient: DependencyKey {
                 try await nonTokenProvider.request(.signIn(request: $0))
             },
             withdraw: {
-                try await provider.requestEmpty(.withdraw)
+                try await provider.request(.withdraw)
             },
             reissueToken: {
                 try await nonTokenProvider.request(.reissueToken(request: $0))

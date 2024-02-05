@@ -22,6 +22,11 @@ struct IntroView: View {
     var body: some View {
         SwitchStore(store) { state in
             switch state {
+            case .splash:
+                CaseLet(\IntroFeature.State.splash, action: IntroFeature.Action.splash) { store in
+                    SplashView(store: store)
+                }
+
             case .onboarding:
                 CaseLet(\IntroFeature.State.onboarding, action: IntroFeature.Action.onboarding) { store in
                     OnboardingView(store: store)

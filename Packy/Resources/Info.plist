@@ -2,6 +2,13 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>UILaunchScreen</key>
+	<dict>
+		<key>UIColorName</key>
+		<string>Purple 500</string>
+		<key>UIImageName</key>
+		<string>logo_large</string>
+	</dict>
 	<key>UIUserInterfaceStyle</key>
 	<string>Light</string>
 	<key>NSAppTransportSecurity</key>
@@ -40,18 +47,6 @@
 			</array>
 		</dict>
 	</array>
-	<key>KAKAO_API_KEY</key>
-	<string>$(KAKAO_API_KEY)</string>
-	<key>LSApplicationQueriesSchemes</key>
-	<array>
-		<string>kakaokompassauth</string>
-		<string>kakaolink</string>
-	</array>
-	<key>NSAppTransportSecurity</key>
-	<dict>
-		<key>NSAllowsArbitraryLoads</key>
-		<true/>
-	</dict>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Pretendard-Black.otf</string>

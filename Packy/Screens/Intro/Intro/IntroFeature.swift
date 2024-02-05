@@ -12,11 +12,12 @@ import ComposableArchitecture
 struct IntroFeature: Reducer {
 
     enum State: Equatable {
+        case splash(SplashFeature.State = .init())
         case onboarding(OnboardingFeature.State = .init())
         case login(LoginFeature.State = .init())
         case signUp(SignUpNicknameFeature.State)
 
-        init() { self = .onboarding() }
+        init() { self = .splash() }
     }
 
     enum Action {
@@ -29,6 +30,7 @@ struct IntroFeature: Reducer {
         case _changeScreen(State)
 
         // MARK: Child Action
+        case splash(SplashFeature.Action)
         case onboarding(OnboardingFeature.Action)
         case login(LoginFeature.Action)
         case signUp(SignUpNicknameFeature.Action)
@@ -42,9 +44,10 @@ struct IntroFeature: Reducer {
             case ._onAppear:
                 // 이미 온보딩 완료 시, 로그인으로 이동
                 if userDefaults.boolForKey(.hasOnboarded) {
-                    return .run { send in await send(._changeScreen(.login())) }
+                    return .run { send in await send(._changeScreen(.login()), animation: .spring) }
+                } else {
+                    return .run { send in await send(._changeScreen(.onboarding()), animation: .spring) }
                 }
-                return .none
 
             case let ._changeScreen(newState):
                 state = newState
@@ -62,6 +65,7 @@ struct IntroFeature: Reducer {
                 return .none
             }
         }
+        .ifCaseLet(\.splash, action: \.splash) { SplashFeature() }
         .ifCaseLet(\.onboarding, action: \.onboarding) { OnboardingFeature() }
         .ifCaseLet(\.login, action: \.login) { LoginFeature() }
         .ifCaseLet(\.signUp, action: \.signUp) { SignUpNicknameFeature() }
