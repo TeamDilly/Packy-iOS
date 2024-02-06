@@ -17,22 +17,20 @@ struct PhotoElementView: View {
     var body: some View {
         let size = element.size(fromScreenWidth: screenWidth)
 
-        Button {
+        VStack {
+            NetworkImage(url: photoUrl)
+                .aspectRatio(1, contentMode: .fit)
+                .padding(.horizontal, 8)
+                .padding(.top, 8)
+
+            Spacer()
+        }
+        .frame(width: size.width, height: size.height)
+        .background(.white)
+        .rotationEffect(.degrees(element.rotationDegree))
+        .bouncyTapGesture {
             HapticManager.shared.fireFeedback(.soft)
             action()
-        } label: {
-            VStack {
-                NetworkImage(url: photoUrl)
-                    .aspectRatio(1, contentMode: .fit)
-                    .padding(.horizontal, 8)
-                    .padding(.top, 8)
-
-                Spacer()
-            }
-            .frame(width: size.width, height: size.height)
-            .background(.white)
-            .rotationEffect(.degrees(element.rotationDegree))
         }
-        .buttonStyle(.bouncy)
     }
 }

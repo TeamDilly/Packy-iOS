@@ -20,13 +20,13 @@ extension BoxStartGuideView {
                             .packyFont(.heading1)
                             .foregroundStyle(.gray900)
                             .frame(maxWidth: .infinity, alignment: .leading)
-
+                        
                         Text("마음에 드는 선물박스를 골라주세요")
                             .packyFont(.body4)
                             .foregroundStyle(.gray600)
                             .frame(maxWidth: .infinity, alignment: .leading)
                     }
-
+                    
                     Button("확인") {
                         viewStore.send(.binding(.set(\.$isSelectBoxBottomSheetPresented, false)))
                     }
@@ -34,19 +34,17 @@ extension BoxStartGuideView {
                 }
                 .padding(.horizontal, 24)
                 .padding(.vertical, 24)
-
+                
                 ScrollView(.horizontal) {
                     HStack(spacing: 12) {
                         ForEach(viewStore.boxDesigns, id: \.id) { boxDesign in
-                            Button {
-                                viewStore.send(.selectBox(boxDesign))
-                                HapticManager.shared.fireFeedback(.soft)
-                            } label: {
-                                NetworkImage(url: boxDesign.boxFullUrl, contentMode: .fit)
-                                    .clipShape(RoundedRectangle(cornerRadius: 12))
-                                    .frame(width: 64, height: 64)
-                            }
-                            .buttonStyle(.bouncy)
+                            NetworkImage(url: boxDesign.boxFullUrl, contentMode: .fit)
+                                .clipShape(RoundedRectangle(cornerRadius: 12))
+                                .frame(width: 64, height: 64)
+                                .bouncyTapGesture {
+                                    viewStore.send(.selectBox(boxDesign))
+                                    HapticManager.shared.fireFeedback(.soft)
+                                }
                         }
                     }
                 }

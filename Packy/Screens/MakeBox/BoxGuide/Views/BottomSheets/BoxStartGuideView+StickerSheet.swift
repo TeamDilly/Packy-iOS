@@ -20,13 +20,13 @@ extension BoxStartGuideView {
                             .packyFont(.heading1)
                             .foregroundStyle(.gray900)
                             .frame(maxWidth: .infinity, alignment: .leading)
-
+                        
                         Text("최대 2개까지 붙일 수 있어요")
                             .packyFont(.body4)
                             .foregroundStyle(.gray600)
                             .frame(maxWidth: .infinity, alignment: .leading)
                     }
-
+                    
                     Button("확인") {
                         viewStore.send(.binding(.set(\.$isStickerBottomSheetPresented, false)))
                     }
@@ -34,21 +34,19 @@ extension BoxStartGuideView {
                 }
                 .padding(.horizontal, 24)
                 .padding(.vertical, 24)
-
+                
                 let columns = [GridItem(spacing: 12), GridItem(spacing: 12), GridItem(spacing: 12)]
                 LazyVGrid(columns: columns, spacing: 12) {
                     ForEach(viewStore.stickerDesigns.flatMap(\.contents), id: \.id) { stickerDesign in
                         let index = viewStore.selectedStickers.firstIndex(of: stickerDesign)
-
-                        Button {
-                            viewStore.send(.stickerTapped(stickerDesign), animation: .easeInOut)
-                        } label: {
-                            StickerCell(imageUrl: stickerDesign.imageUrl, selectedIndex: index)
-                                .aspectRatio(1, contentMode: .fit)
-                        }
-                        .buttonStyle(.bouncy)
+                        
+                        StickerCell(imageUrl: stickerDesign.imageUrl, selectedIndex: index)
+                            .aspectRatio(1, contentMode: .fit)
+                            .bouncyTapGesture {
+                                viewStore.send(.stickerTapped(stickerDesign), animation: .easeInOut)
+                            }
                     }
-
+                    
                     if viewStore.stickerDesigns.last?.isLastPage == false {
                         ProgressView()
                             .onAppear {
@@ -67,7 +65,7 @@ extension BoxStartGuideView {
 private struct StickerCell: View {
     var imageUrl: String
     var selectedIndex: Int?
-
+    
     var body: some View {
         ZStack(alignment: .topTrailing) {
             RoundedRectangle(cornerRadius: 12)
@@ -76,7 +74,7 @@ private struct StickerCell: View {
                     NetworkImage(url: imageUrl, contentMode: .fit)
                         .padding(20)
                 }
-
+            
             if let selectedIndex {
                 Text("\(selectedIndex + 1)")
                     .packyFont(.body1)
@@ -102,7 +100,7 @@ private struct StickerCell: View {
             initialState: .init(senderInfo: .mock, boxDesigns: .mock, selectedBox: .mock, isStickerBottomSheetPresented: true),
             reducer: {
                 BoxStartGuideFeature()
-                    // ._printChanges()
+                // ._printChanges()
             }
         )
     )

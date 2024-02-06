@@ -15,7 +15,7 @@ import YouTubePlayerKit
 struct BoxStartGuideView: View {
     private let store: StoreOf<BoxStartGuideFeature>
     @ObservedObject var viewStore: ViewStoreOf<BoxStartGuideFeature>
-    
+
     @State private var isShowingGuideText: Bool = false
 
     private let strokeStyle: StrokeStyle = .init(lineWidth: 1.5, dash: [5])
@@ -336,39 +336,37 @@ private extension BoxStartGuideView {
 }
 
 private struct ElementGuideView: View {
-    
+
     let element: BoxElementShape
     let screenWidth: CGFloat
     let action: () -> Void
-    
+
     private let strokeStyle: StrokeStyle = .init(lineWidth: 1.5, dash: [5])
-    
+
     var body: some View {
-        Button {
-            HapticManager.shared.fireFeedback(.soft)
-            action()
-        } label: {
-            let size = element.size(fromScreenWidth: screenWidth)
-            RoundedRectangle(cornerRadius: 8)
-                .stroke(element.hasBorder ? .white : .clear, style: strokeStyle)
-                .contentShape(Rectangle())
-                .frame(width: size.width, height: size.height)
-                .rotationEffect(.degrees(element.rotationDegree))
-                .overlay {
-                    VStack(spacing: 8) {
-                        element.image
-                            .renderingMode(.template)
+        let size = element.size(fromScreenWidth: screenWidth)
+        RoundedRectangle(cornerRadius: 8)
+            .stroke(element.hasBorder ? .white : .clear, style: strokeStyle)
+            .contentShape(Rectangle())
+            .frame(width: size.width, height: size.height)
+            .rotationEffect(.degrees(element.rotationDegree))
+            .overlay {
+                VStack(spacing: 8) {
+                    element.image
+                        .renderingMode(.template)
+                        .foregroundStyle(.white)
+
+                    if !element.title.isEmpty {
+                        Text(element.title)
+                            .packyFont(.body4)
                             .foregroundStyle(.white)
-                        
-                        if !element.title.isEmpty {
-                            Text(element.title)
-                                .packyFont(.body4)
-                                .foregroundStyle(.white)
-                        }
                     }
                 }
-        }
-        .buttonStyle(.bouncy)
+            }
+            .bouncyTapGesture {
+                HapticManager.shared.fireFeedback(.soft)
+                action()
+            }
     }
 }
 

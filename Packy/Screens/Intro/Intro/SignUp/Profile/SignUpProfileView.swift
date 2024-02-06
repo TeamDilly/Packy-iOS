@@ -41,14 +41,12 @@ struct SignUpProfileView: View {
 
                 HStack(spacing: 16) {
                     ForEach(viewStore.profileImages, id: \.id) { profileImage in
-                        Button {
-                            viewStore.send(.selectProfile(profileImage))
-                            HapticManager.shared.fireFeedback(.medium)
-                        } label: {
-                            NetworkImage(url: profileImage.imageUrl)
-                                .frame(width: 60, height: 60)
-                        }
-                        .buttonStyle(.bouncy)
+                        NetworkImage(url: profileImage.imageUrl)
+                            .frame(width: 60, height: 60)
+                            .bouncyTapGesture {
+                                viewStore.send(.selectProfile(profileImage))
+                                HapticManager.shared.fireFeedback(.medium)
+                            }
                     }
                 }
             }

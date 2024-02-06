@@ -44,7 +44,7 @@ extension BoxStartGuideView {
                     placeholder: "어떤 마음을 담아볼까요?\n따뜻한 인사, 잊지 못할 추억, 고마웠던 순간까지\n모두 좋아요 :)",
                     borderColor:
                         // TODO: 기획에 따라 변경 필요
-                        viewStore.letterInput.selectedLetterDesign?.borderColor.opacity(0.3) ?? .gray200
+                    viewStore.letterInput.selectedLetterDesign?.borderColor.opacity(0.3) ?? .gray200
                 )
                 .focused($isLetterFieldFocused)
                 .padding(.horizontal, 24)
@@ -54,26 +54,24 @@ extension BoxStartGuideView {
                         HStack(spacing: 10) {
                             ForEach(viewStore.letterDesigns, id: \.id) { letterDesign in
                                 let isSelected = viewStore.letterInput.selectedLetterDesign == letterDesign
-                                Button {
-                                    viewStore.send(.binding(.set(\.letterInput.$selectedLetterDesign, letterDesign)))
-                                    HapticManager.shared.fireFeedback(.medium)
-                                } label: {
-                                    KFImage(URL(string: letterDesign.imageUrl))
-                                        .placeholder {
-                                            ProgressView()
-                                                .progressViewStyle(.circular)
-                                        }
-                                        .resizable()
-                                        .scaledToFit()
-                                        .cornerRadiusWithBorder(
-                                            radius: 16,
-                                            borderColor: letterDesign.borderColor,
-                                            lineWidth: isSelected ? 5 : 0
-                                        )
-                                        .animation(.spring, value: isSelected)
-                                }
-                                .buttonStyle(.bouncy)
-                                .padding(.vertical, 5)
+                                KFImage(URL(string: letterDesign.imageUrl))
+                                    .placeholder {
+                                        ProgressView()
+                                            .progressViewStyle(.circular)
+                                    }
+                                    .resizable()
+                                    .scaledToFit()
+                                    .cornerRadiusWithBorder(
+                                        radius: 8,
+                                        borderColor: letterDesign.borderColor,
+                                        lineWidth: isSelected ? 5 : 0
+                                    )
+                                    .animation(.spring, value: isSelected)
+                                    .bouncyTapGesture {
+                                        viewStore.send(.binding(.set(\.letterInput.$selectedLetterDesign, letterDesign)))
+                                        HapticManager.shared.fireFeedback(.medium)
+                                    }
+                                    .padding(.vertical, 5)
                             }
                         }
                     }
