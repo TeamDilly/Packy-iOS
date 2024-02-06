@@ -55,7 +55,7 @@ struct BoxChoiceView: View {
                                 .offset(x: 20, y: -20)
 
                         }
-                        .transition(.slide)
+                        .transition(.move(edge: .trailing))
                         .animation(nil, value: viewStore.selectedBox)
                         .frame(width: frameWidth, height: frameWidth)
 
@@ -67,13 +67,13 @@ struct BoxChoiceView: View {
                                         .frame(width: 64, height: 64)
                                         .bouncyTapGesture {
                                             viewStore.send(.selectBox(boxDesign))
-                                            HapticManager.shared.fireFeedback(.medium)
+                                            HapticManager.shared.fireFeedback(.soft)
                                         }
                                 }
                             }
                         }
                         .animation(.spring, value: viewStore.boxDesigns)
-                        .transition(.slide)
+                        .transition(.move(edge: .trailing))
                         .scrollIndicators(.hidden)
                         .safeAreaPadding(.horizontal, 40)
                     }
