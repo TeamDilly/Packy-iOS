@@ -8,22 +8,20 @@
 import SwiftUI
 
 enum OnboardingPage: Int, CaseIterable {
-    case makeBox
-    case rememberEvent
+    case one
+    case two
 
     var title: String {
         switch self {
-        case .makeBox:
-            return "패키와 함께 특별한 선물박스를 만들어보세요"
-        case .rememberEvent:
-            return "다가오는 이벤트를 기다리고 지나간 이벤트를 추억해요"
+        case .one:      return "패키와 함께 특별한\n선물박스를 만들어보세요"
+        case .two:      return "패키의 선물박스로\n주고받은 마음을 추억해요"
         }
     }
 
     var image: Image {
         switch self {
-        case .makeBox:          return Image(.packyLogoPurple)
-        case .rememberEvent:    return Image(.packyLogoPurple)
+        case .one:      return Image(.onboardingImg1)
+        case .two:      return Image(.onboardingImg2)
         }
     }
 

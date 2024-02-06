@@ -25,6 +25,7 @@ struct TextButtonStyle: ButtonStyle {
 
     enum ColorType {
         case black
+        case gray
         case white
     }
 
@@ -46,6 +47,8 @@ private extension TextButtonStyle {
         switch colorType {
         case .black:
             return isPressed ? .gray600 : .gray900
+        case .gray:
+            return isPressed ? .gray300 : .gray600
         case .white:
             return isPressed ? .gray300 : .white
         }

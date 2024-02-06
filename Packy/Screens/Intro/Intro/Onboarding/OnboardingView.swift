@@ -20,23 +20,46 @@ struct OnboardingView: View {
     }
 
     var body: some View {
-        VStack(spacing: 0) {
-            Spacer()
+        GeometryReader { geometry in
+            let yOffsetRatio: CGFloat = UIScreen.main.isWiderThan375pt ? 0.13 : 0.08
+            let yOffset = -geometry.size.height * yOffsetRatio
 
-            TabView(selection: viewStore.$currentPage) {
-                ForEach(OnboardingPage.allCases, id: \.self) {
-                    pageView($0)
+            VStack(spacing: 0) {
+                Button("건너뛰기") {
+                    viewStore.send(.skipButtonTapped)
                 }
-            }
-            .tabViewStyle(.page(indexDisplayMode: .never))
+                .buttonStyle(TextButtonStyle(colorType: .gray))
+                .frame(width: 65, height: 48)
+                .frame(maxWidth: .infinity, alignment: .trailing)
+                .padding(.trailing, 16)
 
-            Spacer()
+                Spacer()
 
-            PackyButton(title: viewStore.currentPage.buttonTitle) {
-                viewStore.send(.bottomButtonTapped)
+                TabView(selection: viewStore.$currentPage) {
+                    ForEach(OnboardingPage.allCases, id: \.self) {
+                        pageView($0)
+                    }
+                }
+                .tabViewStyle(.page(indexDisplayMode: .never))
+                .overlay(alignment: .center) {
+
+                }
+
+                PageIndicator(
+                    totalPages: OnboardingPage.allCases.count,
+                    currentPage: viewStore.currentPage.rawValue
+                )
+                .offset(y: yOffset)
+
+                Spacer()
+
+                PackyButton(title: viewStore.currentPage.buttonTitle) {
+                    viewStore.send(.bottomButtonTapped)
+                }
+                .padding(.horizontal, 24)
+                .padding(.bottom, 16)
             }
-            .padding(.horizontal, 24)
-            .padding(.bottom, 16)
+
         }
         .animation(.spring, value: viewStore.currentPage)
         .task {
@@ -51,23 +74,14 @@ struct OnboardingView: View {
 
 private extension OnboardingView {
     func pageView(_ page: OnboardingPage) -> some View {
-        VStack(spacing: 0) {
-            Text(page.title)
-                .multilineTextAlignment(.center)
-                .packyFont(.heading1)
-                .padding(.horizontal)
-                .padding(.bottom, 44)
-
-            page.image
-                .resizable()
-                .frame(width: 300, height: 300)
-
-            PageIndicator(
-                totalPages: OnboardingPage.allCases.count,
-                currentPage: page.rawValue
-            )
-            .padding(.top, 24)
-        }
+        page.image
+            .overlay(alignment: .top) {
+                Text(page.title)
+                    .multilineTextAlignment(.center)
+                    .packyFont(.heading1)
+                    .padding(.horizontal)
+                    .offset(y: -16)
+            }
     }
 }
 
