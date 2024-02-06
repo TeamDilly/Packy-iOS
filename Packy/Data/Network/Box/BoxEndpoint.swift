@@ -13,6 +13,8 @@ enum BoxEndpoint {
     case postGiftbox(SendingGiftBox)
     /// 선물박스 열기
     case getOpenGiftbox(Int)
+    /// 주고받은 선물박스 조회
+    case getGiftBoxes(GiftBoxesRequest)
 }
 
 extension BoxEndpoint: TargetType {
@@ -26,6 +28,8 @@ extension BoxEndpoint: TargetType {
             return "giftboxes"
         case let .getOpenGiftbox(boxId):
             return "giftboxes/\(boxId)"
+        case .getGiftBoxes:
+            return "giftboxes"
         }
     }
 
@@ -33,7 +37,7 @@ extension BoxEndpoint: TargetType {
         switch self {
         case .postGiftbox:
             return .post
-        case .getOpenGiftbox:
+        case .getOpenGiftbox, .getGiftBoxes:
             return .get
         }
     }
@@ -42,6 +46,9 @@ extension BoxEndpoint: TargetType {
         switch self {
         case let .postGiftbox(giftbox):
             return .requestJSONEncodable(giftbox)
+        case let .getGiftBoxes(request):
+            let parameters = request.toDictionary()
+            return .requestParameters(parameters: parameters, encoding: URLEncoding.queryString)
         default:
             return .requestPlain
         }

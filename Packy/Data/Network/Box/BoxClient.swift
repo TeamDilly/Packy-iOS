@@ -23,6 +23,7 @@ extension DependencyValues {
 struct BoxClient {
     var makeGiftBox: @Sendable (SendingGiftBox) async throws -> SentGiftBoxInfo
     var openGiftBox: @Sendable (Int) async throws -> ReceivedGiftBox
+    // var fetchGiftBoxes: @Sendable (GiftBoxesRequest) async throws -> 
 }
 
 extension BoxClient: DependencyKey {
