@@ -111,53 +111,22 @@ struct HomeView: View {
 
 private extension HomeView {
     var content: some View {
-        VStack(spacing: 16) {
+        VStack {
             navigationBar
                 .padding(.top, 8)
+            ScrollView {
+                VStack(spacing: 16) {
+                    NavigationLink(state: HomeNavigationPath.State.makeBox()) {
+                        topBanner
+                    }
+                    .buttonStyle(.bouncy)
 
-            NavigationLink(state: HomeNavigationPath.State.makeBox()) {
-                RoundedRectangle(cornerRadius: 24)
-                    .fill(.black)
-                    .frame(height: 320)
-            }
-
-            VStack(spacing: 24) {
-                HStack {
-                    Text("주고받은 선물박스")
-                        .packyFont(.heading2)
-                        .foregroundStyle(.gray900)
+                    giftBoxesListView
 
                     Spacer()
-
-                    NavigationLink("더보기", state: HomeNavigationPath.State.myBox())
-                        .buttonStyle(.text)
                 }
-                .padding(.horizontal, 24)
-
-
-                ScrollView(.horizontal) {
-                    HStack(alignment: .top, spacing: 16) {
-                        ForEach(1...10, id: \.self) { index in
-                            // TODO: 실제 연결 필요
-                            BoxInfoCell(
-                                boxUrl: "https://picsum.photos/200",
-                                sender: "hello",
-                                boxTitle: String(repeating: "선물", count: index)
-                            )
-                        }
-                    }
-                }
-                .safeAreaPadding(.horizontal, 24)
-                .scrollIndicators(.hidden)
             }
-            .padding(.vertical, 24)
-            .background(
-                RoundedRectangle(cornerRadius: 24)
-                    .fill(.white)
-            )
-
-
-            Spacer()
+            .scrollBounceBehavior(.basedOnSize)
         }
         .padding(.horizontal, 16)
         .background(.gray100)
@@ -185,6 +154,71 @@ private extension HomeView {
             .frame(width: 40, height: 40)
         }
         .frame(height: 48)
+    }
+
+    var topBanner: some View {
+        VStack(spacing: 0) {
+            Text("패키의 특별한 선물박스로\n더 특별하게 마음을 나눠보아요")
+                .packyFont(.heading3)
+                .multilineTextAlignment(.center)
+                .foregroundStyle(.white)
+                .padding(.top, 34)
+
+            Image(.homeBanner)
+
+            Text("선물박스 만들기")
+                .packyFont(.body4)
+                .foregroundStyle(.gray900)
+                .frame(maxWidth: .infinity)
+                .padding(.vertical, 14)
+                .background(
+                    RoundedRectangle(cornerRadius: 8)
+                        .fill(.white)
+                )
+                .padding(.horizontal, 24)
+                .padding(.bottom, 24)
+        }
+        .background(
+            RoundedRectangle(cornerRadius: 24)
+                .fill(.black)
+        )
+    }
+
+    var giftBoxesListView: some View {
+        VStack(spacing: 24) {
+            HStack {
+                Text("주고받은 선물박스")
+                    .packyFont(.heading2)
+                    .foregroundStyle(.gray900)
+
+                Spacer()
+
+                NavigationLink("더보기", state: HomeNavigationPath.State.myBox())
+                    .buttonStyle(.text)
+            }
+            .padding(.horizontal, 24)
+
+
+            ScrollView(.horizontal) {
+                HStack(alignment: .top, spacing: 16) {
+                    ForEach(1...10, id: \.self) { index in
+                        // TODO: 실제 연결 필요
+                        BoxInfoCell(
+                            boxUrl: "https://picsum.photos/200",
+                            sender: "hello",
+                            boxTitle: String(repeating: "선물", count: index)
+                        )
+                    }
+                }
+            }
+            .safeAreaPadding(.horizontal, 24)
+            .scrollIndicators(.hidden)
+        }
+        .padding(.vertical, 24)
+        .background(
+            RoundedRectangle(cornerRadius: 24)
+                .fill(.white)
+        )
     }
 }
 
