@@ -17,7 +17,7 @@ struct HomeNavigationPath {
         case boxOpen(BoxOpenFeature.State)
 
         case setting(SettingFeature.State = .init())
-        case manageAccount(ManageAccountFeature.State = .init())
+        case manageAccount(ManageAccountFeature.State)
         case deleteAccount(DeleteAccountFeature.State = .init())
 
         case makeBox(MakeBoxFeature.State = .init())

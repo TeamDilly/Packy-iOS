@@ -30,7 +30,10 @@ struct SettingView: View {
                 VStack(alignment: .leading, spacing: 24) {
                     profileView
 
-                    NavigationLink(state: HomeNavigationPath.State.manageAccount()) {
+                    let destination = HomeNavigationPath.State.manageAccount(
+                        .init(socialLoginProvider: viewStore.profile?.provider)
+                    )
+                    NavigationLink(state: destination) {
                         SettingListCell(title: "계정 관리")
                     }
 
@@ -81,10 +84,10 @@ struct SettingView: View {
 private extension SettingView {
     var profileView: some View {
         HStack(spacing: 16) {
-            NetworkImage(url: Constants.mockImageUrl)
+            NetworkImage(url: viewStore.profile?.imageUrl ?? "")
                 .frame(width: 60, height: 60)
 
-            Text("메이슨")
+            Text(viewStore.profile?.nickname ?? "")
                 .packyFont(.heading2)
                 .foregroundStyle(.gray900)
         }

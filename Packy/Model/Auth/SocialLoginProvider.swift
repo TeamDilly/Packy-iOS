@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-enum SocialLoginProvider: String, Encodable {
+enum SocialLoginProvider: String, Codable {
     case kakao
     case apple
 }

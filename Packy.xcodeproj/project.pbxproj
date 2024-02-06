@@ -83,6 +83,7 @@
 		E5A416B12B5D220B00313E5A /* BoxDesign.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A416B02B5D220B00313E5A /* BoxDesign.swift */; };
 		E5A416B32B5D350C00313E5A /* BoxStartGuideView+StickerSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A416B22B5D350C00313E5A /* BoxStartGuideView+StickerSheet.swift */; };
 		E5A416B52B5D439300313E5A /* PackyAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A416B42B5D439300313E5A /* PackyAlert.swift */; };
+		E5A59BE22B72792400D120CF /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A59BE12B72792400D120CF /* Profile.swift */; };
 		E5A7AA362B57F81400590EA6 /* Color+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7A9B72B57F81400590EA6 /* Color+Hex.swift */; };
 		E5A7AA372B57F81400590EA6 /* TextField+LimitInputLength.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7A9B82B57F81400590EA6 /* TextField+LimitInputLength.swift */; };
 		E5A7AA382B57F81400590EA6 /* Image+ScaleToFillFrame.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7A9B92B57F81400590EA6 /* Image+ScaleToFillFrame.swift */; };
@@ -281,6 +282,7 @@
 		E5A416B02B5D220B00313E5A /* BoxDesign.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoxDesign.swift; sourceTree = "<group>"; };
 		E5A416B22B5D350C00313E5A /* BoxStartGuideView+StickerSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BoxStartGuideView+StickerSheet.swift"; sourceTree = "<group>"; };
 		E5A416B42B5D439300313E5A /* PackyAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackyAlert.swift; sourceTree = "<group>"; };
+		E5A59BE12B72792400D120CF /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
 		E5A7A9B72B57F81400590EA6 /* Color+Hex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Color+Hex.swift"; sourceTree = "<group>"; };
 		E5A7A9B82B57F81400590EA6 /* TextField+LimitInputLength.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TextField+LimitInputLength.swift"; sourceTree = "<group>"; };
 		E5A7A9B92B57F81400590EA6 /* Image+ScaleToFillFrame.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Image+ScaleToFillFrame.swift"; sourceTree = "<group>"; };
@@ -1110,6 +1112,7 @@
 		E5E06B3B2B654DBE00F6FD01 /* Auth */ = {
 			isa = PBXGroup;
 			children = (
+				E5A59BE12B72792400D120CF /* Profile.swift */,
 				E5A416AA2B5D215800313E5A /* ProfileImage.swift */,
 				E5A7AA1F2B57F81400590EA6 /* SocialLoginInfo.swift */,
 				E5A7AA082B57F81400590EA6 /* SocialLoginProvider.swift */,
@@ -1407,6 +1410,7 @@
 				E5551B7F2B6001CC00DB81F3 /* BoxStartGuideView+SelectBoxSheet.swift in Sources */,
 				E5A7AA822B57F81400590EA6 /* KakaoLoginController.swift in Sources */,
 				E54484F42B6F4A17003DFA1B /* DateFormat.swift in Sources */,
+				E5A59BE22B72792400D120CF /* Profile.swift in Sources */,
 				E5001F912B5BE44D004B65E6 /* UploadEndpoint.swift in Sources */,
 				E55558282B6E10AC00461352 /* YoutubeLinkValidationResponse.swift in Sources */,
 				E52037D72B64203E00721F76 /* BoxStartGuideFeature+Music.swift in Sources */,
@@ -1728,7 +1732,7 @@
 			repositoryURL = "git@github.com:pointfreeco/swift-composable-architecture.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 1.5.6;
+				minimumVersion = 1.7.0;
 			};
 		};
 		E5D7497A2B4A7C3300213F63 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {

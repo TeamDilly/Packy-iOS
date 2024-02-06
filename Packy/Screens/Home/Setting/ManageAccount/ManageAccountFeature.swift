@@ -12,6 +12,7 @@ import ComposableArchitecture
 struct ManageAccountFeature: Reducer {
 
     struct State: Equatable {
+        let socialLoginProvider: SocialLoginProvider?
     }
 
     enum Action {

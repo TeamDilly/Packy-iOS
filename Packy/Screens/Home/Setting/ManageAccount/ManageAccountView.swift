@@ -55,19 +55,20 @@ private extension ManageAccountView {
 
             Spacer()
 
-            let provider: SocialLoginProvider = .apple
-            Text(provider.description)
-                .packyFont(.body4)
-                .foregroundStyle(.gray600)
+            if let provider = viewStore.socialLoginProvider {
+                Text(provider.description)
+                    .packyFont(.body4)
+                    .foregroundStyle(.gray600)
 
-            Circle()
-                .fill(provider.backgroundColor)
-                .frame(width: 24, height: 24)
-                .overlay {
-                    Image(provider.imageResource)
-                        .resizable()
-                        .frame(width: 12, height: 12)
-                }
+                Circle()
+                    .fill(provider.backgroundColor)
+                    .frame(width: 24, height: 24)
+                    .overlay {
+                        Image(provider.imageResource)
+                            .resizable()
+                            .frame(width: 12, height: 12)
+                    }
+            }
         }
     }
 }
@@ -77,7 +78,7 @@ private extension ManageAccountView {
 #Preview {
     ManageAccountView(
         store: .init(
-            initialState: .init(),
+            initialState: .init(socialLoginProvider: .kakao),
             reducer: {
                 ManageAccountFeature()
                     ._printChanges()

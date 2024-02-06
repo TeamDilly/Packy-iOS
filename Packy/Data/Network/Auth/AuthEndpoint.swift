@@ -19,6 +19,8 @@ enum AuthEndpoint {
     case reissueToken(request: TokenRequest)
     /// 설정 링크 조회
     case settings
+    /// 나의 프로필 조회
+    case profile
 }
 
 extension AuthEndpoint: TargetType {
@@ -38,6 +40,8 @@ extension AuthEndpoint: TargetType {
             return "auth/withdraw"
         case .settings:
             return "admin/settings"
+        case .profile:
+            return "my-page/profile"
         }
     }
     
@@ -45,7 +49,7 @@ extension AuthEndpoint: TargetType {
         switch self {
         case .signUp, .reissueToken:
             return .post
-        case .signIn, .settings:
+        case .signIn, .settings, .profile:
             return .get
         case .withdraw:
             return .delete
@@ -58,7 +62,7 @@ extension AuthEndpoint: TargetType {
             return .requestJSONEncodable(request)
         case let .reissueToken(request):
             return .requestJSONEncodable(request)
-        case .signIn, .withdraw, .settings:
+        case .signIn, .withdraw, .settings, .profile:
             return .requestPlain
         }
     }
