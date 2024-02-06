@@ -13,6 +13,13 @@ struct Profile: Equatable, Decodable {
     let provider: SocialLoginProvider
     let nickname: String
     let imageUrl: String
+
+    enum CodingKeys: String, CodingKey {
+        case id
+        case provider
+        case nickname
+        case imageUrl = "imgUrl"
+    }
 }
 
 // MARK: - Mock Data
