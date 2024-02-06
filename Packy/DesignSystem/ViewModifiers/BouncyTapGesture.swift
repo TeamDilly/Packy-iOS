@@ -8,14 +8,16 @@
 import SwiftUI
 
 extension View {
-    func bouncyTapGesture(action: @escaping () -> Void) -> some View {
+    func bouncyTapGesture(
+        pressedScale: CGFloat = 0.95,
+        action: @escaping () -> Void
+    ) -> some View {
         modifier(BouncyTapGestureModifier(action: action))
     }
 }
 
 private struct BouncyTapGestureModifier: ViewModifier {
     var pressedScale: CGFloat = 0.95
-    var pressedOpacity: CGFloat = 0.9
     var bounceAnimation: Animation = .spring(duration: 0.3)
     var action: () -> Void
 
@@ -26,7 +28,7 @@ private struct BouncyTapGestureModifier: ViewModifier {
             .scaleEffect(isPressing ? pressedScale : 1)
             .animation(bounceAnimation, value: isPressing)
             .onTapGesture {
-                print("hey")
+                action()
             }
             .onLongPressGesture(perform: {}) {
                 isPressing = $0
