@@ -33,6 +33,7 @@ struct RootView: View {
                 }
             }
         }
+        .animation(.spring, value: viewStore.state)
         .task {
             await viewStore
                 .send(._onAppear)

@@ -51,24 +51,6 @@ struct SignUpNicknameFeature: Reducer {
                 return .none
 
             default:
-
-                // TODO: path를 순회하며, 각 상태값을 뽑아서 저장하는 형태로 로직 처리...
-                /**
-                for id in state.path.ids {
-                    guard let pathState = state.path[id: id] else { continue }
-                    switch pathState {
-                    case let .profile(profileState):
-                        // 입력된 프로필
-                        profileState.textInput
-                        return .none
-                    case let .termsAgreement(termsAgreementState):
-                        // 허용된 약관
-                        termsAgreementState.termsStates
-                        return .none
-                    }
-                }
-                 */
-
                 return .none
             }
         }
