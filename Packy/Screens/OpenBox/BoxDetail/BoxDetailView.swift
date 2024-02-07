@@ -135,10 +135,10 @@ private extension BoxDetailView {
         if viewStore.presentingState == .gift {
             ImageViewer {
                 NetworkImage(url: viewStore.gift?.url ?? "", contentMode: .fit)
-                    .padding(.horizontal, 55)
             } dismissedImage: {
                 viewStore.send(.binding(.set(\.$presentingState, .detail)))
             }
+            .padding(30)
         }
     }
 
