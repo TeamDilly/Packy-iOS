@@ -136,7 +136,7 @@ private extension BoxChoiceFeature {
     func showBoxMotion(_ passingData: PassingData) -> Effect<Action> {
         .run { send in
             await send(._setIsPresentingFinishedMotionView(true))
-            try? await clock.sleep(for: .seconds(1.6))
+            try? await clock.sleep(for: .seconds(Constants.boxAnimationDuration))
 
             await send(.delegate(.moveToBoxStartGuide(passingData)))
 

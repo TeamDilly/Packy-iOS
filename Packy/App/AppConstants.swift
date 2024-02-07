@@ -17,4 +17,6 @@ enum Constants {
         }
         return currentVersion
     }
+
+    static let boxAnimationDuration: TimeInterval = 4
 }

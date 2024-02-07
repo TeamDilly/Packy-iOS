@@ -7,7 +7,7 @@
 
 import SwiftUI
 import ComposableArchitecture
-import Kingfisher
+import Lottie
 
 // MARK: - View
 
@@ -106,18 +106,30 @@ struct BoxChoiceView: View {
 private extension BoxChoiceView {
     @ViewBuilder
     var finishedBoxMotionView: some View {
-        Text("이제 선물박스를\n채우러 가볼까요?")
-            .packyFont(.heading1)
-            .textInteraction(initialDelay: 0.5)
-            .foregroundStyle(.gray900)
-            .padding(.top, 104)
+        ZStack {
+            VStack {
+                Text("이제 선물박스를\n채우러 가볼까요?")
+                    .packyFont(.heading1)
+                    .textInteraction(initialDelay: 0.5)
+                    .foregroundStyle(.gray900)
+                    .padding(.top, 104)
+            
+                Spacer()
+            }
 
-        // Motion Design
-        // TODO: Lottie View 띄우기
-        Image(.packyLogoPurple)
-            .padding(.top, 50)
-
-        Spacer()
+            LottieView(
+                animation: .boxAnimation(boxIndex: viewStore.selectedBox?.id ?? 0)
+            )
+            .playing()
+            .resizable()
+            .configure { view in
+                view.loopMode = .loop
+                view.contentMode = .scaleAspectFill
+            }
+            .ignoresSafeArea()
+            .border(Color.red)
+        }
+        // .border(Color.black)
     }
 }
 
