@@ -65,9 +65,15 @@ extension BoxStartGuideFeature {
 
                 return .run { send in
                     await packyAlert.show(
-                        .init(title: "선물탭을 진짜 닫겠는가", description: "진짜루?", cancel: "놉,,", confirm: "예쓰", confirmAction: {
-                            await send(.closeGiftSheetAlertConfirmTapped)
-                        })
+                        .init(
+                            title: "저장하지 않고 나가시겠어요?",
+                            description: "입력한 내용이 선물박스에 담기지 않아요",
+                            cancel: "취소",
+                            confirm: "확인",
+                            confirmAction: {
+                                await send(.closeGiftSheetAlertConfirmTapped)
+                            }
+                        )
                     )
                 }
 

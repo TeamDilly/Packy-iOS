@@ -102,9 +102,14 @@ struct BoxChoiceFeature: Reducer {
             case .closeButtonTapped:
                 return .run { send in
                     await packyAlert.show(
-                        .init(title: "선물박스 만들기를 종료할까요?", cancel: "취소", confirm: "확인", confirmAction: {
-                            await send(.delegate(.closeMakeBox))
-                        })
+                        .init(
+                            title: "선물박스 만들기를 종료할까요?",
+                            cancel: "취소",
+                            confirm: "확인",
+                            confirmAction: {
+                                await send(.delegate(.closeMakeBox))
+                            }
+                        )
                     )
                 }
 

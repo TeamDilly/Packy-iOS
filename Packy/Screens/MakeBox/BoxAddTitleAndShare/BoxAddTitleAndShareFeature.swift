@@ -41,6 +41,7 @@ struct BoxAddTitleAndShareFeature: Reducer {
         // MARK: Delegate Action
         enum Delegate {
             case moveToHome
+            case moveTo
         }
         case delegate(Delegate)
     }

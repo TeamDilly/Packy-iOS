@@ -56,11 +56,15 @@ struct DeleteAccountFeature: Reducer {
 
             case .signOutButtonTapped:
                 return .run { send in
-                    await packyAlert.show(.init(title: "패키 서비스를 탈퇴하시겠어요?", cancel: "취소", confirm: "확인", cancelAction: {
-                        await dismiss()
-                    }, confirmAction: {
-                        await send(.signOutConfirmButtonTapped)
-                    }))
+                    await packyAlert.show(
+                        .init(
+                            title: "패키 서비스를 탈퇴하시겠어요?",
+                            cancel: "취소",
+                            confirm: "확인",
+                            cancelAction: { await dismiss() },
+                            confirmAction: { await send(.signOutConfirmButtonTapped) }
+                        )
+                    )
                 }
 
             case .signOutConfirmButtonTapped:

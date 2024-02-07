@@ -201,9 +201,15 @@ struct BoxStartGuideFeature: Reducer {
             case .completeButtonTapped:
                 return .run { send in
                     await packyAlert.show(
-                        .init(title: "선물박스를 완성할까요?", description: "완성한 이후에는 수정할 수 없어요", cancel: "다시 볼게요", confirm: "완성할래요", confirmAction: {
-                            await send(.makeBoxAlertConfirmButtonTapped)
-                        })
+                        .init(
+                            title: "선물박스를 완성할까요?",
+                            description: "완성한 이후에는 수정할 수 없어요",
+                            cancel: "다시 볼게요",
+                            confirm: "완성할래요",
+                            confirmAction: {
+                                await send(.makeBoxAlertConfirmButtonTapped)
+                            }
+                        )
                     )
                 }
 

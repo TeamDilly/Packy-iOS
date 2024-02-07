@@ -68,7 +68,6 @@ struct BoxAddTitleAndShareView: View {
                 .send(._onTask)
                 .finish()
 
-            try? await Task.sleep(for: .seconds(0.1))
             isFocused = true
         }
         .onDisappear(perform: {

@@ -50,9 +50,15 @@ struct SettingFeature: Reducer {
 
             case .logoutButtonTapped:
                 return .run { send in
-                    await packyAlert.show(.init(title: "로그아웃 하시겠어요?", cancel: "취소", confirm: "로그아웃", confirmAction: {
-                        await send(.logoutConfirmButtonTapped)
-                    }))
+                    await packyAlert.show(
+                        .init(
+                            title: "로그아웃 하시겠어요?",
+                            cancel: "취소",
+                            confirm: "로그아웃",
+                            confirmAction: {
+                                await send(.logoutConfirmButtonTapped) }
+                        )
+                    )
                 }
 
             case .logoutConfirmButtonTapped:
