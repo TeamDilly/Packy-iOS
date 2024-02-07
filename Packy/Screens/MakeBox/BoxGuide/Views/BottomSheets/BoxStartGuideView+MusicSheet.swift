@@ -111,11 +111,6 @@ extension BoxStartGuideView {
     // MARK: 추천 음악 선택 바텀시트
 
     var musicRecommendationBottomSheet: some View {
-        GeometryReader { proxy in
-            let youtubeHeight = (proxy.size.width - 48) * (9 / 16)
-            let cellHeight = youtubeHeight + 80
-            let cellTopPadding = proxy.size.height / 7
-
             VStack(spacing: 0) {
                 Group {
                     Text("패키가 준비한 음악 담기")
@@ -133,46 +128,56 @@ extension BoxStartGuideView {
                 }
                 .padding(.horizontal, 24)
 
-                // FIXME: 차후) 좌우 보이는 무한 캐러셀 구현
-                TabView(selection: viewStore.$musicInput.selectedRecommendedMusic) {
-                    ForEach(viewStore.recommendedMusics) { music in
-                        VStack(spacing: 0) {
-                            YouTubePlayerView(.init(stringLiteral: music.youtubeUrl)) { state in
-                                switch state {
-                                case .idle:
-                                    ProgressView()
-                                case .ready:
-                                    EmptyView()
-                                case .error:
-                                    Text("문제가 생겼어요")
-                                        .packyFont(.body1)
+                Spacer()
+
+                // FIXME: 차후) 무한 캐러셀 구현
+                
+                ScrollView(.horizontal) {
+                    HStack(spacing: 12) {
+                        ForEach(viewStore.recommendedMusics, id: \.self) { music in
+                            VStack(spacing: 0) {
+                                YouTubePlayerView(.init(stringLiteral: music.youtubeUrl)) { state in
+                                    switch state {
+                                    case .idle:
+                                        ProgressView()
+                                    case .ready:
+                                        EmptyView()
+                                    case .error:
+                                        Text("문제가 생겼어요")
+                                            .packyFont(.body1)
+                                    }
                                 }
-                            }
-                            .padding(.bottom, 16)
-
-                            Text(music.title)
-                                .packyFont(.body1)
-                                .foregroundStyle(.gray900)
-
-                            Text(music.hashtags.joined(separator: " "))
-                                .packyFont(.body4)
-                                .foregroundStyle(.purple500)
+                                .aspectRatio(16 / 9, contentMode: .fit)
                                 .padding(.bottom, 16)
+
+                                Text(music.title)
+                                    .packyFont(.body1)
+                                    .foregroundStyle(.gray900)
+
+                                Text(music.hashtags.joined(separator: " "))
+                                    .packyFont(.body4)
+                                    .foregroundStyle(.purple500)
+                                    .padding(.bottom, 16)
+                            }
+                            .background(.gray100)
+                            .mask(RoundedRectangle(cornerRadius: 16))
+                            .containerRelativeFrame(.horizontal)
                         }
-                        .tag(Optional(music)) // selectedRecommendedMusic 이 옵셔널이기에, 타입 일치 필요로 Optional 처리
-                        .background(.gray100)
-                        .mask(RoundedRectangle(cornerRadius: 16))
-                        .padding(.horizontal, 24)
                     }
+                    .scrollTargetLayout()
                 }
-                .tabViewStyle(.page(indexDisplayMode: .never))
-                .frame(height: cellHeight)
-                .padding(.top, cellTopPadding)
+                .scrollPosition(id: .init(
+                    get: { viewStore.musicInput.selectedRecommendedMusic },
+                    set: { viewStore.send(.binding(.set(\.musicInput.$selectedRecommendedMusic, $0))) }
+                ))
+                .scrollIndicators(.hidden)
+                .scrollTargetBehavior(.viewAligned)
+                .safeAreaPadding(.horizontal, 32)
 
                 let selectedRecommendedMusic = viewStore.musicInput.selectedRecommendedMusic
                 let musicIndex = viewStore.recommendedMusics.firstIndex { $0.id == selectedRecommendedMusic?.id ?? 0 } ?? 0
                 PageIndicator(totalPages: viewStore.recommendedMusics.count, currentPage: musicIndex)
-                    .padding(.top, 32)
+                    .padding(.vertical, 32)
 
                 Spacer()
 
@@ -182,7 +187,6 @@ extension BoxStartGuideView {
                 .padding(.horizontal, 24)
                 .padding(.bottom, 16)
             }
-        }
     }
 }
 

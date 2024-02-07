@@ -20,7 +20,7 @@ extension BoxStartGuideFeature {
         @BindingState var musicLinkUrlInput: String = ""
         var showInvalidMusicUrlError: Bool = false
 
-        var selectedRecommendedMusic: RecommendedMusic? = nil
+        @BindingState var selectedRecommendedMusic: RecommendedMusic? = nil
 
         /// 최종 유저가 선택한 음악 url
         var selectedMusicUrl: String? = nil
