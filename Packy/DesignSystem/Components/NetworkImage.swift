@@ -20,7 +20,7 @@ struct NetworkImage: View {
                     ProgressView()
                         .progressViewStyle(.circular)
                 }
-                .retry(maxCount: 3)
+                .retry(maxCount: 3, interval: .seconds(1))
                 .resizable()
                 .aspectRatio(contentMode: contentMode)
                 .frame(width: proxy.size.width, height: proxy.size.height)

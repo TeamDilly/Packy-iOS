@@ -136,11 +136,12 @@ private extension BoxAddTitleAndShareView {
                     }
                     .padding(.horizontal, 24)
 
-                    Button("나중에 보낼래요") {
-                        // TODO: 나중에 보내기 시 선물함 페이지로 이동?
-                    }
-                    .buttonStyle(.text)
-                    .frame(width: 129, height: 34)
+                    // TODO: 차후 - 나중에 보내기 시 선물함 페이지로 이동?
+                    // Button("나중에 보낼래요") {
+                    // 
+                    // }
+                    // .buttonStyle(.text)
+                    // .frame(width: 129, height: 34)
                 }
                 .frame(height: 100)
                 .padding(.bottom, 20)

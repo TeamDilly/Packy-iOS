@@ -21,7 +21,6 @@ struct HomeFeature: Reducer {
 
         // MARK: Inner Business Action
         case _onTask
-        case _showArrivedBox(ReceivedBox)
 
         // MARK: Inner SetState Action
         case _setProfile(Profile)
@@ -38,10 +37,8 @@ struct HomeFeature: Reducer {
         Reduce<State, Action> { state, action in
             switch action {
             case ._onTask:
+                guard state.profile == nil else { return .none }
                 return fetchProfile()
-
-            case let ._showArrivedBox(giftBox):
-                return .none
 
             case let ._setProfile(profile):
                 state.profile = profile

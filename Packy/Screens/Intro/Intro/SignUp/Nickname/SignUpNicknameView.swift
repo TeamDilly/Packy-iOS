@@ -13,6 +13,7 @@ import ComposableArchitecture
 struct SignUpNicknameView: View {
     private let store: StoreOf<SignUpNicknameFeature>
     @ObservedObject private var viewStore: ViewStoreOf<SignUpNicknameFeature>
+    @FocusState private var isFocused: Bool
 
     init(store: StoreOf<SignUpNicknameFeature>) {
         self.store = store
@@ -64,6 +65,7 @@ private extension SignUpNicknameView {
                 text: viewStore.$nickname,
                 placeholder: "6자 이내로 입력해주세요"
             )
+            .focused($isFocused)
             .limitTextLength(text: viewStore.$nickname, length: 6)
 
             Spacer()
@@ -87,6 +89,7 @@ private extension SignUpNicknameView {
             await viewStore
                 .send(._onAppear)
                 .finish()
+            isFocused = true
         }
     }
 }
