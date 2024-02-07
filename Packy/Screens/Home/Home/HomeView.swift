@@ -116,7 +116,11 @@ private extension HomeView {
                 .padding(.top, 8)
             ScrollView {
                 VStack(spacing: 16) {
-                    NavigationLink(state: HomeNavigationPath.State.makeBox()) {
+                    NavigationLink(
+                        state: HomeNavigationPath.State.makeBox(
+                            .init(username: viewStore.profile?.nickname ?? "")
+                        )
+                    ) {
                         topBanner
                     }
                     .buttonStyle(.bouncy)
@@ -148,7 +152,11 @@ private extension HomeView {
 
             Spacer()
 
-            NavigationLink(state: HomeNavigationPath.State.setting()) {
+            NavigationLink(
+                state: HomeNavigationPath.State.setting(
+                    .init(profile: viewStore.profile)
+                )
+            ) {
                 Image(.setting)
             }
             .frame(width: 40, height: 40)

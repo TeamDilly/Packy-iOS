@@ -112,7 +112,7 @@ private extension SettingView {
 #Preview {
     SettingView(
         store: .init(
-            initialState: .init(),
+            initialState: .init(profile: .mock),
             reducer: {
                 SettingFeature()
                     ._printChanges()

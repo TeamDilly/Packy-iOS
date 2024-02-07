@@ -13,7 +13,7 @@ struct SettingFeature: Reducer {
 
     struct State: Equatable {
         var settingMenus: [SettingMenu] = []
-        var profile: Profile?
+        let profile: Profile?
     }
 
     enum Action {
@@ -27,7 +27,6 @@ struct SettingFeature: Reducer {
 
         // MARK: Inner SetState Action
         case _setSettingMenus([SettingMenu])
-        case _setProfile(Profile)
 
         // MARK: Delegate Action
         enum Delegate {
@@ -46,8 +45,7 @@ struct SettingFeature: Reducer {
             switch action {
             case ._onTask:
                 return .merge(
-                    fetchSettingMenus(),
-                    fetchProfile()
+                    fetchSettingMenus()
                 )
 
             case .logoutButtonTapped:
@@ -69,10 +67,6 @@ struct SettingFeature: Reducer {
                 state.settingMenus = menus
                 return .none
 
-            case let ._setProfile(profile):
-                state.profile = profile
-                return .none
-
             default:
                 return .none
             }
@@ -86,17 +80,6 @@ private extension SettingFeature {
             do {
                 let settingMenus = try await authClient.fetchSettingMenus()
                 await send(._setSettingMenus(settingMenus))
-            } catch {
-                print("🐛 \(error)")
-            }
-        }
-    }
-
-    func fetchProfile() -> Effect<Action> {
-        .run { send in
-            do {
-                let profile = try await authClient.fetchProfile()
-                await send(._setProfile(profile))
             } catch {
                 print("🐛 \(error)")
             }

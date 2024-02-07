@@ -17,7 +17,7 @@ struct BoxStartGuideFeature: Reducer {
         let boxDesigns: [BoxDesign]
         var selectedBox: BoxDesign?
 
-        var isShowingGuideText: Bool = true
+        var isShowingGuideText: Bool = false
 
         @BindingState var addPhoto: BoxAddPhotoFeature.State = .init()
 
@@ -146,13 +146,7 @@ struct BoxStartGuideFeature: Reducer {
 
             case ._onTask:
                 return .merge(
-                    .run { _ in
-                        await userDefaults.setBool(true, .didEnteredBoxGuide)
-                    },
-                    .run { send in
-                        try? await clock.sleep(for: .seconds(1.6))
-                        await send(._setIsShowingGuideText(false), animation: .spring(duration: 1))
-                    },
+                    showGuideTextIfNeeded(),
                     // 디자인들 조회...
                     fetchLetterDesigns(),
                     fetchRecommendedMusics(),
@@ -228,6 +222,20 @@ struct BoxStartGuideFeature: Reducer {
 // MARK: - Inner Functions
 
 private extension BoxStartGuideFeature {
+    func showGuideTextIfNeeded() -> Effect<Action> {
+        .concatenate(
+            .run { send in
+                guard !userDefaults.boolForKey(.didEnteredBoxGuide) else { return }
+                await send(._setIsShowingGuideText(true))
+                try? await clock.sleep(for: .seconds(1.6))
+                await send(._setIsShowingGuideText(false), animation: .spring(duration: 1))
+            },
+            .run { _ in
+                await userDefaults.setBool(true, .didEnteredBoxGuide)
+            }
+        )
+    }
+
     func fetchLetterDesigns() -> Effect<Action> {
         .run { send in
             do {

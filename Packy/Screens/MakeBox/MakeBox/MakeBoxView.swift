@@ -148,7 +148,7 @@ private struct ToFromInputTextField: View {
 #Preview {
     MakeBoxView(
         store: .init(
-            initialState: MakeBoxFeature.State(),
+            initialState: MakeBoxFeature.State(username: "mason"),
             reducer: {
                 MakeBoxFeature()
                     ._printChanges()

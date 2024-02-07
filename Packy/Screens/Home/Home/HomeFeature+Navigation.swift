@@ -16,11 +16,11 @@ struct HomeNavigationPath {
         case boxDetail(BoxDetailFeature.State)
         case boxOpen(BoxOpenFeature.State)
 
-        case setting(SettingFeature.State = .init())
+        case setting(SettingFeature.State)
         case manageAccount(ManageAccountFeature.State)
         case deleteAccount(DeleteAccountFeature.State = .init())
 
-        case makeBox(MakeBoxFeature.State = .init())
+        case makeBox(MakeBoxFeature.State)
         case boxChoice(BoxChoiceFeature.State)
         case startGuide(BoxStartGuideFeature.State)
         case addTitle(BoxAddTitleAndShareFeature.State)
@@ -74,7 +74,8 @@ extension HomeFeature {
                 /// 회원탈퇴, 로그아웃 완료, 박스 공유창 닫기 시 Stack 전부 비우기
                 case .element(id: _, action: .deleteAccount(.delegate(.completedSignOut))),
                      .element(id: _, action: .setting(.delegate(.completeSignOut))),
-                     .element(id: _, action: .addTitle(.delegate(.moveToHome))):
+                     .element(id: _, action: .addTitle(.delegate(.moveToHome))),
+                     .element(id: _, action: .boxChoice(.delegate(.closeMakeBox))):
                     state.path.removeAll()
                     return .none
 
