@@ -117,19 +117,8 @@ private extension BoxChoiceView {
                 Spacer()
             }
 
-            LottieView(
-                animation: .boxAnimation(boxIndex: viewStore.selectedBox?.id ?? 0)
-            )
-            .playing()
-            .resizable()
-            .configure { view in
-                view.loopMode = .loop
-                view.contentMode = .scaleAspectFill
-            }
-            .ignoresSafeArea()
-            .border(Color.red)
+            BoxMotionView(boxId: viewStore.selectedBox?.id ?? 0)
         }
-        // .border(Color.black)
     }
 }
 

@@ -8,8 +8,8 @@
 import Lottie
 
 extension LottieAnimation {
-    static func boxAnimation(boxIndex: Int) -> LottieAnimation? {
-        guard let boxMotionName = boxMotionNames[safe: boxIndex] else { return nil }
+    static func boxAnimation(boxId: Int) -> LottieAnimation? {
+        guard let boxMotionName = boxMotionNames[safe: boxId] else { return nil }
         return .named(boxMotionName)
     }
 }

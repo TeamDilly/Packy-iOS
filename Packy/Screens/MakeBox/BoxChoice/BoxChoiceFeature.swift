@@ -22,6 +22,7 @@ struct BoxChoiceFeature: Reducer {
         var selectedBox: BoxDesign?
         @BindingState var selectedMessage: Int = 0
         var isPresentingFinishedMotionView: Bool = false
+        var didShowBoxMotion: Bool = false
 
         var boxDesigns: [BoxDesign] = []
 
@@ -52,6 +53,7 @@ struct BoxChoiceFeature: Reducer {
         // MARK: Delegate Action
         enum Delegate {
             case moveToBoxStartGuide(PassingData)
+            case closeMakeBox
         }
         case delegate(Delegate)
     }
@@ -91,29 +93,20 @@ struct BoxChoiceFeature: Reducer {
                 return .run { _ in await dismiss() }
 
             case .nextButtonTapped:
-                // 이미 사용자가 BoxGuide 에 진입했던 경우에는, BoxMotion 을 나타내지 않음
-                guard userDefaults.boolForKey(.didEnteredBoxGuide) else {
+                guard !state.didShowBoxMotion else {
                     return .send(.delegate(.moveToBoxStartGuide(state.passingData)))
                 }
+                state.didShowBoxMotion = true
                 return showBoxMotion(state.passingData)
 
             case .closeButtonTapped:
-                // state.isShowAlert = true
                 return .run { send in
                     await packyAlert.show(
-                        .init(
-                            title: "title",
-                            confirm: "confirm",
-                            confirmAction: {
-                                // TODO: 로직 구현?
-                                // await send(.closeButtonTapped)
-                            }
-                        )
+                        .init(title: "선물박스 만들기를 종료할까요?", cancel: "취소", confirm: "확인", confirmAction: {
+                            await send(.delegate(.closeMakeBox))
+                        })
                     )
                 }
-
-            // case .alertConfirmButtonTapped:
-            //     return .none
 
             case let ._setIsPresentingFinishedMotionView(isPresented):
                 state.isPresentingFinishedMotionView = isPresented
