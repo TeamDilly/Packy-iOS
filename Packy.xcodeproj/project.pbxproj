@@ -70,6 +70,13 @@
 		E58048C92B5C36DD00B974B3 /* CornerRadiusWithBorderModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = E58048C82B5C36DD00B974B3 /* CornerRadiusWithBorderModifier.swift */; };
 		E58048CB2B5C394700B974B3 /* Snackbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = E58048CA2B5C394700B974B3 /* Snackbar.swift */; };
 		E58048CD2B5CE2A300B974B3 /* UIScreen+CheckScreenSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = E58048CC2B5CE2A300B974B3 /* UIScreen+CheckScreenSize.swift */; };
+		E586DCCC2B73A01B0052E8D7 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = E586DCCB2B73A01B0052E8D7 /* Lottie */; };
+		E586DCD42B73A03F0052E8D7 /* Box_motion_6.json in Resources */ = {isa = PBXBuildFile; fileRef = E586DCCE2B73A03F0052E8D7 /* Box_motion_6.json */; };
+		E586DCD52B73A03F0052E8D7 /* Box_motion_3.json in Resources */ = {isa = PBXBuildFile; fileRef = E586DCCF2B73A03F0052E8D7 /* Box_motion_3.json */; };
+		E586DCD62B73A03F0052E8D7 /* Box_motion_2.json in Resources */ = {isa = PBXBuildFile; fileRef = E586DCD02B73A03F0052E8D7 /* Box_motion_2.json */; };
+		E586DCD72B73A03F0052E8D7 /* Box_motion_1.json in Resources */ = {isa = PBXBuildFile; fileRef = E586DCD12B73A03F0052E8D7 /* Box_motion_1.json */; };
+		E586DCD82B73A03F0052E8D7 /* Box_motion_5.json in Resources */ = {isa = PBXBuildFile; fileRef = E586DCD22B73A03F0052E8D7 /* Box_motion_5.json */; };
+		E586DCD92B73A03F0052E8D7 /* Box_motion_4.json in Resources */ = {isa = PBXBuildFile; fileRef = E586DCD32B73A03F0052E8D7 /* Box_motion_4.json */; };
 		E58A7B072B57FA3F0059FBF3 /* KakaoSDKAuth in Frameworks */ = {isa = PBXBuildFile; productRef = E58A7B062B57FA3F0059FBF3 /* KakaoSDKAuth */; };
 		E58A7B092B57FA3F0059FBF3 /* KakaoSDKCommon in Frameworks */ = {isa = PBXBuildFile; productRef = E58A7B082B57FA3F0059FBF3 /* KakaoSDKCommon */; };
 		E58A7B0B2B57FA3F0059FBF3 /* KakaoSDKUser in Frameworks */ = {isa = PBXBuildFile; productRef = E58A7B0A2B57FA3F0059FBF3 /* KakaoSDKUser */; };
@@ -277,6 +284,12 @@
 		E58048C82B5C36DD00B974B3 /* CornerRadiusWithBorderModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CornerRadiusWithBorderModifier.swift; sourceTree = "<group>"; };
 		E58048CA2B5C394700B974B3 /* Snackbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Snackbar.swift; sourceTree = "<group>"; };
 		E58048CC2B5CE2A300B974B3 /* UIScreen+CheckScreenSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScreen+CheckScreenSize.swift"; sourceTree = "<group>"; };
+		E586DCCE2B73A03F0052E8D7 /* Box_motion_6.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Box_motion_6.json; sourceTree = "<group>"; };
+		E586DCCF2B73A03F0052E8D7 /* Box_motion_3.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Box_motion_3.json; sourceTree = "<group>"; };
+		E586DCD02B73A03F0052E8D7 /* Box_motion_2.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Box_motion_2.json; sourceTree = "<group>"; };
+		E586DCD12B73A03F0052E8D7 /* Box_motion_1.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Box_motion_1.json; sourceTree = "<group>"; };
+		E586DCD22B73A03F0052E8D7 /* Box_motion_5.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Box_motion_5.json; sourceTree = "<group>"; };
+		E586DCD32B73A03F0052E8D7 /* Box_motion_4.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Box_motion_4.json; sourceTree = "<group>"; };
 		E5A416A12B5D076C00313E5A /* PopGestureDisableModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopGestureDisableModifier.swift; sourceTree = "<group>"; };
 		E5A416A42B5D1F8100313E5A /* DesignEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignEndpoint.swift; sourceTree = "<group>"; };
 		E5A416A62B5D20DC00313E5A /* DesignClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignClient.swift; sourceTree = "<group>"; };
@@ -426,6 +439,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E5D7497C2B4A7C3300213F63 /* Kingfisher in Frameworks */,
+				E586DCCC2B73A01B0052E8D7 /* Lottie in Frameworks */,
 				E58A7B092B57FA3F0059FBF3 /* KakaoSDKCommon in Frameworks */,
 				E5D749792B4A7C1A00213F63 /* ComposableArchitecture in Frameworks */,
 				E5A7AA942B57F89C00590EA6 /* YouTubePlayerKit in Frameworks */,
@@ -610,6 +624,19 @@
 				E55D16D02B6CF458005E71A4 /* KakaoShareMessage.swift */,
 			);
 			path = KakaoShare;
+			sourceTree = "<group>";
+		};
+		E586DCCD2B73A0340052E8D7 /* Lottie */ = {
+			isa = PBXGroup;
+			children = (
+				E586DCD12B73A03F0052E8D7 /* Box_motion_1.json */,
+				E586DCD02B73A03F0052E8D7 /* Box_motion_2.json */,
+				E586DCCF2B73A03F0052E8D7 /* Box_motion_3.json */,
+				E586DCD32B73A03F0052E8D7 /* Box_motion_4.json */,
+				E586DCD22B73A03F0052E8D7 /* Box_motion_5.json */,
+				E586DCCE2B73A03F0052E8D7 /* Box_motion_6.json */,
+			);
+			path = Lottie;
 			sourceTree = "<group>";
 		};
 		E58A7B052B57FA3F0059FBF3 /* Frameworks */ = {
@@ -1010,6 +1037,7 @@
 		E5A7AA262B57F81400590EA6 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				E586DCCD2B73A0340052E8D7 /* Lottie */,
 				E5A7AA272B57F81400590EA6 /* Packy.entitlements */,
 				E5A7AA282B57F81400590EA6 /* Assets.xcassets */,
 				E5A7AA292B57F81400590EA6 /* Preview Content */,
@@ -1231,6 +1259,7 @@
 				E55D16C92B6CF25D005E71A4 /* KakaoSDKShare */,
 				E55D16CB2B6CF25D005E71A4 /* KakaoSDKTemplate */,
 				E55D16CD2B6CF25D005E71A4 /* KakaoSDKUser */,
+				E586DCCB2B73A01B0052E8D7 /* Lottie */,
 			);
 			productName = Packy;
 			productReference = E5D7495D2B4A72E100213F63 /* Packy.app */;
@@ -1267,6 +1296,7 @@
 				E5A7AA922B57F89C00590EA6 /* XCRemoteSwiftPackageReference "YouTubePlayerKit" */,
 				E5A7AA952B57F8A300590EA6 /* XCRemoteSwiftPackageReference "Moya" */,
 				E5A7AA982B57F99700590EA6 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */,
+				E586DCCA2B73A01B0052E8D7 /* XCRemoteSwiftPackageReference "lottie-ios" */,
 			);
 			productRefGroup = E5D7495E2B4A72E100213F63 /* Products */;
 			projectDirPath = "";
@@ -1282,16 +1312,22 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E586DCD42B73A03F0052E8D7 /* Box_motion_6.json in Resources */,
 				E5A7AA862B57F81400590EA6 /* Assets.xcassets in Resources */,
 				E5A7AA8E2B57F81400590EA6 /* Pretendard-Thin.otf in Resources */,
 				E5A7AA882B57F81400590EA6 /* Pretendard-Regular.otf in Resources */,
+				E586DCD92B73A03F0052E8D7 /* Box_motion_4.json in Resources */,
 				E5A7AA902B57F81400590EA6 /* Pretendard-SemiBold.otf in Resources */,
 				E5A7AA8C2B57F81400590EA6 /* Pretendard-ExtraBold.otf in Resources */,
 				E5A7AA872B57F81400590EA6 /* Preview Assets.xcassets in Resources */,
+				E586DCD72B73A03F0052E8D7 /* Box_motion_1.json in Resources */,
+				E586DCD62B73A03F0052E8D7 /* Box_motion_2.json in Resources */,
+				E586DCD52B73A03F0052E8D7 /* Box_motion_3.json in Resources */,
 				E5A7AA762B57F81400590EA6 /* APIKeys.xcconfig in Resources */,
 				E5A7AA8B2B57F81400590EA6 /* Pretendard-Light.otf in Resources */,
 				E5A7AA892B57F81400590EA6 /* Pretendard-Black.otf in Resources */,
 				E5A7AA8D2B57F81400590EA6 /* Pretendard-Bold.otf in Resources */,
+				E586DCD82B73A03F0052E8D7 /* Box_motion_5.json in Resources */,
 				E5A7AA8A2B57F81400590EA6 /* Pretendard-Medium.otf in Resources */,
 				E5A7AA8F2B57F81400590EA6 /* Pretendard-ExtraLight.otf in Resources */,
 			);
@@ -1715,6 +1751,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		E586DCCA2B73A01B0052E8D7 /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/airbnb/lottie-ios";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.4.0;
+			};
+		};
 		E5A7AA922B57F89C00590EA6 /* XCRemoteSwiftPackageReference "YouTubePlayerKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "git@github.com:SvenTiigi/YouTubePlayerKit.git";
@@ -1790,6 +1834,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = E5A7AA982B57F99700590EA6 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */;
 			productName = KakaoSDKUser;
+		};
+		E586DCCB2B73A01B0052E8D7 /* Lottie */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E586DCCA2B73A01B0052E8D7 /* XCRemoteSwiftPackageReference "lottie-ios" */;
+			productName = Lottie;
 		};
 		E58A7B062B57FA3F0059FBF3 /* KakaoSDKAuth */ = {
 			isa = XCSwiftPackageProductDependency;
