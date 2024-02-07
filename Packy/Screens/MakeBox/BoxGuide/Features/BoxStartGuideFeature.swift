@@ -227,7 +227,7 @@ private extension BoxStartGuideFeature {
             .run { send in
                 guard !userDefaults.boolForKey(.didEnteredBoxGuide) else { return }
                 await send(._setIsShowingGuideText(true))
-                try? await clock.sleep(for: .seconds(1.6))
+                try? await clock.sleep(for: .seconds(Constants.textInteractionDuration))
                 await send(._setIsShowingGuideText(false), animation: .spring(duration: 1))
             },
             .run { _ in

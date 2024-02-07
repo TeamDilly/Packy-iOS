@@ -81,7 +81,9 @@ private extension BoxOpenView {
             Spacer()
 
             PackyButton(title: "열어보기", colorType: .black) {
-                viewStore.send(.openBoxButtonTapped, animation: .spring)
+                throttle(.seconds(3)) {
+                    viewStore.send(.openBoxButtonTapped, animation: .spring)
+                }
             }
             .padding(.horizontal, 24)
             .padding(.bottom, 16)
@@ -89,7 +91,7 @@ private extension BoxOpenView {
     }
 
     var motionView: some View {
-        Text("Motion Design")
+        BoxMotionView(boxDesignId: 0) // TODO: 서버 명세 변경되면 반영
     }
 }
 

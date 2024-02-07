@@ -9,10 +9,10 @@ import SwiftUI
 import Lottie
 
 struct BoxMotionView: View {
-    let boxId: Int
+    let boxDesignId: Int
     var body: some View {
         LottieView(
-            animation: .boxAnimation(boxId: boxId)
+            animation: .boxAnimation(boxId: boxDesignId)
         )
         .playing()
         .resizable()

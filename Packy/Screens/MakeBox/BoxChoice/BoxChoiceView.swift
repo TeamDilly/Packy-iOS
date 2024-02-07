@@ -117,7 +117,7 @@ private extension BoxChoiceView {
                 Spacer()
             }
 
-            BoxMotionView(boxId: viewStore.selectedBox?.id ?? 0)
+            BoxMotionView(boxDesignId: viewStore.selectedBox?.id ?? 0)
         }
     }
 }

@@ -107,6 +107,8 @@ private struct PhotoTextField: View {
     
     @FocusState private var isFocused: Bool
 
+    @Environment(\.isEnabled) var isEnabled
+
     var body: some View {
         TextField("", text: $text)
             .tint(.black)
@@ -115,13 +117,15 @@ private struct PhotoTextField: View {
             .multilineTextAlignment(.center)
             .focused($isFocused)
             .overlay {
-                Text(placeholder)
-                    .foregroundStyle(.gray500)
-                    .font(.packy(.body5))
-                    .animation(.spring, value: isFocused)
-                    .animation(.spring, value: text.isEmpty)
-                    .opacity(!isFocused && text.isEmpty ? 1 : 0)
-                    .allowsHitTesting(false)
+                if isEnabled {
+                    Text(placeholder)
+                        .foregroundStyle(.gray500)
+                        .font(.packy(.body5))
+                        .animation(.spring, value: isFocused)
+                        .animation(.spring, value: text.isEmpty)
+                        .opacity(!isFocused && text.isEmpty ? 1 : 0)
+                        .allowsHitTesting(false)
+                }
             }
     }
 }
