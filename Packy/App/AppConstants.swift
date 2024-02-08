@@ -18,6 +18,7 @@ enum Constants {
         return currentVersion
     }
 
-    static let boxAnimationDuration: TimeInterval = 4.2
+    static let makeBoxAnimationDuration: TimeInterval = 4.5
+    static let openBoxAnimationDuration: TimeInterval = 3
     static let textInteractionDuration: TimeInterval = 2
 }

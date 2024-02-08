@@ -28,7 +28,7 @@ struct BoxOpenView: View {
                 }
             case .openMotion:
                 if let boxDesignId = viewStore.giftBox?.box.designId {
-                    BoxMotionView(boxDesignId: boxDesignId)
+                    BoxMotionView(motionType: .boxArrived(boxDesignId: boxDesignId))
                 }
 
             case .openError:

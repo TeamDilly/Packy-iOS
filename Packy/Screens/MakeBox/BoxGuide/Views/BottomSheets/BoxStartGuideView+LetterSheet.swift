@@ -15,6 +15,7 @@ extension BoxStartGuideView {
     struct LetterBottomSheet: View {
         @ObservedObject var viewStore: ViewStoreOf<BoxStartGuideFeature>
         @FocusState private var isLetterFieldFocused: Bool
+        @State private var hideNonInputViews: Bool = false
 
         init(viewStore: ViewStoreOf<BoxStartGuideFeature>) {
             self.viewStore = viewStore
@@ -22,7 +23,7 @@ extension BoxStartGuideView {
 
         var body: some View {
             VStack(spacing: 0) {
-                if !isLetterFieldFocused {
+                if !hideNonInputViews {
                     Text("편지 쓰기")
                         .packyFont(.heading1)
                         .foregroundStyle(.gray900)
@@ -44,16 +45,19 @@ extension BoxStartGuideView {
                     placeholder: "편지에 어떤 마음을 담아볼까요?\n따뜻한 인사, 잊지 못할 추억, 고마웠던 순간까지\n모두 좋아요 :)",
                     borderColor: viewStore.letterInput.selectedLetterDesign?.envelopeColor.color ?? .gray200
                 )
+                .frame(width: 342, height: 300)
                 .focused($isLetterFieldFocused)
                 .padding(.horizontal, 24)
 
-                if !isLetterFieldFocused {
+                if !hideNonInputViews {
                     ScrollView(.horizontal) {
                         HStack(spacing: 10) {
                             ForEach(viewStore.letterDesigns, id: \.id) { letterDesign in
                                 let isSelected = viewStore.letterInput.selectedLetterDesign == letterDesign
 
+                                let width: CGFloat = UIScreen.main.isWiderThan375pt ? 118 : 100
                                 NetworkImage(url: letterDesign.imageUrl, contentMode: .fit)
+                                    .frame(width: width, height: width * (96 / 118))
                                     .cornerRadiusWithBorder(
                                         radius: 8,
                                         borderColor: letterDesign.envelopeColor.color,
@@ -75,7 +79,7 @@ extension BoxStartGuideView {
 
                 Spacer()
 
-                if !isLetterFieldFocused {
+                if !hideNonInputViews {
                     PackyButton(title: "저장", colorType: .black) {
                         viewStore.send(.letterSaveButtonTapped)
                     }
@@ -84,10 +88,16 @@ extension BoxStartGuideView {
                     .disabled(viewStore.letterInput.letter.isEmpty || viewStore.letterInput.selectedLetterDesign == nil)
                 }
             }
+            .onChange(of: isLetterFieldFocused) { oldValue, newValue in
+                // TODO: 차후 왜 focused 에서는 애니메이션이 안먹히는지 확인
+                withAnimation(.spring) {
+                    hideNonInputViews = newValue
+                }
+            }
+            .animation(.spring, value: viewStore.letterInput.selectedLetterDesign)
+            // .animation(.spring, value: isLetterFieldFocused)
             .keyboardHideToolbar()
             .makeTapToHideKeyboard()
-            .animation(.spring, value: viewStore.letterInput.selectedLetterDesign)
-            .animation(.spring, value: isLetterFieldFocused)
         }
     }
 }

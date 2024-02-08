@@ -71,13 +71,7 @@
 		E58048CB2B5C394700B974B3 /* Snackbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = E58048CA2B5C394700B974B3 /* Snackbar.swift */; };
 		E58048CD2B5CE2A300B974B3 /* UIScreen+CheckScreenSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = E58048CC2B5CE2A300B974B3 /* UIScreen+CheckScreenSize.swift */; };
 		E586DCCC2B73A01B0052E8D7 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = E586DCCB2B73A01B0052E8D7 /* Lottie */; };
-		E586DCD42B73A03F0052E8D7 /* Box_motion_6.json in Resources */ = {isa = PBXBuildFile; fileRef = E586DCCE2B73A03F0052E8D7 /* Box_motion_6.json */; };
-		E586DCD52B73A03F0052E8D7 /* Box_motion_3.json in Resources */ = {isa = PBXBuildFile; fileRef = E586DCCF2B73A03F0052E8D7 /* Box_motion_3.json */; };
-		E586DCD62B73A03F0052E8D7 /* Box_motion_2.json in Resources */ = {isa = PBXBuildFile; fileRef = E586DCD02B73A03F0052E8D7 /* Box_motion_2.json */; };
-		E586DCD72B73A03F0052E8D7 /* Box_motion_1.json in Resources */ = {isa = PBXBuildFile; fileRef = E586DCD12B73A03F0052E8D7 /* Box_motion_1.json */; };
-		E586DCD82B73A03F0052E8D7 /* Box_motion_5.json in Resources */ = {isa = PBXBuildFile; fileRef = E586DCD22B73A03F0052E8D7 /* Box_motion_5.json */; };
-		E586DCD92B73A03F0052E8D7 /* Box_motion_4.json in Resources */ = {isa = PBXBuildFile; fileRef = E586DCD32B73A03F0052E8D7 /* Box_motion_4.json */; };
-		E586DCDC2B73A0CB0052E8D7 /* LottieAnimation+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E586DCDB2B73A0CB0052E8D7 /* LottieAnimation+Extensions.swift */; };
+		E586DCDC2B73A0CB0052E8D7 /* LottieMotionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E586DCDB2B73A0CB0052E8D7 /* LottieMotionType.swift */; };
 		E586DCDE2B73AA1A0052E8D7 /* BoxMotionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E586DCDD2B73AA1A0052E8D7 /* BoxMotionView.swift */; };
 		E586DCE02B73CFB70052E8D7 /* PackyProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = E586DCDF2B73CFB70052E8D7 /* PackyProgress.swift */; };
 		E58A7B072B57FA3F0059FBF3 /* KakaoSDKAuth in Frameworks */ = {isa = PBXBuildFile; productRef = E58A7B062B57FA3F0059FBF3 /* KakaoSDKAuth */; };
@@ -223,6 +217,18 @@
 		E5E73D4A2B597C0200729D99 /* BoxStartGuideView+MusicSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E73D492B597C0200729D99 /* BoxStartGuideView+MusicSheet.swift */; };
 		E5E73D4C2B597CB600729D99 /* AddPhotoBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E73D4B2B597CB600729D99 /* AddPhotoBottomSheet.swift */; };
 		E5E73D962B74F1950097D871 /* ColorFromServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E73D952B74F1950097D871 /* ColorFromServer.swift */; };
+		E5E73DB72B7509F50097D871 /* Box_motion_make_4.json in Resources */ = {isa = PBXBuildFile; fileRef = E5E73D9E2B7509F40097D871 /* Box_motion_make_4.json */; };
+		E5E73DB82B7509F50097D871 /* Box_motion_make_5.json in Resources */ = {isa = PBXBuildFile; fileRef = E5E73D9F2B7509F40097D871 /* Box_motion_make_5.json */; };
+		E5E73DB92B7509F50097D871 /* Box_motion_make_2.json in Resources */ = {isa = PBXBuildFile; fileRef = E5E73DA02B7509F40097D871 /* Box_motion_make_2.json */; };
+		E5E73DBA2B7509F50097D871 /* Box_motion_make_3.json in Resources */ = {isa = PBXBuildFile; fileRef = E5E73DA12B7509F40097D871 /* Box_motion_make_3.json */; };
+		E5E73DBB2B7509F50097D871 /* Box_motion_make_1.json in Resources */ = {isa = PBXBuildFile; fileRef = E5E73DA22B7509F40097D871 /* Box_motion_make_1.json */; };
+		E5E73DBC2B7509F50097D871 /* Box_motion_make_6.json in Resources */ = {isa = PBXBuildFile; fileRef = E5E73DA32B7509F40097D871 /* Box_motion_make_6.json */; };
+		E5E73DC12B7509F50097D871 /* Box_motion_arr_1.json in Resources */ = {isa = PBXBuildFile; fileRef = E5E73DA92B7509F40097D871 /* Box_motion_arr_1.json */; };
+		E5E73DC22B7509F50097D871 /* Box_motion_arr_6.json in Resources */ = {isa = PBXBuildFile; fileRef = E5E73DAA2B7509F40097D871 /* Box_motion_arr_6.json */; };
+		E5E73DC32B7509F50097D871 /* Box_motion_arr_4.json in Resources */ = {isa = PBXBuildFile; fileRef = E5E73DAB2B7509F40097D871 /* Box_motion_arr_4.json */; };
+		E5E73DC42B7509F50097D871 /* Box_motion_arr_5.json in Resources */ = {isa = PBXBuildFile; fileRef = E5E73DAC2B7509F40097D871 /* Box_motion_arr_5.json */; };
+		E5E73DC52B7509F50097D871 /* Box_motion_arr_2.json in Resources */ = {isa = PBXBuildFile; fileRef = E5E73DAD2B7509F40097D871 /* Box_motion_arr_2.json */; };
+		E5E73DC62B7509F50097D871 /* Box_motion_arr_3.json in Resources */ = {isa = PBXBuildFile; fileRef = E5E73DAE2B7509F40097D871 /* Box_motion_arr_3.json */; };
 		E5FDE0572B6BAC4900E00B00 /* ReceivedGiftBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FDE0562B6BAC4900E00B00 /* ReceivedGiftBox.swift */; };
 		E5FDE05B2B6BACFA00E00B00 /* Envelope.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FDE05A2B6BACFA00E00B00 /* Envelope.swift */; };
 		E5FDE05D2B6BAD1F00E00B00 /* Sticker.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FDE05C2B6BAD1F00E00B00 /* Sticker.swift */; };
@@ -288,13 +294,7 @@
 		E58048C82B5C36DD00B974B3 /* CornerRadiusWithBorderModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CornerRadiusWithBorderModifier.swift; sourceTree = "<group>"; };
 		E58048CA2B5C394700B974B3 /* Snackbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Snackbar.swift; sourceTree = "<group>"; };
 		E58048CC2B5CE2A300B974B3 /* UIScreen+CheckScreenSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScreen+CheckScreenSize.swift"; sourceTree = "<group>"; };
-		E586DCCE2B73A03F0052E8D7 /* Box_motion_6.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Box_motion_6.json; sourceTree = "<group>"; };
-		E586DCCF2B73A03F0052E8D7 /* Box_motion_3.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Box_motion_3.json; sourceTree = "<group>"; };
-		E586DCD02B73A03F0052E8D7 /* Box_motion_2.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Box_motion_2.json; sourceTree = "<group>"; };
-		E586DCD12B73A03F0052E8D7 /* Box_motion_1.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Box_motion_1.json; sourceTree = "<group>"; };
-		E586DCD22B73A03F0052E8D7 /* Box_motion_5.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Box_motion_5.json; sourceTree = "<group>"; };
-		E586DCD32B73A03F0052E8D7 /* Box_motion_4.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Box_motion_4.json; sourceTree = "<group>"; };
-		E586DCDB2B73A0CB0052E8D7 /* LottieAnimation+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LottieAnimation+Extensions.swift"; sourceTree = "<group>"; };
+		E586DCDB2B73A0CB0052E8D7 /* LottieMotionType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottieMotionType.swift; sourceTree = "<group>"; };
 		E586DCDD2B73AA1A0052E8D7 /* BoxMotionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoxMotionView.swift; sourceTree = "<group>"; };
 		E586DCDF2B73CFB70052E8D7 /* PackyProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackyProgress.swift; sourceTree = "<group>"; };
 		E5A416A12B5D076C00313E5A /* PopGestureDisableModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopGestureDisableModifier.swift; sourceTree = "<group>"; };
@@ -435,6 +435,18 @@
 		E5E73D492B597C0200729D99 /* BoxStartGuideView+MusicSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BoxStartGuideView+MusicSheet.swift"; sourceTree = "<group>"; };
 		E5E73D4B2B597CB600729D99 /* AddPhotoBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPhotoBottomSheet.swift; sourceTree = "<group>"; };
 		E5E73D952B74F1950097D871 /* ColorFromServer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorFromServer.swift; sourceTree = "<group>"; };
+		E5E73D9E2B7509F40097D871 /* Box_motion_make_4.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Box_motion_make_4.json; sourceTree = "<group>"; };
+		E5E73D9F2B7509F40097D871 /* Box_motion_make_5.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Box_motion_make_5.json; sourceTree = "<group>"; };
+		E5E73DA02B7509F40097D871 /* Box_motion_make_2.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Box_motion_make_2.json; sourceTree = "<group>"; };
+		E5E73DA12B7509F40097D871 /* Box_motion_make_3.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Box_motion_make_3.json; sourceTree = "<group>"; };
+		E5E73DA22B7509F40097D871 /* Box_motion_make_1.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Box_motion_make_1.json; sourceTree = "<group>"; };
+		E5E73DA32B7509F40097D871 /* Box_motion_make_6.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Box_motion_make_6.json; sourceTree = "<group>"; };
+		E5E73DA92B7509F40097D871 /* Box_motion_arr_1.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Box_motion_arr_1.json; sourceTree = "<group>"; };
+		E5E73DAA2B7509F40097D871 /* Box_motion_arr_6.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Box_motion_arr_6.json; sourceTree = "<group>"; };
+		E5E73DAB2B7509F40097D871 /* Box_motion_arr_4.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Box_motion_arr_4.json; sourceTree = "<group>"; };
+		E5E73DAC2B7509F40097D871 /* Box_motion_arr_5.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Box_motion_arr_5.json; sourceTree = "<group>"; };
+		E5E73DAD2B7509F40097D871 /* Box_motion_arr_2.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Box_motion_arr_2.json; sourceTree = "<group>"; };
+		E5E73DAE2B7509F40097D871 /* Box_motion_arr_3.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Box_motion_arr_3.json; sourceTree = "<group>"; };
 		E5FDE0562B6BAC4900E00B00 /* ReceivedGiftBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceivedGiftBox.swift; sourceTree = "<group>"; };
 		E5FDE05A2B6BACFA00E00B00 /* Envelope.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Envelope.swift; sourceTree = "<group>"; };
 		E5FDE05C2B6BAD1F00E00B00 /* Sticker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sticker.swift; sourceTree = "<group>"; };
@@ -637,12 +649,8 @@
 		E586DCCD2B73A0340052E8D7 /* Lottie */ = {
 			isa = PBXGroup;
 			children = (
-				E586DCD12B73A03F0052E8D7 /* Box_motion_1.json */,
-				E586DCD02B73A03F0052E8D7 /* Box_motion_2.json */,
-				E586DCCF2B73A03F0052E8D7 /* Box_motion_3.json */,
-				E586DCD32B73A03F0052E8D7 /* Box_motion_4.json */,
-				E586DCD22B73A03F0052E8D7 /* Box_motion_5.json */,
-				E586DCCE2B73A03F0052E8D7 /* Box_motion_6.json */,
+				E5E73DA82B7509F40097D871 /* arrived */,
+				E5E73D9D2B7509F40097D871 /* make */,
 			);
 			path = Lottie;
 			sourceTree = "<group>";
@@ -650,7 +658,7 @@
 		E586DCDA2B73A0BD0052E8D7 /* Animation */ = {
 			isa = PBXGroup;
 			children = (
-				E586DCDB2B73A0CB0052E8D7 /* LottieAnimation+Extensions.swift */,
+				E586DCDB2B73A0CB0052E8D7 /* LottieMotionType.swift */,
 			);
 			path = Animation;
 			sourceTree = "<group>";
@@ -1249,6 +1257,32 @@
 			path = Protocol;
 			sourceTree = "<group>";
 		};
+		E5E73D9D2B7509F40097D871 /* make */ = {
+			isa = PBXGroup;
+			children = (
+				E5E73D9E2B7509F40097D871 /* Box_motion_make_4.json */,
+				E5E73D9F2B7509F40097D871 /* Box_motion_make_5.json */,
+				E5E73DA02B7509F40097D871 /* Box_motion_make_2.json */,
+				E5E73DA12B7509F40097D871 /* Box_motion_make_3.json */,
+				E5E73DA22B7509F40097D871 /* Box_motion_make_1.json */,
+				E5E73DA32B7509F40097D871 /* Box_motion_make_6.json */,
+			);
+			path = make;
+			sourceTree = "<group>";
+		};
+		E5E73DA82B7509F40097D871 /* arrived */ = {
+			isa = PBXGroup;
+			children = (
+				E5E73DA92B7509F40097D871 /* Box_motion_arr_1.json */,
+				E5E73DAA2B7509F40097D871 /* Box_motion_arr_6.json */,
+				E5E73DAB2B7509F40097D871 /* Box_motion_arr_4.json */,
+				E5E73DAC2B7509F40097D871 /* Box_motion_arr_5.json */,
+				E5E73DAD2B7509F40097D871 /* Box_motion_arr_2.json */,
+				E5E73DAE2B7509F40097D871 /* Box_motion_arr_3.json */,
+			);
+			path = arrived;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1332,24 +1366,30 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E586DCD42B73A03F0052E8D7 /* Box_motion_6.json in Resources */,
+				E5E73DC52B7509F50097D871 /* Box_motion_arr_2.json in Resources */,
 				E5A7AA862B57F81400590EA6 /* Assets.xcassets in Resources */,
 				E5A7AA8E2B57F81400590EA6 /* Pretendard-Thin.otf in Resources */,
+				E5E73DBC2B7509F50097D871 /* Box_motion_make_6.json in Resources */,
+				E5E73DC12B7509F50097D871 /* Box_motion_arr_1.json in Resources */,
 				E5A7AA882B57F81400590EA6 /* Pretendard-Regular.otf in Resources */,
-				E586DCD92B73A03F0052E8D7 /* Box_motion_4.json in Resources */,
+				E5E73DC62B7509F50097D871 /* Box_motion_arr_3.json in Resources */,
 				E5A7AA902B57F81400590EA6 /* Pretendard-SemiBold.otf in Resources */,
+				E5E73DBA2B7509F50097D871 /* Box_motion_make_3.json in Resources */,
+				E5E73DB92B7509F50097D871 /* Box_motion_make_2.json in Resources */,
 				E5A7AA8C2B57F81400590EA6 /* Pretendard-ExtraBold.otf in Resources */,
+				E5E73DC22B7509F50097D871 /* Box_motion_arr_6.json in Resources */,
+				E5E73DC32B7509F50097D871 /* Box_motion_arr_4.json in Resources */,
 				E5A7AA872B57F81400590EA6 /* Preview Assets.xcassets in Resources */,
-				E586DCD72B73A03F0052E8D7 /* Box_motion_1.json in Resources */,
-				E586DCD62B73A03F0052E8D7 /* Box_motion_2.json in Resources */,
-				E586DCD52B73A03F0052E8D7 /* Box_motion_3.json in Resources */,
+				E5E73DC42B7509F50097D871 /* Box_motion_arr_5.json in Resources */,
 				E5A7AA762B57F81400590EA6 /* APIKeys.xcconfig in Resources */,
 				E5A7AA8B2B57F81400590EA6 /* Pretendard-Light.otf in Resources */,
+				E5E73DB82B7509F50097D871 /* Box_motion_make_5.json in Resources */,
 				E5A7AA892B57F81400590EA6 /* Pretendard-Black.otf in Resources */,
 				E5A7AA8D2B57F81400590EA6 /* Pretendard-Bold.otf in Resources */,
-				E586DCD82B73A03F0052E8D7 /* Box_motion_5.json in Resources */,
 				E5A7AA8A2B57F81400590EA6 /* Pretendard-Medium.otf in Resources */,
+				E5E73DB72B7509F50097D871 /* Box_motion_make_4.json in Resources */,
 				E5A7AA8F2B57F81400590EA6 /* Pretendard-ExtraLight.otf in Resources */,
+				E5E73DBB2B7509F50097D871 /* Box_motion_make_1.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1425,7 +1465,7 @@
 				E54485132B6F9053003DFA1B /* ManageAccountFeature.swift in Sources */,
 				E5A416B52B5D439300313E5A /* PackyAlert.swift in Sources */,
 				E52470EF2B6134EE003D49DE /* Array+SafeIndex.swift in Sources */,
-				E586DCDC2B73A0CB0052E8D7 /* LottieAnimation+Extensions.swift in Sources */,
+				E586DCDC2B73A0CB0052E8D7 /* LottieMotionType.swift in Sources */,
 				E5A7AA792B57F81400590EA6 /* SignUpRequest.swift in Sources */,
 				E586DCDE2B73AA1A0052E8D7 /* BoxMotionView.swift in Sources */,
 				E5B22CF42B70F834003DAC7B /* SettingMenu.swift in Sources */,

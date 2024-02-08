@@ -40,7 +40,6 @@ struct PackyTextArea: View {
                 .limitTextLength(text: $text, length: 200)
                 .padding(.horizontal, 20)
         }
-        .aspectRatio(1, contentMode: .fit)
         .overlay(alignment: .bottomTrailing) {
             HStack(spacing: 2) {
                 Text("\(text.count)")

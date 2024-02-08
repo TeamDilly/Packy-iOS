@@ -110,7 +110,9 @@ private extension BoxChoiceView {
                 Spacer()
             }
 
-            BoxMotionView(boxDesignId: viewStore.selectedBox?.id ?? 0)
+            BoxMotionView(
+                motionType: .makeBox(boxDesignId: viewStore.selectedBox?.id ?? 0)
+            )
         }
     }
 }

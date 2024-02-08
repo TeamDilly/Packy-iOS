@@ -9,10 +9,11 @@ import SwiftUI
 import Lottie
 
 struct BoxMotionView: View {
-    let boxDesignId: Int
+    let motionType: LottieMotionType
+
     var body: some View {
         LottieView(
-            animation: .boxAnimation(boxId: boxDesignId)
+            animation: .named(motionType.motionFileName ?? "")
         )
         .playing()
         .resizable()

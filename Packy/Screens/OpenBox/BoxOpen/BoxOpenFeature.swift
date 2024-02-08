@@ -65,7 +65,7 @@ struct BoxOpenFeature: Reducer {
                 guard let giftBox = state.giftBox else { return .none }
                 state.showingState = .openMotion
                 return .run { send in
-                    try? await clock.sleep(for: .seconds(Constants.boxAnimationDuration))
+                    try? await clock.sleep(for: .seconds(Constants.openBoxAnimationDuration))
                     await send(.delegate(.moveToBoxDetail(giftBox)))
                     try? await clock.sleep(for: .seconds(0.5))
                     await send(._setShowingState(.openBox))

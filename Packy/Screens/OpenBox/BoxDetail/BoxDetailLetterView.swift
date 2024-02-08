@@ -18,6 +18,7 @@ struct BoxDetailLetterView: View {
             borderColor: borderColor,
             showTextLength: false
         )
+        .aspectRatio(1, contentMode: .fit)
         .disabled(true)
     }
 }
