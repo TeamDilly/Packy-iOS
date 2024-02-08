@@ -34,11 +34,12 @@ struct BoxStartGuideView: View {
                     guideOverlayView
                         .zIndex(3)
                 } else {
-                    if let selectedBox = viewStore.selectedBox {
-                        KFImage(URL(string: selectedBox.boxTopUrl))
-                            .zIndex(1)
+                    if let boxTopUrl = viewStore.selectedBox?.boxTopUrl {
+                        KFImage(URL(string: boxTopUrl))
+                            .transition(.asymmetric(insertion: .move(edge: .top), removal: .opacity))
                             .ignoresSafeArea()
-                            .transition(.move(edge: .top))
+                            .zIndex(1)
+                            .id(viewStore.selectedBox?.id)
                     }
 
                     FloatingNavigationBar(

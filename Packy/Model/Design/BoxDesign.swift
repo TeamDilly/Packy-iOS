@@ -32,10 +32,10 @@ extension BoxDesign {
     static let mock: Self = .init(
         id: 0,
         sequence: 0,
-        boxNormalUrl: "https://packy-bucket.s3.ap-northeast-2.amazonaws.com/admin/design/box-full/box_1.png",
-        boxSmallUrl: "https://packy-bucket.s3.ap-northeast-2.amazonaws.com/admin/design/box-full/box_1.png",
-        boxSetUrl: "https://packy-bucket.s3.ap-northeast-2.amazonaws.com/admin/design/box-full/box_1.png",
-        boxTopUrl: "https://packy-bucket.s3.ap-northeast-2.amazonaws.com/admin/design/box-full/box_1.png"
+        boxNormalUrl: "https://packy-bucket.s3.ap-northeast-2.amazonaws.com/admin/design/Box/Box_1.png",
+        boxSmallUrl: "https://packy-bucket.s3.ap-northeast-2.amazonaws.com/admin/design/Box_s/Box_s_1.png",
+        boxSetUrl: "https://packy-bucket.s3.ap-northeast-2.amazonaws.com/admin/design/Box_set/Box_set_1.png",
+        boxTopUrl: "https://packy-bucket.s3.ap-northeast-2.amazonaws.com/admin/design/Box_top/Box_top_1.png"
     )
 }
 
@@ -44,10 +44,10 @@ extension BoxDesignResponse {
         .init(
             id: $0,
             sequence: $0,
-            boxNormalUrl: "https://packy-bucket.s3.ap-northeast-2.amazonaws.com/admin/design/box-bottom/bottom_\($0).png",
-            boxSmallUrl: "https://packy-bucket.s3.ap-northeast-2.amazonaws.com/admin/design/box-bottom/bottom_\($0).png",
-            boxSetUrl: "https://packy-bucket.s3.ap-northeast-2.amazonaws.com/admin/design/box-full/box_\($0).png",
-            boxTopUrl: "https://packy-bucket.s3.ap-northeast-2.amazonaws.com/admin/design/box-part/box_part_1.png"
+            boxNormalUrl: "https://packy-bucket.s3.ap-northeast-2.amazonaws.com/admin/design/Box_set/Box_set_\($0).png",
+            boxSmallUrl: "https://packy-bucket.s3.ap-northeast-2.amazonaws.com/admin/design/Box_s/Box_s_\($0).png",
+            boxSetUrl: "https://packy-bucket.s3.ap-northeast-2.amazonaws.com/admin/design/Box/Box_\($0).png",
+            boxTopUrl: "https://packy-bucket.s3.ap-northeast-2.amazonaws.com/admin/design/Box_top/Box_top_\($0).png"
         )
     }
 }

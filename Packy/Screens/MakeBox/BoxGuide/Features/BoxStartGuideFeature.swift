@@ -232,7 +232,8 @@ private extension BoxStartGuideFeature {
     func showGuideTextIfNeeded() -> Effect<Action> {
         .concatenate(
             .run { send in
-                guard !userDefaults.boolForKey(.didEnteredBoxGuide) else { return }
+                // TODO: 원상복구
+                // guard !userDefaults.boolForKey(.didEnteredBoxGuide) else { return }
                 await send(._setIsShowingGuideText(true))
                 try? await clock.sleep(for: .seconds(Constants.textInteractionDuration))
                 await send(._setIsShowingGuideText(false), animation: .spring(duration: 1))

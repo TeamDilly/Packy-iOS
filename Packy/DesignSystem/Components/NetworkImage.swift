@@ -11,16 +11,29 @@ import SwiftUI
 struct NetworkImage: View {
     var url: String
     var contentMode: SwiftUI.ContentMode = .fill
+    var respectPhotoSize: Bool = false
 
     var body: some View {
-        KFImage(URL(string: url))
-            .placeholder {
-                PackyProgress()
+        if respectPhotoSize {
+            KFImage(URL(string: url))
+                .placeholder {
+                    PackyProgress()
+                }
+                .retry(maxCount: 3, interval: .seconds(1))
+                .aspectRatio(contentMode: contentMode)
+        } else {
+            GeometryReader { proxy in
+                KFImage(URL(string: url))
+                    .placeholder {
+                        PackyProgress()
+                    }
+                    .retry(maxCount: 3, interval: .seconds(1))
+                    .resizable()
+                    .aspectRatio(contentMode: contentMode)
+                    .frame(width: proxy.size.width, height: proxy.size.height)
+                    .clipped()
             }
-            .retry(maxCount: 3, interval: .seconds(1))
-            .resizable()
-            .aspectRatio(contentMode: contentMode)
-            .clipped()
+        }
     }
 }
 
@@ -31,10 +44,11 @@ struct NetworkImage: View {
             contentMode: .fit
         )
         .border(Color.red)
-        .padding(.horizontal, 50)
+        .padding(.horizontal, 10)
+        .frame(width: 50, height: 50)
 
         Text("Hello")
-        // .frame(height: 200)
+            // .frame(height: 200)
     }
     .frame(height: 400)
 }

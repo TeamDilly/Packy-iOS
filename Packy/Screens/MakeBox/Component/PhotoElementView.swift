@@ -34,3 +34,7 @@ struct PhotoElementView: View {
         }
     }
 }
+
+#Preview {
+    PhotoElementView.init(photoUrl: Constants.mockImageUrl, screenWidth: 200)
+}

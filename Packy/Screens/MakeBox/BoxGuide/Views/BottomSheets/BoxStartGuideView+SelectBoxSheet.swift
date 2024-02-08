@@ -42,7 +42,7 @@ extension BoxStartGuideView {
                                 .clipShape(RoundedRectangle(cornerRadius: 8))
                                 .frame(width: 64, height: 64)
                                 .bouncyTapGesture {
-                                    viewStore.send(.selectBox(boxDesign))
+                                    viewStore.send(.selectBox(boxDesign), animation: .spring)
                                     HapticManager.shared.fireFeedback(.soft)
                                 }
                         }
