@@ -215,6 +215,10 @@ private extension HomeView {
                             senderReceiverInfo: giftBox.senderReceiverInfo,
                             boxTitle: giftBox.name
                         )
+                        .bouncyTapGesture {
+                            HapticManager.shared.fireFeedback(.soft)
+                            viewStore.send(.tappedGiftBox(boxId: giftBox.id))
+                        }
                     }
                 }
             }

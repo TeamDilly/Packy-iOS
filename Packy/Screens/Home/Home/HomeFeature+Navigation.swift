@@ -91,6 +91,9 @@ extension HomeFeature {
                     state.path.append(.boxDetail(.init(giftBox: giftBox)))
                     return .none
 
+                case let .element(id: _, action: .myBox(.delegate(.tappedGifBox(boxId)))):
+                    return .send(.tappedGiftBox(boxId: boxId))
+
                 /// Box Detail 에서 닫기 시,
                 case .element(id: _, action: .boxDetail(.delegate(.closeBoxOpen))):
                     // BoxOpen 에서 열린 BoxDetail 이면 Home 까지 다 닫아줌

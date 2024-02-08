@@ -19,6 +19,7 @@ struct HomeFeature: Reducer {
 
     enum Action {
         // MARK: User Action
+        case tappedGiftBox(boxId: Int)
 
         // MARK: Inner Business Action
         case _onTask
@@ -26,6 +27,7 @@ struct HomeFeature: Reducer {
         // MARK: Inner SetState Action
         case _setProfile(Profile)
         case _setGiftBoxes([SentReceivedGiftBox])
+        case _moveToBoxDetail(ReceivedGiftBox)
 
         // MARK: Child Action
         case path(StackAction<HomeNavigationPath.State, HomeNavigationPath.Action>)
@@ -45,6 +47,16 @@ struct HomeFeature: Reducer {
                     fetchGiftBoxes()
                 )
 
+            case let .tappedGiftBox(boxId):
+                return .run { send in
+                    do {
+                        let giftBox = try await boxClient.openGiftBox(boxId)
+                        await send(._moveToBoxDetail(giftBox))
+                    } catch {
+                        print("🐛 \(error)")
+                    }
+                }
+
             case let ._setProfile(profile):
                 state.profile = profile
                 return .none
@@ -54,6 +66,10 @@ struct HomeFeature: Reducer {
                 return .none
 
             case .path:
+                return .none
+
+            case let ._moveToBoxDetail(giftBox):
+                state.path.append(.boxDetail(.init(giftBox: giftBox)))
                 return .none
             }
         }

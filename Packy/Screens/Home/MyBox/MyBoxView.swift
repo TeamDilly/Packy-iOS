@@ -87,6 +87,10 @@ private extension MyBoxView {
                             boxTitle: giftBox.name,
                             date: giftBox.giftBoxDate
                         )
+                        .bouncyTapGesture {
+                            HapticManager.shared.fireFeedback(.soft)
+                            viewStore.send(.delegate(.tappedGifBox(boxId: giftBox.id)))
+                        }
                     }
                 }
                 .padding(24)

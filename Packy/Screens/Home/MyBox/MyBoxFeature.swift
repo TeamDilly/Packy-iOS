@@ -39,6 +39,10 @@ struct MyBoxFeature: Reducer {
         case _setGiftBoxData(SentReceivedGiftBoxPageData, GiftBoxType)
 
         // MARK: Child Action
+        enum Delegate {
+            case tappedGifBox(boxId: Int)
+        }
+        case delegate(Delegate)
     }
 
     @Dependency(\.boxClient) var boxClient
@@ -78,6 +82,9 @@ struct MyBoxFeature: Reducer {
                     fetchGiftBoxes(type: .received, lastBoxDate: nil),
                     fetchGiftBoxes(type: .sent, lastBoxDate: nil)
                 )
+
+            case .delegate:
+                return .none
             }
         }
     }
