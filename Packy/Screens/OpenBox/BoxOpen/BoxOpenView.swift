@@ -27,7 +27,9 @@ struct BoxOpenView: View {
                     openBoxContent(giftBox)
                 }
             case .openMotion:
-                motionView
+                if let boxDesignId = viewStore.giftBox?.box.designId {
+                    BoxMotionView(boxDesignId: boxDesignId)
+                }
 
             case .openError:
                 BoxOpenErrorView(viewStore: viewStore)
@@ -73,7 +75,7 @@ private extension BoxOpenView {
             Spacer()
 
             // TODO: Shake Animation!
-            NetworkImage(url: giftBox.box.boxFullUrl)
+            NetworkImage(url: giftBox.box.boxNormalUrl)
                 .frame(width: 240, height: 240)
                 .padding(.bottom, 20)
 
@@ -88,10 +90,6 @@ private extension BoxOpenView {
             .padding(.horizontal, 24)
             .padding(.bottom, 16)
         }
-    }
-
-    var motionView: some View {
-        BoxMotionView(boxDesignId: 0) // TODO: 서버 명세 변경되면 반영
     }
 }
 

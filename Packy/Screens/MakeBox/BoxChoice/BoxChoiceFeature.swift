@@ -85,8 +85,8 @@ struct BoxChoiceFeature: Reducer {
                     }
                 }
 
-            case let .selectBox(id):
-                state.selectedBox = id
+            case let .selectBox(boxDesign):
+                state.selectedBox = boxDesign
                 return .none
 
             case .backButtonTapped:

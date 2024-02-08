@@ -44,7 +44,7 @@ struct BoxDetailView: View {
             ZStack(alignment: .topTrailing) {
 
                 if isBoxPartPresented {
-                    KFImage(URL(string: viewStore.box.boxPartUrl))
+                    KFImage(URL(string: viewStore.box.boxTopUrl))
                         .zIndex(1)
                         .ignoresSafeArea()
                         .transition(.move(edge: .top))
@@ -199,7 +199,7 @@ private extension BoxDetailView {
                     // 편지
                     LetterElementView(
                         lettetContent: viewStore.letterContent,
-                        letterImageUrl: viewStore.envelope.imgUrl,
+                        letterImageUrl: viewStore.envelope.imageUrl,
                         screenWidth: screenWidth
                     ) {
                         viewStore.send(.binding(.set(\.$presentingState, .letter)))

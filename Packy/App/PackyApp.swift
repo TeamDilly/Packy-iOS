@@ -17,9 +17,11 @@ struct PackyApp: App {
     }
 
     let store = Store(initialState: RootFeature.State()) { RootFeature() }
+    let bStore = Store(initialState: BoxAddTitleAndShareFeature.State(giftBox: .mock, boxDesign: .mock)) { BoxAddTitleAndShareFeature() }
 
     var body: some Scene {
         WindowGroup {
+            // BoxAddTitleAndShareView(store: bStore)
             RootView(store: store)
                 .packyGlobalAlert()
                 .onOpenURL { url in

@@ -8,13 +8,22 @@
 import Foundation
 
 struct Envelope: Decodable, Equatable {
-    let imgUrl: String
+    let imageUrl: String
     let borderColorCode: String
+    let opacityPercent: Int
+    var opacity: CGFloat { Double(opacityPercent) / 100 }
+
+    enum CodingKeys: String, CodingKey {
+        case imageUrl = "imgUrl"
+        case borderColorCode
+        case opacityPercent = "opacity"
+    }
 }
 
 extension Envelope {
     static let mock: Self = .init(
-        imgUrl: "https://packy-bucket.s3.ap-northeast-2.amazonaws.com/admin/design/envelope/envelope_1.png",
-        borderColorCode: "ED76A5"
+        imageUrl: "https://packy-bucket.s3.ap-northeast-2.amazonaws.com/admin/design/envelope/envelope_1.png",
+        borderColorCode: "ED76A5",
+        opacityPercent: 30
     )
 }

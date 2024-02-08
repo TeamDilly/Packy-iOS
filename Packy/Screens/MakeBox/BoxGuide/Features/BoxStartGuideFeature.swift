@@ -193,6 +193,7 @@ struct BoxStartGuideFeature: Reducer {
             // MARK: Box
 
             case let .selectBox(boxDesign):
+                state.selectedBox = nil
                 state.selectedBox = boxDesign
                 return .none
 

@@ -35,7 +35,7 @@ struct BoxStartGuideView: View {
                         .zIndex(3)
                 } else {
                     if let selectedBox = viewStore.selectedBox {
-                        KFImage(URL(string: selectedBox.boxPartUrl))
+                        KFImage(URL(string: selectedBox.boxTopUrl))
                             .zIndex(1)
                             .ignoresSafeArea()
                             .transition(.move(edge: .top))

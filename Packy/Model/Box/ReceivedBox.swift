@@ -8,14 +8,15 @@
 import Foundation
 
 struct ReceivedBox: Decodable, Equatable {
-    let boxFullUrl: String
-    let boxPartUrl: String
-    let boxBottomUrl: String
+    /// 박스의 디자인 id
+    let designId: Int
+    let boxNormalUrl: String
+    let boxTopUrl: String
 
     enum CodingKeys: String, CodingKey {
-        case boxPartUrl = "boxPart"
-        case boxBottomUrl = "boxBottom"
-        case boxFullUrl = "boxFull"
+        case designId = "id"
+        case boxNormalUrl = "boxNormal"
+        case boxTopUrl = "boxTop"
     }
 }
 
@@ -23,8 +24,8 @@ struct ReceivedBox: Decodable, Equatable {
 
 extension ReceivedBox {
     static let mock: Self = .init(
-        boxFullUrl: "https://packy-bucket.s3.ap-northeast-2.amazonaws.com/admin/design/box-full/box_1.png",
-        boxPartUrl: "https://packy-bucket.s3.ap-northeast-2.amazonaws.com/admin/design/box-part/box_part_1.png",
-        boxBottomUrl: "https://packy-bucket.s3.ap-northeast-2.amazonaws.com/admin/design/box-bottom/bottom_1.png"
+        designId: 0,
+        boxNormalUrl: "https://packy-bucket.s3.ap-northeast-2.amazonaws.com/admin/design/box-full/box_1.png",
+        boxTopUrl: "https://packy-bucket.s3.ap-northeast-2.amazonaws.com/admin/design/box-full/box_1.png"
     )
 }

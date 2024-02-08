@@ -38,7 +38,7 @@ extension BoxStartGuideView {
                 ScrollView(.horizontal) {
                     HStack(spacing: 12) {
                         ForEach(viewStore.boxDesigns, id: \.id) { boxDesign in
-                            NetworkImage(url: boxDesign.boxFullUrl, contentMode: .fit)
+                            NetworkImage(url: boxDesign.boxSetUrl, contentMode: .fit)
                                 .clipShape(RoundedRectangle(cornerRadius: 12))
                                 .frame(width: 64, height: 64)
                                 .bouncyTapGesture {
