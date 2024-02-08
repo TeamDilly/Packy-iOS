@@ -9,11 +9,12 @@ import Lottie
 
 extension LottieAnimation {
     static func boxAnimation(boxId: Int) -> LottieAnimation? {
-        guard let boxMotionName = boxMotionNames[safe: boxId] else { return nil }
+        guard let boxMotionName = boxMotionNames[boxId] else { return nil }
+        print("\(boxMotionName), \(boxId)")
         return .named(boxMotionName)
     }
 }
 
-private let boxMotionNames: [String] = (1...6).map {
-    "Box_motion_\($0)"
+private let boxMotionNames: [Int: String] = (1...6).reduce(into: [Int: String]()) {
+    $0[$1] = "Box_motion_\($1)"
 }
