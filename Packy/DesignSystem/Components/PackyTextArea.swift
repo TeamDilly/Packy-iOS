@@ -21,7 +21,7 @@ struct PackyTextArea: View {
         ZStack(alignment: .center) {
             RoundedRectangle(cornerRadius: 16)
                 .fill(.gray100)
-                .stroke(borderColor, lineWidth: 4)
+                .strokeBorder(borderColor, lineWidth: 4)
 
             Text(placeholder)
                 .foregroundStyle(.gray400)

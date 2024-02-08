@@ -48,13 +48,41 @@ extension LetterDesign.ColorData: ColorFromServer {
 // MARK: - Mock
 
 extension LetterDesignResponse {
-    static let mock: Self = (1...4).map {
+    static let mock: Self = [
         .init(
-            id: $0,
-            sequence: $0,
+            id: 1,
+            sequence: 1,
+            envelopeColor: .init(borderColorCode: "3C3775", opacityPercent: 30),
+            letterColor: .init(borderColorCode: "6B60E9", opacityPercent: 30),
+            imageUrl: "https://packy-bucket.s3.ap-northeast-2.amazonaws.com/admin/design/envelope/envelope_1.png"
+        ),
+        .init(
+            id: 2,
+            sequence: 2,
+            envelopeColor: .init(borderColorCode: "3F5896", opacityPercent: 30),
+            letterColor: .init(borderColorCode: "6C8AD3", opacityPercent: 30),
+            imageUrl: "https://packy-bucket.s3.ap-northeast-2.amazonaws.com/admin/design/envelope/envelope_2.png"
+        ),
+        .init(
+            id: 3,
+            sequence: 3,
             envelopeColor: .init(borderColorCode: "ED76A5", opacityPercent: 30),
             letterColor: .init(borderColorCode: "ED76A5", opacityPercent: 30),
-            imageUrl: ""
+            imageUrl: "https://packy-bucket.s3.ap-northeast-2.amazonaws.com/admin/design/envelope/envelope_3.png"
+        ),
+        .init(
+            id: 4,
+            sequence: 4,
+            envelopeColor: .init(borderColorCode: "3C3775", opacityPercent: 30),
+            letterColor: .init(borderColorCode: "6B60E9", opacityPercent: 30),
+            imageUrl: "https://packy-bucket.s3.ap-northeast-2.amazonaws.com/admin/design/envelope/envelope_1.png"
+        ),
+        .init(
+            id: 5,
+            sequence: 5,
+            envelopeColor: .init(borderColorCode: "3F5896", opacityPercent: 30),
+            letterColor: .init(borderColorCode: "6C8AD3", opacityPercent: 30),
+            imageUrl: "https://packy-bucket.s3.ap-northeast-2.amazonaws.com/admin/design/envelope/envelope_2.png"
         )
-    }
+    ]
 }

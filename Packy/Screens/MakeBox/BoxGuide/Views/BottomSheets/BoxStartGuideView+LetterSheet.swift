@@ -53,18 +53,12 @@ extension BoxStartGuideView {
                             ForEach(viewStore.letterDesigns, id: \.id) { letterDesign in
                                 let isSelected = viewStore.letterInput.selectedLetterDesign == letterDesign
 
-                                KFImage(URL(string: letterDesign.imageUrl))
-                                    .placeholder {
-                                        PackyProgress()
-                                    }
-                                    .resizable()
-                                    .scaledToFit()
+                                NetworkImage(url: letterDesign.imageUrl, contentMode: .fit)
                                     .cornerRadiusWithBorder(
                                         radius: 8,
                                         borderColor: letterDesign.envelopeColor.color,
                                         lineWidth: isSelected ? 5 : 0
                                     )
-                                    .animation(.spring, value: isSelected)
                                     .bouncyTapGesture {
                                         viewStore.send(.binding(.set(\.letterInput.$selectedLetterDesign, letterDesign)))
                                         HapticManager.shared.fireFeedback(.medium)
@@ -92,6 +86,7 @@ extension BoxStartGuideView {
             }
             .keyboardHideToolbar()
             .makeTapToHideKeyboard()
+            .animation(.spring, value: viewStore.letterInput.selectedLetterDesign)
             .animation(.spring, value: isLetterFieldFocused)
         }
     }
