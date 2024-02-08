@@ -42,21 +42,21 @@ struct BoxChoiceView: View {
                     .foregroundStyle(.gray900)
                     .padding(.top, isWiderThan375pt ? 48 : 30)
 
-                VStack(spacing: isWiderThan375pt ? 80 : 64) {
+                VStack(spacing: isWiderThan375pt ? 64 : 40) {
                     if let selectedBox = viewStore.selectedBox {
-                        // TODO: 사이즈 변경 대응
-                        let frameWidth: CGFloat = isWiderThan375pt ? 220 : 180
+                        let boxWidth: CGFloat = isWiderThan375pt ? 232 : 200
+                        let boxHeight: CGFloat = boxWidth * (260 / 232)
 
                         NetworkImage(url: selectedBox.boxSetUrl, contentMode: .fit)
                             .transition(.move(edge: .trailing))
                             .animation(nil, value: viewStore.selectedBox)
-                            .frame(width: frameWidth, height: frameWidth)
+                            .frame(width: boxWidth, height: boxHeight)
 
                         ScrollView(.horizontal) {
                             HStack(spacing: 12) {
                                 ForEach(viewStore.boxDesigns, id: \.id) { boxDesign in
-                                    NetworkImage(url: boxDesign.boxSetUrl, contentMode: .fit)
-                                        .clipShape(RoundedRectangle(cornerRadius: 12))
+                                    NetworkImage(url: boxDesign.boxSmallUrl, contentMode: .fit)
+                                        .clipShape(RoundedRectangle(cornerRadius: 8))
                                         .frame(width: 64, height: 64)
                                         .bouncyTapGesture {
                                             viewStore.send(.selectBox(boxDesign))
