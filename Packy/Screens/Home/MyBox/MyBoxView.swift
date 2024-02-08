@@ -91,6 +91,20 @@ private extension MyBoxView {
                             HapticManager.shared.fireFeedback(.soft)
                             viewStore.send(.delegate(.tappedGifBox(boxId: giftBox.id)))
                         }
+
+
+                        if latestPageData(for: tab)?.isLastPage == false {
+                            PackyProgress()
+                                .onAppear {
+                                    switch tab {
+                                    case .sentBox:
+                                        viewStore.send(._fetchMoreSentGiftBoxes)
+                                    case .receivedBox:
+                                        viewStore.send(._fetchMoreReceivedGiftBoxes)
+                                    }
+                                }
+                        }
+
                     }
                 }
                 .padding(24)
@@ -169,6 +183,13 @@ private extension MyBoxView {
         switch tab {
         case .sentBox:      return viewStore.sentBoxes
         case .receivedBox:  return viewStore.receivedBoxes
+        }
+    }
+
+    func latestPageData(for tab: MyBoxTab) -> SentReceivedGiftBoxPageData? {
+        switch tab {
+        case .sentBox:      return viewStore.sentBoxesData.last
+        case .receivedBox:  return viewStore.receivedBoxesData.last
         }
     }
 }
