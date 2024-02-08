@@ -8,7 +8,7 @@
 import SwiftUI
 
 extension Color {
-    init(hexString: String) {
+    init(hexString: String, opacity: Double = 1) {
         let scanner = Scanner(string: hexString)
         _ = scanner.scanString("#")
         var rgb: UInt64 = 0
@@ -18,7 +18,7 @@ extension Color {
         let green = Double((rgb & 0x00FF00) >> 8) / 255
         let blue = Double(rgb & 0x0000FF) / 255
 
-        self.init(red: red, green: green, blue: blue)
+        self.init(red: red, green: green, blue: blue, opacity: opacity)
     }
 
     init(hex: Int, opacity: Double = 1.0) {

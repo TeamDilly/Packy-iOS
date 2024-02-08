@@ -122,9 +122,10 @@ private extension BoxAddTitleAndShareView {
 
             Spacer()
 
-            // TODO: Shake Animation!
-            NetworkImage(url: viewStore.boxDesign.boxSetUrl)
-                .frame(width: 240, height: 240)
+            NetworkImage(url: viewStore.boxDesign.boxSetUrl, contentMode: .fit)
+                .shakeRepeat(.veryWeak)
+                .aspectRatio(contentMode: .fit)
+                .padding(.horizontal, 80)
                 .padding(.bottom, 20)
 
             Spacer()

@@ -30,7 +30,7 @@ struct ShakeConfiguration {
     static let string: ShakeConfiguration = .init()
     static let medium: ShakeConfiguration = .init(xIntensity: 2, duration: 1, numberOfShakes: 2)
     static let weak: ShakeConfiguration = .init(xIntensity: 1, rotationIntensity: 3, duration: 1, numberOfShakes: 2)
-    static let veryWeak: ShakeConfiguration = .init(xIntensity: 1, rotationIntensity: 2, duration: 2, numberOfShakes: 2)
+    static let veryWeak: ShakeConfiguration = .init(xIntensity: 1, rotationIntensity: 2, duration: 1.5, numberOfShakes: 2)
 }
 
 // MARK: - Shake Forever Modifier

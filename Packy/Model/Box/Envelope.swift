@@ -11,13 +11,17 @@ struct Envelope: Decodable, Equatable {
     let imageUrl: String
     let borderColorCode: String
     let opacityPercent: Int
-    var opacity: CGFloat { Double(opacityPercent) / 100 }
+    var opacity: Double { Double(opacityPercent) / 100 }
 
     enum CodingKeys: String, CodingKey {
         case imageUrl = "imgUrl"
         case borderColorCode
         case opacityPercent = "opacity"
     }
+}
+
+extension Envelope: ColorFromServer {
+    var colorHexCode: String { borderColorCode }
 }
 
 extension Envelope {

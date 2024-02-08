@@ -29,7 +29,7 @@ struct CornerRadiusWithBorderModifier: ViewModifier {
             .background(
                 RoundedRectangle(cornerRadius: cornerRadius)
                     .fill(backgroundColor ?? .clear)
-                    .stroke(borderColor, lineWidth: lineWidth)
+                    .strokeBorder(borderColor, lineWidth: lineWidth)
             )
     }
 }

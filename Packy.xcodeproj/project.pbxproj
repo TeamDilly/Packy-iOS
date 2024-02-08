@@ -222,6 +222,7 @@
 		E5E5110F2B69212900CE86AF /* BoxDetailLetterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E5110E2B69212900CE86AF /* BoxDetailLetterView.swift */; };
 		E5E73D4A2B597C0200729D99 /* BoxStartGuideView+MusicSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E73D492B597C0200729D99 /* BoxStartGuideView+MusicSheet.swift */; };
 		E5E73D4C2B597CB600729D99 /* AddPhotoBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E73D4B2B597CB600729D99 /* AddPhotoBottomSheet.swift */; };
+		E5E73D962B74F1950097D871 /* ColorFromServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E73D952B74F1950097D871 /* ColorFromServer.swift */; };
 		E5FDE0572B6BAC4900E00B00 /* ReceivedGiftBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FDE0562B6BAC4900E00B00 /* ReceivedGiftBox.swift */; };
 		E5FDE05B2B6BACFA00E00B00 /* Envelope.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FDE05A2B6BACFA00E00B00 /* Envelope.swift */; };
 		E5FDE05D2B6BAD1F00E00B00 /* Sticker.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FDE05C2B6BAD1F00E00B00 /* Sticker.swift */; };
@@ -433,6 +434,7 @@
 		E5E5110E2B69212900CE86AF /* BoxDetailLetterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoxDetailLetterView.swift; sourceTree = "<group>"; };
 		E5E73D492B597C0200729D99 /* BoxStartGuideView+MusicSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BoxStartGuideView+MusicSheet.swift"; sourceTree = "<group>"; };
 		E5E73D4B2B597CB600729D99 /* AddPhotoBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPhotoBottomSheet.swift; sourceTree = "<group>"; };
+		E5E73D952B74F1950097D871 /* ColorFromServer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorFromServer.swift; sourceTree = "<group>"; };
 		E5FDE0562B6BAC4900E00B00 /* ReceivedGiftBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceivedGiftBox.swift; sourceTree = "<group>"; };
 		E5FDE05A2B6BACFA00E00B00 /* Envelope.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Envelope.swift; sourceTree = "<group>"; };
 		E5FDE05C2B6BAD1F00E00B00 /* Sticker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sticker.swift; sourceTree = "<group>"; };
@@ -673,8 +675,8 @@
 		E5A7A9B42B57F81400590EA6 /* DesignSystem */ = {
 			isa = PBXGroup;
 			children = (
+				E5E73D942B74F18D0097D871 /* Protocol */,
 				E586DCDA2B73A0BD0052E8D7 /* Animation */,
-				E5A7A9B52B57F81400590EA6 /* Style */,
 				E5A7A9B62B57F81400590EA6 /* Extensions */,
 				E5A7A9BE2B57F81400590EA6 /* Components */,
 				E5A7A9CF2B57F81400590EA6 /* Font */,
@@ -682,13 +684,6 @@
 			);
 			name = DesignSystem;
 			path = Packy/DesignSystem;
-			sourceTree = "<group>";
-		};
-		E5A7A9B52B57F81400590EA6 /* Style */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Style;
 			sourceTree = "<group>";
 		};
 		E5A7A9B62B57F81400590EA6 /* Extensions */ = {
@@ -1246,6 +1241,14 @@
 			path = MakeBox;
 			sourceTree = "<group>";
 		};
+		E5E73D942B74F18D0097D871 /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				E5E73D952B74F1950097D871 /* ColorFromServer.swift */,
+			);
+			path = Protocol;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1363,6 +1366,7 @@
 				E5A7AA412B57F81400590EA6 /* BoxElementShape.swift in Sources */,
 				E5A7AA4D2B57F81400590EA6 /* PackyFont.swift in Sources */,
 				E5A7AA752B57F81400590EA6 /* PackyApp.swift in Sources */,
+				E5E73D962B74F1950097D871 /* ColorFromServer.swift in Sources */,
 				E5A7AA642B57F81400590EA6 /* SignUpNicknameView.swift in Sources */,
 				E5B22D022B711D33003DAC7B /* SplashFeature.swift in Sources */,
 				E5A7AA522B57F81400590EA6 /* SpinningModifier.swift in Sources */,
