@@ -39,6 +39,7 @@ struct BoxOpenFeature: Reducer {
         // MARK: Delegate Action
         enum Delegate {
             case moveToBoxDetail(ReceivedGiftBox)
+            case moveToHome
         }
         case delegate(Delegate)
     }
@@ -73,7 +74,7 @@ struct BoxOpenFeature: Reducer {
                 }
                 
             case .closeButtonTapped, .errorConfirmButtonTapped:
-                return .run { _ in await dismiss() }
+                return .send(.delegate(.moveToHome), animation: .spring)
 
             case let ._setReceivedGiftBox(giftBox):
                 state.giftBox = giftBox

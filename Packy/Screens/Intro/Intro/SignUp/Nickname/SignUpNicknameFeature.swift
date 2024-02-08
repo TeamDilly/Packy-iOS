@@ -26,7 +26,6 @@ struct SignUpNicknameFeature: Reducer {
     enum Action: BindableAction {
         // MARK: User Action
         case binding(BindingAction<State>)
-        case saveButtonTapped
 
         // MARK: Inner Business Action
         case _onAppear
@@ -47,9 +46,6 @@ struct SignUpNicknameFeature: Reducer {
         Reduce<State, Action> { state, action in
             switch action {
             case .binding:
-                return .none
-
-            case .saveButtonTapped:
                 return .none
 
             case ._onAppear:
