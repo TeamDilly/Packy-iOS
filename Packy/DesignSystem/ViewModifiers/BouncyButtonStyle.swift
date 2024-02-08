@@ -22,7 +22,7 @@ extension ButtonStyle where Self == BouncyButtonStyle {
 
 struct BouncyButtonStyle: ButtonStyle {
     var pressedScale: CGFloat = 0.95
-    var pressedOpacity: CGFloat = 0.9
+    var pressedOpacity: CGFloat = 0.95
     var bounceAnimation: Animation = .spring(duration: 0.3)
 
     func makeBody(configuration: Configuration) -> some View {
@@ -33,6 +33,7 @@ struct BouncyButtonStyle: ButtonStyle {
                 .scaleEffect(isPressed ? pressedScale : 1)
                 .animation(bounceAnimation, value: isPressed)
         }
+        .sensoryFeedback(.impact(flexibility: .soft), trigger: isPressed)
         .opacity(isPressed ? pressedOpacity : 1)
     }
 }
