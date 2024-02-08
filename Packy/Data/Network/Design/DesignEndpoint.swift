@@ -18,7 +18,7 @@ enum DesignEndpoint {
     /// 박스 디자인 조회
     case getBoxDesigns
     /// 스티커 디자인 조회
-    case getStickerDesigns(lastStickerId: Int, size: Int = 10)
+    case getStickerDesigns(lastStickerId: Int?, size: Int = 10)
     /// 유튜브 링크 유효성 검사
     case getValidateYoutubeLink(url: String)
 }
@@ -55,11 +55,12 @@ extension DesignEndpoint: TargetType {
     var task: Moya.Task {
         switch self {
         case let .getStickerDesigns(lastStickerId: lastStickerId, size: size):
+            var parameters: [String: Int] = ["size": size]
+            if let lastStickerId {
+                parameters["lastStickerId"] = lastStickerId
+            }
             return .requestParameters(
-                parameters: [
-                    "lastStickerId": lastStickerId,
-                    "size": size
-                ],
+                parameters: parameters,
                 encoding: URLEncoding.queryString
             )
         case let .getValidateYoutubeLink(url: url):

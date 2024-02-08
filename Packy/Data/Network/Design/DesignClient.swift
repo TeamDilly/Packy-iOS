@@ -25,7 +25,7 @@ struct DesignClient {
     var fetchProfileImages: @Sendable () async throws -> ProfileImageResponse
     var fetchLetterDesigns: @Sendable () async throws -> LetterDesignResponse
     var fetchBoxDesigns: @Sendable () async throws -> BoxDesignResponse
-    var fetchStickerDesigns: @Sendable (_ lastStickerId: Int) async throws -> StickerDesignResponse
+    var fetchStickerDesigns: @Sendable (_ lastStickerId: Int?) async throws -> StickerDesignResponse
     var validateYoutubeUrl: @Sendable (_ url: String) async throws -> Bool
 }
 

@@ -150,7 +150,7 @@ struct BoxStartGuideFeature: Reducer {
                     // 디자인들 조회...
                     fetchLetterDesigns(),
                     fetchRecommendedMusics(),
-                    fetchStickerDesigns(lastStickerId: 0)
+                    fetchStickerDesigns()
                 )
 
             case .fetchMoreStickers:
@@ -265,7 +265,7 @@ private extension BoxStartGuideFeature {
         }
     }
 
-    func fetchStickerDesigns(lastStickerId: Int) -> Effect<Action> {
+    func fetchStickerDesigns(lastStickerId: Int? = nil) -> Effect<Action> {
         .run { send in
             do {
                 let response = try await designClient.fetchStickerDesigns(lastStickerId)
