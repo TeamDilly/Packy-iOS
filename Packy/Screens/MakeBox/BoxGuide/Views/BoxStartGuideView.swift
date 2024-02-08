@@ -8,7 +8,6 @@
 import SwiftUI
 import ComposableArchitecture
 import Kingfisher
-import YouTubePlayerKit
 
 // MARK: - View
 
@@ -248,7 +247,7 @@ private extension BoxStartGuideView {
     func musicView(_ screenWidth: CGFloat) -> some View {
         if let musicUrl = viewStore.savedMusic.selectedMusicUrl {
             MusicElementView(
-                player: .init(stringLiteral: musicUrl),
+                youtubeUrl: musicUrl,
                 screenWidth: screenWidth,
                 isPresentCloseButton: true
             ) {

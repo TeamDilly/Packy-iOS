@@ -9,32 +9,36 @@ import SwiftUI
 import YouTubePlayerKit
 
 struct MusicPlayerView: View {
-    @ObservedObject var youTubePlayer: YouTubePlayer
+    @ObservedObject var player: YouTubePlayer
+
+    init(youtubeUrl: String) {
+        self.player = .init(stringLiteral: youtubeUrl)
+        self.player.update(
+            configuration: .init(
+                autoPlay: true,
+                showCaptions: false,
+                showControls: false,
+                showAnnotations: false
+            )
+        )
+    }
 
     var body: some View {
-        YouTubePlayerView(self.youTubePlayer) { state in
+        YouTubePlayerView(player) { state in
             switch state {
             case .idle:
-                PackyProgress()
+                PackyProgress(color: .white)
             case .ready:
                 EmptyView()
             case .error:
-                Text(verbatim: "YouTube player couldn't be loaded")
-            }
-        }
-        .task {
-            Task {
-                // Test
-                try? await youTubePlayer.play()
-                try? await Task.sleep(for: .seconds(2))
-                try? await youTubePlayer.pause()
-                try? await Task.sleep(for: .seconds(2))
-                try? await youTubePlayer.play()
+                Text("문제가 생겼어요").packyFont(.body1)
             }
         }
     }
 }
 
 #Preview {
-    MusicPlayerView(youTubePlayer: "https://youtube.com/watch?v=psL_5RIBqnY")
+    MusicPlayerView(youtubeUrl: "https://www.youtube.com/watch?v=neaxGr8_trU")
+        .aspectRatio(16 / 9, contentMode: .fit)
+        .padding()
 }

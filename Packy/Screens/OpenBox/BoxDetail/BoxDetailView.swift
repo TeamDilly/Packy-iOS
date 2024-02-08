@@ -8,14 +8,12 @@
 import SwiftUI
 import ComposableArchitecture
 import Kingfisher
-import YouTubePlayerKit
 
 // MARK: - View
 
 struct BoxDetailView: View {
     private let store: StoreOf<BoxDetailFeature>
     @ObservedObject private var viewStore: ViewStoreOf<BoxDetailFeature>
-    @ObservedObject private var player: YouTubePlayer = .init()
 
     @Namespace private var mainPage
     @Namespace private var giftPage
@@ -27,7 +25,6 @@ struct BoxDetailView: View {
     init(store: StoreOf<BoxDetailFeature>) {
         self.store = store
         self.viewStore = ViewStore(store, observe: { $0 })
-        self.player = .init(stringLiteral: viewStore.youtubeUrl)
     }
 
     var body: some View {
@@ -211,7 +208,7 @@ private extension BoxDetailView {
 
                 // 음악
                 MusicElementView(
-                    player: player,
+                    youtubeUrl: viewStore.youtubeUrl,
                     screenWidth: screenWidth
                 )
                 .padding(.horizontal, 32)
