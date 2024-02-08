@@ -118,7 +118,7 @@ private extension BoxAddTitleAndShareFeature {
     func makeKakaoShareMessage(from state: State) -> KakaoShareMessage {
         let sender = state.giftBox.senderName
         let receiver = state.giftBox.receiverName
-        let imageUrl = state.boxDesign.boxSetUrl
+        let imageUrl = state.boxDesign.boxNormalUrl
         let boxId = state.giftBox.boxId
 
         return KakaoShareMessage(sender: sender, receiver: receiver, imageUrl: imageUrl, boxId: "\(boxId ?? -1)")

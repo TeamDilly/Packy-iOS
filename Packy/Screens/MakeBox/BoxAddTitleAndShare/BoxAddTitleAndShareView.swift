@@ -122,7 +122,7 @@ private extension BoxAddTitleAndShareView {
 
             Spacer()
 
-            NetworkImage(url: viewStore.boxDesign.boxSetUrl, contentMode: .fit)
+            NetworkImage(url: viewStore.boxDesign.boxNormalUrl, contentMode: .fit)
                 .shakeRepeat(.veryWeak)
                 .aspectRatio(contentMode: .fit)
                 .padding(.horizontal, 80)
