@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct SentReceivedGiftBoxPageData {
+struct SentReceivedGiftBoxPageData: Equatable {
     let giftBoxes: [SentReceivedGiftBox]
     let isFirstPage: Bool
     let isLastPage: Bool

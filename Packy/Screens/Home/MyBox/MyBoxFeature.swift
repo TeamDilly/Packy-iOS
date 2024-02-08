@@ -13,6 +13,16 @@ struct MyBoxFeature: Reducer {
 
     struct State: Equatable {
         @BindingState var selectedTab: MyBoxTab = .sentBox
+
+        var receivedBoxesData: [SentReceivedGiftBoxPageData] = []
+        var sentBoxesData: [SentReceivedGiftBoxPageData] = []
+
+        var receivedBoxes: [SentReceivedGiftBox] {
+            receivedBoxesData.flatMap(\.giftBoxes)
+        }
+        var sentBoxes: [SentReceivedGiftBox] {
+            sentBoxesData.flatMap(\.giftBoxes)
+        }
     }
 
     enum Action: BindableAction {
@@ -22,8 +32,11 @@ struct MyBoxFeature: Reducer {
 
         // MARK: Inner Business Action
         case _onTask
+        case _fetchMoreSentGiftBoxes
+        case _fetchMoreReceivedGiftBoxes
 
         // MARK: Inner SetState Action
+        case _setGiftBoxData(SentReceivedGiftBoxPageData, GiftBoxType)
 
         // MARK: Child Action
     }
@@ -42,13 +55,47 @@ struct MyBoxFeature: Reducer {
             case .backButtonTapped:
                 return .run { _ in await dismiss() }
 
-            case ._onTask:
-                return .run { send in
-                    do {
-                        // try await boxClient
-                    }
+            case ._fetchMoreSentGiftBoxes:
+                let lastBoxDate = state.sentBoxes.last?.giftBoxDate ?? .init()
+                return fetchGiftBoxes(type: .sent, lastBoxDate: lastBoxDate)
 
+            case ._fetchMoreReceivedGiftBoxes:
+                let lastBoxDate = state.receivedBoxes.last?.giftBoxDate ?? .init()
+                return fetchGiftBoxes(type: .received, lastBoxDate: lastBoxDate)
+
+            case let ._setGiftBoxData(giftBoxData, type):
+                switch type {
+                case .received:
+                    state.receivedBoxesData.append(giftBoxData)
+                case .sent:
+                    state.sentBoxesData.append(giftBoxData)
+                default: break
                 }
+                return .none
+
+            case ._onTask:
+                return .merge(
+                    fetchGiftBoxes(type: .received, lastBoxDate: nil),
+                    fetchGiftBoxes(type: .sent, lastBoxDate: nil)
+                )
+            }
+        }
+    }
+}
+
+private extension MyBoxFeature {
+    func fetchGiftBoxes(type: GiftBoxType, lastBoxDate: Date?) -> Effect<Action> {
+        .run { send in
+            do {
+                let giftBoxesData = try await boxClient.fetchGiftBoxes(
+                    .init(
+                        lastGiftBoxDate: lastBoxDate?.formattedString(by: .yyyyMMddTHHmmssServerDateTime),
+                        type: type
+                    )
+                )
+                await send(._setGiftBoxData(giftBoxesData, type))
+            } catch {
+                print("🐛 \(error)")
             }
         }
     }

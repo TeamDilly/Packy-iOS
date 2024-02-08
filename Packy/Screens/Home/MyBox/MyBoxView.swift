@@ -32,13 +32,10 @@ struct MyBoxView: View {
             )
             .padding(.top, 26)
 
-            Group {
-                boxGridTabView
-                // emptyStateView
-            }
-            .animation(.spring, value: viewStore.selectedTab)
-            .background(.gray100)
-            .safeAreaPadding(.bottom, 30)
+            boxGridTabView
+                .animation(.spring, value: viewStore.selectedTab)
+                .background(.gray100)
+                .safeAreaPadding(.bottom, 30)
 
             Spacer()
         }
@@ -67,28 +64,38 @@ private extension MyBoxView {
         .ignoresSafeArea(edges: .bottom)
     }
 
+    @ViewBuilder
     func boxGridView(_ tab: MyBoxTab) -> some View {
         let columns = [GridItem(spacing: 16), GridItem(spacing: 16)]
+        let giftBoxes = giftBoxes(for: tab)
 
-        return ScrollView {
-            LazyVGrid(columns: columns, spacing: 16) {
-                ForEach(1...10, id: \.self) { index in
-                    // TODO: 실제 연결 필요
-                    MyBoxInfoCell(
-                        tabInfo: tab,
-                        boxUrl: "https://picsum.photos/200",
-                        senderReceiver: "hello",
-                        boxTitle: String(repeating: "선물", count: index),
-                        date: Date()
-                    )
-                }
+        if giftBoxes.isEmpty {
+            switch tab {
+            case .sentBox:
+                emptySentStateView
+            case .receivedBox:
+                EmptyView()  // TODO: 변경 필요
             }
-            .padding(24)
+        } else {
+            ScrollView {
+                LazyVGrid(columns: columns, spacing: 16) {
+                    ForEach(giftBoxes, id: \.id) { giftBox in
+                        MyBoxInfoCell(
+                            tabInfo: tab,
+                            boxUrl: giftBox.boxImageUrl,
+                            senderReceiverInfo: giftBox.senderReceiverInfo,
+                            boxTitle: giftBox.name,
+                            date: giftBox.giftBoxDate
+                        )
+                    }
+                }
+                .padding(24)
+            }
+            .scrollIndicators(.hidden)
         }
-        .scrollIndicators(.hidden)
     }
 
-    var emptyStateView: some View {
+    var emptySentStateView: some View {
         VStack(spacing: 0) {
             Text("아직 보낸 선물박스가 없어요")
                 .packyFont(.heading2)
@@ -112,7 +119,7 @@ private extension MyBoxView {
 private struct MyBoxInfoCell: View {
     var tabInfo: MyBoxTab
     var boxUrl: String
-    var senderReceiver: String
+    var senderReceiverInfo: String
     var boxTitle: String
     var date: Date
 
@@ -124,7 +131,7 @@ private struct MyBoxInfoCell: View {
                 .padding(.bottom, 12)
 
             VStack(spacing: 4) {
-                Text("\(tabInfo.senderReceiverPrefix) \(senderReceiver)")
+                Text(senderReceiverInfo)
                     .packyFont(.body6)
                     .foregroundStyle(.purple500)
                     .frame(maxWidth: .infinity, alignment: .leading)
@@ -136,7 +143,7 @@ private struct MyBoxInfoCell: View {
                     .lineLimit(2)
                     .frame(height: 44, alignment: .top)
 
-                Text(date.formattedString(by: .yyyyMMdd))
+                Text(date.formattedString(by: .yyyyMdKorean))
                     .packyFont(.body6)
                     .foregroundStyle(.gray600)
                     .frame(maxWidth: .infinity, alignment: .leading)
@@ -151,15 +158,16 @@ private struct MyBoxInfoCell: View {
     }
 }
 
-private extension MyBoxTab {
-    var senderReceiverPrefix: String {
-        switch self {
-        case .sentBox:      return "To."
-        case .receivedBox:  return "From."
+// MARK: - Inner Functions
+
+private extension MyBoxView {
+    func giftBoxes(for tab: MyBoxTab) -> [SentReceivedGiftBox] {
+        switch tab {
+        case .sentBox:      return viewStore.sentBoxes
+        case .receivedBox:  return viewStore.receivedBoxes
         }
     }
 }
-
 
 // MARK: - Preview
 
