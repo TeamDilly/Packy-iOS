@@ -15,7 +15,7 @@ struct MusicPlayerView: View {
         YouTubePlayerView(self.youTubePlayer) { state in
             switch state {
             case .idle:
-                ProgressView()
+                PackyProgress()
             case .ready:
                 EmptyView()
             case .error:

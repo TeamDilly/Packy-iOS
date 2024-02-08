@@ -48,7 +48,7 @@ extension BoxStartGuideView {
                     }
                     
                     if viewStore.stickerDesigns.last?.isLastPage == false {
-                        ProgressView()
+                        PackyProgress()
                             .onAppear {
                                 viewStore.send(.fetchMoreStickers)
                             }

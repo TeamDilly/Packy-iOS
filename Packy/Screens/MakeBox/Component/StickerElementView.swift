@@ -25,8 +25,7 @@ struct StickerElementView: View {
         } label: {
             KFImage(URL(string: stickerURL))
                 .placeholder {
-                    ProgressView()
-                        .progressViewStyle(.circular)
+                    PackyProgress()
                 }
                 .scaleToFillFrame(width: size.width, height: size.height)
                 .rotationEffect(.degrees(stickerType.rotationDegree))

@@ -17,8 +17,7 @@ struct NetworkImage: View {
         GeometryReader { proxy in
             KFImage(URL(string: url))
                 .placeholder {
-                    ProgressView()
-                        .progressViewStyle(.circular)
+                    PackyProgress()
                 }
                 .retry(maxCount: 3, interval: .seconds(1))
                 .resizable()

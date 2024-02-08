@@ -61,7 +61,7 @@ extension BoxStartGuideView {
                 YouTubePlayerView(.init(stringLiteral: selectedMusicUrl)) { state in
                     switch state {
                     case .idle:
-                        ProgressView()
+                        PackyProgress()
                     case .ready:
                         EmptyView()
                     case .error:
@@ -139,7 +139,7 @@ extension BoxStartGuideView {
                                 YouTubePlayerView(.init(stringLiteral: music.youtubeUrl)) { state in
                                     switch state {
                                     case .idle:
-                                        ProgressView()
+                                        PackyProgress()
                                     case .ready:
                                         EmptyView()
                                     case .error:

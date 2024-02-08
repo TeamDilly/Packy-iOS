@@ -56,8 +56,7 @@ extension BoxStartGuideView {
                                 let isSelected = viewStore.letterInput.selectedLetterDesign == letterDesign
                                 KFImage(URL(string: letterDesign.imageUrl))
                                     .placeholder {
-                                        ProgressView()
-                                            .progressViewStyle(.circular)
+                                        PackyProgress()
                                     }
                                     .resizable()
                                     .scaledToFit()
