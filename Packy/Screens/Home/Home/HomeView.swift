@@ -20,6 +20,10 @@ struct HomeView: View {
         self.viewStore = ViewStore(store, observe: { $0 })
     }
 
+    enum ThrottleId: String {
+        case moveToBoxDetail
+    }
+
     var body: some View {
         NavigationStackStore(store.scope(state: \.path, action: \.path)) {
             content
@@ -215,8 +219,10 @@ private extension HomeView {
                             boxTitle: giftBox.name
                         )
                         .bouncyTapGesture {
-                            HapticManager.shared.fireFeedback(.soft)
-                            viewStore.send(.tappedGiftBox(boxId: giftBox.id))
+                            throttle(identifier: ThrottleId.moveToBoxDetail.rawValue) {
+                                HapticManager.shared.fireFeedback(.soft)
+                                viewStore.send(.tappedGiftBox(boxId: giftBox.id))
+                            }
                         }
                     }
                 }

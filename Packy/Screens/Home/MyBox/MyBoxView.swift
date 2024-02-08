@@ -19,6 +19,10 @@ struct MyBoxView: View {
         self.viewStore = ViewStore(store, observe: { $0 })
     }
 
+    enum ThrottleId: String {
+        case moveToBoxDetail
+    }
+
     var body: some View {
         VStack(spacing: 0) {
             NavigationBar.onlyBackButton {
@@ -69,7 +73,7 @@ private extension MyBoxView {
         let columns = [GridItem(spacing: 16), GridItem(spacing: 16)]
         let giftBoxes = giftBoxes(for: tab)
 
-        if giftBoxes.isEmpty {
+        if !viewStore.isLoading && giftBoxes.isEmpty {
             switch tab {
             case .sentBox:
                 emptySentStateView
@@ -88,8 +92,10 @@ private extension MyBoxView {
                             date: giftBox.giftBoxDate
                         )
                         .bouncyTapGesture {
-                            HapticManager.shared.fireFeedback(.soft)
-                            viewStore.send(.delegate(.tappedGifBox(boxId: giftBox.id)))
+                            throttle(identifier: ThrottleId.moveToBoxDetail.rawValue) {
+                                HapticManager.shared.fireFeedback(.soft)
+                                viewStore.send(.delegate(.tappedGifBox(boxId: giftBox.id)))
+                            }
                         }
 
 
