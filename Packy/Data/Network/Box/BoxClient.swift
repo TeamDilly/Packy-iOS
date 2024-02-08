@@ -23,7 +23,7 @@ extension DependencyValues {
 struct BoxClient {
     var makeGiftBox: @Sendable (SendingGiftBox) async throws -> SentGiftBoxInfo
     var openGiftBox: @Sendable (Int) async throws -> ReceivedGiftBox
-    // var fetchGiftBoxes: @Sendable (GiftBoxesRequest) async throws -> 
+    var fetchGiftBoxes: @Sendable (GiftBoxesRequest) async throws -> SentReceivedGiftBoxPageData
 }
 
 extension BoxClient: DependencyKey {
@@ -37,6 +37,10 @@ extension BoxClient: DependencyKey {
             },
             openGiftBox: {
                 try await provider.request(.getOpenGiftbox($0))
+            },
+            fetchGiftBoxes: {
+                let response: GiftBoxesResponse = try await provider.request(.getGiftBoxes($0))
+                return response.toDomian()
             }
         )
     }()
@@ -48,6 +52,9 @@ extension BoxClient: DependencyKey {
             },
             openGiftBox: { _ in
                 return .mock
+            },
+            fetchGiftBoxes: { _ in
+                return .init(giftBoxes: [.mock], isFirstPage: false, isLastPage: false)
             }
         )
     }()

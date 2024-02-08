@@ -7,14 +7,33 @@
 
 import Foundation
 
+struct SentReceivedGiftBoxPageData {
+    let giftBoxes: [SentReceivedGiftBox]
+    let isFirstPage: Bool
+    let isLastPage: Bool
+}
+
 /// 주고받은 선물박스 정보
 struct SentReceivedGiftBox: Equatable {
     let id: Int
+    let type: SentReceivedType
     let sender: String
     let receiver: String
     let name: String
     let giftBoxDate: Date
     let boxImageUrl: String
+
+    var senderReceiverInfo: String {
+        switch type {
+        case .sent:     return "To. \(receiver)"
+        case .received: return "From. \(sender)"
+        }
+    }
+}
+
+enum SentReceivedType: String {
+    case sent
+    case received
 }
 
 // MARK: - Mock Data
@@ -22,6 +41,7 @@ struct SentReceivedGiftBox: Equatable {
 extension SentReceivedGiftBox {
     static let mock: Self = .init(
         id: 0,
+        type: .received,
         sender: "moon",
         receiver: "mason",
         name: "gift for ya",

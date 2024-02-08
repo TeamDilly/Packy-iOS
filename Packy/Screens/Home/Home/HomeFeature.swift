@@ -14,6 +14,7 @@ struct HomeFeature: Reducer {
     struct State: Equatable {
         var path: StackState<HomeNavigationPath.State> = .init()
         var profile: Profile?
+        var giftBoxes: [SentReceivedGiftBox] = []
     }
 
     enum Action {
@@ -24,12 +25,14 @@ struct HomeFeature: Reducer {
 
         // MARK: Inner SetState Action
         case _setProfile(Profile)
+        case _setGiftBoxes([SentReceivedGiftBox])
 
         // MARK: Child Action
         case path(StackAction<HomeNavigationPath.State, HomeNavigationPath.Action>)
     }
 
     @Dependency(\.authClient) var authClient
+    @Dependency(\.boxClient) var boxClient
 
     var body: some Reducer<State, Action> {
         navigationReducer
@@ -37,11 +40,17 @@ struct HomeFeature: Reducer {
         Reduce<State, Action> { state, action in
             switch action {
             case ._onTask:
-                guard state.profile == nil else { return .none }
-                return fetchProfile()
+                return .merge(
+                    fetchProfileIfNeeded(state: state),
+                    fetchGiftBoxes()
+                )
 
             case let ._setProfile(profile):
                 state.profile = profile
+                return .none
+
+            case let ._setGiftBoxes(giftBoxes):
+                state.giftBoxes = giftBoxes
                 return .none
 
             case .path:
@@ -52,11 +61,24 @@ struct HomeFeature: Reducer {
 }
 
 private extension HomeFeature {
-    func fetchProfile() -> Effect<Action> {
-        .run { send in
+    func fetchProfileIfNeeded(state: State) -> Effect<Action> {
+        guard state.profile == nil else { return .none }
+
+        return .run { send in
             do {
                 let profile = try await authClient.fetchProfile()
                 await send(._setProfile(profile))
+            } catch {
+                print("🐛 \(error)")
+            }
+        }
+    }
+
+    func fetchGiftBoxes() -> Effect<Action> {
+        .run { send in
+            do {
+                let giftBoxesData = try await boxClient.fetchGiftBoxes(.init())
+                await send(._setGiftBoxes(giftBoxesData.giftBoxes))
             } catch {
                 print("🐛 \(error)")
             }

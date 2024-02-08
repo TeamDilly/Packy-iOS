@@ -209,12 +209,11 @@ private extension HomeView {
 
             ScrollView(.horizontal) {
                 HStack(alignment: .top, spacing: 16) {
-                    ForEach(1...10, id: \.self) { index in
-                        // TODO: 실제 연결 필요
+                    ForEach(viewStore.giftBoxes, id: \.id) { giftBox in
                         BoxInfoCell(
-                            boxUrl: "https://picsum.photos/200",
-                            sender: "hello",
-                            boxTitle: String(repeating: "선물", count: index)
+                            boxUrl: giftBox.boxImageUrl,
+                            senderReceiverInfo: giftBox.senderReceiverInfo,
+                            boxTitle: giftBox.name
                         )
                     }
                 }
@@ -232,7 +231,7 @@ private extension HomeView {
 
 private struct BoxInfoCell: View {
     var boxUrl: String
-    var sender: String
+    var senderReceiverInfo: String
     var boxTitle: String
 
     var body: some View {
@@ -242,7 +241,7 @@ private struct BoxInfoCell: View {
                 .frame(height: 138)
                 .padding(.bottom, 12)
 
-            Text("From: \(sender)")
+            Text(senderReceiverInfo)
                 .packyFont(.body6)
                 .foregroundStyle(.purple500)
                 .frame(maxWidth: .infinity, alignment: .leading)
