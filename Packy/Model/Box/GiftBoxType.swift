@@ -8,7 +8,7 @@
 import Foundation
 
 /// 선물박스 상태 타입
-enum GiftBoxType: Equatable, Encodable {
+enum GiftBoxType: String, Encodable {
     /// 보낸 박스
     case sent
     /// 받은 박스
