@@ -127,16 +127,21 @@ extension BoxStartGuideView {
                         VStack(spacing: 0) {
                             MusicPlayerView(youtubeUrl: music.youtubeUrl, autoPlay: false)
                                 .aspectRatio(16 / 9, contentMode: .fit)
-                                .padding(.bottom, 16)
-                            
+                                .padding(.bottom, 20)
+
                             Text(music.title)
                                 .packyFont(.body1)
                                 .foregroundStyle(.gray900)
-                            
-                            Text(music.hashtags.joined(separator: " "))
-                                .packyFont(.body4)
-                                .foregroundStyle(.purple500)
-                                .padding(.bottom, 16)
+                                .padding(.bottom, 2)
+
+                            HStack(spacing: 6) {
+                                ForEach(music.hashtags, id: \.self) { hashtag in
+                                    Text(hashtag)
+                                        .packyFont(.body4)
+                                        .foregroundStyle(.purple500)
+                                        .padding(.bottom, 20)
+                                }
+                            }
                         }
                         .background(.gray100)
                         .mask(RoundedRectangle(cornerRadius: 16))
