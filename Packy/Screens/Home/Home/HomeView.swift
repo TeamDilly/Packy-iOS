@@ -25,7 +25,6 @@ struct HomeView: View {
             content
         } destination: { state in
             switch state {
-
             case .myBox:
                 CaseLet(
                     \HomeNavigationPath.State.myBox,

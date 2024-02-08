@@ -16,6 +16,11 @@ struct SignUpNicknameFeature: Reducer {
         @BindingState var nickname: String = ""
         
         var path: StackState<SignUpNavigationPath.State> = .init()
+
+        init(socialLoginInfo: SocialLoginInfo) {
+            self.socialLoginInfo = socialLoginInfo
+            self.nickname = socialLoginInfo.name ?? "" // 닉네임 입력 자동채움
+        }
     }
 
     enum Action: BindableAction {

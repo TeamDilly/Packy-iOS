@@ -51,6 +51,7 @@ struct BoxOpenFeature: Reducer {
         Reduce<State, Action> { state, action in
             switch action {
             case ._onTask:
+                guard state.giftBox == nil else { return .none }
                 let boxId = state.boxId
                 return .run { send in
                     do {

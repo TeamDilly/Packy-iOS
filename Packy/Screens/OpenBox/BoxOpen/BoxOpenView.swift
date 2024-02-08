@@ -74,8 +74,8 @@ private extension BoxOpenView {
 
             Spacer()
 
-            // TODO: Shake Animation!
             NetworkImage(url: giftBox.box.boxNormalUrl)
+                .shakeRepeat(.veryWeak)
                 .frame(width: 240, height: 240)
                 .padding(.bottom, 20)
 
@@ -106,3 +106,4 @@ private extension BoxOpenView {
         )
     )
 }
+

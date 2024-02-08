@@ -43,8 +43,7 @@ struct BoxDetailView: View {
                 ZStack(alignment: .topTrailing) {
 
                     if isBoxPartPresented {
-                        // KFImage(URL(string: viewStore.box.boxTopUrl))
-                        KFImage(URL(string: "https://packy-bucket.s3.ap-northeast-2.amazonaws.com/admin/design/Box_top/Box_top_1%402x.png"))
+                        KFImage(URL(string: viewStore.box.boxTopUrl))
                             .resizable()
                             .scaledToFit()
                         .frame(width: screenWidth * 0.7)
