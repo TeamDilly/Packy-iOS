@@ -12,7 +12,6 @@ import ComposableArchitecture
 struct MakeBoxFeature: Reducer {
 
     struct State: Equatable {
-        let username: String
         @BindingState var boxSendTo: String = ""
         @BindingState var boxSendFrom: String = ""
         var nextButtonEnabled: Bool {
@@ -20,11 +19,6 @@ struct MakeBoxFeature: Reducer {
         }
         var hasAnyTextInput: Bool {
             !boxSendTo.isEmpty || !boxSendFrom.isEmpty
-        }
-
-        init(username: String) {
-            self.username = username
-            boxSendFrom = username
         }
     }
 
@@ -35,11 +29,13 @@ struct MakeBoxFeature: Reducer {
 
         // MARK: Inner Business Action
         case _onTask
+        case _setUsername(String)
     }
 
     @Dependency(\.dismiss) var dismiss
     @Dependency(\.userDefaults) var userDefaults
     @Dependency(\.packyAlert) var packyAlert
+    @Dependency(\.authClient) var authClient
 
     var body: some Reducer<State, Action> {
         BindingReducer()
@@ -66,9 +62,20 @@ struct MakeBoxFeature: Reducer {
                     )
                 }
 
+            case let ._setUsername(username):
+                state.boxSendFrom = username
+                return .none
+
             case ._onTask:
-                return .run { _ in
+                return .run { send in
                     await userDefaults.setBool(false, .didEnteredBoxGuide)
+
+                    do {
+                        let profile = try await authClient.fetchProfile()
+                        await send(._setUsername(profile.nickname))
+                    } catch {
+                        print("🐛 \(error)")
+                    }
                 }
 
             default:

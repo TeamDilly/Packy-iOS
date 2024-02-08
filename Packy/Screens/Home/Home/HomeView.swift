@@ -120,9 +120,7 @@ private extension HomeView {
             ScrollView {
                 VStack(spacing: 16) {
                     NavigationLink(
-                        state: HomeNavigationPath.State.makeBox(
-                            .init(username: viewStore.profile?.nickname ?? "")
-                        )
+                        state: HomeNavigationPath.State.makeBox()
                     ) {
                         topBanner
                     }
@@ -220,7 +218,6 @@ private extension HomeView {
                         )
                         .bouncyTapGesture {
                             throttle(identifier: ThrottleId.moveToBoxDetail.rawValue) {
-                                HapticManager.shared.fireFeedback(.soft)
                                 viewStore.send(.tappedGiftBox(boxId: giftBox.id))
                             }
                         }

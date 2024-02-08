@@ -20,7 +20,7 @@ struct HomeNavigationPath {
         case manageAccount(ManageAccountFeature.State)
         case deleteAccount(DeleteAccountFeature.State = .init())
 
-        case makeBox(MakeBoxFeature.State)
+        case makeBox(MakeBoxFeature.State = .init())
         case boxChoice(BoxChoiceFeature.State)
         case startGuide(BoxStartGuideFeature.State)
         case addTitle(BoxAddTitleAndShareFeature.State)

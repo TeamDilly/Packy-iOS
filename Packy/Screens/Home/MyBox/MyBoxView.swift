@@ -131,9 +131,10 @@ private extension MyBoxView {
                 .foregroundStyle(.gray900)
                 .padding(.bottom, 24)
 
-            Button("선물박스 만들기") {
-
-            }
+            NavigationLink(
+                "선물박스 만들기",
+                state: HomeNavigationPath.State.makeBox()
+            )
             .buttonStyle(.box(color: .primary, size: .roundMedium, trailingImage: .arrowRight))
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
