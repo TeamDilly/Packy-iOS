@@ -45,7 +45,6 @@ struct SignUpProfileView: View {
                             .frame(width: 60, height: 60)
                             .bouncyTapGesture {
                                 viewStore.send(.selectProfile(profileImage))
-                                HapticManager.shared.fireFeedback(.medium)
                             }
                     }
                 }

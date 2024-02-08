@@ -93,7 +93,6 @@ private extension MyBoxView {
                         )
                         .bouncyTapGesture {
                             throttle(identifier: ThrottleId.moveToBoxDetail.rawValue) {
-                                HapticManager.shared.fireFeedback(.soft)
                                 viewStore.send(.delegate(.tappedGifBox(boxId: giftBox.id)))
                             }
                         }

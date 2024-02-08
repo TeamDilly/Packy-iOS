@@ -29,7 +29,6 @@ struct PhotoElementView: View {
         .background(.white)
         .rotationEffect(.degrees(element.rotationDegree))
         .bouncyTapGesture {
-            HapticManager.shared.fireFeedback(.soft)
             action()
         }
     }

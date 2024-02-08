@@ -43,7 +43,6 @@ struct LetterElementView: View {
         .frame(width: size.width, height: size.height)
         .rotationEffect(.degrees(element.rotationDegree))
         .bouncyTapGesture {
-            HapticManager.shared.fireFeedback(.soft)
             action()
         }
     }

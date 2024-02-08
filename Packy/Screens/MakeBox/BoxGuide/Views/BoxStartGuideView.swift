@@ -367,7 +367,6 @@ private struct ElementGuideView: View {
                 }
             }
             .bouncyTapGesture {
-                HapticManager.shared.fireFeedback(.soft)
                 action()
             }
     }

@@ -65,7 +65,6 @@ extension BoxStartGuideView {
                                     )
                                     .bouncyTapGesture {
                                         viewStore.send(.binding(.set(\.letterInput.$selectedLetterDesign, letterDesign)))
-                                        HapticManager.shared.fireFeedback(.medium)
                                     }
                                     .padding(.vertical, 5)
                             }

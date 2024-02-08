@@ -28,6 +28,7 @@ private struct BouncyTapGestureModifier: ViewModifier {
             .scaleEffect(isPressing ? pressedScale : 1)
             .animation(bounceAnimation, value: isPressing)
             .onTapGesture {
+                HapticManager.shared.fireFeedback(.soft)
                 action()
             }
             .onLongPressGesture(perform: {}) {

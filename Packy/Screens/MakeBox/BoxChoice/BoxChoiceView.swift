@@ -60,7 +60,6 @@ struct BoxChoiceView: View {
                                         .frame(width: 64, height: 64)
                                         .bouncyTapGesture {
                                             viewStore.send(.selectBox(boxDesign))
-                                            HapticManager.shared.fireFeedback(.soft)
                                         }
                                 }
                             }
