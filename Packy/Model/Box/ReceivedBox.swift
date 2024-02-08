@@ -25,7 +25,7 @@ struct ReceivedBox: Decodable, Equatable {
 extension ReceivedBox {
     static let mock: Self = .init(
         designId: 0,
-        boxNormalUrl: "https://packy-bucket.s3.ap-northeast-2.amazonaws.com/admin/design/box-full/box_1.png",
-        boxTopUrl: "https://packy-bucket.s3.ap-northeast-2.amazonaws.com/admin/design/box-full/box_1.png"
+        boxNormalUrl: "https://packy-bucket.s3.ap-northeast-2.amazonaws.com/admin/design/Box/Box_1.png",
+        boxTopUrl: "https://packy-bucket.s3.ap-northeast-2.amazonaws.com/admin/design/Box_top/Box_top_1.png"
     )
 }

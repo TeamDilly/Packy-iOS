@@ -98,7 +98,7 @@ private extension BoxOpenView {
 #Preview {
     BoxOpenView(
         store: .init(
-            initialState: .init(boxId: 0),
+            initialState: .init(boxId: 1),
             reducer: {
                 BoxOpenFeature()
                     ._printChanges()
