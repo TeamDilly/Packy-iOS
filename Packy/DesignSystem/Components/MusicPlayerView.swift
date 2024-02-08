@@ -9,13 +9,13 @@ import SwiftUI
 import YouTubePlayerKit
 
 struct MusicPlayerView: View {
-    @ObservedObject var player: YouTubePlayer
+    let player: YouTubePlayer
 
-    init(youtubeUrl: String) {
-        self.player = .init(stringLiteral: youtubeUrl)
-        self.player.update(
+    init(youtubeUrl: String, autoPlay: Bool = true) {
+        self.player = .init(
+            source: .url(youtubeUrl),
             configuration: .init(
-                autoPlay: true,
+                autoPlay: autoPlay,
                 showCaptions: false,
                 showControls: false,
                 showAnnotations: false

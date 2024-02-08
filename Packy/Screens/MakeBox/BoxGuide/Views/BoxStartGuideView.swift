@@ -35,6 +35,9 @@ struct BoxStartGuideView: View {
                 } else {
                     if let boxTopUrl = viewStore.selectedBox?.boxTopUrl {
                         KFImage(URL(string: boxTopUrl))
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: screenWidth * 0.7)
                             .transition(.asymmetric(insertion: .move(edge: .top), removal: .opacity))
                             .ignoresSafeArea()
                             .zIndex(1)

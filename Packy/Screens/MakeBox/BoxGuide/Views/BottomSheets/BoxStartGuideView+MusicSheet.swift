@@ -57,7 +57,7 @@ extension BoxStartGuideView {
                 .frame(maxWidth: .infinity, alignment: .leading)
             
             if let selectedMusicUrl = viewStore.musicInput.selectedMusicUrl {
-                MusicPlayerView(youtubeUrl: selectedMusicUrl)
+                MusicPlayerView(youtubeUrl: selectedMusicUrl, autoPlay: false)
                     .aspectRatio(16 / 9, contentMode: .fit)
                     .clipShape(RoundedRectangle(cornerRadius: 16))
                     .overlay(alignment: .topTrailing) {
@@ -125,7 +125,7 @@ extension BoxStartGuideView {
                 HStack(spacing: 12) {
                     ForEach(viewStore.recommendedMusics, id: \.self) { music in
                         VStack(spacing: 0) {
-                            MusicPlayerView(youtubeUrl: music.youtubeUrl)
+                            MusicPlayerView(youtubeUrl: music.youtubeUrl, autoPlay: false)
                                 .aspectRatio(16 / 9, contentMode: .fit)
                                 .padding(.bottom, 16)
                             

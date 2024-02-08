@@ -28,54 +28,61 @@ struct BoxDetailView: View {
     }
 
     var body: some View {
-        ZStack {
-            // blur 가 가장자리를 하얗게 만들기 때문에 뒤에 black을 깔아줌
-            Color.gray900.ignoresSafeArea()
+        GeometryReader { proxy in
+            let screenWidth = proxy.size.width
+            ZStack {
+                // blur 가 가장자리를 하얗게 만들기 때문에 뒤에 black을 깔아줌
+                Color.gray900.ignoresSafeArea()
 
-            overlayBackground
-                .zIndex(5)
+                overlayBackground
+                    .zIndex(5)
 
-            overlayPresentingViews
-                .zIndex(5)
+                overlayPresentingViews
+                    .zIndex(5)
 
-            ZStack(alignment: .topTrailing) {
+                ZStack(alignment: .topTrailing) {
 
-                if isBoxPartPresented {
-                    KFImage(URL(string: viewStore.box.boxTopUrl))
-                        .zIndex(1)
-                        .ignoresSafeArea()
-                        .transition(.move(edge: .top))
-                        .offset(y: isOnNextPage ? -200 : 0)
-                }
-
-                navigationBar
-                    .blur(radius: viewStore.presentingState != .detail ? 3 : 0)
-                    .zIndex(2)
-
-                GeometryReader { proxy in
-                    ScrollViewReader { scrollProxy in
-                        ReadableScrollView(isPageStyle: true) {
-                            mainPageView(scrollProxy: scrollProxy)
-                                .id(mainPage)
-                                .frame(height: proxy.size.height)
-
-                            if viewStore.gift != nil {
-                                giftPageView
-                                    .id(giftPage)
-                                    .frame(height: proxy.size.height)
-                            }
-
-                        } offsetChanged: { offset in
-                            updatePage(byOffset: offset)
-                        }
-                        .onAppear {
-                            self.scrollProxy = scrollProxy
-                        }
+                    if isBoxPartPresented {
+                        // KFImage(URL(string: viewStore.box.boxTopUrl))
+                        KFImage(URL(string: "https://packy-bucket.s3.ap-northeast-2.amazonaws.com/admin/design/Box_top/Box_top_1%402x.png"))
+                            .resizable()
+                            .scaledToFit()
+                        .frame(width: screenWidth * 0.7)
+                            .transition(.asymmetric(insertion: .move(edge: .top), removal: .opacity))
+                            .ignoresSafeArea()
+                            .zIndex(1)
+                            .offset(y: isOnNextPage ? -200 : 0)
                     }
-                    .blur(radius: viewStore.presentingState != .detail ? 3 : 0)
+
+                    navigationBar
+                        .blur(radius: viewStore.presentingState != .detail ? 3 : 0)
+                        .zIndex(2)
+
+                    GeometryReader { proxy in
+                        ScrollViewReader { scrollProxy in
+                            ReadableScrollView(isPageStyle: true) {
+                                mainPageView(scrollProxy: scrollProxy)
+                                    .id(mainPage)
+                                    .frame(height: proxy.size.height)
+
+                                if viewStore.gift != nil {
+                                    giftPageView
+                                        .id(giftPage)
+                                        .frame(height: proxy.size.height)
+                                }
+
+                            } offsetChanged: { offset in
+                                updatePage(byOffset: offset)
+                            }
+                            .onAppear {
+                                self.scrollProxy = scrollProxy
+                            }
+                        }
+                        .blur(radius: viewStore.presentingState != .detail ? 3 : 0)
+                    }
                 }
+                .animation(.spring, value: isOnNextPage)
             }
-            .animation(.spring, value: isOnNextPage)
         }
         .navigationBarBackButtonHidden()
         .background(.gray900)
