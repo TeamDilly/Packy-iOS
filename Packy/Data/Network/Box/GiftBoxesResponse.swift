@@ -47,7 +47,7 @@ extension GiftBoxesResponseContent {
             sender: sender,
             receiver: receiver,
             name: name,
-            giftBoxDate: giftBoxDate.date(fromFormat: .yyyyMMddTHHmmssServerDateTime),
+            giftBoxDate: giftBoxDate.date(fromFormat: .serverDateTime),
             boxImageUrl: boxNormal
         )
     }

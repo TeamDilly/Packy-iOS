@@ -50,11 +50,8 @@ enum DateFormat: String {
     /// 축약 요일 (월, 화)
     case ee = "EE"
 
-    /// 년-월-일 (서버 날짜)
-    case yyyyMMddServerDate = "yyyy-MM-dd"
-
-    /// 년-월-일 시:분:초.소수점초 (서버 날짜, 시간)
-    case yyyyMMddTHHmmssServerDateTime = "yyyy-MM-dd'T'HH:mm:ssZZZZZ"
+    /// 서버 날짜, 시간 (년-월-일 시:분:초)
+    case serverDateTime = "yyyy-MM-dd'T'HH:mm:ss"
 }
 
 // MARK: - DateFormatter

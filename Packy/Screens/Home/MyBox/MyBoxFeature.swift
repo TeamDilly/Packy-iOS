@@ -14,14 +14,14 @@ struct MyBoxFeature: Reducer {
     struct State: Equatable {
         @BindingState var selectedTab: MyBoxTab = .sentBox
 
-        var receivedBoxesData: [SentReceivedGiftBoxPageData] = []
-        var sentBoxesData: [SentReceivedGiftBoxPageData] = []
+        var receivedBoxesData: SentReceivedGiftBoxPageData?
+        var sentBoxesData: SentReceivedGiftBoxPageData?
 
         var receivedBoxes: [SentReceivedGiftBox] {
-            receivedBoxesData.flatMap(\.giftBoxes)
+            receivedBoxesData?.giftBoxes.sorted(by: \.giftBoxDate) ?? []
         }
         var sentBoxes: [SentReceivedGiftBox] {
-            sentBoxesData.flatMap(\.giftBoxes)
+            sentBoxesData?.giftBoxes.sorted(by: \.giftBoxDate) ?? []
         }
 
         var isFetchBoxesLoading: Bool = true
@@ -78,19 +78,17 @@ struct MyBoxFeature: Reducer {
                 }
 
             case ._fetchMoreSentGiftBoxes:
-                let lastBoxDate = state.sentBoxes.last?.giftBoxDate ?? .init()
-                return fetchGiftBoxes(type: .sent, lastBoxDate: lastBoxDate)
+                return fetchGiftBoxes(type: .sent, currentSize: state.sentBoxes.count)
 
             case ._fetchMoreReceivedGiftBoxes:
-                let lastBoxDate = state.receivedBoxes.last?.giftBoxDate ?? .init()
-                return fetchGiftBoxes(type: .received, lastBoxDate: lastBoxDate)
+                return fetchGiftBoxes(type: .received, currentSize: state.receivedBoxes.count)
 
             case let ._setGiftBoxData(giftBoxData, type):
                 switch type {
                 case .received:
-                    state.receivedBoxesData.append(giftBoxData)
+                    state.receivedBoxesData = giftBoxData
                 case .sent:
-                    state.sentBoxesData.append(giftBoxData)
+                    state.sentBoxesData = giftBoxData
                 default: break
                 }
                 return .none
@@ -105,8 +103,8 @@ struct MyBoxFeature: Reducer {
 
             case ._onTask:
                 return .merge(
-                    fetchGiftBoxes(type: .received, lastBoxDate: nil),
-                    fetchGiftBoxes(type: .sent, lastBoxDate: nil)
+                    fetchGiftBoxes(type: .received, currentSize: 0),
+                    fetchGiftBoxes(type: .sent, currentSize: 0)
                 )
 
             case .delegate:
@@ -117,13 +115,14 @@ struct MyBoxFeature: Reducer {
 }
 
 private extension MyBoxFeature {
-    func fetchGiftBoxes(type: GiftBoxType, lastBoxDate: Date?) -> Effect<Action> {
+    // TODO: 페이지네이션 관련 로직 확인 필요 _ 배열로 관리해서 더하는 형태인지? 일단은 size를 늘리는 형태로 처리하도록 함
+    func fetchGiftBoxes(type: GiftBoxType, currentSize: Int) -> Effect<Action> {
         .run { send in
             do {
                 let giftBoxesData = try await boxClient.fetchGiftBoxes(
                     .init(
-                        lastGiftBoxDate: lastBoxDate?.formattedString(by: .yyyyMMddTHHmmssServerDateTime),
-                        type: type
+                        type: type,
+                        size: currentSize + 6
                     )
                 )
                 await send(._setGiftBoxData(giftBoxesData, type), animation: .spring)

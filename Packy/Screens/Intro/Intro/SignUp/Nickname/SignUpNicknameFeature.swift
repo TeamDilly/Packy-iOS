@@ -19,7 +19,7 @@ struct SignUpNicknameFeature: Reducer {
 
         init(socialLoginInfo: SocialLoginInfo) {
             self.socialLoginInfo = socialLoginInfo
-            self.nickname = socialLoginInfo.name ?? "" // 닉네임 입력 자동채움
+            // self.nickname = socialLoginInfo.name ?? "" // 닉네임 입력 자동채움 _ 차후 구현
         }
     }
 

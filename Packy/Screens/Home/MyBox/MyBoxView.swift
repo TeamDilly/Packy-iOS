@@ -99,20 +99,18 @@ private extension MyBoxView {
                                 viewStore.send(.tappedGiftBox(boxId: giftBox.id))
                             }
                         }
+                    }
 
-
-                        if latestPageData(for: tab)?.isLastPage == false {
-                            PackyProgress()
-                                .onAppear {
-                                    switch tab {
-                                    case .sentBox:
-                                        viewStore.send(._fetchMoreSentGiftBoxes)
-                                    case .receivedBox:
-                                        viewStore.send(._fetchMoreReceivedGiftBoxes)
-                                    }
+                    if isLastPage(for: tab) == false {
+                        PackyProgress()
+                            .onAppear {
+                                switch tab {
+                                case .sentBox:
+                                    viewStore.send(._fetchMoreSentGiftBoxes)
+                                case .receivedBox:
+                                    viewStore.send(._fetchMoreReceivedGiftBoxes)
                                 }
-                        }
-
+                            }
                     }
                 }
                 .padding(24)
@@ -195,10 +193,10 @@ private extension MyBoxView {
         }
     }
 
-    func latestPageData(for tab: MyBoxTab) -> SentReceivedGiftBoxPageData? {
+    func isLastPage(for tab: MyBoxTab) -> Bool {
         switch tab {
-        case .sentBox:      return viewStore.sentBoxesData.last
-        case .receivedBox:  return viewStore.receivedBoxesData.last
+        case .sentBox:      return viewStore.sentBoxesData?.isLastPage ?? true
+        case .receivedBox:  return viewStore.receivedBoxesData?.isLastPage ?? true
         }
     }
 }

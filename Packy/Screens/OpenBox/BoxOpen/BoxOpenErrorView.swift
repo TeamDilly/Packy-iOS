@@ -41,11 +41,10 @@ struct BoxOpenErrorView: View {
                 }
                 .padding(.bottom, 8)
 
-                Button("문의하기") {
-                    // TODO: 문의하기 액션?
-                }
-                .buttonStyle(TextButtonStyle())
-                .padding(.bottom, 20)
+                // TODO: 문의하기 기능 구현
+                // NavigationLink("문의하기", state: HomeNavigationPath.State.webContent(.init(urlString: <#T##String#>, navigationTitle: <#T##String#>)))
+                //     .buttonStyle(TextButtonStyle())
+                //     .padding(.bottom, 20)
             }
             .padding(.horizontal, 24)
         }
