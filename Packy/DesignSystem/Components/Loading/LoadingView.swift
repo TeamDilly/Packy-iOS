@@ -34,7 +34,7 @@ private struct LoadingViewModifier: ViewModifier {
                 .allowsHitTesting(!allowTouch)
             }
         }
-        .animation(.spring, value: isLoading)
+        .animation(.spring(duration: 0.3), value: isLoading)
     }
 }
 

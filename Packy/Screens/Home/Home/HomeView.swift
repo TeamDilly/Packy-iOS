@@ -140,6 +140,7 @@ private extension HomeView {
                 .send(._onTask)
                 .finish()
         }
+        .showLoading(viewStore.isShowDetailLoading)
     }
 
     var navigationBar: some View {

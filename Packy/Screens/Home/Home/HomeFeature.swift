@@ -15,6 +15,7 @@ struct HomeFeature: Reducer {
         var path: StackState<HomeNavigationPath.State> = .init()
         var profile: Profile?
         var giftBoxes: [SentReceivedGiftBox] = []
+        var isShowDetailLoading: Bool = false
     }
 
     enum Action {
@@ -28,6 +29,7 @@ struct HomeFeature: Reducer {
         case _setProfile(Profile)
         case _setGiftBoxes([SentReceivedGiftBox])
         case _moveToBoxDetail(ReceivedGiftBox)
+        case _setShowDetailLoading(Bool)
 
         // MARK: Child Action
         case path(StackAction<HomeNavigationPath.State, HomeNavigationPath.Action>)
@@ -48,10 +50,12 @@ struct HomeFeature: Reducer {
                 )
 
             case let .tappedGiftBox(boxId):
+                state.isShowDetailLoading = true
                 return .run { send in
                     do {
                         let giftBox = try await boxClient.openGiftBox(boxId)
                         await send(._moveToBoxDetail(giftBox))
+                        await send(._setShowDetailLoading(false))
                     } catch {
                         print("🐛 \(error)")
                     }
@@ -63,6 +67,10 @@ struct HomeFeature: Reducer {
 
             case let ._setGiftBoxes(giftBoxes):
                 state.giftBoxes = giftBoxes
+                return .none
+
+            case let ._setShowDetailLoading(isLoading):
+                state.isShowDetailLoading = isLoading
                 return .none
 
             case .path:

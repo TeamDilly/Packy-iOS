@@ -88,12 +88,10 @@ extension HomeFeature {
                     state.path.append(.addTitle(.init(giftBox: giftBox, boxDesign: boxDesign)))
                     return .none
 
-                case let .element(id: _, action: .boxOpen(.delegate(.moveToBoxDetail(giftBox)))):
+                case let .element(id: _, action: .boxOpen(.delegate(.moveToBoxDetail(giftBox)))),
+                     let .element(id: _, action: .myBox(.delegate(.moveToBoxDetail(giftBox)))):
                     state.path.append(.boxDetail(.init(giftBox: giftBox)))
                     return .none
-
-                case let .element(id: _, action: .myBox(.delegate(.tappedGifBox(boxId)))):
-                    return .send(.tappedGiftBox(boxId: boxId))
 
                 /// Box Detail 에서 닫기 시,
                 case .element(id: _, action: .boxDetail(.delegate(.closeBoxOpen))):

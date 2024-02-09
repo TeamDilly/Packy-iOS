@@ -43,6 +43,7 @@ struct MyBoxView: View {
 
             Spacer()
         }
+        .showLoading(viewStore.isShowDetailLoading)
         .navigationBarBackButtonHidden(true)
         .ignoresSafeArea(edges: .bottom)
         .task {
@@ -73,7 +74,7 @@ private extension MyBoxView {
         let columns = [GridItem(spacing: 16), GridItem(spacing: 16)]
         let giftBoxes = giftBoxes(for: tab)
 
-        if viewStore.isLoading {
+        if viewStore.isFetchBoxesLoading {
             PackyProgress()
         } else if giftBoxes.isEmpty {
             switch tab {
@@ -95,7 +96,7 @@ private extension MyBoxView {
                         )
                         .bouncyTapGesture {
                             throttle(identifier: ThrottleId.moveToBoxDetail.rawValue) {
-                                viewStore.send(.delegate(.tappedGifBox(boxId: giftBox.id)))
+                                viewStore.send(.tappedGiftBox(boxId: giftBox.id))
                             }
                         }
 
