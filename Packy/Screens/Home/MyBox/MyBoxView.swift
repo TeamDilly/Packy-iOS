@@ -73,7 +73,9 @@ private extension MyBoxView {
         let columns = [GridItem(spacing: 16), GridItem(spacing: 16)]
         let giftBoxes = giftBoxes(for: tab)
 
-        if !viewStore.isLoading && giftBoxes.isEmpty {
+        if viewStore.isLoading {
+            PackyProgress()
+        } else if giftBoxes.isEmpty {
             switch tab {
             case .sentBox:
                 emptySentStateView

@@ -23,6 +23,8 @@ struct MyBoxFeature: Reducer {
         var sentBoxes: [SentReceivedGiftBox] {
             sentBoxesData.flatMap(\.giftBoxes)
         }
+
+        var isLoading: Bool = true
     }
 
     enum Action: BindableAction {
@@ -37,6 +39,7 @@ struct MyBoxFeature: Reducer {
 
         // MARK: Inner SetState Action
         case _setGiftBoxData(SentReceivedGiftBoxPageData, GiftBoxType)
+        case _setLoading(Bool)
 
         // MARK: Child Action
         enum Delegate {
@@ -77,6 +80,10 @@ struct MyBoxFeature: Reducer {
                 }
                 return .none
 
+            case let ._setLoading(isLoading):
+                state.isLoading = isLoading
+                return .none
+
             case ._onTask:
                 return .merge(
                     fetchGiftBoxes(type: .received, lastBoxDate: nil),
@@ -100,7 +107,8 @@ private extension MyBoxFeature {
                         type: type
                     )
                 )
-                await send(._setGiftBoxData(giftBoxesData, type))
+                await send(._setGiftBoxData(giftBoxesData, type), animation: .spring)
+                await send(._setLoading(false), animation: .spring)
             } catch {
                 print("🐛 \(error)")
             }
