@@ -54,7 +54,7 @@ private extension BoxOpenView {
             }
             Spacer()
 
-            Text("\(giftBox.receiverName)님이 보낸\n선물박스가 도착했어요!")
+            Text("\(giftBox.senderName)님이 보낸\n선물박스가 도착했어요!")
                 .packyFont(.heading1)
                 .foregroundStyle(.gray900)
                 .padding(.top, 24)
