@@ -102,6 +102,7 @@ struct MyBoxFeature: Reducer {
                 return .none
 
             case ._onTask:
+                guard state.sentBoxes.isEmpty && state.receivedBoxes.isEmpty else { return .none }
                 return .merge(
                     fetchGiftBoxes(type: .received, currentSize: 0),
                     fetchGiftBoxes(type: .sent, currentSize: 0)
