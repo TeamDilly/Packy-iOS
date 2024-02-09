@@ -423,7 +423,7 @@
 		E5B22D002B711D33003DAC7B /* SplashFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashFeature.swift; sourceTree = "<group>"; };
 		E5C5C9DA2B71314F003F0AB9 /* ShakeAnimationModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShakeAnimationModifier.swift; sourceTree = "<group>"; };
 		E5D012992B58086F00236FEF /* SetWindowBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetWindowBackground.swift; sourceTree = "<group>"; };
-		E5D7495D2B4A72E100213F63 /* Packy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Packy.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E5D7495D2B4A72E100213F63 /* Packy-Debug.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Packy-Debug.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E5E06B2C2B651D2200F6FD01 /* Throttle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Throttle.swift; sourceTree = "<group>"; };
 		E5E06B2F2B654A1000F6FD01 /* BoxAddTitleAndShareView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoxAddTitleAndShareView.swift; sourceTree = "<group>"; };
 		E5E06B302B654A1000F6FD01 /* BoxAddTitleAndShareFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoxAddTitleAndShareFeature.swift; sourceTree = "<group>"; };
@@ -1168,7 +1168,7 @@
 		E5D7495E2B4A72E100213F63 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				E5D7495D2B4A72E100213F63 /* Packy.app */,
+				E5D7495D2B4A72E100213F63 /* Packy-Debug.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1330,7 +1330,7 @@
 				E586DCCB2B73A01B0052E8D7 /* Lottie */,
 			);
 			productName = Packy;
-			productReference = E5D7495D2B4A72E100213F63 /* Packy.app */;
+			productReference = E5D7495D2B4A72E100213F63 /* Packy-Debug.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -1747,7 +1747,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Packy/Resources/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "패키";
+				INFOPLIST_KEY_CFBundleDisplayName = "패키-Debug";
 				INFOPLIST_KEY_NSUserTrackingUsageDescription = "맞춤형 광고 및 정보 제공을 위해 허용해 주세요.\n허용하지 않아도 패키를 이용할 수 있습니다.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -1762,7 +1762,7 @@
 				);
 				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.dilly.Packy;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "$(TARGET_NAME)-Debug";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
