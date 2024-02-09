@@ -188,7 +188,8 @@ private extension BoxDetailView {
                 .padding(.top, 36)
 
                 HStack {
-                    if let secondSticker = viewStore.stickers.first(where: { $0.location == 0 }) {
+                    if let secondSticker = viewStore.stickers.first(where: { $0.location == 1 }) {
+                        // 스티커 2
                         StickerElementView(
                             stickerType: .sticker2,
                             stickerURL: secondSticker.imgUrl,
