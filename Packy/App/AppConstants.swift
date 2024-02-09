@@ -8,6 +8,13 @@
 import Foundation
 
 enum Constants {
+    static var serverUrl {
+
+    }
+    
+    static let devServerUrl = URL(string: "https://dev.packyforyou.shop/api/v1/")!
+    static let releaseServerUrl = URL(string: "https://prod.packyforyou.shop/")!
+
     static var mockImageUrl: String { "https://picsum.photos/\(Int.random(in: 150...250))" }
 
     static var appVersion: String {
