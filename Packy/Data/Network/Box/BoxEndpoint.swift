@@ -19,7 +19,7 @@ enum BoxEndpoint {
 
 extension BoxEndpoint: TargetType {
     var baseURL: URL {
-        URL(string: "https://dev.packyforyou.shop/api/v1/")!
+        Constants.serverUrl
     }
 
     var path: String {

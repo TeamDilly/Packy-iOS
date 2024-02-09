@@ -8,13 +8,6 @@
 import Foundation
 
 enum Constants {
-    static var serverUrl {
-
-    }
-    
-    static let devServerUrl = URL(string: "https://dev.packyforyou.shop/api/v1/")!
-    static let releaseServerUrl = URL(string: "https://prod.packyforyou.shop/")!
-
     static var mockImageUrl: String { "https://picsum.photos/\(Int.random(in: 150...250))" }
 
     static var appVersion: String {
@@ -28,4 +21,20 @@ enum Constants {
     static let makeBoxAnimationDuration: TimeInterval = 4.5
     static let openBoxAnimationDuration: TimeInterval = 2.3
     static let textInteractionDuration: TimeInterval = 2
+}
+
+// MARK: - 서버 URL
+
+extension Constants {
+    static var serverUrl: URL {
+        #if DEBUG
+        devServerUrl
+        #elseif RELEASE
+        releaseServerUrl
+        #endif
+    }
+
+    static private let devServerUrl = URL(string: "https://dev.packyforyou.shop/api/v1/")!
+    static private let releaseServerUrl = URL(string: "https://prod.packyforyou.shop/api/v1/")!
+
 }

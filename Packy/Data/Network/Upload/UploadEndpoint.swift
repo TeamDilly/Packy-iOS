@@ -20,7 +20,7 @@ extension UploadEndpoint: TargetType {
     var baseURL: URL {
         switch self {
         case .getPreSignedUrl:
-            URL(string: "https://dev.packyforyou.shop/api/v1/")!
+            Constants.serverUrl
         case let .upload(url, _):
             url
         }
