@@ -55,7 +55,7 @@
 		E5551B792B5FE8E300DB81F3 /* TokenInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5551B782B5FE8E300DB81F3 /* TokenInterceptor.swift */; };
 		E5551B7B2B5FF2AF00DB81F3 /* HTTPSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5551B7A2B5FF2AF00DB81F3 /* HTTPSession.swift */; };
 		E5551B7D2B5FF5AD00DB81F3 /* MoyaProvider+Build.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5551B7C2B5FF5AD00DB81F3 /* MoyaProvider+Build.swift */; };
-		E5551B7F2B6001CC00DB81F3 /* BoxStartGuideView+SelectBoxSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5551B7E2B6001CC00DB81F3 /* BoxStartGuideView+SelectBoxSheet.swift */; };
+		E5551B7F2B6001CC00DB81F3 /* SelectBoxBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5551B7E2B6001CC00DB81F3 /* SelectBoxBottomSheet.swift */; };
 		E55558282B6E10AC00461352 /* YoutubeLinkValidationResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55558272B6E10AC00461352 /* YoutubeLinkValidationResponse.swift */; };
 		E555582A2B6E248300461352 /* View+TextInteraction.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55558292B6E248300461352 /* View+TextInteraction.swift */; };
 		E55D16C42B6CF12F005E71A4 /* KakaoShareClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55D16C32B6CF12F005E71A4 /* KakaoShareClient.swift */; };
@@ -287,7 +287,7 @@
 		E5551B782B5FE8E300DB81F3 /* TokenInterceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenInterceptor.swift; sourceTree = "<group>"; };
 		E5551B7A2B5FF2AF00DB81F3 /* HTTPSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPSession.swift; sourceTree = "<group>"; };
 		E5551B7C2B5FF5AD00DB81F3 /* MoyaProvider+Build.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MoyaProvider+Build.swift"; sourceTree = "<group>"; };
-		E5551B7E2B6001CC00DB81F3 /* BoxStartGuideView+SelectBoxSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BoxStartGuideView+SelectBoxSheet.swift"; sourceTree = "<group>"; };
+		E5551B7E2B6001CC00DB81F3 /* SelectBoxBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectBoxBottomSheet.swift; sourceTree = "<group>"; };
 		E55558272B6E10AC00461352 /* YoutubeLinkValidationResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YoutubeLinkValidationResponse.swift; sourceTree = "<group>"; };
 		E55558292B6E248300461352 /* View+TextInteraction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+TextInteraction.swift"; sourceTree = "<group>"; };
 		E55D16C32B6CF12F005E71A4 /* KakaoShareClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoShareClient.swift; sourceTree = "<group>"; };
@@ -524,7 +524,7 @@
 			children = (
 				E52470F12B6142EB003D49DE /* AddGiftBottomSheet.swift */,
 				E5E73D4B2B597CB600729D99 /* AddPhotoBottomSheet.swift */,
-				E5551B7E2B6001CC00DB81F3 /* BoxStartGuideView+SelectBoxSheet.swift */,
+				E5551B7E2B6001CC00DB81F3 /* SelectBoxBottomSheet.swift */,
 				E5E73D492B597C0200729D99 /* SelectMusicBottomSheet.swift */,
 				E5A416B22B5D350C00313E5A /* SelectStickerBottomSheet.swift */,
 				E58048C22B5BFF3800B974B3 /* WriteLetterBottomSheet.swift */,
@@ -1545,7 +1545,7 @@
 				E54484F92B6F4CE7003DFA1B /* BoxButtonStyle.swift in Sources */,
 				E55D16C42B6CF12F005E71A4 /* KakaoShareClient.swift in Sources */,
 				E5A7AA782B57F81400590EA6 /* TokenRequest.swift in Sources */,
-				E5551B7F2B6001CC00DB81F3 /* BoxStartGuideView+SelectBoxSheet.swift in Sources */,
+				E5551B7F2B6001CC00DB81F3 /* SelectBoxBottomSheet.swift in Sources */,
 				E5A7AA822B57F81400590EA6 /* KakaoLoginController.swift in Sources */,
 				E54484F42B6F4A17003DFA1B /* DateFormat.swift in Sources */,
 				E5A59BE22B72792400D120CF /* Profile.swift in Sources */,

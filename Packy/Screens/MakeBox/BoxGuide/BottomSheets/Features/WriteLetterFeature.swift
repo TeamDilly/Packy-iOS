@@ -22,6 +22,13 @@ struct WriteLetterFeature: Reducer {
         var isWriteLetterBottomSheetPresented: Bool = false
         var savedLetter: LetterInput = .init()
         var letterDesigns: [LetterDesign] = []
+
+        var selectedEnvelopeId: Int {
+            savedLetter.selectedLetterDesign?.id ?? 0
+        }
+        var letterContent: String {
+            savedLetter.letter
+        }
     }
 
     enum Action: BindableAction {

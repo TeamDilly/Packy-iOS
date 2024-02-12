@@ -24,10 +24,8 @@ struct BoxStartGuideFeature: Reducer {
         @BindingState var selectMusic: SelectMusicFeature.State = .init()
         @BindingState var addGift: AddGiftFeature.State = .init()
         @BindingState var selectSticker: SelectStickerFeature.State = .init()
-
         @BindingState var isSelectBoxBottomSheetPresented: Bool = false
 
-        // TODO: 각 리듀서의 프로퍼티로 변경하기
         /// 모든 요소가 입력되어서, 완성할 수 있는 상태인지
         var isCompletable: Bool {
             selectMusic.savedMusic.isCompleted &&
@@ -40,26 +38,16 @@ struct BoxStartGuideFeature: Reducer {
     enum Action: BindableAction {
         // MARK: User Action
         case binding(BindingAction<State>)
-
-        // 뒤로가기
         case backButtonTapped
-
-        // 완성
         case completeButtonTapped
         case makeBoxAlertConfirmButtonTapped
-
-        // 스티커
-
-        // 박스
         case selectBox(BoxDesign)
 
         // MARK: Inner Business Action
         case _onTask
 
         // MARK: Inner SetState Action
-
         case _setIsShowingGuideText(Bool)
-        
 
         // MARK: Child Action
         case addPhoto(AddPhotoFeature.Action)
@@ -76,8 +64,6 @@ struct BoxStartGuideFeature: Reducer {
     }
 
     @Dependency(\.continuousClock) var clock
-    @Dependency(\.uploadClient) var uploadClient
-    @Dependency(\.designClient) var designClient
     @Dependency(\.userDefaults) var userDefaults
     @Dependency(\.packyAlert) var packyAlert
     @Dependency(\.dismiss) var dismiss
@@ -112,20 +98,13 @@ struct BoxStartGuideFeature: Reducer {
                 state.isShowingGuideText = isShowing
                 return .none
 
-            // MARK: Set Design
-
-            // MARK: Sticker
-
-
             // MARK: Box
-
             case let .selectBox(boxDesign):
                 state.selectedBox = nil
                 state.selectedBox = boxDesign
                 return .none
 
             // MARK: Complete
-
             case .completeButtonTapped:
                 return .run { send in
                     await packyAlert.show(
@@ -174,8 +153,8 @@ private extension BoxStartGuideFeature {
         let senderName = state.senderInfo.sender
         let receiverName = state.senderInfo.receiver
         let boxId = state.selectedBox?.id
-        let envelopeId = state.writeLetter.savedLetter.selectedLetterDesign?.id ?? 0
-        let letterContent = state.writeLetter.savedLetter.letter
+        let envelopeId = state.writeLetter.selectedEnvelopeId
+        let letterContent = state.writeLetter.letterContent
         let youtubeUrl = state.selectMusic.savedMusic.selectedMusicUrl ?? ""
         let photo = Photo(
             photoUrl: state.addPhoto.savedPhoto.photoUrl ?? "",

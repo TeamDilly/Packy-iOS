@@ -158,7 +158,7 @@ struct BoxStartGuideView: View {
             isBackgroundBlack: false,
             hideTopButtons: true
         ) {
-            selectBoxBottomSheet
+            SelectBoxBottomSheet(viewStore: viewStore)
         }
         // 선물 추가 바텀 시트
         .bottomSheet(

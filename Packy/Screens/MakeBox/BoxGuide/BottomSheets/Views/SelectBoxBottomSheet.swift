@@ -1,17 +1,22 @@
 //
-//  BoxStartGuideView+SelectBoxSheet.swift
+//  SelectBoxBottomSheet.swift
 //  Packy
 //
 //  Created by Mason Kim on 1/23/24.
 //
 
 import SwiftUI
-import Kingfisher
+import ComposableArchitecture
 
-// TODO: 하위 뷰, 리듀서로 분리
+struct SelectBoxBottomSheet: View {
+    
+    @ObservedObject var viewStore: ViewStoreOf<BoxStartGuideFeature>
 
-extension BoxStartGuideView {
-    var selectBoxBottomSheet: some View {
+    init(viewStore: ViewStoreOf<BoxStartGuideFeature>) {
+        self.viewStore = viewStore
+    }
+
+    var body: some View {
         ScrollView {
             VStack(spacing: 0) {
                 HStack(alignment: .top) {
