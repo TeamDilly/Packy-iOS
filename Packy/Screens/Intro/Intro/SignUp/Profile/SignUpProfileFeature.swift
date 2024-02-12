@@ -59,7 +59,6 @@ struct SignUpProfileFeature: Reducer {
             case let ._setProfileImages(profileImages):
                 state.profileImages = profileImages
                 state.selectedProfileImage = profileImages.first
-                print("✅ selected: \(state.selectedProfileImage?.id)")
                 return .none
             }
         }

@@ -68,6 +68,7 @@
 		E55DAE822B75E30F00208878 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55DAE812B75E30F00208878 /* LoadingView.swift */; };
 		E55DAE842B76376000208878 /* Print+Override.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55DAE832B76376000208878 /* Print+Override.swift */; };
 		E56344162B79E09700AC411B /* SelectStickerFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56344152B79E09700AC411B /* SelectStickerFeature.swift */; };
+		E563441C2B7A383800AC411B /* ShowErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E563441B2B7A383800AC411B /* ShowErrorView.swift */; };
 		E58048C12B5BF0D200B974B3 /* UIImage+Compression.swift in Sources */ = {isa = PBXBuildFile; fileRef = E58048C02B5BF0D200B974B3 /* UIImage+Compression.swift */; };
 		E58048C32B5BFF3800B974B3 /* WriteLetterBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = E58048C22B5BFF3800B974B3 /* WriteLetterBottomSheet.swift */; };
 		E58048C92B5C36DD00B974B3 /* CornerRadiusWithBorderModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = E58048C82B5C36DD00B974B3 /* CornerRadiusWithBorderModifier.swift */; };
@@ -295,6 +296,7 @@
 		E55DAE812B75E30F00208878 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		E55DAE832B76376000208878 /* Print+Override.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Print+Override.swift"; sourceTree = "<group>"; };
 		E56344152B79E09700AC411B /* SelectStickerFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectStickerFeature.swift; sourceTree = "<group>"; };
+		E563441B2B7A383800AC411B /* ShowErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowErrorView.swift; sourceTree = "<group>"; };
 		E58048C02B5BF0D200B974B3 /* UIImage+Compression.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Compression.swift"; sourceTree = "<group>"; };
 		E58048C22B5BFF3800B974B3 /* WriteLetterBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteLetterBottomSheet.swift; sourceTree = "<group>"; };
 		E58048C82B5C36DD00B974B3 /* CornerRadiusWithBorderModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CornerRadiusWithBorderModifier.swift; sourceTree = "<group>"; };
@@ -425,7 +427,7 @@
 		E5B22D002B711D33003DAC7B /* SplashFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashFeature.swift; sourceTree = "<group>"; };
 		E5C5C9DA2B71314F003F0AB9 /* ShakeAnimationModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShakeAnimationModifier.swift; sourceTree = "<group>"; };
 		E5D012992B58086F00236FEF /* SetWindowBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetWindowBackground.swift; sourceTree = "<group>"; };
-		E5D7495D2B4A72E100213F63 /* Packy-Debug.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Packy-Debug.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E5D7495D2B4A72E100213F63 /* Packy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Packy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E5E06B2C2B651D2200F6FD01 /* Throttle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Throttle.swift; sourceTree = "<group>"; };
 		E5E06B2F2B654A1000F6FD01 /* BoxAddTitleAndShareView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoxAddTitleAndShareView.swift; sourceTree = "<group>"; };
 		E5E06B302B654A1000F6FD01 /* BoxAddTitleAndShareFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoxAddTitleAndShareFeature.swift; sourceTree = "<group>"; };
@@ -756,6 +758,7 @@
 				E5A7A9C72B57F81400590EA6 /* SocialLoginButton.swift */,
 				E54484EF2B6F3E63003DFA1B /* TabSegmentedControl.swift */,
 				E5B22CF72B70FD36003DAC7B /* WebView.swift */,
+				E563441B2B7A383800AC411B /* ShowErrorView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -1170,7 +1173,7 @@
 		E5D7495E2B4A72E100213F63 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				E5D7495D2B4A72E100213F63 /* Packy-Debug.app */,
+				E5D7495D2B4A72E100213F63 /* Packy.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1333,7 +1336,7 @@
 				E586DCCB2B73A01B0052E8D7 /* Lottie */,
 			);
 			productName = Packy;
-			productReference = E5D7495D2B4A72E100213F63 /* Packy-Debug.app */;
+			productReference = E5D7495D2B4A72E100213F63 /* Packy.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -1597,6 +1600,7 @@
 				E5A416AD2B5D218E00313E5A /* MessageDesign.swift in Sources */,
 				E5A416A52B5D1F8100313E5A /* DesignEndpoint.swift in Sources */,
 				E5001F932B5BE5DD004B65E6 /* PreSignedUrlResponse.swift in Sources */,
+				E563441C2B7A383800AC411B /* ShowErrorView.swift in Sources */,
 				E5A7AA7E2B57F81400590EA6 /* KeychainClient.swift in Sources */,
 				E5E73D4A2B597C0200729D99 /* SelectMusicBottomSheet.swift in Sources */,
 				E52470ED2B612DD3003D49DE /* TextButtonStyle.swift in Sources */,
@@ -1767,7 +1771,7 @@
 				);
 				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.dilly.Packy-Dev";
-				PRODUCT_NAME = "$(TARGET_NAME)-Debug";
+				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
