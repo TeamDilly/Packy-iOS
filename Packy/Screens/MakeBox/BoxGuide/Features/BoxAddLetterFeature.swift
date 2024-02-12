@@ -19,7 +19,7 @@ struct BoxAddLetterFeature: Reducer {
 
     struct State: Equatable {
         @BindingState var letterInput: LetterInput = .init()
-        @BindingState var isLetterBottomSheetPresented: Bool = false
+        var isLetterBottomSheetPresented: Bool = false
         var savedLetter: LetterInput = .init()
         var letterDesigns: [LetterDesign] = []
     }

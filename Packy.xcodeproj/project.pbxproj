@@ -509,10 +509,10 @@
 			isa = PBXGroup;
 			children = (
 				E5A7A9E12B57F81400590EA6 /* BoxStartGuideFeature.swift */,
+				E52037D82B6420E100721F76 /* BoxAddLetterFeature.swift */,
 				E52037D42B641FF900721F76 /* BoxAddPhotoFeature.swift */,
 				E52037D62B64203E00721F76 /* BoxSelectMusicFeature.swift */,
 				E52037DC2B64213600721F76 /* BoxStartGuideFeature+Gift.swift */,
-				E52037D82B6420E100721F76 /* BoxAddLetterFeature.swift */,
 			);
 			path = Features;
 			sourceTree = "<group>";

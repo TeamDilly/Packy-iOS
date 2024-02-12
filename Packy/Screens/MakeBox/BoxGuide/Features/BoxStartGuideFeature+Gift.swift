@@ -8,18 +8,40 @@
 import ComposableArchitecture
 import Foundation
 
-extension BoxStartGuideFeature {
 
-    // MARK: - Input
+@Reducer
+struct BoxAddGiftFeature: Reducer {
 
     struct GiftInput: Equatable {
         var imageUrl: URL?
         var isCompleted: Bool { imageUrl != nil }
     }
 
+    struct State: Equatable {
+        var isAddGiftBottomSheetPresented: Bool = false
+        var giftInput: GiftInput = .init()
+        var savedGift: GiftInput = .init()
+    }
+
+    enum Action {
+        case addGiftButtonTapped
+        case selectGiftImage(Data)
+        case deleteGiftImageButtonTapped
+        case notSelectGiftButtonTapped
+        case addGiftSheetCloseButtonTapped
+        case closeGiftSheetAlertConfirmTapped
+        case giftSaveButtonTapped
+
+        case _setUploadedGiftUrl(URL?)
+    }
+
+    @Dependency(\.continuousClock) var clock
+    @Dependency(\.packyAlert) var packyAlert
+    @Dependency(\.uploadClient) var uploadClient
+
     // MARK: - Reducer
 
-    var giftReducer: some Reducer<State, Action> {
+    var body: some Reducer<State, Action> {
         Reduce { state, action in
             switch action {
             

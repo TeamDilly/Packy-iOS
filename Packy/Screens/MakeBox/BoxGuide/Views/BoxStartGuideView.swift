@@ -162,14 +162,14 @@ struct BoxStartGuideView: View {
         }
         // 선물 추가 바텀 시트
         .bottomSheet(
-            isPresented: viewStore.$isAddGiftBottomSheetPresented,
+            isPresented: viewStore.$addGift.isAddGiftBottomSheetPresented,
             detents: [.large],
             closeButtonAction: {
-                viewStore.send(.addGiftSheetCloseButtonTapped)
+                viewStore.send(.addGift(.addGiftSheetCloseButtonTapped))
             },
             isDismissible: false
         ) {
-            addGiftBottomSheet
+            BoxAddGiftBottomSheet(store: store.scope(state: \.addGift, action: \.addGift))
         }
         .accentColor(.black)
         .navigationBarBackButtonHidden(true)
@@ -302,9 +302,9 @@ private extension BoxStartGuideView {
                     }
             }
 
-            let isGiftAdded: Bool = viewStore.savedGift.imageUrl != nil
+            let isGiftAdded: Bool = viewStore.addGift.savedGift.imageUrl != nil
             Button {
-                viewStore.send(.addGiftButtonTapped)
+                viewStore.send(.addGift(.addGiftButtonTapped))
             } label: {
                 HStack(spacing: 8) {
                     Image(isGiftAdded ? .check : .plus)

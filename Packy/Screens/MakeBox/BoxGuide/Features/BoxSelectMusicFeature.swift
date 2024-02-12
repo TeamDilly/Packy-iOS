@@ -29,7 +29,7 @@ struct BoxSelectMusicFeature: Reducer {
 
 
     struct State: Equatable {
-        @BindingState var isMusicBottomSheetPresented: Bool = false
+        var isMusicBottomSheetPresented: Bool = false
         @BindingState var musicInput: MusicInput = .init()
         var savedMusic: MusicInput = .init()
         var recommendedMusics: [RecommendedMusic] = []

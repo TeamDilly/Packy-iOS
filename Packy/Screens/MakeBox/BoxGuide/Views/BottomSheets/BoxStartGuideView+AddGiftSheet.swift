@@ -6,12 +6,18 @@
 //
 
 import SwiftUI
-import Kingfisher
+import ComposableArchitecture
 
-// TODO: 하위 뷰, 리듀서로 분리
+struct BoxAddGiftBottomSheet: View {
+    private let store: StoreOf<BoxAddGiftFeature>
+    @ObservedObject var viewStore: ViewStoreOf<BoxAddGiftFeature>
 
-extension BoxStartGuideView {
-    var addGiftBottomSheet: some View {
+    init(store: StoreOf<BoxAddGiftFeature>) {
+        self.store = store
+        self.viewStore = ViewStore(store, observe: { $0 })
+    }
+
+    var body: some View {
         VStack(spacing: 0) {
             VStack(spacing: 4) {
                 Text("준비한 선물이 있나요?")
@@ -60,7 +66,7 @@ extension BoxStartGuideView {
 #Preview {
     BoxStartGuideView(
         store: .init(
-            initialState: .init(senderInfo: .mock, boxDesigns: .mock, selectedBox: .mock, isAddGiftBottomSheetPresented: true),
+            initialState: .init(senderInfo: .mock, boxDesigns: .mock, selectedBox: .mock),
             reducer: {
                 BoxStartGuideFeature()
                     ._printChanges()

@@ -22,13 +22,10 @@ struct BoxStartGuideFeature: Reducer {
         @BindingState var addPhoto: BoxAddPhotoFeature.State = .init()
         @BindingState var addLetter: BoxAddLetterFeature.State = .init()
         @BindingState var selectMusic: BoxSelectMusicFeature.State = .init()
+        @BindingState var addGift: BoxAddGiftFeature.State = .init()
 
         @BindingState var isStickerBottomSheetPresented: Bool = false
         @BindingState var isSelectBoxBottomSheetPresented: Bool = false
-        @BindingState var isAddGiftBottomSheetPresented: Bool = false
-
-        var giftInput: GiftInput = .init()
-        var savedGift: GiftInput = .init()
 
         var stickerDesigns: [StickerDesignResponse] = []
         var selectedStickers: [StickerDesign] = []
@@ -60,29 +57,19 @@ struct BoxStartGuideFeature: Reducer {
         // 박스
         case selectBox(BoxDesign)
 
-        // 선물
-        case addGiftButtonTapped
-        case selectGiftImage(Data)
-        case deleteGiftImageButtonTapped
-        case notSelectGiftButtonTapped
-        case addGiftSheetCloseButtonTapped
-        case closeGiftSheetAlertConfirmTapped
-        case giftSaveButtonTapped
-
         // MARK: Inner Business Action
         case _onTask
 
         // MARK: Inner SetState Action
 
-        case _setUploadedGiftUrl(URL?)
         case _setIsShowingGuideText(Bool)
-
         case _setStickerDesigns(StickerDesignResponse)
 
         // MARK: Child Action
         case addPhoto(BoxAddPhotoFeature.Action)
         case addLetter(BoxAddLetterFeature.Action)
         case selectMusic(BoxSelectMusicFeature.Action)
+        case addGift(BoxAddGiftFeature.Action)
 
         // MARK: Delegate Action
         enum Delegate {
@@ -104,8 +91,7 @@ struct BoxStartGuideFeature: Reducer {
         Scope(state: \.addPhoto, action: \.addPhoto) { BoxAddPhotoFeature() }
         Scope(state: \.addLetter, action: \.addLetter) { BoxAddLetterFeature() }
         Scope(state: \.selectMusic, action: \.selectMusic) { BoxSelectMusicFeature() }
-
-        giftReducer
+        Scope(state: \.addGift, action: \.addGift) { BoxAddGiftFeature() }
 
         Reduce<State, Action> { state, action in
             switch action {
@@ -232,7 +218,7 @@ private extension BoxStartGuideFeature {
         )
 
         let gift: Gift?
-        if let giftImageUrl = state.savedGift.imageUrl {
+        if let giftImageUrl = state.addGift.savedGift.imageUrl {
             gift = .init(type: "photo", url: giftImageUrl.absoluteString)
         } else {
             gift = nil
