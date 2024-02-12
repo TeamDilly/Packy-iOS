@@ -20,33 +20,24 @@ struct BoxStartGuideFeature: Reducer {
         var isShowingGuideText: Bool = false
 
         @BindingState var addPhoto: BoxAddPhotoFeature.State = .init()
-
-        @BindingState var isMusicBottomSheetPresented: Bool = false
-        @BindingState var isLetterBottomSheetPresented: Bool = false
+        @BindingState var addLetter: BoxAddLetterFeature.State = .init()
+        @BindingState var selectMusic: BoxSelectMusicFeature.State = .init()
 
         @BindingState var isStickerBottomSheetPresented: Bool = false
         @BindingState var isSelectBoxBottomSheetPresented: Bool = false
         @BindingState var isAddGiftBottomSheetPresented: Bool = false
 
-        @BindingState var musicInput: MusicInput = .init()
-
-        @BindingState var letterInput: LetterInput = .init()
         var giftInput: GiftInput = .init()
-
-        var savedMusic: MusicInput = .init()
-        var savedLetter: LetterInput = .init()
         var savedGift: GiftInput = .init()
 
-        var recommendedMusics: [RecommendedMusic] = []
-        var letterDesigns: [LetterDesign] = []
         var stickerDesigns: [StickerDesignResponse] = []
         var selectedStickers: [StickerDesign] = []
 
         /// 모든 요소가 입력되어서, 완성할 수 있는 상태인지
         var isCompletable: Bool {
-            savedMusic.isCompleted &&
+            selectMusic.savedMusic.isCompleted &&
             addPhoto.savedPhoto.isCompleted &&
-            savedLetter.isCompleted &&
+            addLetter.savedLetter.isCompleted &&
             selectedStickers.count == 2
         }
     }
@@ -61,24 +52,6 @@ struct BoxStartGuideFeature: Reducer {
         // 완성
         case completeButtonTapped
         case makeBoxAlertConfirmButtonTapped
-
-        // 음악
-        case musicSelectButtonTapped
-        case musicBottomSheetBackButtonTapped
-        case musicChoiceUserSelectButtonTapped
-        case musicChoiceRecommendButtonTapped
-        case musicLinkConfirmButtonTapped
-        case musicSaveButtonTapped
-        case musicLinkDeleteButtonTapped
-        case musicLinkDeleteButtonInSheetTapped
-        case musicBottomSheetCloseButtonTapped
-        case closeMusicSheetAlertConfirmTapped
-
-        // 편지
-        case letterInputButtonTapped
-        case letterSaveButtonTapped
-        case letterBottomSheetCloseButtonTapped
-        case closeLetterSheetAlertConfirmTapped
 
         // 스티커
         case fetchMoreStickers
@@ -100,18 +73,16 @@ struct BoxStartGuideFeature: Reducer {
         case _onTask
 
         // MARK: Inner SetState Action
-        case _setDetents(Set<PresentationDetent>)
 
         case _setUploadedGiftUrl(URL?)
         case _setIsShowingGuideText(Bool)
-        case _setLetterDesigns([LetterDesign])
-        case _setRecommendedMusics([RecommendedMusic])
+
         case _setStickerDesigns(StickerDesignResponse)
-        case _setShowInvalidMusicUrlError(Bool)
-        case _setSelectedMusicUrl(String)
 
         // MARK: Child Action
         case addPhoto(BoxAddPhotoFeature.Action)
+        case addLetter(BoxAddLetterFeature.Action)
+        case selectMusic(BoxSelectMusicFeature.Action)
 
         // MARK: Delegate Action
         enum Delegate {
@@ -131,10 +102,10 @@ struct BoxStartGuideFeature: Reducer {
         BindingReducer()
 
         Scope(state: \.addPhoto, action: \.addPhoto) { BoxAddPhotoFeature() }
+        Scope(state: \.addLetter, action: \.addLetter) { BoxAddLetterFeature() }
+        Scope(state: \.selectMusic, action: \.selectMusic) { BoxSelectMusicFeature() }
 
         giftReducer
-        letterReducer
-        musicReducer
 
         Reduce<State, Action> { state, action in
             switch action {
@@ -148,8 +119,8 @@ struct BoxStartGuideFeature: Reducer {
                 return .merge(
                     showGuideTextIfNeeded(),
                     // 디자인들 조회...
-                    fetchLetterDesigns(),
-                    fetchRecommendedMusics(),
+                    .send(.addLetter(._fetchLetterDesigns)),
+                    .send(.selectMusic(._fetchRecommendedMusics)),
                     fetchStickerDesigns()
                 )
 
@@ -162,15 +133,6 @@ struct BoxStartGuideFeature: Reducer {
                 return .none
 
             // MARK: Set Design
-
-            case let ._setLetterDesigns(letterDesigns):
-                state.letterDesigns = letterDesigns
-                state.letterInput.selectedLetterDesign = letterDesigns.first
-                return .none
-
-            case let ._setRecommendedMusics(recommendedMusics):
-                state.recommendedMusics = recommendedMusics
-                return .none
 
             // MARK: Sticker
 
@@ -243,27 +205,7 @@ private extension BoxStartGuideFeature {
         )
     }
 
-    func fetchLetterDesigns() -> Effect<Action> {
-        .run { send in
-            do {
-                let letterDesigns = try await designClient.fetchLetterDesigns()
-                await send(._setLetterDesigns(letterDesigns))
-            } catch {
-                print(error)
-            }
-        }
-    }
 
-    func fetchRecommendedMusics() -> Effect<Action> {
-        .run { send in
-            do {
-                let recommendedMusics = try await designClient.fetchRecommendedMusics()
-                await send(._setRecommendedMusics(recommendedMusics))
-            } catch {
-                print(error)
-            }
-        }
-    }
 
     func fetchStickerDesigns(lastStickerId: Int? = nil) -> Effect<Action> {
         .run { send in
@@ -280,9 +222,9 @@ private extension BoxStartGuideFeature {
         let senderName = state.senderInfo.sender
         let receiverName = state.senderInfo.receiver
         let boxId = state.selectedBox?.id
-        let envelopeId = state.savedLetter.selectedLetterDesign?.id ?? 0
-        let letterContent = state.savedLetter.letter
-        let youtubeUrl = state.savedMusic.selectedMusicUrl ?? ""
+        let envelopeId = state.addLetter.savedLetter.selectedLetterDesign?.id ?? 0
+        let letterContent = state.addLetter.savedLetter.letter
+        let youtubeUrl = state.selectMusic.savedMusic.selectedMusicUrl ?? ""
         let photo = Photo(
             photoUrl: state.addPhoto.savedPhoto.photoUrl ?? "",
             description: state.addPhoto.savedPhoto.text,

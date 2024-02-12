@@ -6,11 +6,37 @@
 //
 
 import SwiftUI
+import ComposableArchitecture
 
-// TODO: 하위 뷰, 리듀서로 분리
+struct SelectMusicBottomSheet: View {
 
-extension BoxStartGuideView {
-    
+    private let store: StoreOf<BoxSelectMusicFeature>
+    @ObservedObject var viewStore: ViewStoreOf<BoxSelectMusicFeature>
+
+    init(store: StoreOf<BoxSelectMusicFeature>) {
+        self.store = store
+        self.viewStore = ViewStore(store, observe: { $0 })
+    }
+
+    var body: some View {
+        VStack {
+            switch viewStore.musicInput.musicBottomSheetMode {
+            case .choice:
+                musicAddChoiceBottomSheet
+            case .userSelect:
+                musicUserSelectBottomSheet
+            case .recommend:
+                musicRecommendationBottomSheet
+            }
+        }
+        .animation(.easeInOut, value: viewStore.musicInput.musicBottomSheetMode.detent)
+    }
+}
+
+// MARK: - Inner Views
+
+private extension SelectMusicBottomSheet {
+
     // MARK: 음악 추가 방식 선택 바텀시트
     
     var musicAddChoiceBottomSheet: some View {
@@ -219,7 +245,7 @@ private struct MusicSelectionCell: View {
 #Preview {
     BoxStartGuideView(
         store: .init(
-            initialState: .init(senderInfo: .mock, boxDesigns: .mock, selectedBox: .mock, isMusicBottomSheetPresented: true),
+            initialState: .init(senderInfo: .mock, boxDesigns: .mock, selectedBox: .mock),
             reducer: {
                 BoxStartGuideFeature()
             }

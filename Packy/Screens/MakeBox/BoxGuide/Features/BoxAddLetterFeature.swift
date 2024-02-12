@@ -8,9 +8,8 @@
 import ComposableArchitecture
 import Foundation
 
-extension BoxStartGuideFeature {
-
-    // MARK: - Input
+@Reducer
+struct BoxAddLetterFeature: Reducer {
 
     struct LetterInput: Equatable {
         @BindingState var selectedLetterDesign: LetterDesign?
@@ -18,9 +17,33 @@ extension BoxStartGuideFeature {
         var isCompleted: Bool { letter.isEmpty == false }
     }
 
+    struct State: Equatable {
+        @BindingState var letterInput: LetterInput = .init()
+        @BindingState var isLetterBottomSheetPresented: Bool = false
+        var savedLetter: LetterInput = .init()
+        var letterDesigns: [LetterDesign] = []
+    }
+
+    enum Action: BindableAction {
+        case binding(BindingAction<State>)
+
+        case letterInputButtonTapped
+        case letterSaveButtonTapped
+        case letterBottomSheetCloseButtonTapped
+        case closeLetterSheetAlertConfirmTapped
+
+        case _fetchLetterDesigns
+        case _setLetterDesigns([LetterDesign])
+    }
+
+    @Dependency(\.packyAlert) var packyAlert
+    @Dependency(\.designClient) var designClient
+
     // MARK: - Reducer
 
-    var letterReducer: some Reducer<State, Action> {
+    var body: some Reducer<State, Action> {
+        BindingReducer()
+
         Reduce { state, action in
             switch action {
 
@@ -56,12 +79,31 @@ extension BoxStartGuideFeature {
 
             case .closeLetterSheetAlertConfirmTapped:
                 state.letterInput = .init()
-                state.letterInput.selectedLetterDesign = state.letterDesigns.first
+                // state.letterInput.selectedLetterDesign = state.letterDesigns.first
                 state.isLetterBottomSheetPresented = false
+                return .none
+
+            case ._fetchLetterDesigns:
+                return fetchLetterDesigns()
+
+            case let ._setLetterDesigns(letterDesigns):
+                state.letterDesigns = letterDesigns
+                state.letterInput.selectedLetterDesign = letterDesigns.first
                 return .none
 
             default:
                 return .none
+            }
+        }
+    }
+
+    private func fetchLetterDesigns() -> Effect<Action> {
+        .run { send in
+            do {
+                let letterDesigns = try await designClient.fetchLetterDesigns()
+                await send(._setLetterDesigns(letterDesigns))
+            } catch {
+                print(error)
             }
         }
     }

@@ -29,7 +29,9 @@ final class AppleLoginController: NSObject, ASAuthorizationControllerDelegate {
             authorizationController.delegate = self
             authorizationController.performRequests()
 
-            self.continuation = continuation
+            if self.continuation == nil {
+                self.continuation = continuation
+            }
         }
     }
 

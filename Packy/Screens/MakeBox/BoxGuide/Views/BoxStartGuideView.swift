@@ -114,25 +114,15 @@ struct BoxStartGuideView: View {
         }
         // 음악 추가 바텀시트
         .bottomSheet(
-            isPresented: viewStore.$isMusicBottomSheetPresented,
-            currentDetent: .constant(viewStore.musicInput.musicBottomSheetMode.detent),
-            detents: viewStore.musicInput.musicSheetDetents,
-            showLeadingButton: viewStore.musicInput.musicBottomSheetMode != .choice,
-            leadingButtonAction: { viewStore.send(.musicBottomSheetBackButtonTapped) },
-            closeButtonAction: { viewStore.send(.musicBottomSheetCloseButtonTapped) },
+            isPresented: viewStore.$selectMusic.isMusicBottomSheetPresented,
+            currentDetent: .constant(viewStore.selectMusic.musicInput.musicBottomSheetMode.detent),
+            detents: viewStore.selectMusic.musicInput.musicSheetDetents,
+            showLeadingButton: viewStore.selectMusic.musicInput.musicBottomSheetMode != .choice,
+            leadingButtonAction: { viewStore.send(.selectMusic(.musicBottomSheetBackButtonTapped)) },
+            closeButtonAction: { viewStore.send(.selectMusic(.musicBottomSheetCloseButtonTapped)) },
             isDismissible: false
         )  {
-            VStack {
-                switch viewStore.musicInput.musicBottomSheetMode {
-                case .choice:
-                    musicAddChoiceBottomSheet
-                case .userSelect:
-                    musicUserSelectBottomSheet
-                case .recommend:
-                    musicRecommendationBottomSheet
-                }
-            }
-            .animation(.easeInOut, value: viewStore.musicInput.musicBottomSheetMode.detent)
+            SelectMusicBottomSheet(store: store.scope(state: \.selectMusic, action: \.selectMusic))
         }
         // 사진 추가 바텀시트
         .bottomSheet(
@@ -145,12 +135,12 @@ struct BoxStartGuideView: View {
         }
         // 편지 쓰기 바텀시트
         .bottomSheet(
-            isPresented: viewStore.$isLetterBottomSheetPresented,
+            isPresented: viewStore.$addLetter.isLetterBottomSheetPresented,
             detents: [.large],
-            closeButtonAction: { viewStore.send(.letterBottomSheetCloseButtonTapped) },
+            closeButtonAction: { viewStore.send(.addLetter(.letterBottomSheetCloseButtonTapped)) },
             isDismissible: false
         ) {
-            LetterBottomSheet(viewStore: viewStore)
+            LetterBottomSheet(store: store.scope(state: \.addLetter, action: \.addLetter))
         }
         // 스티커 추가 바텀 시트
         .bottomSheet(
@@ -231,34 +221,35 @@ private extension BoxStartGuideView {
 
     @ViewBuilder
     func letterView(_ screenWidth: CGFloat) -> some View {
-        if viewStore.savedLetter.isCompleted {
+        if viewStore.addLetter.savedLetter.isCompleted {
             LetterElementView(
-                lettetContent: viewStore.savedLetter.letter,
-                letterImageUrl: viewStore.savedLetter.selectedLetterDesign?.imageUrl ?? "",
+                lettetContent: viewStore.addLetter.savedLetter.letter,
+                letterImageUrl: viewStore.addLetter.savedLetter.selectedLetterDesign?.imageUrl ?? "",
                 screenWidth: screenWidth
             ) {
-                viewStore.send(.letterInputButtonTapped)
+                viewStore.send(.addLetter(.letterInputButtonTapped))
             }
         } else {
             ElementGuideView(element: .letter, screenWidth: screenWidth) {
-                viewStore.send(.letterInputButtonTapped)
+                viewStore.send(.addLetter(.letterInputButtonTapped))
             }
         }
     }
 
     @ViewBuilder
     func musicView(_ screenWidth: CGFloat) -> some View {
-        if let musicUrl = viewStore.savedMusic.selectedMusicUrl {
+        if let musicUrl = viewStore.selectMusic.savedMusic.selectedMusicUrl {
             MusicElementView(
                 youtubeUrl: musicUrl,
                 screenWidth: screenWidth,
+                deleteAction: {
+                    viewStore.send(.selectMusic(.musicLinkDeleteButtonTapped))
+                },
                 isPresentCloseButton: true
-            ) {
-                viewStore.send(.musicLinkDeleteButtonTapped)
-            }
+            )
         } else {
             ElementGuideView(element: .music, screenWidth: screenWidth) {
-                viewStore.send(.musicSelectButtonTapped)
+                viewStore.send(.selectMusic(.musicSelectButtonTapped))
             }
         }
     }

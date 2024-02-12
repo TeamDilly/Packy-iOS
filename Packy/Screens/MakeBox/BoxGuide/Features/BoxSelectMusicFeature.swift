@@ -6,11 +6,11 @@
 //
 
 import ComposableArchitecture
-import Foundation
 import SwiftUI
 
-extension BoxStartGuideFeature {
-    
+@Reducer
+struct BoxSelectMusicFeature: Reducer {
+
     // MARK: - Input
 
     struct MusicInput: Equatable {
@@ -27,11 +27,49 @@ extension BoxStartGuideFeature {
         var isCompleted: Bool { selectedMusicUrl != nil }
     }
 
+
+    struct State: Equatable {
+        @BindingState var isMusicBottomSheetPresented: Bool = false
+        @BindingState var musicInput: MusicInput = .init()
+        var savedMusic: MusicInput = .init()
+        var recommendedMusics: [RecommendedMusic] = []
+    }
+
+    enum Action: BindableAction {
+        case binding(BindingAction<State>)
+
+        case musicSelectButtonTapped
+        case musicBottomSheetBackButtonTapped
+        case musicChoiceUserSelectButtonTapped
+        case musicChoiceRecommendButtonTapped
+        case musicLinkConfirmButtonTapped
+        case musicSaveButtonTapped
+        case musicLinkDeleteButtonTapped
+        case musicLinkDeleteButtonInSheetTapped
+        case musicBottomSheetCloseButtonTapped
+        case closeMusicSheetAlertConfirmTapped
+
+        case _fetchRecommendedMusics
+        case _setDetents(Set<PresentationDetent>)
+        case _setRecommendedMusics([RecommendedMusic])
+        case _setShowInvalidMusicUrlError(Bool)
+        case _setSelectedMusicUrl(String)
+    }
+
+    @Dependency(\.continuousClock) var clock
+    @Dependency(\.packyAlert) var packyAlert
+    @Dependency(\.designClient) var designClient
+
     // MARK: - Reducer
 
-    var musicReducer: some Reducer<State, Action> {
+    var body: some Reducer<State, Action> {
+        BindingReducer()
+
         Reduce { state, action in
             switch action {
+            case ._fetchRecommendedMusics:
+                return fetchRecommendedMusics()
+
             case .musicSelectButtonTapped:
                 state.musicInput = state.savedMusic
                 state.isMusicBottomSheetPresented = true
@@ -94,6 +132,10 @@ extension BoxStartGuideFeature {
                 state.musicInput.selectedMusicUrl = nil
                 return .none
 
+            case let ._setRecommendedMusics(recommendedMusics):
+                state.recommendedMusics = recommendedMusics
+                return .none
+
             case let ._setDetents(detents):
                 state.musicInput.musicSheetDetents = detents
                 return .none
@@ -134,11 +176,12 @@ extension BoxStartGuideFeature {
             }
         }
     }
+
 }
 
 // MARK: - Inner Functions
 
-private extension BoxStartGuideFeature {
+private extension BoxSelectMusicFeature {
     /// 바텀시트의 detent를 변경함으로서 사이즈를 조절할 때, 가능한 detents들에 전후의 detent가 포함되어 있어야 애니메이션 적용됨
     /// 하지만, 모두 주면 아예 detent 를 변경할 수 있는 형태가 되기에, 0.1 초 후에 detents 변경
     func changeDetentsForSmoothAnimation(for mode: MusicBottomSheetMode) -> Effect<Action> {
@@ -146,6 +189,17 @@ private extension BoxStartGuideFeature {
             await send(._setDetents(MusicBottomSheetMode.allDetents))
             try? await clock.sleep(for: .seconds(0.1))
             await send(._setDetents([mode.detent]))
+        }
+    }
+
+    func fetchRecommendedMusics() -> Effect<Action> {
+        .run { send in
+            do {
+                let recommendedMusics = try await designClient.fetchRecommendedMusics()
+                await send(._setRecommendedMusics(recommendedMusics))
+            } catch {
+                print(error)
+            }
         }
     }
 }
