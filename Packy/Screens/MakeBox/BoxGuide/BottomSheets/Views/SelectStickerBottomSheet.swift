@@ -6,12 +6,19 @@
 //
 
 import SwiftUI
-import Kingfisher
+import ComposableArchitecture
 
-// TODO: 하위 뷰, 리듀서로 분리
+struct SelectStickerBottomSheet: View {
 
-extension BoxStartGuideView {
-    var addStickerBottomSheet: some View {
+    private let store: StoreOf<SelectStickerFeature>
+    @ObservedObject var viewStore: ViewStoreOf<SelectStickerFeature>
+
+    init(store: StoreOf<SelectStickerFeature>) {
+        self.store = store
+        self.viewStore = ViewStore(store, observe: { $0 })
+    }
+
+    var body: some View {
         ScrollView {
             VStack(spacing: 0) {
                 HStack(alignment: .top) {
@@ -28,7 +35,7 @@ extension BoxStartGuideView {
                     }
                     
                     Button("확인") {
-                        viewStore.send(.binding(.set(\.$isStickerBottomSheetPresented, false)))
+                        viewStore.send(.stickerConfirmButtonTapped)
                     }
                     .buttonStyle(.text)
                 }
@@ -97,7 +104,7 @@ private struct StickerCell: View {
 #Preview {
     BoxStartGuideView(
         store: .init(
-            initialState: .init(senderInfo: .mock, boxDesigns: .mock, selectedBox: .mock, isStickerBottomSheetPresented: true),
+            initialState: .init(senderInfo: .mock, boxDesigns: .mock, selectedBox: .mock),
             reducer: {
                 BoxStartGuideFeature()
                 // ._printChanges()

@@ -1,5 +1,5 @@
 //
-//  BoxStartGuideFeature+Music.swift
+//  SelectMusicFeature.swift
 //  Packy
 //
 //  Created by Mason Kim on 1/27/24.
@@ -9,7 +9,7 @@ import ComposableArchitecture
 import SwiftUI
 
 @Reducer
-struct BoxSelectMusicFeature: Reducer {
+struct SelectMusicFeature: Reducer {
 
     // MARK: - Input
 
@@ -181,7 +181,7 @@ struct BoxSelectMusicFeature: Reducer {
 
 // MARK: - Inner Functions
 
-private extension BoxSelectMusicFeature {
+private extension SelectMusicFeature {
     /// 바텀시트의 detent를 변경함으로서 사이즈를 조절할 때, 가능한 detents들에 전후의 detent가 포함되어 있어야 애니메이션 적용됨
     /// 하지만, 모두 주면 아예 detent 를 변경할 수 있는 형태가 되기에, 0.1 초 후에 detents 변경
     func changeDetentsForSmoothAnimation(for mode: MusicBottomSheetMode) -> Effect<Action> {

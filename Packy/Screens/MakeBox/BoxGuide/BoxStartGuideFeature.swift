@@ -19,23 +19,21 @@ struct BoxStartGuideFeature: Reducer {
 
         var isShowingGuideText: Bool = false
 
-        @BindingState var addPhoto: BoxAddPhotoFeature.State = .init()
-        @BindingState var addLetter: BoxAddLetterFeature.State = .init()
-        @BindingState var selectMusic: BoxSelectMusicFeature.State = .init()
-        @BindingState var addGift: BoxAddGiftFeature.State = .init()
+        @BindingState var addPhoto: AddPhotoFeature.State = .init()
+        @BindingState var writeLetter: WriteLetterFeature.State = .init()
+        @BindingState var selectMusic: SelectMusicFeature.State = .init()
+        @BindingState var addGift: AddGiftFeature.State = .init()
+        @BindingState var selectSticker: SelectStickerFeature.State = .init()
 
-        @BindingState var isStickerBottomSheetPresented: Bool = false
         @BindingState var isSelectBoxBottomSheetPresented: Bool = false
 
-        var stickerDesigns: [StickerDesignResponse] = []
-        var selectedStickers: [StickerDesign] = []
-
+        // TODO: 각 리듀서의 프로퍼티로 변경하기
         /// 모든 요소가 입력되어서, 완성할 수 있는 상태인지
         var isCompletable: Bool {
             selectMusic.savedMusic.isCompleted &&
             addPhoto.savedPhoto.isCompleted &&
-            addLetter.savedLetter.isCompleted &&
-            selectedStickers.count == 2
+            writeLetter.savedLetter.isCompleted &&
+            selectSticker.selectedStickers.count == 2
         }
     }
 
@@ -51,8 +49,6 @@ struct BoxStartGuideFeature: Reducer {
         case makeBoxAlertConfirmButtonTapped
 
         // 스티커
-        case fetchMoreStickers
-        case stickerTapped(StickerDesign)
 
         // 박스
         case selectBox(BoxDesign)
@@ -63,13 +59,14 @@ struct BoxStartGuideFeature: Reducer {
         // MARK: Inner SetState Action
 
         case _setIsShowingGuideText(Bool)
-        case _setStickerDesigns(StickerDesignResponse)
+        
 
         // MARK: Child Action
-        case addPhoto(BoxAddPhotoFeature.Action)
-        case addLetter(BoxAddLetterFeature.Action)
-        case selectMusic(BoxSelectMusicFeature.Action)
-        case addGift(BoxAddGiftFeature.Action)
+        case addPhoto(AddPhotoFeature.Action)
+        case writeLetter(WriteLetterFeature.Action)
+        case selectMusic(SelectMusicFeature.Action)
+        case addGift(AddGiftFeature.Action)
+        case selectSticker(SelectStickerFeature.Action)
 
         // MARK: Delegate Action
         enum Delegate {
@@ -88,10 +85,11 @@ struct BoxStartGuideFeature: Reducer {
     var body: some Reducer<State, Action> {
         BindingReducer()
 
-        Scope(state: \.addPhoto, action: \.addPhoto) { BoxAddPhotoFeature() }
-        Scope(state: \.addLetter, action: \.addLetter) { BoxAddLetterFeature() }
-        Scope(state: \.selectMusic, action: \.selectMusic) { BoxSelectMusicFeature() }
-        Scope(state: \.addGift, action: \.addGift) { BoxAddGiftFeature() }
+        Scope(state: \.addPhoto, action: \.addPhoto) { AddPhotoFeature() }
+        Scope(state: \.writeLetter, action: \.writeLetter) { WriteLetterFeature() }
+        Scope(state: \.selectMusic, action: \.selectMusic) { SelectMusicFeature() }
+        Scope(state: \.addGift, action: \.addGift) { AddGiftFeature() }
+        Scope(state: \.selectSticker, action: \.selectSticker) { SelectStickerFeature() }
 
         Reduce<State, Action> { state, action in
             switch action {
@@ -105,14 +103,10 @@ struct BoxStartGuideFeature: Reducer {
                 return .merge(
                     showGuideTextIfNeeded(),
                     // 디자인들 조회...
-                    .send(.addLetter(._fetchLetterDesigns)),
+                    .send(.writeLetter(._fetchLetterDesigns)),
                     .send(.selectMusic(._fetchRecommendedMusics)),
-                    fetchStickerDesigns()
+                    .send(.selectSticker(._fetchStickerDesigns))
                 )
-
-            case .fetchMoreStickers:
-                let lastStickerId = state.stickerDesigns.last?.contents.last?.id ?? 0
-                return fetchStickerDesigns(lastStickerId: lastStickerId)
 
             case let ._setIsShowingGuideText(isShowing):
                 state.isShowingGuideText = isShowing
@@ -122,21 +116,6 @@ struct BoxStartGuideFeature: Reducer {
 
             // MARK: Sticker
 
-            case let .stickerTapped(sticker):
-                // 이미 해당 스티커가 존재하면 삭제
-                if let index = state.selectedStickers.firstIndex(of: sticker) {
-                    state.selectedStickers.remove(at: index)
-                    return .none
-                }
-
-                // 2개 까지만 선택
-                guard state.selectedStickers.count < 2 else { return .none }
-                state.selectedStickers.append(sticker)
-                return .none
-
-            case let ._setStickerDesigns(response):
-                state.stickerDesigns.append(response)
-                return .none
 
             // MARK: Box
 
@@ -191,25 +170,12 @@ private extension BoxStartGuideFeature {
         )
     }
 
-
-
-    func fetchStickerDesigns(lastStickerId: Int? = nil) -> Effect<Action> {
-        .run { send in
-            do {
-                let response = try await designClient.fetchStickerDesigns(lastStickerId)
-                await send(._setStickerDesigns(response))
-            } catch {
-                print(error)
-            }
-        }
-    }
-
     func giftBoxFrom(state: State) -> SendingGiftBox {
         let senderName = state.senderInfo.sender
         let receiverName = state.senderInfo.receiver
         let boxId = state.selectedBox?.id
-        let envelopeId = state.addLetter.savedLetter.selectedLetterDesign?.id ?? 0
-        let letterContent = state.addLetter.savedLetter.letter
+        let envelopeId = state.writeLetter.savedLetter.selectedLetterDesign?.id ?? 0
+        let letterContent = state.writeLetter.savedLetter.letter
         let youtubeUrl = state.selectMusic.savedMusic.selectedMusicUrl ?? ""
         let photo = Photo(
             photoUrl: state.addPhoto.savedPhoto.photoUrl ?? "",
@@ -224,7 +190,7 @@ private extension BoxStartGuideFeature {
             gift = nil
         }
 
-        let stickers: [SendingSticker] = state.selectedStickers.enumerated().map { index, stickerDesign in
+        let stickers: [SendingSticker] = state.selectSticker.selectedStickers.enumerated().map { index, stickerDesign in
             SendingSticker(id: stickerDesign.id, location: index)
         }
 

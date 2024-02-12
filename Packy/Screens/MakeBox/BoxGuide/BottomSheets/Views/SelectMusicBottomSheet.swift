@@ -1,5 +1,5 @@
 //
-//  BoxStartGuideView+MusicSheet.swift
+//  SelectMusicBottomSheet.swift
 //  Packy
 //
 //  Created by Mason Kim on 1/19/24.
@@ -10,10 +10,10 @@ import ComposableArchitecture
 
 struct SelectMusicBottomSheet: View {
 
-    private let store: StoreOf<BoxSelectMusicFeature>
-    @ObservedObject var viewStore: ViewStoreOf<BoxSelectMusicFeature>
+    private let store: StoreOf<SelectMusicFeature>
+    @ObservedObject var viewStore: ViewStoreOf<SelectMusicFeature>
 
-    init(store: StoreOf<BoxSelectMusicFeature>) {
+    init(store: StoreOf<SelectMusicFeature>) {
         self.store = store
         self.viewStore = ViewStore(store, observe: { $0 })
     }

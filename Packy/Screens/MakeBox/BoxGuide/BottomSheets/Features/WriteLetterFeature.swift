@@ -1,5 +1,5 @@
 //
-//  BoxStartGuideFeature+Letter.swift
+//  WriteLetterFeature.swift
 //  Packy
 //
 //  Created by Mason Kim on 1/27/24.
@@ -9,7 +9,7 @@ import ComposableArchitecture
 import Foundation
 
 @Reducer
-struct BoxAddLetterFeature: Reducer {
+struct WriteLetterFeature: Reducer {
 
     struct LetterInput: Equatable {
         @BindingState var selectedLetterDesign: LetterDesign?
@@ -19,7 +19,7 @@ struct BoxAddLetterFeature: Reducer {
 
     struct State: Equatable {
         @BindingState var letterInput: LetterInput = .init()
-        var isLetterBottomSheetPresented: Bool = false
+        var isWriteLetterBottomSheetPresented: Bool = false
         var savedLetter: LetterInput = .init()
         var letterDesigns: [LetterDesign] = []
     }
@@ -29,7 +29,7 @@ struct BoxAddLetterFeature: Reducer {
 
         case letterInputButtonTapped
         case letterSaveButtonTapped
-        case letterBottomSheetCloseButtonTapped
+        case WriteLetterBottomSheetCloseButtonTapped
         case closeLetterSheetAlertConfirmTapped
 
         case _fetchLetterDesigns
@@ -49,17 +49,17 @@ struct BoxAddLetterFeature: Reducer {
 
             case .letterInputButtonTapped:
                 state.letterInput = state.savedLetter
-                state.isLetterBottomSheetPresented = true
+                state.isWriteLetterBottomSheetPresented = true
                 return .none
 
             case .letterSaveButtonTapped:
                 state.savedLetter = state.letterInput
-                state.isLetterBottomSheetPresented = false
+                state.isWriteLetterBottomSheetPresented = false
                 return .none
 
-            case .letterBottomSheetCloseButtonTapped:
+            case .WriteLetterBottomSheetCloseButtonTapped:
                 guard state.savedLetter.isCompleted == false, state.letterInput.isCompleted else {
-                    state.isLetterBottomSheetPresented = false
+                    state.isWriteLetterBottomSheetPresented = false
                     return .none
                 }
 
@@ -80,7 +80,7 @@ struct BoxAddLetterFeature: Reducer {
             case .closeLetterSheetAlertConfirmTapped:
                 state.letterInput = .init()
                 // state.letterInput.selectedLetterDesign = state.letterDesigns.first
-                state.isLetterBottomSheetPresented = false
+                state.isWriteLetterBottomSheetPresented = false
                 return .none
 
             case ._fetchLetterDesigns:

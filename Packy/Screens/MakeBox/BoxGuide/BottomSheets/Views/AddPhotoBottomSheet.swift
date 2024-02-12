@@ -9,11 +9,11 @@ import SwiftUI
 import ComposableArchitecture
 
 struct AddPhotoBottomSheet: View {
-    private let store: StoreOf<BoxAddPhotoFeature>
-    @ObservedObject var viewStore: ViewStoreOf<BoxAddPhotoFeature>
+    private let store: StoreOf<AddPhotoFeature>
+    @ObservedObject var viewStore: ViewStoreOf<AddPhotoFeature>
     @FocusState private var textFieldFocused: Bool
 
-    init(store: StoreOf<BoxAddPhotoFeature>) {
+    init(store: StoreOf<AddPhotoFeature>) {
         self.store = store
         self.viewStore = ViewStore(store, observe: { $0 })
     }

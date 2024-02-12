@@ -1,5 +1,5 @@
 //
-//  BoxStartGuideView+LetterSheet.swift
+//  WriteLetterBottomSheet.swift
 //  Packy
 //
 //  Created by Mason Kim on 1/20/24.
@@ -9,14 +9,14 @@ import SwiftUI
 import ComposableArchitecture
 import Kingfisher
 
-struct LetterBottomSheet: View {
-    private let store: StoreOf<BoxAddLetterFeature>
-    @ObservedObject var viewStore: ViewStoreOf<BoxAddLetterFeature>
+struct WriteLetterBottomSheet: View {
+    private let store: StoreOf<WriteLetterFeature>
+    @ObservedObject var viewStore: ViewStoreOf<WriteLetterFeature>
 
     @FocusState private var isLetterFieldFocused: Bool
     @State private var hideNonInputViews: Bool = false
 
-    init(store: StoreOf<BoxAddLetterFeature>) {
+    init(store: StoreOf<WriteLetterFeature>) {
         self.store = store
         self.viewStore = ViewStore(store, observe: { $0 })
     }

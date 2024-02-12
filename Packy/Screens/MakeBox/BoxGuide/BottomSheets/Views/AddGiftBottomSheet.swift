@@ -1,5 +1,5 @@
 //
-//  BoxStartGuideView+AddGiftSheet.swift
+//  AddGiftBottomSheet.swift
 //  Packy
 //
 //  Created by Mason Kim on 1/24/24.
@@ -8,11 +8,11 @@
 import SwiftUI
 import ComposableArchitecture
 
-struct BoxAddGiftBottomSheet: View {
-    private let store: StoreOf<BoxAddGiftFeature>
-    @ObservedObject var viewStore: ViewStoreOf<BoxAddGiftFeature>
+struct AddGiftBottomSheet: View {
+    private let store: StoreOf<AddGiftFeature>
+    @ObservedObject var viewStore: ViewStoreOf<AddGiftFeature>
 
-    init(store: StoreOf<BoxAddGiftFeature>) {
+    init(store: StoreOf<AddGiftFeature>) {
         self.store = store
         self.viewStore = ViewStore(store, observe: { $0 })
     }

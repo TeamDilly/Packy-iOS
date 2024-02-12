@@ -9,7 +9,7 @@ import ComposableArchitecture
 import Foundation
 
 @Reducer
-struct BoxAddPhotoFeature: Reducer {
+struct AddPhotoFeature: Reducer {
 
     // MARK: - Input
 

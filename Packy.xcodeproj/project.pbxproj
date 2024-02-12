@@ -15,13 +15,13 @@
 		E5001F932B5BE5DD004B65E6 /* PreSignedUrlResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5001F922B5BE5DD004B65E6 /* PreSignedUrlResponse.swift */; };
 		E5001F962B5BEAF6004B65E6 /* URL+Trimming.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5001F952B5BEAF6004B65E6 /* URL+Trimming.swift */; };
 		E52037D12B63F97900721F76 /* NetworkImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52037D02B63F97900721F76 /* NetworkImage.swift */; };
-		E52037D52B641FF900721F76 /* BoxAddPhotoFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52037D42B641FF900721F76 /* BoxAddPhotoFeature.swift */; };
-		E52037D72B64203E00721F76 /* BoxSelectMusicFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52037D62B64203E00721F76 /* BoxSelectMusicFeature.swift */; };
-		E52037D92B6420E100721F76 /* BoxAddLetterFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52037D82B6420E100721F76 /* BoxAddLetterFeature.swift */; };
-		E52037DD2B64213600721F76 /* BoxStartGuideFeature+Gift.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52037DC2B64213600721F76 /* BoxStartGuideFeature+Gift.swift */; };
+		E52037D52B641FF900721F76 /* AddPhotoFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52037D42B641FF900721F76 /* AddPhotoFeature.swift */; };
+		E52037D72B64203E00721F76 /* SelectMusicFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52037D62B64203E00721F76 /* SelectMusicFeature.swift */; };
+		E52037D92B6420E100721F76 /* WriteLetterFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52037D82B6420E100721F76 /* WriteLetterFeature.swift */; };
+		E52037DD2B64213600721F76 /* AddGiftFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52037DC2B64213600721F76 /* AddGiftFeature.swift */; };
 		E52470ED2B612DD3003D49DE /* TextButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52470EC2B612DD3003D49DE /* TextButtonStyle.swift */; };
 		E52470EF2B6134EE003D49DE /* Array+SafeIndex.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52470EE2B6134EE003D49DE /* Array+SafeIndex.swift */; };
-		E52470F22B6142EB003D49DE /* BoxStartGuideView+AddGiftSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52470F12B6142EB003D49DE /* BoxStartGuideView+AddGiftSheet.swift */; };
+		E52470F22B6142EB003D49DE /* AddGiftBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52470F12B6142EB003D49DE /* AddGiftBottomSheet.swift */; };
 		E52470F42B6144D7003D49DE /* PhotoPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52470F32B6144D7003D49DE /* PhotoPicker.swift */; };
 		E5257CB22B6936CD000A091E /* ReadableScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5257CB12B6936CD000A091E /* ReadableScrollView.swift */; };
 		E5257CB42B693FB9000A091E /* ImageViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5257CB32B693FB9000A091E /* ImageViewer.swift */; };
@@ -67,8 +67,9 @@
 		E55D16D12B6CF458005E71A4 /* KakaoShareMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55D16D02B6CF458005E71A4 /* KakaoShareMessage.swift */; };
 		E55DAE822B75E30F00208878 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55DAE812B75E30F00208878 /* LoadingView.swift */; };
 		E55DAE842B76376000208878 /* Print+Override.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55DAE832B76376000208878 /* Print+Override.swift */; };
+		E56344162B79E09700AC411B /* SelectStickerFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56344152B79E09700AC411B /* SelectStickerFeature.swift */; };
 		E58048C12B5BF0D200B974B3 /* UIImage+Compression.swift in Sources */ = {isa = PBXBuildFile; fileRef = E58048C02B5BF0D200B974B3 /* UIImage+Compression.swift */; };
-		E58048C32B5BFF3800B974B3 /* LetterBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = E58048C22B5BFF3800B974B3 /* LetterBottomSheet.swift */; };
+		E58048C32B5BFF3800B974B3 /* WriteLetterBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = E58048C22B5BFF3800B974B3 /* WriteLetterBottomSheet.swift */; };
 		E58048C92B5C36DD00B974B3 /* CornerRadiusWithBorderModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = E58048C82B5C36DD00B974B3 /* CornerRadiusWithBorderModifier.swift */; };
 		E58048CB2B5C394700B974B3 /* Snackbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = E58048CA2B5C394700B974B3 /* Snackbar.swift */; };
 		E58048CD2B5CE2A300B974B3 /* UIScreen+CheckScreenSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = E58048CC2B5CE2A300B974B3 /* UIScreen+CheckScreenSize.swift */; };
@@ -87,7 +88,7 @@
 		E5A416AD2B5D218E00313E5A /* MessageDesign.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A416AC2B5D218D00313E5A /* MessageDesign.swift */; };
 		E5A416AF2B5D21B700313E5A /* LetterDesign.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A416AE2B5D21B700313E5A /* LetterDesign.swift */; };
 		E5A416B12B5D220B00313E5A /* BoxDesign.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A416B02B5D220B00313E5A /* BoxDesign.swift */; };
-		E5A416B32B5D350C00313E5A /* BoxStartGuideView+StickerSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A416B22B5D350C00313E5A /* BoxStartGuideView+StickerSheet.swift */; };
+		E5A416B32B5D350C00313E5A /* SelectStickerBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A416B22B5D350C00313E5A /* SelectStickerBottomSheet.swift */; };
 		E5A416B52B5D439300313E5A /* PackyAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A416B42B5D439300313E5A /* PackyAlert.swift */; };
 		E5A59BE22B72792400D120CF /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A59BE12B72792400D120CF /* Profile.swift */; };
 		E5A59BE42B727D7500D120CF /* GiftBoxesRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A59BE32B727D7500D120CF /* GiftBoxesRequest.swift */; };
@@ -216,7 +217,7 @@
 		E5E06B442B654FC500F6FD01 /* SentGiftBoxInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E06B432B654FC500F6FD01 /* SentGiftBoxInfo.swift */; };
 		E5E5110D2B6915CA00CE86AF /* BoxDetailPhotoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E5110C2B6915CA00CE86AF /* BoxDetailPhotoView.swift */; };
 		E5E5110F2B69212900CE86AF /* BoxDetailLetterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E5110E2B69212900CE86AF /* BoxDetailLetterView.swift */; };
-		E5E73D4A2B597C0200729D99 /* BoxStartGuideView+MusicSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E73D492B597C0200729D99 /* BoxStartGuideView+MusicSheet.swift */; };
+		E5E73D4A2B597C0200729D99 /* SelectMusicBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E73D492B597C0200729D99 /* SelectMusicBottomSheet.swift */; };
 		E5E73D4C2B597CB600729D99 /* AddPhotoBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E73D4B2B597CB600729D99 /* AddPhotoBottomSheet.swift */; };
 		E5E73D962B74F1950097D871 /* ColorFromServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E73D952B74F1950097D871 /* ColorFromServer.swift */; };
 		E5E73DB72B7509F50097D871 /* Box_motion_make_4.json in Resources */ = {isa = PBXBuildFile; fileRef = E5E73D9E2B7509F40097D871 /* Box_motion_make_4.json */; };
@@ -246,13 +247,13 @@
 		E5001F922B5BE5DD004B65E6 /* PreSignedUrlResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreSignedUrlResponse.swift; sourceTree = "<group>"; };
 		E5001F952B5BEAF6004B65E6 /* URL+Trimming.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+Trimming.swift"; sourceTree = "<group>"; };
 		E52037D02B63F97900721F76 /* NetworkImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkImage.swift; sourceTree = "<group>"; };
-		E52037D42B641FF900721F76 /* BoxAddPhotoFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoxAddPhotoFeature.swift; sourceTree = "<group>"; };
-		E52037D62B64203E00721F76 /* BoxSelectMusicFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoxSelectMusicFeature.swift; sourceTree = "<group>"; };
-		E52037D82B6420E100721F76 /* BoxAddLetterFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoxAddLetterFeature.swift; sourceTree = "<group>"; };
-		E52037DC2B64213600721F76 /* BoxStartGuideFeature+Gift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BoxStartGuideFeature+Gift.swift"; sourceTree = "<group>"; };
+		E52037D42B641FF900721F76 /* AddPhotoFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPhotoFeature.swift; sourceTree = "<group>"; };
+		E52037D62B64203E00721F76 /* SelectMusicFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectMusicFeature.swift; sourceTree = "<group>"; };
+		E52037D82B6420E100721F76 /* WriteLetterFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteLetterFeature.swift; sourceTree = "<group>"; };
+		E52037DC2B64213600721F76 /* AddGiftFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddGiftFeature.swift; sourceTree = "<group>"; };
 		E52470EC2B612DD3003D49DE /* TextButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextButtonStyle.swift; sourceTree = "<group>"; };
 		E52470EE2B6134EE003D49DE /* Array+SafeIndex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+SafeIndex.swift"; sourceTree = "<group>"; };
-		E52470F12B6142EB003D49DE /* BoxStartGuideView+AddGiftSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BoxStartGuideView+AddGiftSheet.swift"; sourceTree = "<group>"; };
+		E52470F12B6142EB003D49DE /* AddGiftBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddGiftBottomSheet.swift; sourceTree = "<group>"; };
 		E52470F32B6144D7003D49DE /* PhotoPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPicker.swift; sourceTree = "<group>"; };
 		E5257CB12B6936CD000A091E /* ReadableScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadableScrollView.swift; sourceTree = "<group>"; };
 		E5257CB32B693FB9000A091E /* ImageViewer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewer.swift; sourceTree = "<group>"; };
@@ -293,8 +294,9 @@
 		E55D16D02B6CF458005E71A4 /* KakaoShareMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoShareMessage.swift; sourceTree = "<group>"; };
 		E55DAE812B75E30F00208878 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		E55DAE832B76376000208878 /* Print+Override.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Print+Override.swift"; sourceTree = "<group>"; };
+		E56344152B79E09700AC411B /* SelectStickerFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectStickerFeature.swift; sourceTree = "<group>"; };
 		E58048C02B5BF0D200B974B3 /* UIImage+Compression.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Compression.swift"; sourceTree = "<group>"; };
-		E58048C22B5BFF3800B974B3 /* LetterBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LetterBottomSheet.swift; sourceTree = "<group>"; };
+		E58048C22B5BFF3800B974B3 /* WriteLetterBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteLetterBottomSheet.swift; sourceTree = "<group>"; };
 		E58048C82B5C36DD00B974B3 /* CornerRadiusWithBorderModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CornerRadiusWithBorderModifier.swift; sourceTree = "<group>"; };
 		E58048CA2B5C394700B974B3 /* Snackbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Snackbar.swift; sourceTree = "<group>"; };
 		E58048CC2B5CE2A300B974B3 /* UIScreen+CheckScreenSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScreen+CheckScreenSize.swift"; sourceTree = "<group>"; };
@@ -309,7 +311,7 @@
 		E5A416AC2B5D218D00313E5A /* MessageDesign.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageDesign.swift; sourceTree = "<group>"; };
 		E5A416AE2B5D21B700313E5A /* LetterDesign.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LetterDesign.swift; sourceTree = "<group>"; };
 		E5A416B02B5D220B00313E5A /* BoxDesign.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoxDesign.swift; sourceTree = "<group>"; };
-		E5A416B22B5D350C00313E5A /* BoxStartGuideView+StickerSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BoxStartGuideView+StickerSheet.swift"; sourceTree = "<group>"; };
+		E5A416B22B5D350C00313E5A /* SelectStickerBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectStickerBottomSheet.swift; sourceTree = "<group>"; };
 		E5A416B42B5D439300313E5A /* PackyAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackyAlert.swift; sourceTree = "<group>"; };
 		E5A59BE12B72792400D120CF /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
 		E5A59BE32B727D7500D120CF /* GiftBoxesRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GiftBoxesRequest.swift; sourceTree = "<group>"; };
@@ -436,7 +438,7 @@
 		E5E06B432B654FC500F6FD01 /* SentGiftBoxInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SentGiftBoxInfo.swift; sourceTree = "<group>"; };
 		E5E5110C2B6915CA00CE86AF /* BoxDetailPhotoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoxDetailPhotoView.swift; sourceTree = "<group>"; };
 		E5E5110E2B69212900CE86AF /* BoxDetailLetterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoxDetailLetterView.swift; sourceTree = "<group>"; };
-		E5E73D492B597C0200729D99 /* BoxStartGuideView+MusicSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BoxStartGuideView+MusicSheet.swift"; sourceTree = "<group>"; };
+		E5E73D492B597C0200729D99 /* SelectMusicBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectMusicBottomSheet.swift; sourceTree = "<group>"; };
 		E5E73D4B2B597CB600729D99 /* AddPhotoBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPhotoBottomSheet.swift; sourceTree = "<group>"; };
 		E5E73D952B74F1950097D871 /* ColorFromServer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorFromServer.swift; sourceTree = "<group>"; };
 		E5E73D9E2B7509F40097D871 /* Box_motion_make_4.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Box_motion_make_4.json; sourceTree = "<group>"; };
@@ -508,11 +510,11 @@
 		E52037D22B641EE700721F76 /* Features */ = {
 			isa = PBXGroup;
 			children = (
-				E5A7A9E12B57F81400590EA6 /* BoxStartGuideFeature.swift */,
-				E52037D82B6420E100721F76 /* BoxAddLetterFeature.swift */,
-				E52037D42B641FF900721F76 /* BoxAddPhotoFeature.swift */,
-				E52037D62B64203E00721F76 /* BoxSelectMusicFeature.swift */,
-				E52037DC2B64213600721F76 /* BoxStartGuideFeature+Gift.swift */,
+				E52037DC2B64213600721F76 /* AddGiftFeature.swift */,
+				E52037D42B641FF900721F76 /* AddPhotoFeature.swift */,
+				E52037D62B64203E00721F76 /* SelectMusicFeature.swift */,
+				E56344152B79E09700AC411B /* SelectStickerFeature.swift */,
+				E52037D82B6420E100721F76 /* WriteLetterFeature.swift */,
 			);
 			path = Features;
 			sourceTree = "<group>";
@@ -520,23 +522,14 @@
 		E52037D32B641EF800721F76 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				E5A7A9DF2B57F81400590EA6 /* BoxStartGuideView.swift */,
-				E52470F02B6142D1003D49DE /* BottomSheets */,
+				E52470F12B6142EB003D49DE /* AddGiftBottomSheet.swift */,
+				E5E73D4B2B597CB600729D99 /* AddPhotoBottomSheet.swift */,
+				E5551B7E2B6001CC00DB81F3 /* BoxStartGuideView+SelectBoxSheet.swift */,
+				E5E73D492B597C0200729D99 /* SelectMusicBottomSheet.swift */,
+				E5A416B22B5D350C00313E5A /* SelectStickerBottomSheet.swift */,
+				E58048C22B5BFF3800B974B3 /* WriteLetterBottomSheet.swift */,
 			);
 			path = Views;
-			sourceTree = "<group>";
-		};
-		E52470F02B6142D1003D49DE /* BottomSheets */ = {
-			isa = PBXGroup;
-			children = (
-				E5E73D492B597C0200729D99 /* BoxStartGuideView+MusicSheet.swift */,
-				E5E73D4B2B597CB600729D99 /* AddPhotoBottomSheet.swift */,
-				E58048C22B5BFF3800B974B3 /* LetterBottomSheet.swift */,
-				E5A416B22B5D350C00313E5A /* BoxStartGuideView+StickerSheet.swift */,
-				E5551B7E2B6001CC00DB81F3 /* BoxStartGuideView+SelectBoxSheet.swift */,
-				E52470F12B6142EB003D49DE /* BoxStartGuideView+AddGiftSheet.swift */,
-			);
-			path = BottomSheets;
 			sourceTree = "<group>";
 		};
 		E53937842B67B3F1000F3A86 /* Component */ = {
@@ -657,6 +650,15 @@
 				E55DAE812B75E30F00208878 /* LoadingView.swift */,
 			);
 			path = Loading;
+			sourceTree = "<group>";
+		};
+		E56344122B79DF3E00AC411B /* BottomSheets */ = {
+			isa = PBXGroup;
+			children = (
+				E52037D32B641EF800721F76 /* Views */,
+				E52037D22B641EE700721F76 /* Features */,
+			);
+			path = BottomSheets;
 			sourceTree = "<group>";
 		};
 		E586DCCD2B73A0340052E8D7 /* Lottie */ = {
@@ -1248,8 +1250,9 @@
 		E5E73D472B597BCD00729D99 /* BoxGuide */ = {
 			isa = PBXGroup;
 			children = (
-				E52037D32B641EF800721F76 /* Views */,
-				E52037D22B641EE700721F76 /* Features */,
+				E5A7A9DF2B57F81400590EA6 /* BoxStartGuideView.swift */,
+				E5A7A9E12B57F81400590EA6 /* BoxStartGuideFeature.swift */,
+				E56344122B79DF3E00AC411B /* BottomSheets */,
 			);
 			path = BoxGuide;
 			sourceTree = "<group>";
@@ -1433,6 +1436,7 @@
 				E5A7AA532B57F81400590EA6 /* HomeView.swift in Sources */,
 				E5E5110F2B69212900CE86AF /* BoxDetailLetterView.swift in Sources */,
 				E5B22CF62B70F8F2003DAC7B /* SettingMenuType.swift in Sources */,
+				E56344162B79E09700AC411B /* SelectStickerFeature.swift in Sources */,
 				E5E06B312B654A1000F6FD01 /* BoxAddTitleAndShareView.swift in Sources */,
 				E5A416A22B5D076C00313E5A /* PopGestureDisableModifier.swift in Sources */,
 				E54484F22B6F434C003DFA1B /* MyBoxTab.swift in Sources */,
@@ -1446,12 +1450,12 @@
 				E5E06B402B654EF200F6FD01 /* BoxClient.swift in Sources */,
 				E5551B7B2B5FF2AF00DB81F3 /* HTTPSession.swift in Sources */,
 				E5A7AA4E2B57F81400590EA6 /* Font+Packy.swift in Sources */,
-				E58048C32B5BFF3800B974B3 /* LetterBottomSheet.swift in Sources */,
+				E58048C32B5BFF3800B974B3 /* WriteLetterBottomSheet.swift in Sources */,
 				E5A7AA632B57F81400590EA6 /* SignUpNicknameFeature.swift in Sources */,
 				E53937922B67B599000F3A86 /* BoxDetailFeature.swift in Sources */,
 				E5A7AA812B57F81400590EA6 /* SocialLoginInfo.swift in Sources */,
 				E544850F2B6F8E2C003DFA1B /* SettingListCell.swift in Sources */,
-				E52037D52B641FF900721F76 /* BoxAddPhotoFeature.swift in Sources */,
+				E52037D52B641FF900721F76 /* AddPhotoFeature.swift in Sources */,
 				E5A7AA4B2B57F81400590EA6 /* CarouselView.swift in Sources */,
 				E5A7AA5E2B57F81400590EA6 /* TermsAgreementFeature.swift in Sources */,
 				E5A59BE42B727D7500D120CF /* GiftBoxesRequest.swift in Sources */,
@@ -1494,7 +1498,7 @@
 				E5A416A92B5D212300313E5A /* RecommendedMusic.swift in Sources */,
 				E5E06B422B654EF600F6FD01 /* BoxEndpoint.swift in Sources */,
 				E5A7AA4F2B57F81400590EA6 /* PretendardFont.swift in Sources */,
-				E52470F22B6142EB003D49DE /* BoxStartGuideView+AddGiftSheet.swift in Sources */,
+				E52470F22B6142EB003D49DE /* AddGiftBottomSheet.swift in Sources */,
 				E5A7AA422B57F81400590EA6 /* CloseButton.swift in Sources */,
 				E5A7AA832B57F81400590EA6 /* AppleLoginController.swift in Sources */,
 				E5A7AA5F2B57F81400590EA6 /* TermsAgreementView.swift in Sources */,
@@ -1502,7 +1506,7 @@
 				E54485032B6F838C003DFA1B /* HomeFeature+Navigation.swift in Sources */,
 				E54485162B6F9116003DFA1B /* DeleteAccountView.swift in Sources */,
 				E5A7AA742B57F81400590EA6 /* Terms.swift in Sources */,
-				E52037D92B6420E100721F76 /* BoxAddLetterFeature.swift in Sources */,
+				E52037D92B6420E100721F76 /* WriteLetterFeature.swift in Sources */,
 				E55DAE822B75E30F00208878 /* LoadingView.swift in Sources */,
 				E54484FD2B6F8339003DFA1B /* SettingView.swift in Sources */,
 				E586DCE02B73CFB70052E8D7 /* PackyProgress.swift in Sources */,
@@ -1547,13 +1551,13 @@
 				E5A59BE22B72792400D120CF /* Profile.swift in Sources */,
 				E5001F912B5BE44D004B65E6 /* UploadEndpoint.swift in Sources */,
 				E55558282B6E10AC00461352 /* YoutubeLinkValidationResponse.swift in Sources */,
-				E52037D72B64203E00721F76 /* BoxSelectMusicFeature.swift in Sources */,
+				E52037D72B64203E00721F76 /* SelectMusicFeature.swift in Sources */,
 				E5AC66EB2B62AB9900F3CBF0 /* PackyAlertClient.swift in Sources */,
 				E5A7AA502B57F81400590EA6 /* BottomSheetModifier.swift in Sources */,
 				E5FDE0572B6BAC4900E00B00 /* ReceivedGiftBox.swift in Sources */,
 				E5A7AA572B57F81400590EA6 /* BoxStartGuideView.swift in Sources */,
 				E5A7AA7B2B57F81400590EA6 /* TokenInfoResponse.swift in Sources */,
-				E52037DD2B64213600721F76 /* BoxStartGuideFeature+Gift.swift in Sources */,
+				E52037DD2B64213600721F76 /* AddGiftFeature.swift in Sources */,
 				E544850B2B6F8A34003DFA1B /* PackyDivider.swift in Sources */,
 				E54484FE2B6F8339003DFA1B /* SettingFeature.swift in Sources */,
 				E5257CB42B693FB9000A091E /* ImageViewer.swift in Sources */,
@@ -1576,7 +1580,7 @@
 				E5A7AA842B57F81400590EA6 /* SocialLoginClient.swift in Sources */,
 				E5551B792B5FE8E300DB81F3 /* TokenInterceptor.swift in Sources */,
 				E5A7AA682B57F81400590EA6 /* OnboardingFeature.swift in Sources */,
-				E5A416B32B5D350C00313E5A /* BoxStartGuideView+StickerSheet.swift in Sources */,
+				E5A416B32B5D350C00313E5A /* SelectStickerBottomSheet.swift in Sources */,
 				E5E06B322B654A1000F6FD01 /* BoxAddTitleAndShareFeature.swift in Sources */,
 				E5A7AA472B57F81400590EA6 /* MusicPlayerView.swift in Sources */,
 				E5A7AA462B57F81400590EA6 /* PackyButton.swift in Sources */,
@@ -1594,7 +1598,7 @@
 				E5A416A52B5D1F8100313E5A /* DesignEndpoint.swift in Sources */,
 				E5001F932B5BE5DD004B65E6 /* PreSignedUrlResponse.swift in Sources */,
 				E5A7AA7E2B57F81400590EA6 /* KeychainClient.swift in Sources */,
-				E5E73D4A2B597C0200729D99 /* BoxStartGuideView+MusicSheet.swift in Sources */,
+				E5E73D4A2B597C0200729D99 /* SelectMusicBottomSheet.swift in Sources */,
 				E52470ED2B612DD3003D49DE /* TextButtonStyle.swift in Sources */,
 				E5A7AA7A2B57F81400590EA6 /* SignInRequest.swift in Sources */,
 				E5001F962B5BEAF6004B65E6 /* URL+Trimming.swift in Sources */,

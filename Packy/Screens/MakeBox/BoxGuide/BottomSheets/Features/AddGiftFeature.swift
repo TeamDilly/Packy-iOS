@@ -1,5 +1,5 @@
 //
-//  BoxStartGuideFeature+Gift.swift
+//  AddGiftFeature.swift
 //  Packy
 //
 //  Created by Mason Kim on 1/27/24.
@@ -8,9 +8,8 @@
 import ComposableArchitecture
 import Foundation
 
-
 @Reducer
-struct BoxAddGiftFeature: Reducer {
+struct AddGiftFeature: Reducer {
 
     struct GiftInput: Equatable {
         var imageUrl: URL?

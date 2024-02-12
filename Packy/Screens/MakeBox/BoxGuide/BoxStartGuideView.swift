@@ -135,21 +135,21 @@ struct BoxStartGuideView: View {
         }
         // 편지 쓰기 바텀시트
         .bottomSheet(
-            isPresented: viewStore.$addLetter.isLetterBottomSheetPresented,
+            isPresented: viewStore.$writeLetter.isWriteLetterBottomSheetPresented,
             detents: [.large],
-            closeButtonAction: { viewStore.send(.addLetter(.letterBottomSheetCloseButtonTapped)) },
+            closeButtonAction: { viewStore.send(.writeLetter(.WriteLetterBottomSheetCloseButtonTapped)) },
             isDismissible: false
         ) {
-            LetterBottomSheet(store: store.scope(state: \.addLetter, action: \.addLetter))
+            WriteLetterBottomSheet(store: store.scope(state: \.writeLetter, action: \.writeLetter))
         }
         // 스티커 추가 바텀 시트
         .bottomSheet(
-            isPresented: viewStore.$isStickerBottomSheetPresented,
+            isPresented: viewStore.$selectSticker.isStickerBottomSheetPresented,
             detents: [.fraction(0.35)],
             isBackgroundBlack: false,
             hideTopButtons: true
         ) {
-            addStickerBottomSheet
+            SelectStickerBottomSheet(store: store.scope(state: \.selectSticker, action: \.selectSticker))
         }
         // 박스 다시 고르기 바텀 시트
         .bottomSheet(
@@ -169,7 +169,7 @@ struct BoxStartGuideView: View {
             },
             isDismissible: false
         ) {
-            BoxAddGiftBottomSheet(store: store.scope(state: \.addGift, action: \.addGift))
+            AddGiftBottomSheet(store: store.scope(state: \.addGift, action: \.addGift))
         }
         .accentColor(.black)
         .navigationBarBackButtonHidden(true)
@@ -221,17 +221,17 @@ private extension BoxStartGuideView {
 
     @ViewBuilder
     func letterView(_ screenWidth: CGFloat) -> some View {
-        if viewStore.addLetter.savedLetter.isCompleted {
+        if viewStore.writeLetter.savedLetter.isCompleted {
             LetterElementView(
-                lettetContent: viewStore.addLetter.savedLetter.letter,
-                letterImageUrl: viewStore.addLetter.savedLetter.selectedLetterDesign?.imageUrl ?? "",
+                lettetContent: viewStore.writeLetter.savedLetter.letter,
+                letterImageUrl: viewStore.writeLetter.savedLetter.selectedLetterDesign?.imageUrl ?? "",
                 screenWidth: screenWidth
             ) {
-                viewStore.send(.addLetter(.letterInputButtonTapped))
+                viewStore.send(.writeLetter(.letterInputButtonTapped))
             }
         } else {
             ElementGuideView(element: .letter, screenWidth: screenWidth) {
-                viewStore.send(.addLetter(.letterInputButtonTapped))
+                viewStore.send(.writeLetter(.letterInputButtonTapped))
             }
         }
     }
@@ -256,32 +256,34 @@ private extension BoxStartGuideView {
 
     @ViewBuilder
     func firstStickerView(_ screenWidth: CGFloat) -> some View {
-        if let firstSticker = viewStore.selectedStickers.first {
+        if let firstSticker = viewStore.selectSticker.selectedStickers.first {
             StickerElementView(
                 stickerType: .sticker1,
                 stickerURL: firstSticker.imageUrl,
-                screenWidth: screenWidth) {
-                    viewStore.send(.binding(.set(\.$isStickerBottomSheetPresented, true)))
-                }
+                screenWidth: screenWidth
+            ) {
+                viewStore.send(.selectSticker(.stickerInputButtonTapped))
+            }
         } else {
             ElementGuideView(element: .sticker1, screenWidth: screenWidth) {
-                viewStore.send(.binding(.set(\.$isStickerBottomSheetPresented, true)))
+                viewStore.send(.selectSticker(.stickerInputButtonTapped))
             }
         }
     }
 
     @ViewBuilder
     func secondStickerView(_ screenWidth: CGFloat) -> some View {
-        if let secondSticker = viewStore.selectedStickers[safe: 1] {
+        if let secondSticker = viewStore.selectSticker.selectedStickers[safe: 1] {
             StickerElementView(
                 stickerType: .sticker2,
                 stickerURL: secondSticker.imageUrl,
-                screenWidth: screenWidth) {
-                    viewStore.send(.binding(.set(\.$isStickerBottomSheetPresented, true)))
-                }
+                screenWidth: screenWidth
+            ) {
+                viewStore.send(.selectSticker(.stickerInputButtonTapped))
+            }
         } else {
             ElementGuideView(element: .sticker2, screenWidth: screenWidth) {
-                viewStore.send(.binding(.set(\.$isStickerBottomSheetPresented, true)))
+                viewStore.send(.selectSticker(.stickerInputButtonTapped))
             }
         }
     }
