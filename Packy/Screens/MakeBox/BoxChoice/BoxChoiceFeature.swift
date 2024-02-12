@@ -52,7 +52,7 @@ struct BoxChoiceFeature: Reducer {
 
         // MARK: Delegate Action
         enum Delegate {
-            case moveToBoxStartGuide(PassingData)
+            case moveToMakeBoxDetail(PassingData)
             case closeMakeBox
         }
         case delegate(Delegate)
@@ -94,7 +94,7 @@ struct BoxChoiceFeature: Reducer {
 
             case .nextButtonTapped:
                 guard !state.didShowBoxMotion else {
-                    return .send(.delegate(.moveToBoxStartGuide(state.passingData)))
+                    return .send(.delegate(.moveToMakeBoxDetail(state.passingData)))
                 }
                 state.didShowBoxMotion = true
                 return showBoxMotion(state.passingData)
@@ -136,7 +136,7 @@ private extension BoxChoiceFeature {
             await send(._setIsPresentingFinishedMotionView(true))
             try? await clock.sleep(for: .seconds(Constants.makeBoxAnimationDuration))
 
-            await send(.delegate(.moveToBoxStartGuide(passingData)))
+            await send(.delegate(.moveToMakeBoxDetail(passingData)))
 
             try? await clock.sleep(for: .seconds(0.1))
             await send(._setIsPresentingFinishedMotionView(false))

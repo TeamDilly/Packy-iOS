@@ -86,7 +86,7 @@ struct WriteLetterFeature: Reducer {
 
             case .closeLetterSheetAlertConfirmTapped:
                 state.letterInput = .init()
-                // state.letterInput.selectedLetterDesign = state.letterDesigns.first
+                state.letterInput.selectedLetterDesign = state.letterDesigns.first
                 state.isWriteLetterBottomSheetPresented = false
                 return .none
 

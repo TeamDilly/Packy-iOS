@@ -71,11 +71,11 @@ struct HomeView: View {
                      then: DeleteAccountView.init
                 )
 
-            case .makeBox:
+            case .boxAddInfo:
                 CaseLet(
-                    \HomeNavigationPath.State.makeBox,
-                     action: HomeNavigationPath.Action.makeBox,
-                     then: MakeBoxView.init
+                    \HomeNavigationPath.State.boxAddInfo,
+                     action: HomeNavigationPath.Action.boxAddInfo,
+                     then: BoxAddInfoView.init
                 )
 
             case .boxChoice:
@@ -85,11 +85,11 @@ struct HomeView: View {
                      then: BoxChoiceView.init
                 )
 
-            case .startGuide:
+            case .makeBoxDetail:
                 CaseLet(
-                    \HomeNavigationPath.State.startGuide,
-                     action: HomeNavigationPath.Action.startGuide,
-                     then: BoxStartGuideView.init
+                    \HomeNavigationPath.State.makeBoxDetail,
+                     action: HomeNavigationPath.Action.makeBoxDetail,
+                     then: MakeBoxDetailView.init
                 )
 
             case .addTitle:
@@ -120,7 +120,7 @@ private extension HomeView {
             ScrollView {
                 VStack(spacing: 16) {
                     NavigationLink(
-                        state: HomeNavigationPath.State.makeBox()
+                        state: HomeNavigationPath.State.boxAddInfo()
                     ) {
                         topBanner
                     }

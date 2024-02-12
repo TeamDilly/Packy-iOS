@@ -1,5 +1,5 @@
 //
-//  BoxStartGuideFeature.swift
+//  MakeBoxDetailFeature.swift
 //  Packy
 //
 //  Created Mason Kim on 1/13/24.
@@ -7,10 +7,9 @@
 
 import Foundation
 import ComposableArchitecture
-import SwiftUI
 
 @Reducer
-struct BoxStartGuideFeature: Reducer {
+struct MakeBoxDetailFeature: Reducer {
 
     struct State: Equatable {
         let senderInfo: BoxSenderInfo
@@ -134,7 +133,7 @@ struct BoxStartGuideFeature: Reducer {
 
 // MARK: - Inner Functions
 
-private extension BoxStartGuideFeature {
+private extension MakeBoxDetailFeature {
     func showGuideTextIfNeeded() -> Effect<Action> {
         .concatenate(
             .run { send in

@@ -1,5 +1,5 @@
 //
-//  MakeBoxView.swift
+//  BoxAddInfoView.swift
 //  Packy
 //
 //  Created Mason Kim on 1/14/24.
@@ -10,11 +10,11 @@ import ComposableArchitecture
 
 // MARK: - View
 
-struct MakeBoxView: View {
-    private let store: StoreOf<MakeBoxFeature>
-    @ObservedObject private var viewStore: ViewStoreOf<MakeBoxFeature>
+struct BoxAddInfoView: View {
+    private let store: StoreOf<BoxAddInfoFeature>
+    @ObservedObject private var viewStore: ViewStoreOf<BoxAddInfoFeature>
 
-    init(store: StoreOf<MakeBoxFeature>) {
+    init(store: StoreOf<BoxAddInfoFeature>) {
         self.store = store
         self.viewStore = ViewStore(store, observe: { $0 })
     }
@@ -146,11 +146,11 @@ private struct ToFromInputTextField: View {
 // MARK: - Preview
 
 #Preview {
-    MakeBoxView(
+    BoxAddInfoView(
         store: .init(
-            initialState: MakeBoxFeature.State(),
+            initialState: BoxAddInfoFeature.State(),
             reducer: {
-                MakeBoxFeature()
+                BoxAddInfoFeature()
                     ._printChanges()
             }
         )

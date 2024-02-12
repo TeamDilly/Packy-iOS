@@ -1,5 +1,5 @@
 //
-//  BoxStartGuideView.swift
+//  MakeBoxDetailView.swift
 //  Packy
 //
 //  Created Mason Kim on 1/13/24.
@@ -11,15 +11,15 @@ import Kingfisher
 
 // MARK: - View
 
-struct BoxStartGuideView: View {
-    private let store: StoreOf<BoxStartGuideFeature>
-    @ObservedObject var viewStore: ViewStoreOf<BoxStartGuideFeature>
+struct MakeBoxDetailView: View {
+    private let store: StoreOf<MakeBoxDetailFeature>
+    @ObservedObject var viewStore: ViewStoreOf<MakeBoxDetailFeature>
 
     @State private var isShowingGuideText: Bool = false
 
     private let strokeStyle: StrokeStyle = .init(lineWidth: 1.5, dash: [5])
 
-    init(store: StoreOf<BoxStartGuideFeature>) {
+    init(store: StoreOf<MakeBoxDetailFeature>) {
         self.store = store
         self.viewStore = ViewStore(store, observe: { $0 })
     }
@@ -184,7 +184,7 @@ struct BoxStartGuideView: View {
 
 // MARK: - Inner Views
 
-private extension BoxStartGuideView {
+private extension MakeBoxDetailView {
     var guideOverlayView: some View {
         return ZStack {
             Color.black
@@ -368,11 +368,11 @@ private struct ElementGuideView: View {
 // MARK: - Preview
 
 #Preview {
-    BoxStartGuideView(
+    MakeBoxDetailView(
         store: .init(
             initialState: .init(senderInfo: .mock, boxDesigns: .mock, selectedBox: .mock),
             reducer: {
-                BoxStartGuideFeature()
+                MakeBoxDetailFeature()
                     ._printChanges()
             }
         )

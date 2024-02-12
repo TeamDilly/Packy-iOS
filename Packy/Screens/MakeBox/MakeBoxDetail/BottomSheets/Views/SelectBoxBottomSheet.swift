@@ -9,9 +9,9 @@ import SwiftUI
 import ComposableArchitecture
 
 struct SelectBoxBottomSheet: View {
-    @ObservedObject var viewStore: ViewStoreOf<BoxStartGuideFeature>
+    @ObservedObject var viewStore: ViewStoreOf<MakeBoxDetailFeature>
 
-    init(viewStore: ViewStoreOf<BoxStartGuideFeature>) {
+    init(viewStore: ViewStoreOf<MakeBoxDetailFeature>) {
         self.viewStore = viewStore
     }
 
@@ -61,11 +61,11 @@ struct SelectBoxBottomSheet: View {
 // MARK: - Preview
 
 #Preview {
-    BoxStartGuideView(
+    MakeBoxDetailView(
         store: .init(
             initialState: .init(senderInfo: .mock, boxDesigns: .mock, selectedBox: .mock, isSelectBoxBottomSheetPresented: true),
             reducer: {
-                BoxStartGuideFeature()
+                MakeBoxDetailFeature()
                     ._printChanges()
             }
         )

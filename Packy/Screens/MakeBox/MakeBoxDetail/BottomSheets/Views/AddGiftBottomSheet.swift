@@ -64,11 +64,11 @@ struct AddGiftBottomSheet: View {
 // MARK: - Preview
 
 #Preview {
-    BoxStartGuideView(
+    MakeBoxDetailView(
         store: .init(
             initialState: .init(senderInfo: .mock, boxDesigns: .mock, selectedBox: .mock),
             reducer: {
-                BoxStartGuideFeature()
+                MakeBoxDetailFeature()
                     ._printChanges()
             }
         )

@@ -1,5 +1,5 @@
 //
-//  MakeBoxFeature.swift
+//  BoxAddInfoFeature.swift
 //  Packy
 //
 //  Created Mason Kim on 1/14/24.
@@ -9,7 +9,7 @@ import Foundation
 import ComposableArchitecture
 
 @Reducer
-struct MakeBoxFeature: Reducer {
+struct BoxAddInfoFeature: Reducer {
 
     struct State: Equatable {
         @BindingState var boxSendTo: String = ""

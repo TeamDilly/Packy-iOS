@@ -20,9 +20,9 @@ struct HomeNavigationPath {
         case manageAccount(ManageAccountFeature.State)
         case deleteAccount(DeleteAccountFeature.State = .init())
 
-        case makeBox(MakeBoxFeature.State = .init())
+        case boxAddInfo(BoxAddInfoFeature.State = .init())
         case boxChoice(BoxChoiceFeature.State)
-        case startGuide(BoxStartGuideFeature.State)
+        case makeBoxDetail(MakeBoxDetailFeature.State)
         case addTitle(BoxAddTitleAndShareFeature.State)
 
         case webContent(WebContentFeature.State)
@@ -37,9 +37,9 @@ struct HomeNavigationPath {
         case manageAccount(ManageAccountFeature.Action)
         case deleteAccount(DeleteAccountFeature.Action)
 
-        case makeBox(MakeBoxFeature.Action)
+        case boxAddInfo(BoxAddInfoFeature.Action)
         case boxChoice(BoxChoiceFeature.Action)
-        case startGuide(BoxStartGuideFeature.Action)
+        case makeBoxDetail(MakeBoxDetailFeature.Action)
         case addTitle(BoxAddTitleAndShareFeature.Action)
 
         case webContent(WebContentFeature.Action)
@@ -54,9 +54,9 @@ struct HomeNavigationPath {
         Scope(state: \.manageAccount, action: \.manageAccount) { ManageAccountFeature() }
         Scope(state: \.deleteAccount, action: \.deleteAccount) { DeleteAccountFeature() }
 
-        Scope(state: \.makeBox, action: \.makeBox) { MakeBoxFeature() }
+        Scope(state: \.boxAddInfo, action: \.boxAddInfo) { BoxAddInfoFeature() }
         Scope(state: \.boxChoice, action: \.boxChoice) { BoxChoiceFeature() }
-        Scope(state: \.startGuide, action: \.startGuide) { BoxStartGuideFeature() }
+        Scope(state: \.makeBoxDetail, action: \.makeBoxDetail) { MakeBoxDetailFeature() }
         Scope(state: \.addTitle, action: \.addTitle) { BoxAddTitleAndShareFeature() }
 
         Scope(state: \.webContent, action: \.webContent) { WebContentFeature() }
@@ -80,11 +80,11 @@ extension HomeFeature {
                     state.path.removeAll()
                     return .none
 
-                case let .element(id: _, action: .boxChoice(.delegate(.moveToBoxStartGuide(data)))):
-                    state.path.append(.startGuide(.init(senderInfo: data.senderInfo, boxDesigns: data.boxDesigns, selectedBox: data.selectedBox)))
+                case let .element(id: _, action: .boxChoice(.delegate(.moveToMakeBoxDetail(data)))):
+                    state.path.append(.makeBoxDetail(.init(senderInfo: data.senderInfo, boxDesigns: data.boxDesigns, selectedBox: data.selectedBox)))
                     return .none
 
-                case let .element(id: _, action: .startGuide(.delegate(.moveToAddTitle(giftBox, boxDesign)))):
+                case let .element(id: _, action: .makeBoxDetail(.delegate(.moveToAddTitle(giftBox, boxDesign)))):
                     state.path.append(.addTitle(.init(giftBox: giftBox, boxDesign: boxDesign)))
                     return .none
 

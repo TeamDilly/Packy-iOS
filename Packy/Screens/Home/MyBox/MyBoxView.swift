@@ -133,7 +133,7 @@ private extension MyBoxView {
 
             NavigationLink(
                 "선물박스 만들기",
-                state: HomeNavigationPath.State.makeBox()
+                state: HomeNavigationPath.State.boxAddInfo()
             )
             .buttonStyle(.box(color: .primary, size: .roundMedium, trailingImage: .arrowRight))
         }

@@ -11,8 +11,6 @@ import Foundation
 @Reducer
 struct AddPhotoFeature: Reducer {
 
-    // MARK: - Input
-
     struct PhotoInput: Equatable {
         var photoUrl: String?
         var text: String = ""

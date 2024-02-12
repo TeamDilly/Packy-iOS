@@ -11,8 +11,6 @@ import SwiftUI
 @Reducer
 struct SelectMusicFeature: Reducer {
 
-    // MARK: - Input
-
     struct MusicInput: Equatable {
         var musicBottomSheetMode: MusicBottomSheetMode = .choice
         var musicSheetDetents: Set<PresentationDetent> = MusicBottomSheetMode.allDetents
