@@ -9,7 +9,6 @@ import SwiftUI
 import ComposableArchitecture
 
 struct SelectMusicBottomSheet: View {
-
     private let store: StoreOf<SelectMusicFeature>
     @ObservedObject var viewStore: ViewStoreOf<SelectMusicFeature>
 

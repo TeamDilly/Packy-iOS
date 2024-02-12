@@ -1,5 +1,5 @@
 //
-//  BoxStartGuideView+StickerSheet.swift
+//  SelectStickerBottomSheet.swift
 //  Packy
 //
 //  Created by Mason Kim on 1/21/24.
@@ -9,7 +9,6 @@ import SwiftUI
 import ComposableArchitecture
 
 struct SelectStickerBottomSheet: View {
-
     private let store: StoreOf<SelectStickerFeature>
     @ObservedObject var viewStore: ViewStoreOf<SelectStickerFeature>
 

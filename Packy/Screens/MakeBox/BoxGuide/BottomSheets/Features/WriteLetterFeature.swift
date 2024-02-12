@@ -103,8 +103,12 @@ struct WriteLetterFeature: Reducer {
             }
         }
     }
+}
 
-    private func fetchLetterDesigns() -> Effect<Action> {
+// MARK: - Inner Functions
+
+private extension WriteLetterFeature {
+    func fetchLetterDesigns() -> Effect<Action> {
         .run { send in
             do {
                 let letterDesigns = try await designClient.fetchLetterDesigns()

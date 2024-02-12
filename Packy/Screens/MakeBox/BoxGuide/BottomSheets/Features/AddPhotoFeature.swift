@@ -1,5 +1,5 @@
 //
-//  BoxStartGuideFeature+Photo.swift
+//  AddPhotoFeature.swift
 //  Packy
 //
 //  Created by Mason Kim on 1/27/24.

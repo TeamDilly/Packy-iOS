@@ -9,7 +9,6 @@ import SwiftUI
 import ComposableArchitecture
 
 struct SelectBoxBottomSheet: View {
-    
     @ObservedObject var viewStore: ViewStoreOf<BoxStartGuideFeature>
 
     init(viewStore: ViewStoreOf<BoxStartGuideFeature>) {
