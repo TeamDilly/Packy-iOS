@@ -97,7 +97,7 @@ struct SelectMusicFeature: Reducer {
                 return .run { send in
                     do {
                         let isValidLink = try await designClient.validateYoutubeUrl(youtubeLinkUrl)
-                        await send(._setShowInvalidMusicUrlError(isValidLink))
+                        await send(._setShowInvalidMusicUrlError(!isValidLink))
 
                         guard isValidLink else { return }
                         await send(._setSelectedMusicUrl(youtubeLinkUrl))
