@@ -112,7 +112,7 @@
 		E5A7AA422B57F81400590EA6 /* CloseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7A9C52B57F81400590EA6 /* CloseButton.swift */; };
 		E5A7AA432B57F81400590EA6 /* PackyTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7A9C62B57F81400590EA6 /* PackyTextField.swift */; };
 		E5A7AA442B57F81400590EA6 /* SocialLoginButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7A9C72B57F81400590EA6 /* SocialLoginButton.swift */; };
-		E5A7AA452B57F81400590EA6 /* PhotoElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7A9C82B57F81400590EA6 /* PhotoElement.swift */; };
+		E5A7AA452B57F81400590EA6 /* PhotoElementInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7A9C82B57F81400590EA6 /* PhotoElementInputView.swift */; };
 		E5A7AA462B57F81400590EA6 /* PackyButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7A9C92B57F81400590EA6 /* PackyButton.swift */; };
 		E5A7AA472B57F81400590EA6 /* MusicPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7A9CA2B57F81400590EA6 /* MusicPlayerView.swift */; };
 		E5A7AA482B57F81400590EA6 /* PageIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7A9CB2B57F81400590EA6 /* PageIndicator.swift */; };
@@ -203,6 +203,7 @@
 		E5B22D022B711D33003DAC7B /* SplashFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B22D002B711D33003DAC7B /* SplashFeature.swift */; };
 		E5C5C9DB2B71314F003F0AB9 /* ShakeAnimationModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C5C9DA2B71314F003F0AB9 /* ShakeAnimationModifier.swift */; };
 		E5D0129A2B58086F00236FEF /* SetWindowBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D012992B58086F00236FEF /* SetWindowBackground.swift */; };
+		E5D1C0472B7D18DE009D2DE1 /* PhotoData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D1C0462B7D18DE009D2DE1 /* PhotoData.swift */; };
 		E5D749762B4A7B9200213F63 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = E5D749752B4A7B9200213F63 /* Alamofire */; };
 		E5D749792B4A7C1A00213F63 /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = E5D749782B4A7C1A00213F63 /* ComposableArchitecture */; };
 		E5D7497C2B4A7C3300213F63 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = E5D7497B2B4A7C3300213F63 /* Kingfisher */; };
@@ -336,7 +337,7 @@
 		E5A7A9C52B57F81400590EA6 /* CloseButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CloseButton.swift; sourceTree = "<group>"; };
 		E5A7A9C62B57F81400590EA6 /* PackyTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PackyTextField.swift; sourceTree = "<group>"; };
 		E5A7A9C72B57F81400590EA6 /* SocialLoginButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocialLoginButton.swift; sourceTree = "<group>"; };
-		E5A7A9C82B57F81400590EA6 /* PhotoElement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoElement.swift; sourceTree = "<group>"; };
+		E5A7A9C82B57F81400590EA6 /* PhotoElementInputView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoElementInputView.swift; sourceTree = "<group>"; };
 		E5A7A9C92B57F81400590EA6 /* PackyButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PackyButton.swift; sourceTree = "<group>"; };
 		E5A7A9CA2B57F81400590EA6 /* MusicPlayerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MusicPlayerView.swift; sourceTree = "<group>"; };
 		E5A7A9CB2B57F81400590EA6 /* PageIndicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageIndicator.swift; sourceTree = "<group>"; };
@@ -427,6 +428,7 @@
 		E5B22D002B711D33003DAC7B /* SplashFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashFeature.swift; sourceTree = "<group>"; };
 		E5C5C9DA2B71314F003F0AB9 /* ShakeAnimationModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShakeAnimationModifier.swift; sourceTree = "<group>"; };
 		E5D012992B58086F00236FEF /* SetWindowBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetWindowBackground.swift; sourceTree = "<group>"; };
+		E5D1C0462B7D18DE009D2DE1 /* PhotoData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoData.swift; sourceTree = "<group>"; };
 		E5D7495D2B4A72E100213F63 /* Packy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Packy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E5E06B2C2B651D2200F6FD01 /* Throttle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Throttle.swift; sourceTree = "<group>"; };
 		E5E06B2F2B654A1000F6FD01 /* BoxAddTitleAndShareView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoxAddTitleAndShareView.swift; sourceTree = "<group>"; };
@@ -750,15 +752,15 @@
 				E5A7A9C12B57F81400590EA6 /* PackyTextArea.swift */,
 				E5A7A9C62B57F81400590EA6 /* PackyTextField.swift */,
 				E5A7A9CB2B57F81400590EA6 /* PageIndicator.swift */,
-				E5A7A9C82B57F81400590EA6 /* PhotoElement.swift */,
+				E5A7A9C82B57F81400590EA6 /* PhotoElementInputView.swift */,
 				E52470F32B6144D7003D49DE /* PhotoPicker.swift */,
 				E5A7A9CD2B57F81400590EA6 /* Radio.swift */,
 				E5257CB12B6936CD000A091E /* ReadableScrollView.swift */,
+				E563441B2B7A383800AC411B /* ShowErrorView.swift */,
 				E58048CA2B5C394700B974B3 /* Snackbar.swift */,
 				E5A7A9C72B57F81400590EA6 /* SocialLoginButton.swift */,
 				E54484EF2B6F3E63003DFA1B /* TabSegmentedControl.swift */,
 				E5B22CF72B70FD36003DAC7B /* WebView.swift */,
-				E563441B2B7A383800AC411B /* ShowErrorView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -1219,6 +1221,7 @@
 				E5E06B372B654D9A00F6FD01 /* Gift.swift */,
 				E5A59BE52B727DDD00D120CF /* GiftBoxType.swift */,
 				E5E06B352B654D8A00F6FD01 /* Photo.swift */,
+				E5D1C0462B7D18DE009D2DE1 /* PhotoData.swift */,
 				E5FDE05E2B6BAD6D00E00B00 /* ReceivedBox.swift */,
 				E5FDE0562B6BAC4900E00B00 /* ReceivedGiftBox.swift */,
 				E5E06B332B654D7700F6FD01 /* SendingGiftBox.swift */,
@@ -1473,7 +1476,7 @@
 				E5A7AA6E2B57F81400590EA6 /* ATTManager.swift in Sources */,
 				E54485072B6F86BC003DFA1B /* AppConstants.swift in Sources */,
 				E54485172B6F9116003DFA1B /* DeleteAccountFeature.swift in Sources */,
-				E5A7AA452B57F81400590EA6 /* PhotoElement.swift in Sources */,
+				E5A7AA452B57F81400590EA6 /* PhotoElementInputView.swift in Sources */,
 				E5A7AA622B57F81400590EA6 /* SignUpProfileFeature.swift in Sources */,
 				E5AC66F12B62B95B00F3CBF0 /* StickerDesign.swift in Sources */,
 				E5A7AA3A2B57F81400590EA6 /* UINavigationController+PopGesture.swift in Sources */,
@@ -1580,6 +1583,7 @@
 				E52470F42B6144D7003D49DE /* PhotoPicker.swift in Sources */,
 				E53937862B67B40F000F3A86 /* PhotoElementView.swift in Sources */,
 				E5A7AA7C2B57F81400590EA6 /* AuthClient.swift in Sources */,
+				E5D1C0472B7D18DE009D2DE1 /* PhotoData.swift in Sources */,
 				E5A7AA842B57F81400590EA6 /* SocialLoginClient.swift in Sources */,
 				E5551B792B5FE8E300DB81F3 /* TokenInterceptor.swift in Sources */,
 				E5A7AA682B57F81400590EA6 /* OnboardingFeature.swift in Sources */,
@@ -1760,7 +1764,6 @@
 				INFOPLIST_KEY_NSUserTrackingUsageDescription = "맞춤형 광고 및 정보 제공을 위해 허용해 주세요.\n허용하지 않아도 패키를 이용할 수 있습니다.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleLightContent;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
@@ -1770,7 +1773,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.dilly.Packy-Dev";
+				PRODUCT_BUNDLE_IDENTIFIER = com.dilly.Packy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -1794,12 +1797,11 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Packy/Resources/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "패키";
+				INFOPLIST_KEY_CFBundleDisplayName = "패키-Debug";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.lifestyle";
 				INFOPLIST_KEY_NSUserTrackingUsageDescription = "맞춤형 광고 및 정보 제공을 위해 허용해 주세요.\n허용하지 않아도 패키를 이용할 수 있습니다.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleLightContent;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";

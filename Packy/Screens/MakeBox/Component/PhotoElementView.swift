@@ -8,9 +8,22 @@
 import SwiftUI
 
 struct PhotoElementView: View {
-    let photoUrl: String
+    var photoUrl: String?
+    var image: Image?
     let screenWidth: CGFloat
     var action: () -> Void = {}
+
+    init(photoUrl: String, screenWidth: CGFloat, action: @escaping () -> Void = {}) {
+        self.photoUrl = photoUrl
+        self.screenWidth = screenWidth
+        self.action = action
+    }
+
+    init(image: Image, screenWidth: CGFloat, action: @escaping () -> Void = {}) {
+        self.image = image
+        self.screenWidth = screenWidth
+        self.action = action
+    }
 
     private let element = BoxElementShape.photo
 
@@ -18,10 +31,21 @@ struct PhotoElementView: View {
         let size = element.size(fromScreenWidth: screenWidth)
 
         VStack {
-            NetworkImage(url: photoUrl)
-                .aspectRatio(1, contentMode: .fit)
-                .padding(.horizontal, 8)
-                .padding(.top, 8)
+            if let photoUrl {
+                NetworkImage(url: photoUrl)
+                    .aspectRatio(1, contentMode: .fit)
+                    .padding(.horizontal, 8)
+                    .padding(.top, 8)
+            } else if let image {
+                image
+                    .resizable()
+                    .scaledToFill()
+                    .aspectRatio(1, contentMode: .fit)
+                    .clipped()
+                    .clipShape(Rectangle())
+                    .padding(.horizontal, 8)
+                    .padding(.top, 8)
+            }
 
             Spacer()
         }
@@ -35,5 +59,8 @@ struct PhotoElementView: View {
 }
 
 #Preview {
-    PhotoElementView.init(photoUrl: Constants.mockImageUrl, screenWidth: 200)
+    VStack {
+        PhotoElementView(photoUrl: Constants.mockImageUrl, screenWidth: 200)
+        PhotoElementView(image: Image(.homeBanner), screenWidth: 200)
+    }
 }

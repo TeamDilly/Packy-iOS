@@ -1,5 +1,5 @@
 //
-//  PhotoElement.swift
+//  PhotoElementInputView.swift
 //  Packy
 //
 //  Created by Mason Kim on 1/12/24.
@@ -9,20 +9,20 @@ import SwiftUI
 import Kingfisher
 import PhotosUI
 
-struct PhotoElement: View {
-    var imageUrl: String?
+struct PhotoElementInputView: View {
+    var image: Image?
     @Binding var text: String
     var placeholder: String = "사진 속 추억을 적어주세요"
 
     private var isPhotoPickable: Bool = false
-    private var selectedPhotoData: ((Data?) -> Void)? = nil
+    private var selectedPhotoData: ((PhotoData) -> Void)? = nil
     @State private var selectedItem: PhotosPickerItem? = nil
     
     private var isShowDeleteButton: Bool = false
     private var deleteButtonAction: (() -> Void)? = nil
     
-    init(imageUrl: String? = nil, text: Binding<String>) {
-        self.imageUrl = imageUrl
+    init(image: Image? = nil, text: Binding<String>) {
+        self.image = image
         self._text = text
     }
     
@@ -39,13 +39,13 @@ struct PhotoElement: View {
         }
         .padding(16)
         .background(.gray200)
-        .animation(.spring, value: imageUrl)
+        .animation(.spring, value: image)
     }
 }
 
 // MARK: - Inner Functions
 
-private extension PhotoElement {
+private extension PhotoElementInputView {
     func compressImageData(_ data: Data?) async -> Data? {
         guard let data else { return nil }
         let uiImage = UIImage(data: data)
@@ -57,7 +57,7 @@ private extension PhotoElement {
 
 // MARK: - Inner Views
 
-private extension PhotoElement {
+private extension PhotoElementInputView {
     var photoPickerView: some View {
         PhotosPicker(
             selection: $selectedItem,
@@ -66,31 +66,54 @@ private extension PhotoElement {
         ) {
             imageView
         }
-        .onChange(of: selectedItem) { photoItem in
+        .onChange(of: selectedItem) { _, photoItem in
             Task {
                 let loadedData = try? await photoItem?.loadTransferable(type: Data.self)
-                let compressedData = await compressImageData(loadedData)
-                selectedPhotoData?(compressedData)
+                guard let compressedData = await compressImageData(loadedData),
+                      let uiImage = UIImage(data: compressedData) else { return }
+                let image = Image(uiImage: uiImage)
+
+                await MainActor.run {
+                    selectedPhotoData?(.init(data: compressedData, image: image))
+                }
             }
         }
     }
     
+    @ViewBuilder
     var imageView: some View {
-        KFImage(URL(string: imageUrl ?? ""))
-            .placeholder {
-                placeholderView
-            }
-            .scaleToFillFrame(width: 280, height: 280)
-            .frame(width: 280, height: 280)
-            .overlay(alignment: .topTrailing) {
-                if isShowDeleteButton {
-                    CloseButton(sizeType: .medium, colorType: .dark) {
-                        selectedItem = nil
-                        deleteButtonAction?()
+        if let image {
+            image
+                .resizable()
+                .scaleToFillFrame(width: 280, height: 280)
+                .overlay(alignment: .topTrailing) {
+                    if isShowDeleteButton {
+                        CloseButton(sizeType: .medium, colorType: .dark) {
+                            selectedItem = nil
+                            deleteButtonAction?()
+                        }
+                        .padding(12)
                     }
-                    .padding(12)
                 }
-            }
+        } else {
+            placeholderView
+                .frame(width: 280, height: 280)
+        }
+        // KFImage(URL(string: imageUrl ?? ""))
+        //     .placeholder {
+        //         placeholderView
+        //     }
+        //     .scaleToFillFrame(width: 280, height: 280)
+            // .frame(width: 280, height: 280)
+            // .overlay(alignment: .topTrailing) {
+            //     if isShowDeleteButton {
+            //         CloseButton(sizeType: .medium, colorType: .dark) {
+            //             selectedItem = nil
+            //             deleteButtonAction?()
+            //         }
+            //         .padding(12)
+            //     }
+            // }
     }
     
     var placeholderView: some View {
@@ -132,8 +155,8 @@ private struct PhotoTextField: View {
 
 // MARK: - View Modifiers
 
-extension PhotoElement {
-    func photoPickable(selectedPhotoData: @escaping (Data?) -> Void) -> Self {
+extension PhotoElementInputView {
+    func photoPickable(selectedPhotoData: @escaping (PhotoData?) -> Void) -> Self {
         var element = self
         element.isPhotoPickable = true
         element.selectedPhotoData = selectedPhotoData
@@ -152,16 +175,16 @@ extension PhotoElement {
 
 #Preview {
     VStack {
-        PhotoElement(
-            imageUrl: nil,
+        PhotoElementInputView(
+            image: nil,
             text: .constant("")
         )
         .photoPickable { data in
             print(data)
         }
         
-        PhotoElement(
-            imageUrl: Constants.mockImageUrl,
+        PhotoElementInputView(
+            image: Image(.arrowDown),
             text: .constant("asdada")
         )
         .deleteButton(isShown: true) {

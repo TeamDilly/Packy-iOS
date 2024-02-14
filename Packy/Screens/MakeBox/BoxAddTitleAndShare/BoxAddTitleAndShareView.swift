@@ -91,9 +91,9 @@ private extension BoxAddTitleAndShareView {
 
             Group {
                 if isSendState {
-                    Text("\(viewStore.giftBox.receiverName)님에게\n선물박스를 보내보세요")
+                    Text("\(viewStore.giftBoxData.receiverName)님에게\n선물박스를 보내보세요")
                 } else {
-                    Text("\(viewStore.giftBox.receiverName)님을 위한\n선물박스가 완성되었어요!")
+                    Text("\(viewStore.giftBoxData.receiverName)님을 위한\n선물박스가 완성되었어요!")
                         .textInteraction()
                 }
             }
@@ -103,7 +103,7 @@ private extension BoxAddTitleAndShareView {
             .multilineTextAlignment(.center)
 
             if isSendState {
-                Text(viewStore.giftBox.name)
+                Text(viewStore.giftBoxData.name)
                     .packyFont(.body4)
                     .foregroundStyle(.gray900)
                     .padding(.vertical, 12)
@@ -160,7 +160,7 @@ private extension BoxAddTitleAndShareView {
 #Preview {
     BoxAddTitleAndShareView(
         store: .init(
-            initialState: .init(giftBox: .mock, boxDesign: .mock, boxNameInput: "hello", showingState: .send),
+            initialState: .init(giftBoxData: .mock, boxDesign: .mock, boxNameInput: "hello", showingState: .send),
             reducer: {
                 BoxAddTitleAndShareFeature()
                     ._printChanges()

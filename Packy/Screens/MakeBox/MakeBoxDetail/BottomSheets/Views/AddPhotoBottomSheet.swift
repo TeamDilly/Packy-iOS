@@ -38,15 +38,15 @@ struct AddPhotoBottomSheet: View {
                 .padding(.horizontal, 24)
             }
 
-            PhotoElement(
-                imageUrl: viewStore.photoInput.photoUrl,
+            PhotoElementInputView(
+                image: viewStore.photoInput.photoData?.image,
                 text: viewStore.$photoInput.text
             )
             .photoPickable { data in
                 guard let data else { return }
                 viewStore.send(.selectPhoto(data))
             }
-            .deleteButton(isShown: viewStore.photoInput.photoUrl != nil) {
+            .deleteButton(isShown: viewStore.photoInput.photoData != nil) {
                 viewStore.send(.photoDeleteButtonTapped)
             }
             .focused($textFieldFocused)

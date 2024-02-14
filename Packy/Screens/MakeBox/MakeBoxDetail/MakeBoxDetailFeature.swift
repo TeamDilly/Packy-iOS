@@ -57,7 +57,7 @@ struct MakeBoxDetailFeature: Reducer {
 
         // MARK: Delegate Action
         enum Delegate {
-            case moveToAddTitle(SendingGiftBox, BoxDesign)
+            case moveToAddTitle(SendingGiftBoxRawData, BoxDesign)
         }
         case delegate(Delegate)
     }
@@ -148,22 +148,22 @@ private extension MakeBoxDetailFeature {
         )
     }
 
-    func giftBoxFrom(state: State) -> SendingGiftBox {
+    func giftBoxFrom(state: State) -> SendingGiftBoxRawData {
         let senderName = state.senderInfo.sender
         let receiverName = state.senderInfo.receiver
         let boxId = state.selectedBox?.id
         let envelopeId = state.writeLetter.selectedEnvelopeId
         let letterContent = state.writeLetter.letterContent
         let youtubeUrl = state.selectMusic.savedMusic.selectedMusicUrl ?? ""
-        let photo = Photo(
-            photoUrl: state.addPhoto.savedPhoto.photoUrl ?? "",
+        let photo = PhotoRawData(
+            photoData: state.addPhoto.savedPhoto.photoData?.data,
             description: state.addPhoto.savedPhoto.text,
             sequence: 0
         )
 
-        let gift: Gift?
+        let gift: GiftRawData?
         if let giftImageUrl = state.addGift.savedGift.imageUrl {
-            gift = .init(type: "photo", url: giftImageUrl.absoluteString)
+            gift = .init(type: "photo", data: Data()) // FIXME: 실제 사진 데이터로 변경 필요
         } else {
             gift = nil
         }
@@ -172,7 +172,7 @@ private extension MakeBoxDetailFeature {
             SendingSticker(id: stickerDesign.id, location: index)
         }
 
-        return SendingGiftBox(
+        return SendingGiftBoxRawData(
             name: "",
             senderName: senderName,
             receiverName: receiverName,

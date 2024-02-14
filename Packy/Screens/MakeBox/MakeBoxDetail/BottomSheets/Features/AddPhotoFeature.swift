@@ -12,10 +12,10 @@ import Foundation
 struct AddPhotoFeature: Reducer {
 
     struct PhotoInput: Equatable {
-        var photoUrl: String?
+        var photoData: PhotoData?
         var text: String = ""
 
-        var isCompleted: Bool { photoUrl != nil }
+        var isCompleted: Bool { photoData != nil }
     }
 
     struct State: Equatable {
@@ -27,16 +27,13 @@ struct AddPhotoFeature: Reducer {
     enum Action: BindableAction {
         case binding(BindingAction<State>)
         case photoSelectButtonTapped
-        case selectPhoto(Data)
+        case selectPhoto(PhotoData)
         case photoDeleteButtonTapped
         case photoBottomSheetCloseButtonTapped
         case photoSaveButtonTapped
         case closePhotoSheetAlertConfirmTapped
-
-        case _setUploadedPhotoUrl(String?)
     }
 
-    @Dependency(\.uploadClient) var uploadClient
     @Dependency(\.packyAlert) var packyAlert
 
     // MARK: - Reducer
@@ -55,17 +52,11 @@ struct AddPhotoFeature: Reducer {
                 return .none
 
             case let .selectPhoto(data):
-                return .run { send in
-                    let response = try await uploadClient.upload(.init(fileName: "\(UUID()).png", data: data))
-                    await send(._setUploadedPhotoUrl(response.uploadedFileUrl))
-                }
-
-            case let ._setUploadedPhotoUrl(url):
-                state.photoInput.photoUrl = url
+                state.photoInput.photoData = data
                 return .none
 
             case .photoDeleteButtonTapped:
-                state.photoInput.photoUrl = nil
+                state.photoInput.photoData = nil
                 return .none
 
             case .photoSaveButtonTapped:
@@ -74,6 +65,7 @@ struct AddPhotoFeature: Reducer {
                 return .none
 
             case .photoBottomSheetCloseButtonTapped:
+                // FIXME: 상태가 변경된 순간에 항상 얼럿을 띄우게끔 처리...
                 guard state.savedPhoto.isCompleted == false, state.photoInput.isCompleted else {
                     state.isPhotoBottomSheetPresented = false
                     return .none

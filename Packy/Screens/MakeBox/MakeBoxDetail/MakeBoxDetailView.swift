@@ -205,11 +205,8 @@ private extension MakeBoxDetailView {
 
     @ViewBuilder
     func photoView(_ screenWidth: CGFloat) -> some View {
-        if let photoUrl = viewStore.addPhoto.savedPhoto.photoUrl {
-            PhotoElementView(
-                photoUrl: photoUrl,
-                screenWidth: screenWidth
-            ) {
+        if let image = viewStore.addPhoto.savedPhoto.photoData?.image {
+            PhotoElementView(image: image, screenWidth: screenWidth) {
                 viewStore.send(.addPhoto(.photoSelectButtonTapped))
             }
         } else {

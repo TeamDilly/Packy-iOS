@@ -84,8 +84,8 @@ extension HomeFeature {
                     state.path.append(.makeBoxDetail(.init(senderInfo: data.senderInfo, boxDesigns: data.boxDesigns, selectedBox: data.selectedBox)))
                     return .none
 
-                case let .element(id: _, action: .makeBoxDetail(.delegate(.moveToAddTitle(giftBox, boxDesign)))):
-                    state.path.append(.addTitle(.init(giftBox: giftBox, boxDesign: boxDesign)))
+                case let .element(id: _, action: .makeBoxDetail(.delegate(.moveToAddTitle(giftBoxData, boxDesign)))):
+                    state.path.append(.addTitle(.init(giftBoxData: giftBoxData, boxDesign: boxDesign)))
                     return .none
 
                 case let .element(id: _, action: .boxOpen(.delegate(.moveToBoxDetail(giftBox)))),

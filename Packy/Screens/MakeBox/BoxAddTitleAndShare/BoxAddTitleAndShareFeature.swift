@@ -18,8 +18,10 @@ struct BoxAddTitleAndShareFeature: Reducer {
     }
 
     struct State: Equatable {
-        var giftBox: SendingGiftBox
+        var giftBoxData: SendingGiftBoxRawData
+        var giftBox: SendingGiftBox?
         let boxDesign: BoxDesign
+
         @BindingState var boxNameInput: String = ""
         @BindingState var showingState: ShowingState = .addTitle
     }
@@ -34,6 +36,9 @@ struct BoxAddTitleAndShareFeature: Reducer {
 
         // MARK: Inner Business Action
         case _onTask
+        case _saveGiftBox
+        case _setUploadedGiftUrl(String)
+        case _setUploadedPhotoUrl(String)
 
         // MARK: Inner SetState Action
         case _setBoxId(Int)
@@ -48,6 +53,7 @@ struct BoxAddTitleAndShareFeature: Reducer {
 
     @Dependency(\.continuousClock) var clock
     @Dependency(\.boxClient) var boxClient
+    @Dependency(\.uploadClient) var uploadClient
     @Dependency(\.dismiss) var dismiss
     @Dependency(\.kakaoShare) var kakaoShare
 
@@ -66,11 +72,25 @@ struct BoxAddTitleAndShareFeature: Reducer {
                 return .send(.delegate(.moveToHome))
 
             case .nextButtonTapped:
-                state.giftBox.name = state.boxNameInput
+                guard let photoData = state.giftBoxData.photos.first?.photoData else { return .none }
+                let giftData = state.giftBoxData.gift?.data
+
+                state.giftBox = generateGiftBoxFromData(state.giftBoxData)
+                let boxName = state.boxNameInput
+                state.giftBox?.name = boxName
+
+                return .concatenate(
+                    .merge(
+                        uploadPhotoImage(data: photoData),
+                        uploadGiftImageIfNeeded(data: giftData)
+                    ),
+                    .send(._saveGiftBox)
+                )
+
+            case ._saveGiftBox:
                 return .concatenate(
                     // 저장
-                    saveGiftBox(state.giftBox),
-
+                    saveGiftBox(state),
                     // 이후 화면 전환
                     .run { send in
                         await send(.binding(.set(\.$showingState, .completed)), animation: .spring)
@@ -80,14 +100,22 @@ struct BoxAddTitleAndShareFeature: Reducer {
                 )
 
             case .sendButtonTapped:
-                let kakaoMessage = makeKakaoShareMessage(from: state)
+                guard let kakaoMessage = makeKakaoShareMessage(from: state) else { return .none }
 
                 return .run { send in
                     try await kakaoShare.share(kakaoMessage)
                 }
 
+            case let ._setUploadedPhotoUrl(url):
+                state.giftBox?.photos[0].photoUrl = url
+                return .none
+
+            case let ._setUploadedGiftUrl(url):
+                state.giftBox?.gift?.url = url
+                return .none
+
             case let ._setBoxId(boxId):
-                state.giftBox.boxId = boxId
+                state.giftBox?.boxId = boxId
                 return .none
 
             case ._onTask:
@@ -104,7 +132,48 @@ struct BoxAddTitleAndShareFeature: Reducer {
 // MARK: - Inner Functions
 
 private extension BoxAddTitleAndShareFeature {
-    func saveGiftBox(_ giftBox: SendingGiftBox) -> Effect<Action> {
+    func uploadPhotoImage(data: Data) -> Effect<Action> {
+        return .run { send in
+            let response = try await uploadClient.upload(.init(fileName: "\(UUID()).png", data: data))
+            await send(._setUploadedPhotoUrl(response.uploadedFileUrl))
+        }
+    }
+
+    func uploadGiftImageIfNeeded(data: Data?) -> Effect<Action> {
+        guard let data else { return .none }
+        return .run { send in
+            let response = try await uploadClient.upload(.init(fileName: "\(UUID()).png", data: data))
+            await send(._setUploadedGiftUrl(response.uploadedFileUrl))
+        }
+    }
+
+    func generateGiftBoxFromData(_ giftBoxData: SendingGiftBoxRawData) -> SendingGiftBox {
+        let gift: Gift?
+        if let giftData = giftBoxData.gift {
+            gift = .init(type: giftData.type, url: "")
+        } else {
+            gift = nil
+        }
+
+        return SendingGiftBox(
+            name: "",
+            senderName: giftBoxData.senderName,
+            receiverName: giftBoxData.receiverName,
+            boxId: giftBoxData.boxId,
+            envelopeId: giftBoxData.envelopeId,
+            letterContent: giftBoxData.letterContent,
+            youtubeUrl: giftBoxData.youtubeUrl,
+            photos: giftBoxData.photos.map { .init(photoUrl: "", description: $0.description, sequence: $0.sequence) },
+            gift: gift,
+            stickers: giftBoxData.stickers
+        )
+    }
+
+    func saveGiftBox(_ state: State) -> Effect<Action> {
+        guard let giftBox = state.giftBox else { return .none }
+        print("giftBox: \(giftBox)")
+        print("url???: \(giftBox.photos.first?.photoUrl)")
+
         return .run { send in
             do {
                 let response = try await boxClient.makeGiftBox(giftBox)
@@ -115,11 +184,12 @@ private extension BoxAddTitleAndShareFeature {
         }
     }
 
-    func makeKakaoShareMessage(from state: State) -> KakaoShareMessage {
-        let sender = state.giftBox.senderName
-        let receiver = state.giftBox.receiverName
+    func makeKakaoShareMessage(from state: State) -> KakaoShareMessage? {
+        guard let giftBox = state.giftBox else { return nil }
+        let sender = giftBox.senderName
+        let receiver = giftBox.receiverName
         let imageUrl = state.boxDesign.boxNormalUrl
-        let boxId = state.giftBox.boxId
+        let boxId = giftBox.boxId
 
         return KakaoShareMessage(sender: sender, receiver: receiver, imageUrl: imageUrl, boxId: "\(boxId ?? -1)")
     }
