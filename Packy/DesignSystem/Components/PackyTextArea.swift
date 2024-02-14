@@ -25,13 +25,13 @@ struct PackyTextArea: View {
 
             Text(placeholder)
                 .foregroundStyle(.gray400)
-                .font(.packy(.body5))
+                .packyFont(.body5)
                 .multilineTextAlignment(.center)
                 .opacity(!isFocused && text.isEmpty ? 1 : 0)
 
             TextField("", text: $text, axis: .vertical)
                 .tint(.black)
-                .packyFont(.body4)
+                .packyFont(.body5)
                 .scrollContentBackground(.hidden)
                 .multilineTextAlignment(.center)
                 .disabled(isCompleted)
