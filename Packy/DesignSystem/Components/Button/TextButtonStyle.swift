@@ -35,7 +35,6 @@ struct TextButtonStyle: ButtonStyle {
         return configuration.label
             .packyFont(.body2)
             .foregroundColor(textColor(isPressed: isPressed))
-            .sensoryFeedback(.impact(flexibility: .soft), trigger: isPressed)
     }
 }
 

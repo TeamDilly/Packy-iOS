@@ -17,7 +17,7 @@ struct NavigationBar: View {
 
     var body: some View {
         HStack {
-            IconView(image: leftIcon) {
+            IconView(image: leftIcon, isHaptic: false) {
                 leftIconAction()
             }
 
@@ -31,7 +31,7 @@ struct NavigationBar: View {
 
             Spacer()
 
-            IconView(image: rightIcon, action: rightIconAction)
+            IconView(image: rightIcon, isHaptic: true, action: rightIconAction)
         }
         .frame(height: 48)
         .padding(.horizontal, 16)
@@ -42,6 +42,7 @@ struct NavigationBar: View {
 
 private struct IconView: View {
     var image: Image?
+    var isHaptic: Bool
     var action: () -> Void
 
     var body: some View {
