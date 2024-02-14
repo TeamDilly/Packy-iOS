@@ -97,7 +97,7 @@ final class KakaoLoginController {
             let info = SocialLoginInfo(
                 id: String(userId),
                 authorization: accessToken,
-                name: user.kakaoAccount?.name,
+                name: user.kakaoAccount?.profile?.nickname,
                 email: user.kakaoAccount?.email,
                 provider: .kakao
             )

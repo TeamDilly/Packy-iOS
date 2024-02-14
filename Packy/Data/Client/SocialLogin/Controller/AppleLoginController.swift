@@ -69,11 +69,13 @@ final class AppleLoginController: NSObject, ASAuthorizationControllerDelegate {
 
         let userIdentifier = credential.user
 
+        print("🍎 appleLogin fullName: \(fullName?.description ?? "")")
+
         let info = SocialLoginInfo(
             id: userIdentifier,
             authorization: codeString, 
             identityToken: token,
-            name: String(describing: fullName),
+            name: fullName?.givenName,
             email: email,
             provider: .apple
         )
