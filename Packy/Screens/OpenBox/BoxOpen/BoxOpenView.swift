@@ -78,6 +78,11 @@ private extension BoxOpenView {
                 .shakeRepeat(.veryWeak)
                 .frame(width: 240, height: 240)
                 .padding(.bottom, 20)
+                .bouncyTapGesture {
+                    throttle(.seconds(3)) {
+                        viewStore.send(.openBoxButtonTapped, animation: .spring)
+                    }
+                }
 
             Spacer()
             Spacer()
