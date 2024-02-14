@@ -32,7 +32,7 @@ struct WriteLetterBottomSheet: View {
                     .padding(.bottom, 4)
                     .padding(.horizontal, 24)
 
-                Text("마음을 담은 편지를 작성해주세요")
+                Text("마음을 담은 편지를 써보아요")
                     .packyFont(.body4)
                     .foregroundStyle(.gray600)
                     .frame(maxWidth: .infinity, alignment: .leading)
