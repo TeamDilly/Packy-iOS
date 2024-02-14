@@ -126,7 +126,9 @@ private extension HomeView {
                     }
                     .buttonStyle(.bouncy)
 
-                    giftBoxesListView
+                    if !viewStore.giftBoxes.isEmpty {
+                        giftBoxesListView
+                    }
 
                     Spacer()
                 }
