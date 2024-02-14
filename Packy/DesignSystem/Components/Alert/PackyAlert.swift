@@ -104,7 +104,23 @@ struct PackyAlert: View {
                 .frame(height: 1)
 
             HStack(spacing: 0) {
+                Button {
+                    Task { @MainActor in
+                        await confirmAction()
+                    }
+                } label: {
+                    Text(confirm)
+                        .packyFont(.body2)
+                        .foregroundStyle(.gray900)
+                        .frame(maxWidth: .infinity, alignment: .center)
+                        .contentShape(Rectangle())
+                }
+
                 if let cancel {
+                    Rectangle()
+                        .fill(Color(hex: 0xDDDDDD))
+                        .frame(width: 1)
+
                     Button {
                         Task { @MainActor in
                             await cancelAction?()
@@ -116,22 +132,6 @@ struct PackyAlert: View {
                             .frame(maxWidth: .infinity, alignment: .center)
                             .contentShape(Rectangle())
                     }
-
-                    Rectangle()
-                        .fill(Color(hex: 0xDDDDDD))
-                        .frame(width: 1)
-                }
-
-                Button {
-                    Task { @MainActor in
-                        await confirmAction()
-                    }
-                } label: {
-                    Text(confirm)
-                        .packyFont(.body2)
-                        .foregroundStyle(.gray900)
-                        .frame(maxWidth: .infinity, alignment: .center)
-                        .contentShape(Rectangle())
                 }
             }
             .frame(height: 56)
