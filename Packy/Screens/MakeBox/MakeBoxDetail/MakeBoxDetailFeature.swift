@@ -32,6 +32,14 @@ struct MakeBoxDetailFeature: Reducer {
             writeLetter.savedLetter.isCompleted &&
             selectSticker.selectedStickers.count == 2
         }
+
+        /// 하나라도 담은 것이 있으면, 얼럿 띄우기 위함
+        var hasAnySavedInput: Bool {
+            selectMusic.savedMusic.isCompleted ||
+            addPhoto.savedPhoto.isCompleted ||
+            writeLetter.savedLetter.isCompleted ||
+            selectSticker.selectedStickers.count != 0
+        }
     }
 
     enum Action: BindableAction {
@@ -82,7 +90,25 @@ struct MakeBoxDetailFeature: Reducer {
                 return .none
 
             case .backButtonTapped:
-                return .run { _ in await dismiss() }
+                guard state.hasAnySavedInput else {
+                    return .run { _ in
+                        await dismiss()
+                    }
+                }
+
+                return .run { send in
+                    await packyAlert.show(
+                        .init(
+                            title: "선물박스에서 나갈까요?",
+                            description: "박스에 담긴 내용이 저장되지 않아요",
+                            cancel: "아니요",
+                            confirm: "나가기",
+                            confirmAction: {
+                                await dismiss()
+                            }
+                        )
+                    )
+                }
 
             case ._onTask:
                 return .merge(
