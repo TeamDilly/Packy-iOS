@@ -81,7 +81,7 @@ private extension MyBoxView {
             case .sentBox:
                 emptySentStateView
             case .receivedBox:
-                EmptyView()  // TODO: 변경 필요
+                emptyReceivedStateView
             }
         } else {
             ScrollView {
@@ -122,6 +122,27 @@ private extension MyBoxView {
     var emptySentStateView: some View {
         VStack(spacing: 0) {
             Text("아직 보낸 선물박스가 없어요")
+                .packyFont(.heading2)
+                .foregroundStyle(.gray900)
+                .padding(.bottom, 4)
+
+            Text("패키의 선물박스로 마음을 나눠보아요")
+                .packyFont(.body4)
+                .foregroundStyle(.gray900)
+                .padding(.bottom, 24)
+
+            NavigationLink(
+                "선물박스 만들기",
+                state: HomeNavigationPath.State.boxAddInfo()
+            )
+            .buttonStyle(.box(color: .primary, size: .roundMedium, trailingImage: .arrowRight))
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
+    }
+
+    var emptyReceivedStateView: some View {
+        VStack(spacing: 0) {
+            Text("아직 받은 선물박스가 없어요")
                 .packyFont(.heading2)
                 .foregroundStyle(.gray900)
                 .padding(.bottom, 4)
