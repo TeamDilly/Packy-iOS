@@ -31,21 +31,19 @@ struct PhotoElementView: View {
         let size = element.size(fromScreenWidth: screenWidth)
 
         VStack {
-            if let photoUrl {
-                NetworkImage(url: photoUrl)
-                    .aspectRatio(1, contentMode: .fit)
-                    .padding(.horizontal, 8)
-                    .padding(.top, 8)
-            } else if let image {
-                image
-                    .resizable()
-                    .scaledToFill()
-                    .aspectRatio(1, contentMode: .fit)
-                    .clipped()
-                    .clipShape(Rectangle())
-                    .padding(.horizontal, 8)
-                    .padding(.top, 8)
+            VStack {
+                if let photoUrl {
+                    NetworkImage(url: photoUrl)
+                        .padding(.horizontal, 8)
+                        .padding(.top, 8)
+                } else if let image {
+                    image
+                        .scaleToFillFrame(width: size.width - 16, height: size.width - 16)
+                        .padding(.horizontal, 8)
+                        .padding(.top, 8)
+                }
             }
+            .aspectRatio(1, contentMode: .fit)
 
             Spacer()
         }
@@ -60,7 +58,9 @@ struct PhotoElementView: View {
 
 #Preview {
     VStack {
-        PhotoElementView(photoUrl: Constants.mockImageUrl, screenWidth: 200)
-        PhotoElementView(image: Image(.homeBanner), screenWidth: 200)
+        PhotoElementView(photoUrl: Constants.mockImageUrl, screenWidth: 300)
+            .border(Color.black)
+        PhotoElementView(image: Image(.homeBanner), screenWidth: 300)
+            .border(Color.black)
     }
 }
