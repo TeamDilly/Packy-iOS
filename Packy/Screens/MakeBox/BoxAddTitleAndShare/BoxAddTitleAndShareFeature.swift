@@ -39,9 +39,11 @@ struct BoxAddTitleAndShareFeature: Reducer {
         case _saveGiftBox
         case _setUploadedGiftUrl(String)
         case _setUploadedPhotoUrl(String)
+        case _changeScreen
 
         // MARK: Inner SetState Action
         case _setBoxId(Int)
+        case _showErrorMessage(String)
 
         // MARK: Delegate Action
         enum Delegate {
@@ -56,6 +58,7 @@ struct BoxAddTitleAndShareFeature: Reducer {
     @Dependency(\.uploadClient) var uploadClient
     @Dependency(\.dismiss) var dismiss
     @Dependency(\.kakaoShare) var kakaoShare
+    @Dependency(\.packyAlert) var packyAlert
 
     var body: some Reducer<State, Action> {
         BindingReducer()
@@ -88,16 +91,7 @@ struct BoxAddTitleAndShareFeature: Reducer {
                 )
 
             case ._saveGiftBox:
-                return .concatenate(
-                    // 저장
-                    saveGiftBox(state),
-                    // 이후 화면 전환
-                    .run { send in
-                        await send(.binding(.set(\.$showingState, .completed)), animation: .spring)
-                        try? await clock.sleep(for: .seconds(2.6))
-                        await send(.binding(.set(\.$showingState, .send)), animation: .spring(duration: 1))
-                    }
-                )
+                return saveGiftBox(state)
 
             case .sendButtonTapped:
                 guard let kakaoMessage = makeKakaoShareMessage(from: state) else { return .none }
@@ -117,6 +111,25 @@ struct BoxAddTitleAndShareFeature: Reducer {
             case let ._setBoxId(boxId):
                 state.giftBox?.boxId = boxId
                 return .none
+
+            case ._changeScreen:
+                return .run { send in
+                    await send(.binding(.set(\.$showingState, .completed)), animation: .spring)
+                    try? await clock.sleep(for: .seconds(2.6))
+                    await send(.binding(.set(\.$showingState, .send)), animation: .spring(duration: 1))
+                }
+
+            case let ._showErrorMessage(errorMessage):
+                return .run { send in
+                    await packyAlert.show(
+                        .init(
+                            title: "에러가 발생했어요",
+                            description: errorMessage,
+                            confirm: "확인",
+                            confirmAction: { await dismiss() }
+                        )
+                    )
+                }
 
             case ._onTask:
                 return .none
@@ -171,15 +184,16 @@ private extension BoxAddTitleAndShareFeature {
 
     func saveGiftBox(_ state: State) -> Effect<Action> {
         guard let giftBox = state.giftBox else { return .none }
-        print("giftBox: \(giftBox)")
-        print("url???: \(giftBox.photos.first?.photoUrl)")
 
         return .run { send in
             do {
                 let response = try await boxClient.makeGiftBox(giftBox)
                 await send(._setBoxId(response.id))
+                await send(._changeScreen)
+            } catch let error as ErrorResponse {
+                await send(._showErrorMessage(error.message))
             } catch {
-                print(error)
+                await send(._showErrorMessage(error.localizedDescription))
             }
         }
     }

@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ShowErrorView: View {
     let refreshAction: () -> Void
+    var message: String = "잠시 후에 다시 시도해주세요"
 
     var body: some View {
         VStack(spacing: 24) {
@@ -17,7 +18,7 @@ struct ShowErrorView: View {
                     .packyFont(.heading2)
                     .foregroundStyle(.gray900)
 
-                Text("잠시 후에 다시 시도해주세요")
+                Text(message)
                     .packyFont(.body4)
                     .foregroundStyle(.gray600)
             }
