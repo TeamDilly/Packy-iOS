@@ -28,8 +28,9 @@ struct LetterElementView: View {
             Text(lettetContent)
                 .packyFont(.body6)
                 .foregroundStyle(.gray900)
-                .padding(8)
-                .frame(width: letterContentWidth, height: letterContentHeight, alignment: .top)
+                .padding(.vertical, 6)
+                .padding(.horizontal, 10)
+                .frame(width: letterContentWidth, height: letterContentHeight, alignment: .topLeading)
                 .background(
                     RoundedRectangle(cornerRadius: 8)
                         .fill(.white)
@@ -46,4 +47,20 @@ struct LetterElementView: View {
             action()
         }
     }
+}
+
+#Preview {
+    VStack {
+        Spacer()
+
+        LetterElementView(
+            lettetContent: "ㅁㅁㅁ",
+            letterImageUrl: "https://packy-bucket.s3.ap-northeast-2.amazonaws.com/admin/design/envelope/envelope_1.png",
+            screenWidth: 360
+        )
+
+        Spacer()
+    }
+    .frame(maxWidth: .infinity, maxHeight: .infinity)
+    .background(.gray)
 }
