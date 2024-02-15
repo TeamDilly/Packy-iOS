@@ -89,21 +89,6 @@ private extension PhotoPicker {
                 placeholderView
                     .frame(width: width, height: width)
             }
-
-            // KFImage(imageUrl)
-            //     .placeholder {
-            //         placeholderView
-            //     }
-            //     .scaleToFillFrame(width: width, height: width, cropAlignment: cropAlignment)
-            //     .overlay(alignment: .topTrailing) {
-            //         if isShowDeleteButton {
-            //             CloseButton(sizeType: .medium, colorType: .dark) {
-            //                 selectedItem = nil
-            //                 deleteButtonAction?()
-            //             }
-            //             .padding(12)
-            //         }
-            //     }
         }
     }
 

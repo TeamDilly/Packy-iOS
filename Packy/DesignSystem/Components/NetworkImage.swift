@@ -12,6 +12,7 @@ struct NetworkImage: View {
     var url: String
     var contentMode: SwiftUI.ContentMode = .fill
     var respectPhotoSize: Bool = false
+    var cropAlignment: Alignment = .center
 
     var body: some View {
         if respectPhotoSize {
@@ -30,7 +31,7 @@ struct NetworkImage: View {
                     .retry(maxCount: 3, interval: .seconds(1))
                     .resizable()
                     .aspectRatio(contentMode: contentMode)
-                    .frame(width: proxy.size.width, height: proxy.size.height)
+                    .frame(width: proxy.size.width, height: proxy.size.height, alignment: cropAlignment)
                     .clipped()
             }
         }

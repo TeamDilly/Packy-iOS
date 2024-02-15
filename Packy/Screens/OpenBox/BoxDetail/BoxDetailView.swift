@@ -254,7 +254,7 @@ private extension BoxDetailView {
                 .foregroundStyle(.gray950)
                 .scaledToFit()
                 .overlay {
-                    NetworkImage(url: viewStore.gift?.url ?? "")
+                    NetworkImage(url: viewStore.gift?.url ?? "", cropAlignment: .top)
                         .aspectRatio(1, contentMode: .fit)
                         .padding(20)
                 }
