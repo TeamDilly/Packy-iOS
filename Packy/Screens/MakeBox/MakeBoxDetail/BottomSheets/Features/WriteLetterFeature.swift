@@ -56,6 +56,10 @@ struct WriteLetterFeature: Reducer {
 
             case .letterInputButtonTapped:
                 state.letterInput = state.savedLetter
+                // 선택된 편지봉투가 없으면 첫번째 요소를 기본 선택
+                if state.letterInput.selectedLetterDesign == nil {
+                    state.letterInput.selectedLetterDesign = state.letterDesigns.first
+                }
                 state.isWriteLetterBottomSheetPresented = true
                 return .none
 
@@ -86,7 +90,6 @@ struct WriteLetterFeature: Reducer {
 
             case .closeLetterSheetAlertConfirmTapped:
                 state.letterInput = .init()
-                state.letterInput.selectedLetterDesign = state.letterDesigns.first
                 state.isWriteLetterBottomSheetPresented = false
                 return .none
 
@@ -95,7 +98,6 @@ struct WriteLetterFeature: Reducer {
 
             case let ._setLetterDesigns(letterDesigns):
                 state.letterDesigns = letterDesigns
-                state.letterInput.selectedLetterDesign = letterDesigns.first
                 return .none
 
             default:
