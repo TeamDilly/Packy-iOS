@@ -47,7 +47,6 @@ struct MakeBoxDetailFeature: Reducer {
         case binding(BindingAction<State>)
         case backButtonTapped
         case completeButtonTapped
-        case makeBoxAlertConfirmButtonTapped
         case selectBox(BoxDesign)
 
         // MARK: Inner Business Action
@@ -123,29 +122,12 @@ struct MakeBoxDetailFeature: Reducer {
                 state.isShowingGuideText = isShowing
                 return .none
 
-            // MARK: Box
             case let .selectBox(boxDesign):
                 state.selectedBox = nil
                 state.selectedBox = boxDesign
                 return .none
 
-            // MARK: Complete
             case .completeButtonTapped:
-                return .run { send in
-                    await packyAlert.show(
-                        .init(
-                            title: "선물박스를 완성할까요?",
-                            description: "완성한 이후에는 수정할 수 없어요",
-                            cancel: "다시 볼게요",
-                            confirm: "완성할래요",
-                            confirmAction: {
-                                await send(.makeBoxAlertConfirmButtonTapped)
-                            }
-                        )
-                    )
-                }
-
-            case .makeBoxAlertConfirmButtonTapped:
                 let giftBox = giftBoxFrom(state: state)
                 let boxDesign = state.selectedBox ?? .mock
                 return .send(.delegate(.moveToAddTitle(giftBox, boxDesign)))
