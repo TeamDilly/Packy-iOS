@@ -65,8 +65,7 @@ struct AddPhotoFeature: Reducer {
                 return .none
 
             case .photoBottomSheetCloseButtonTapped:
-                // FIXME: 상태가 변경된 순간에 항상 얼럿을 띄우게끔 처리...
-                guard state.savedPhoto.isCompleted == false, state.photoInput.isCompleted else {
+                guard state.savedPhoto != state.photoInput else {
                     state.isPhotoBottomSheetPresented = false
                     return .none
                 }

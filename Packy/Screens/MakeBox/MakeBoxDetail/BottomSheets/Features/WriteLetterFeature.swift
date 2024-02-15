@@ -69,7 +69,7 @@ struct WriteLetterFeature: Reducer {
                 return .none
 
             case .WriteLetterBottomSheetCloseButtonTapped:
-                guard state.savedLetter.isCompleted == false, state.letterInput.isCompleted else {
+                guard state.savedLetter != state.letterInput else {
                     state.isWriteLetterBottomSheetPresented = false
                     return .none
                 }

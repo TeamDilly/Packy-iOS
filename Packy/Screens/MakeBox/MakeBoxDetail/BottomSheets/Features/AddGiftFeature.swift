@@ -70,12 +70,11 @@ struct AddGiftFeature: Reducer {
                 return .none
 
             case .addGiftSheetCloseButtonTapped:
-                // FIXME: 상태가 변경된 순간에 항상 얼럿을 띄우게끔 처리...
-                guard state.savedGift.isCompleted == false, state.giftInput.isCompleted else {
+                guard state.savedGift != state.giftInput else {
                     state.isAddGiftBottomSheetPresented = false
                     return .none
                 }
-
+                
                 return .run { send in
                     await packyAlert.show(
                         .init(

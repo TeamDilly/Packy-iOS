@@ -147,7 +147,7 @@ struct SelectMusicFeature: Reducer {
                 return .none
 
             case .musicBottomSheetCloseButtonTapped:
-                guard state.savedMusic.isCompleted == false, state.musicInput.isCompleted else {
+                guard state.savedMusic.selectedMusicUrl != state.musicInput.selectedMusicUrl else {
                     state.isMusicBottomSheetPresented = false
                     return .none
                 }
