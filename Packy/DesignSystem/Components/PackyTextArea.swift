@@ -19,8 +19,12 @@ struct PackyTextArea: View {
 
     var body: some View {
         ZStack(alignment: .center) {
+            // 회색 위에 border 컬러가 겹쳐지지 않기위해 하얀색 border 깔아줌
             RoundedRectangle(cornerRadius: 16)
                 .fill(.gray100)
+                .strokeBorder(.white, lineWidth: 4)
+
+            RoundedRectangle(cornerRadius: 16)
                 .strokeBorder(borderColor, lineWidth: 4)
 
             Text(placeholder)
@@ -73,7 +77,7 @@ struct PackyTextArea: View {
             .padding()
             .task {
                 try? await Task.sleep(for: .seconds(2))
-                isFocused = true
+                // isFocused = true
             }
         }
     }
