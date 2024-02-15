@@ -1759,7 +1759,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Packy/Resources/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "패키-Debug";
+				INFOPLIST_KEY_CFBundleDisplayName = "패키";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.lifestyle";
 				INFOPLIST_KEY_NSUserTrackingUsageDescription = "맞춤형 광고 및 정보 제공을 위해 허용해 주세요.\n허용하지 않아도 패키를 이용할 수 있습니다.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -1797,7 +1797,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Packy/Resources/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "패키-Debug";
+				INFOPLIST_KEY_CFBundleDisplayName = "패키";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.lifestyle";
 				INFOPLIST_KEY_NSUserTrackingUsageDescription = "맞춤형 광고 및 정보 제공을 위해 허용해 주세요.\n허용하지 않아도 패키를 이용할 수 있습니다.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
