@@ -334,12 +334,15 @@ private struct ElementGuideView: View {
     let screenWidth: CGFloat
     let action: () -> Void
 
-    private let strokeStyle: StrokeStyle = .init(lineWidth: 1.5, dash: [5])
+    private let strokeStyle: StrokeStyle = .init(lineWidth: 1.5, dash: [8])
 
     var body: some View {
         let size = element.size(fromScreenWidth: screenWidth)
         RoundedRectangle(cornerRadius: 8)
-            .stroke(element.hasBorder ? .white : .clear, style: strokeStyle)
+            .stroke(
+                element.hasBorder ? .white.opacity(0.3) : .clear,
+                style: strokeStyle
+            )
             .contentShape(Rectangle())
             .frame(width: size.width, height: size.height)
             .rotationEffect(.degrees(element.rotationDegree))
