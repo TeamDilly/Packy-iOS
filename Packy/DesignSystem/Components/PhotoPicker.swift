@@ -26,6 +26,7 @@ struct PhotoPicker: View {
 
     var body: some View {
         photoPickerView
+            .aspectRatio(1, contentMode: .fit)
             .clipShape(RoundedRectangle(cornerRadius: 16))
             .animation(.spring, value: image)
     }
@@ -121,17 +122,16 @@ extension PhotoPicker {
 
 #Preview {
     VStack {
-        PhotoPicker(image: Image(.homeBanner)) { data in
+        PhotoPicker(image: nil) { data in
             print(data)
         }
-        .aspectRatio(contentMode: .fit)
-        .border(Color.black)
+        .frame(width: 200)
         .padding()
 
         PhotoPicker(image: Image(.homeBanner)) { data in
             print(data)
         }
-        .border(Color.black)
+        // .border(Color.black)
         .padding()
     }
     .border(Color.black)

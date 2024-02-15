@@ -39,7 +39,6 @@ struct AddGiftBottomSheet: View {
                 viewStore.send(.deleteGiftImageButtonTapped)
             }
             .padding(.top, 32)
-            .aspectRatio(1, contentMode: .fit)
 
             Spacer()
 
