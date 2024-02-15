@@ -10,8 +10,8 @@ import PhotosUI
 import Kingfisher
 
 struct PhotoPicker: View {
-    var imageUrl: URL?
-    var selectedPhotoData: ((Data?) -> Void)
+    var image: Image?
+    private var selectedPhotoData: ((PhotoData) -> Void)
 
     @State private var selectedItem: PhotosPickerItem? = nil
 
@@ -19,15 +19,15 @@ struct PhotoPicker: View {
     private var deleteButtonAction: (() -> Void)? = nil
     private var cropAlignment: Alignment = .center
 
-    init(imageUrl: URL? = nil, selectedPhotoData: @escaping (Data?) -> Void) {
-        self.imageUrl = imageUrl
+    init(image: Image? = nil, selectedPhotoData: @escaping (PhotoData) -> Void) {
+        self.image = image
         self.selectedPhotoData = selectedPhotoData
     }
 
     var body: some View {
         photoPickerView
             .clipShape(RoundedRectangle(cornerRadius: 16))
-            .animation(.spring, value: imageUrl)
+            .animation(.spring, value: image)
     }
 }
 
@@ -54,11 +54,16 @@ private extension PhotoPicker {
         ) {
             imageView
         }
-        .onChange(of: selectedItem) { photoItem in
+        .onChange(of: selectedItem) { _, photoItem in
             Task {
                 let loadedData = try? await photoItem?.loadTransferable(type: Data.self)
-                let compressedData = await compressImageData(loadedData)
-                selectedPhotoData(compressedData)
+                guard let compressedData = await compressImageData(loadedData),
+                      let uiImage = UIImage(data: compressedData) else { return }
+                let image = Image(uiImage: uiImage)
+
+                await MainActor.run {
+                    selectedPhotoData(.init(data: compressedData, image: image))
+                }
             }
         }
     }
@@ -66,20 +71,39 @@ private extension PhotoPicker {
     var imageView: some View {
         GeometryReader { proxy in
             let width = proxy.size.width
-            KFImage(imageUrl)
-                .placeholder {
-                    placeholderView
-                }
-                .scaleToFillFrame(width: width, height: width, cropAlignment: cropAlignment)
-                .overlay(alignment: .topTrailing) {
-                    if isShowDeleteButton {
-                        CloseButton(sizeType: .medium, colorType: .dark) {
-                            selectedItem = nil
-                            deleteButtonAction?()
+
+            if let image {
+                image
+                    .resizable()
+                    .scaleToFillFrame(width: width, height: width, cropAlignment: cropAlignment)
+                    .overlay(alignment: .topTrailing) {
+                        if isShowDeleteButton {
+                            CloseButton(sizeType: .medium, colorType: .dark) {
+                                selectedItem = nil
+                                deleteButtonAction?()
+                            }
+                            .padding(12)
                         }
-                        .padding(12)
                     }
-                }
+            } else {
+                placeholderView
+                    .frame(width: width, height: width)
+            }
+
+            // KFImage(imageUrl)
+            //     .placeholder {
+            //         placeholderView
+            //     }
+            //     .scaleToFillFrame(width: width, height: width, cropAlignment: cropAlignment)
+            //     .overlay(alignment: .topTrailing) {
+            //         if isShowDeleteButton {
+            //             CloseButton(sizeType: .medium, colorType: .dark) {
+            //                 selectedItem = nil
+            //                 deleteButtonAction?()
+            //             }
+            //             .padding(12)
+            //         }
+            //     }
         }
     }
 
@@ -112,18 +136,14 @@ extension PhotoPicker {
 
 #Preview {
     VStack {
-        let url = URL(string: "https://packy-bucket.s3.ap-northeast-2.amazonaws.com/images/3bea52ca-f174-419f-872c-b0a0b852cdcb-76FE85EC-0AEC-406B-84D8-C2253A83940C.png")!
-
-        PhotoPicker(imageUrl: url) { data in
+        PhotoPicker(image: Image(.homeBanner)) { data in
             print(data)
         }
         .aspectRatio(contentMode: .fit)
         .border(Color.black)
         .padding()
 
-        PhotoPicker(
-            imageUrl: URL(string: "https://packy-bucket.s3.ap-northeast-2.amazonaws.com/images/3bea52ca-f174-419f-872c-b0a0b852cdcb-76FE85EC-0AEC-406B-84D8-C2253A83940C.png")!
-        ) { data in
+        PhotoPicker(image: Image(.homeBanner)) { data in
             print(data)
         }
         .border(Color.black)

@@ -99,21 +99,6 @@ private extension PhotoElementInputView {
             placeholderView
                 .frame(width: 280, height: 280)
         }
-        // KFImage(URL(string: imageUrl ?? ""))
-        //     .placeholder {
-        //         placeholderView
-        //     }
-        //     .scaleToFillFrame(width: 280, height: 280)
-            // .frame(width: 280, height: 280)
-            // .overlay(alignment: .topTrailing) {
-            //     if isShowDeleteButton {
-            //         CloseButton(sizeType: .medium, colorType: .dark) {
-            //             selectedItem = nil
-            //             deleteButtonAction?()
-            //         }
-            //         .padding(12)
-            //     }
-            // }
     }
     
     var placeholderView: some View {

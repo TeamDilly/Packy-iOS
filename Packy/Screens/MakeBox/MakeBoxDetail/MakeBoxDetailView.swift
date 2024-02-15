@@ -301,7 +301,7 @@ private extension MakeBoxDetailView {
                     }
             }
 
-            let isGiftAdded: Bool = viewStore.addGift.savedGift.imageUrl != nil
+            let isGiftAdded: Bool = viewStore.addGift.savedGift.photoData != nil
             Button {
                 viewStore.send(.addGift(.addGiftButtonTapped))
             } label: {

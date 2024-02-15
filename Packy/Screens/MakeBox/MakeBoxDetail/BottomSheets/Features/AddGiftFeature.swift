@@ -12,8 +12,8 @@ import Foundation
 struct AddGiftFeature: Reducer {
 
     struct GiftInput: Equatable {
-        var imageUrl: URL?
-        var isCompleted: Bool { imageUrl != nil }
+        var photoData: PhotoData?
+        var isCompleted: Bool { photoData != nil }
     }
 
     struct State: Equatable {
@@ -24,19 +24,16 @@ struct AddGiftFeature: Reducer {
 
     enum Action {
         case addGiftButtonTapped
-        case selectGiftImage(Data)
+        case selectGiftImage(PhotoData)
         case deleteGiftImageButtonTapped
         case notSelectGiftButtonTapped
         case addGiftSheetCloseButtonTapped
         case closeGiftSheetAlertConfirmTapped
         case giftSaveButtonTapped
-
-        case _setUploadedGiftUrl(URL?)
     }
 
     @Dependency(\.continuousClock) var clock
     @Dependency(\.packyAlert) var packyAlert
-    @Dependency(\.uploadClient) var uploadClient
 
     // MARK: - Reducer
 
@@ -50,17 +47,11 @@ struct AddGiftFeature: Reducer {
                 return .none
 
             case let .selectGiftImage(data):
-                return .run { send in
-                    let response = try await uploadClient.upload(.init(fileName: "\(UUID()).png", data: data))
-                    await send(._setUploadedGiftUrl(URL(string: response.uploadedFileUrl)))
-                }
-
-            case let ._setUploadedGiftUrl(url):
-                state.giftInput.imageUrl = url
+                state.giftInput.photoData = data
                 return .none
 
             case .deleteGiftImageButtonTapped:
-                state.giftInput.imageUrl = nil
+                state.giftInput.photoData = nil
                 return .none
 
             case .giftSaveButtonTapped:
@@ -79,6 +70,7 @@ struct AddGiftFeature: Reducer {
                 return .none
 
             case .addGiftSheetCloseButtonTapped:
+                // FIXME: 상태가 변경된 순간에 항상 얼럿을 띄우게끔 처리...
                 guard state.savedGift.isCompleted == false, state.giftInput.isCompleted else {
                     state.isAddGiftBottomSheetPresented = false
                     return .none

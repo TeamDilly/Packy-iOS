@@ -162,8 +162,8 @@ private extension MakeBoxDetailFeature {
         )
 
         let gift: GiftRawData?
-        if let giftImageUrl = state.addGift.savedGift.imageUrl {
-            gift = .init(type: "photo", data: Data()) // FIXME: 실제 사진 데이터로 변경 필요
+        if let giftPhotoData = state.addGift.savedGift.photoData?.data {
+            gift = .init(type: "photo", data: giftPhotoData)
         } else {
             gift = nil
         }

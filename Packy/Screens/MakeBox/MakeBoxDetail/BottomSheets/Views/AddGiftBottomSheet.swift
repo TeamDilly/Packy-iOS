@@ -31,12 +31,11 @@ struct AddGiftBottomSheet: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
             }
 
-            PhotoPicker(imageUrl: viewStore.giftInput.imageUrl) { data in
-                guard let data else { return }
+            PhotoPicker(image: viewStore.giftInput.photoData?.image) { data in
                 viewStore.send(.selectGiftImage(data))
             }
             .cropAlignment(.top)
-            .deleteButton(isShown: viewStore.giftInput.imageUrl != nil) {
+            .deleteButton(isShown: viewStore.giftInput.photoData != nil) {
                 viewStore.send(.deleteGiftImageButtonTapped)
             }
             .padding(.top, 32)
@@ -47,7 +46,7 @@ struct AddGiftBottomSheet: View {
             PackyButton(title: "저장", colorType: .black) {
                 viewStore.send(.giftSaveButtonTapped)
             }
-            .disabled(viewStore.giftInput.imageUrl == nil)
+            .disabled(viewStore.giftInput.photoData == nil)
             .padding(.bottom, 8)
 
             Button("안 담을래요") {

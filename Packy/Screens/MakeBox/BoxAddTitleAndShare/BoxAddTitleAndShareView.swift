@@ -103,7 +103,7 @@ private extension BoxAddTitleAndShareView {
             .multilineTextAlignment(.center)
 
             if isSendState {
-                Text(viewStore.giftBoxData.name)
+                Text(viewStore.giftBox?.name ?? "")
                     .packyFont(.body4)
                     .foregroundStyle(.gray900)
                     .padding(.vertical, 12)
