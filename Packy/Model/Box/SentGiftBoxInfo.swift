@@ -11,4 +11,5 @@ import Foundation
 struct SentGiftBoxInfo: Decodable {
     let id: Int
     let uuid: String
+    let kakaoMessageImgUrl: String?
 }

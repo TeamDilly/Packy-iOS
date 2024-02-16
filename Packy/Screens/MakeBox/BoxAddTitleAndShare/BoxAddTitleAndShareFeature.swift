@@ -21,6 +21,7 @@ struct BoxAddTitleAndShareFeature: Reducer {
         var giftBoxData: SendingGiftBoxRawData
         var giftBox: SendingGiftBox?
         let boxDesign: BoxDesign
+        var kakaoMessageImageUrl: String?
 
         @BindingState var boxNameInput: String = ""
         @BindingState var showingState: ShowingState = .addTitle
@@ -43,6 +44,7 @@ struct BoxAddTitleAndShareFeature: Reducer {
 
         // MARK: Inner SetState Action
         case _setBoxId(Int)
+        case _setKakaoMessageImageUrl(String?)
         case _showErrorMessage(String)
 
         // MARK: Delegate Action
@@ -110,6 +112,10 @@ struct BoxAddTitleAndShareFeature: Reducer {
 
             case let ._setBoxId(boxId):
                 state.giftBox?.boxId = boxId
+                return .none
+
+            case let ._setKakaoMessageImageUrl(imageUrl):
+                state.kakaoMessageImageUrl = imageUrl
                 return .none
 
             case ._changeScreen:
@@ -189,6 +195,7 @@ private extension BoxAddTitleAndShareFeature {
             do {
                 let response = try await boxClient.makeGiftBox(giftBox)
                 await send(._setBoxId(response.id))
+                await send(._setKakaoMessageImageUrl(response.kakaoMessageImgUrl))
                 await send(._changeScreen)
             } catch let error as ErrorResponse {
                 await send(._showErrorMessage(error.message))
@@ -202,7 +209,7 @@ private extension BoxAddTitleAndShareFeature {
         guard let giftBox = state.giftBox else { return nil }
         let sender = giftBox.senderName
         let receiver = giftBox.receiverName
-        let imageUrl = state.boxDesign.boxNormalUrl
+        let imageUrl = state.kakaoMessageImageUrl ?? state.boxDesign.boxNormalUrl
         let boxId = giftBox.boxId
 
         return KakaoShareMessage(sender: sender, receiver: receiver, imageUrl: imageUrl, boxId: "\(boxId ?? -1)")

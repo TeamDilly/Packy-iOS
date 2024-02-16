@@ -48,7 +48,7 @@ extension BoxClient: DependencyKey {
     static var previewValue: Self = {
         Self(
             makeGiftBox: { _ in
-                return .init(id: Int.random(in: 0...100), uuid: UUID().uuidString)
+                return .init(id: Int.random(in: 0...100), uuid: UUID().uuidString, kakaoMessageImgUrl: nil)
             },
             openGiftBox: { _ in
                 return .mock
