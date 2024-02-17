@@ -11,6 +11,8 @@ import ComposableArchitecture
 @Reducer
 struct BoxAddTitleAndShareFeature: Reducer {
 
+    // TODO: 박스 만들기 때 응답값을 따로 저장하고, 해당 응답값을 활용하도록 변경하기... 현재는 boxId 를 잘못 활용하고 있음.
+
     enum ShowingState {
         case addTitle
         case completed
@@ -21,7 +23,9 @@ struct BoxAddTitleAndShareFeature: Reducer {
         var giftBoxData: SendingGiftBoxRawData
         var giftBox: SendingGiftBox?
         let boxDesign: BoxDesign
-        var kakaoMessageImageUrl: String?
+
+        /// 보내는데 성공한 박스 정보
+        var sentGiftBoxInfo: SentGiftBoxInfo?
 
         @BindingState var boxNameInput: String = ""
         @BindingState var showingState: ShowingState = .addTitle
@@ -43,8 +47,7 @@ struct BoxAddTitleAndShareFeature: Reducer {
         case _changeScreen
 
         // MARK: Inner SetState Action
-        case _setBoxId(Int)
-        case _setKakaoMessageImageUrl(String?)
+        case _setSentGiftBoxInfo(SentGiftBoxInfo)
         case _showErrorMessage(String)
 
         // MARK: Delegate Action
@@ -94,6 +97,7 @@ struct BoxAddTitleAndShareFeature: Reducer {
 
             case ._saveGiftBox:
                 return saveGiftBox(state)
+                    .throttle(id: "saveGiftBox", for: .seconds(3), scheduler: DispatchQueue.main, latest: false)
 
             case .sendButtonTapped:
                 guard let kakaoMessage = makeKakaoShareMessage(from: state) else { return .none }
@@ -110,12 +114,8 @@ struct BoxAddTitleAndShareFeature: Reducer {
                 state.giftBox?.gift?.url = url
                 return .none
 
-            case let ._setBoxId(boxId):
-                state.giftBox?.boxId = boxId
-                return .none
-
-            case let ._setKakaoMessageImageUrl(imageUrl):
-                state.kakaoMessageImageUrl = imageUrl
+            case let ._setSentGiftBoxInfo(sentGiftBoxInfo):
+                state.sentGiftBoxInfo = sentGiftBoxInfo
                 return .none
 
             case ._changeScreen:
@@ -139,8 +139,8 @@ struct BoxAddTitleAndShareFeature: Reducer {
 
             case ._onTask:
                 return .none
-
-            default:
+                
+            case .delegate:
                 return .none
             }
         }
@@ -189,13 +189,13 @@ private extension BoxAddTitleAndShareFeature {
     }
 
     func saveGiftBox(_ state: State) -> Effect<Action> {
-        guard let giftBox = state.giftBox else { return .none }
+        guard let giftBox = state.giftBox,
+              state.sentGiftBoxInfo == nil else { return .none }
 
         return .run { send in
             do {
-                let response = try await boxClient.makeGiftBox(giftBox)
-                await send(._setBoxId(response.id))
-                await send(._setKakaoMessageImageUrl(response.kakaoMessageImgUrl))
+                let sentGiftBoxInfo = try await boxClient.makeGiftBox(giftBox)
+                await send(._setSentGiftBoxInfo(sentGiftBoxInfo))
                 await send(._changeScreen)
             } catch let error as ErrorResponse {
                 await send(._showErrorMessage(error.message))
@@ -209,8 +209,8 @@ private extension BoxAddTitleAndShareFeature {
         guard let giftBox = state.giftBox else { return nil }
         let sender = giftBox.senderName
         let receiver = giftBox.receiverName
-        let imageUrl = state.kakaoMessageImageUrl ?? state.boxDesign.boxNormalUrl
-        let boxId = giftBox.boxId
+        let imageUrl = state.sentGiftBoxInfo?.kakaoMessageImgUrl ?? state.boxDesign.boxNormalUrl
+        let boxId = state.sentGiftBoxInfo?.id
 
         return KakaoShareMessage(sender: sender, receiver: receiver, imageUrl: imageUrl, boxId: "\(boxId ?? -1)")
     }
