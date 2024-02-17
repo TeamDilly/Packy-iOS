@@ -56,6 +56,7 @@ struct BottomMenuModifier: ViewModifier {
                         }
                     )
                     .transition(.move(edge: .bottom))
+                    .zIndex(1)
                 }
             }
             .animation(.spring(duration: 0.4), value: isPresented)

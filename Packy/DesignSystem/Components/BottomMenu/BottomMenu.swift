@@ -16,14 +16,17 @@ struct BottomMenu: View {
 
     var body: some View {
         VStack {
-            Button {
-                confirmAction()
-            } label: {
+            // Button {
+            //     confirmAction()
+            // } label: {
                 Text(confirmTitle)
                     .packyFont(.body2)
                     .foregroundStyle(.gray900)
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
-            }
+                    .onTapGesture {
+                        confirmAction()
+                    }
+            // }
             .frame(height: 60)
             .padding(.top, 8)
 

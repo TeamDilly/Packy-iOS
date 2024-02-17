@@ -11,8 +11,6 @@ import ComposableArchitecture
 @Reducer
 struct BoxAddTitleAndShareFeature: Reducer {
 
-    // TODO: 박스 만들기 때 응답값을 따로 저장하고, 해당 응답값을 활용하도록 변경하기... 현재는 boxId 를 잘못 활용하고 있음.
-
     enum ShowingState {
         case addTitle
         case completed
