@@ -25,6 +25,8 @@
 		E52470F42B6144D7003D49DE /* PhotoPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52470F32B6144D7003D49DE /* PhotoPicker.swift */; };
 		E5257CB22B6936CD000A091E /* ReadableScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5257CB12B6936CD000A091E /* ReadableScrollView.swift */; };
 		E5257CB42B693FB9000A091E /* ImageViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5257CB32B693FB9000A091E /* ImageViewer.swift */; };
+		E52B954B2B80B9F800DB27FC /* BottomMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52B954A2B80B9F800DB27FC /* BottomMenu.swift */; };
+		E52B954D2B80BCB100DB27FC /* BottomMenuModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52B954C2B80BCB100DB27FC /* BottomMenuModifier.swift */; };
 		E53937862B67B40F000F3A86 /* PhotoElementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53937852B67B40F000F3A86 /* PhotoElementView.swift */; };
 		E53937882B67B42D000F3A86 /* LetterElementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53937872B67B42D000F3A86 /* LetterElementView.swift */; };
 		E539378A2B67B43E000F3A86 /* MusicElementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53937892B67B43E000F3A86 /* MusicElementView.swift */; };
@@ -259,6 +261,8 @@
 		E52470F32B6144D7003D49DE /* PhotoPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPicker.swift; sourceTree = "<group>"; };
 		E5257CB12B6936CD000A091E /* ReadableScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadableScrollView.swift; sourceTree = "<group>"; };
 		E5257CB32B693FB9000A091E /* ImageViewer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewer.swift; sourceTree = "<group>"; };
+		E52B954A2B80B9F800DB27FC /* BottomMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomMenu.swift; sourceTree = "<group>"; };
+		E52B954C2B80BCB100DB27FC /* BottomMenuModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomMenuModifier.swift; sourceTree = "<group>"; };
 		E53937852B67B40F000F3A86 /* PhotoElementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoElementView.swift; sourceTree = "<group>"; };
 		E53937872B67B42D000F3A86 /* LetterElementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LetterElementView.swift; sourceTree = "<group>"; };
 		E53937892B67B43E000F3A86 /* MusicElementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicElementView.swift; sourceTree = "<group>"; };
@@ -536,6 +540,15 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		E52B95472B80B9E000DB27FC /* BottomMenu */ = {
+			isa = PBXGroup;
+			children = (
+				E52B954A2B80B9F800DB27FC /* BottomMenu.swift */,
+				E52B954C2B80BCB100DB27FC /* BottomMenuModifier.swift */,
+			);
+			path = BottomMenu;
+			sourceTree = "<group>";
+		};
 		E53937842B67B3F1000F3A86 /* Component */ = {
 			isa = PBXGroup;
 			children = (
@@ -735,6 +748,7 @@
 			children = (
 				E5AC66E62B62A01400F3CBF0 /* Alert */,
 				E5A7A9C32B57F81400590EA6 /* BoxElement */,
+				E52B95472B80B9E000DB27FC /* BottomMenu */,
 				E54484F72B6F4C8D003DFA1B /* Button */,
 				E55DAE7E2B75E2E700208878 /* Loading */,
 				E586DCDD2B73AA1A0052E8D7 /* BoxMotionView.swift */,
@@ -1476,6 +1490,7 @@
 				E5A7AA6E2B57F81400590EA6 /* ATTManager.swift in Sources */,
 				E54485072B6F86BC003DFA1B /* AppConstants.swift in Sources */,
 				E54485172B6F9116003DFA1B /* DeleteAccountFeature.swift in Sources */,
+				E52B954D2B80BCB100DB27FC /* BottomMenuModifier.swift in Sources */,
 				E5A7AA452B57F81400590EA6 /* PhotoElementInputView.swift in Sources */,
 				E5A7AA622B57F81400590EA6 /* SignUpProfileFeature.swift in Sources */,
 				E5AC66F12B62B95B00F3CBF0 /* StickerDesign.swift in Sources */,
@@ -1534,6 +1549,7 @@
 				E5E5110D2B6915CA00CE86AF /* BoxDetailPhotoView.swift in Sources */,
 				E5A7AA402B57F81400590EA6 /* NavigationBar.swift in Sources */,
 				E5A7AA612B57F81400590EA6 /* SignUpProfileView.swift in Sources */,
+				E52B954B2B80B9F800DB27FC /* BottomMenu.swift in Sources */,
 				E5E73D4C2B597CB600729D99 /* AddPhotoBottomSheet.swift in Sources */,
 				E5A7AA3E2B57F81400590EA6 /* FloatingNavigationBar.swift in Sources */,
 				E54484E62B6E80BE003DFA1B /* BoxOpenFeature.swift in Sources */,
