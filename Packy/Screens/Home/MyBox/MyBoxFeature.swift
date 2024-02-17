@@ -56,6 +56,7 @@ struct MyBoxFeature: Reducer {
 
     @Dependency(\.boxClient) var boxClient
     @Dependency(\.dismiss) var dismiss
+    @Dependency(\.packyAlert) var packyAlert
 
     var body: some Reducer<State, Action> {
         BindingReducer()
@@ -83,13 +84,24 @@ struct MyBoxFeature: Reducer {
             case .deleteBottomMenuConfirmButtonTapped:
                 guard let selectedBoxToDelete = state.selectedBoxToDelete else { return .none }
                 return .run { send in
-                    // TODO: 서버에 실제로 삭제 반영 _ 삭제 후 반영 어떻게 할건지? 페이지 유지하려면 따로 원본 데이터 관리해야 함.
-                    do {
-                        // try await boxClient.deleteGiftBox(selectedBoxToDelete.giftBoxId)
-                        // await send(._onTask)
-                    } catch {
-                        print("🐛 \(error)")
-                    }
+                    await packyAlert.show(
+                        .init(
+                            title: "선물박스를 삭제할까요?",
+                            description: "선물박스를 삭제하면 다시 볼 수 없어요\n선물박스에 담긴 선물들도 사라져요",
+                            cancel: "취소",
+                            confirm: "삭제",
+                            confirmAction: {
+                                // TODO: 서버 스펙 나오면 실제로 삭제 로직 반영
+                                do {
+                                    // try await boxClient.deleteGiftBox(selectedBoxToDelete.giftBoxId)
+                                    // await send(.binding(.set(\.$selectedBoxToDelete, nil)))
+                                    // await send(._onTask)
+                                } catch {
+                                    print("🐛 \(error)")
+                                }
+                            }
+                        )
+                    )
                 }
 
             case ._fetchMoreSentGiftBoxes:

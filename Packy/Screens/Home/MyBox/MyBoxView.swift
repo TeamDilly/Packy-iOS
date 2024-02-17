@@ -258,4 +258,5 @@ private extension MyBoxView {
             }
         )
     )
+    .packyGlobalAlert()
 }
