@@ -79,7 +79,7 @@ private extension SignUpNicknameView {
                     )
                 )
             )
-            .disabled(viewStore.nickname.isEmpty)
+            .disabled(viewStore.nickname.count < 2)
             .padding(.bottom, 16)
         }
         .animation(.spring, value: viewStore.nickname)

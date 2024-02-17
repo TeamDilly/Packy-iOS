@@ -151,12 +151,6 @@ private extension MyBoxView {
                 .packyFont(.body4)
                 .foregroundStyle(.gray900)
                 .padding(.bottom, 24)
-
-            NavigationLink(
-                "선물박스 만들기",
-                state: HomeNavigationPath.State.boxAddInfo()
-            )
-            .buttonStyle(.box(color: .primary, size: .roundMedium, trailingImage: .arrowRight))
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
     }

@@ -50,8 +50,10 @@ struct BoxAddTitleAndShareView: View {
                 Spacer()
 
                 Button("다음") {
-                    isFocused = false
-                    viewStore.send(.nextButtonTapped)
+                    throttle {
+                        isFocused = false
+                        viewStore.send(.nextButtonTapped)
+                    }
                 }
                 .buttonStyle(PackyButtonStyle(colorType: .black))
                 .disabled(viewStore.boxNameInput.isEmpty)
@@ -133,7 +135,9 @@ private extension BoxAddTitleAndShareView {
             if isSendState {
                 VStack(spacing: 8) {
                     PackyButton(title: "카카오톡으로 보내기", colorType: .black) {
-                        viewStore.send(.sendButtonTapped)
+                        throttle {
+                            viewStore.send(.sendButtonTapped)
+                        }
                     }
                     .padding(.horizontal, 24)
 
