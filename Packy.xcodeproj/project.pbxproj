@@ -45,7 +45,6 @@
 		E54484F92B6F4CE7003DFA1B /* BoxButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54484F82B6F4CE7003DFA1B /* BoxButtonStyle.swift */; };
 		E54484FD2B6F8339003DFA1B /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54484FB2B6F8339003DFA1B /* SettingView.swift */; };
 		E54484FE2B6F8339003DFA1B /* SettingFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54484FC2B6F8339003DFA1B /* SettingFeature.swift */; };
-		E54485032B6F838C003DFA1B /* HomeFeature+Navigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54485012B6F838C003DFA1B /* HomeFeature+Navigation.swift */; };
 		E54485042B6F838C003DFA1B /* HomeFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54485022B6F838C003DFA1B /* HomeFeature.swift */; };
 		E54485072B6F86BC003DFA1B /* AppConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54485062B6F86BC003DFA1B /* AppConstants.swift */; };
 		E544850B2B6F8A34003DFA1B /* PackyDivider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E544850A2B6F8A34003DFA1B /* PackyDivider.swift */; };
@@ -71,6 +70,10 @@
 		E55DAE842B76376000208878 /* Print+Override.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55DAE832B76376000208878 /* Print+Override.swift */; };
 		E56344162B79E09700AC411B /* SelectStickerFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56344152B79E09700AC411B /* SelectStickerFeature.swift */; };
 		E563441C2B7A383800AC411B /* ShowErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E563441B2B7A383800AC411B /* ShowErrorView.swift */; };
+		E57948402B80CD310058C733 /* MainTabFeature+Navigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E579483D2B80CD310058C733 /* MainTabFeature+Navigation.swift */; };
+		E57948412B80CD310058C733 /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E579483E2B80CD310058C733 /* MainTabView.swift */; };
+		E57948422B80CD310058C733 /* MainTabFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = E579483F2B80CD310058C733 /* MainTabFeature.swift */; };
+		E57948442B80CF970058C733 /* MainTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57948432B80CF970058C733 /* MainTab.swift */; };
 		E58048C12B5BF0D200B974B3 /* UIImage+Compression.swift in Sources */ = {isa = PBXBuildFile; fileRef = E58048C02B5BF0D200B974B3 /* UIImage+Compression.swift */; };
 		E58048C32B5BFF3800B974B3 /* WriteLetterBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = E58048C22B5BFF3800B974B3 /* WriteLetterBottomSheet.swift */; };
 		E58048C92B5C36DD00B974B3 /* CornerRadiusWithBorderModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = E58048C82B5C36DD00B974B3 /* CornerRadiusWithBorderModifier.swift */; };
@@ -281,7 +284,6 @@
 		E54484F82B6F4CE7003DFA1B /* BoxButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoxButtonStyle.swift; sourceTree = "<group>"; };
 		E54484FB2B6F8339003DFA1B /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
 		E54484FC2B6F8339003DFA1B /* SettingFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingFeature.swift; sourceTree = "<group>"; };
-		E54485012B6F838C003DFA1B /* HomeFeature+Navigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HomeFeature+Navigation.swift"; sourceTree = "<group>"; };
 		E54485022B6F838C003DFA1B /* HomeFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeFeature.swift; sourceTree = "<group>"; };
 		E54485062B6F86BC003DFA1B /* AppConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConstants.swift; sourceTree = "<group>"; };
 		E544850A2B6F8A34003DFA1B /* PackyDivider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackyDivider.swift; sourceTree = "<group>"; };
@@ -302,6 +304,10 @@
 		E55DAE832B76376000208878 /* Print+Override.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Print+Override.swift"; sourceTree = "<group>"; };
 		E56344152B79E09700AC411B /* SelectStickerFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectStickerFeature.swift; sourceTree = "<group>"; };
 		E563441B2B7A383800AC411B /* ShowErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowErrorView.swift; sourceTree = "<group>"; };
+		E579483D2B80CD310058C733 /* MainTabFeature+Navigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MainTabFeature+Navigation.swift"; sourceTree = "<group>"; };
+		E579483E2B80CD310058C733 /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
+		E579483F2B80CD310058C733 /* MainTabFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabFeature.swift; sourceTree = "<group>"; };
+		E57948432B80CF970058C733 /* MainTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTab.swift; sourceTree = "<group>"; };
 		E58048C02B5BF0D200B974B3 /* UIImage+Compression.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Compression.swift"; sourceTree = "<group>"; };
 		E58048C22B5BFF3800B974B3 /* WriteLetterBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteLetterBottomSheet.swift; sourceTree = "<group>"; };
 		E58048C82B5C36DD00B974B3 /* CornerRadiusWithBorderModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CornerRadiusWithBorderModifier.swift; sourceTree = "<group>"; };
@@ -627,7 +633,6 @@
 			isa = PBXGroup;
 			children = (
 				E54485022B6F838C003DFA1B /* HomeFeature.swift */,
-				E54485012B6F838C003DFA1B /* HomeFeature+Navigation.swift */,
 				E5A7A9DA2B57F81400590EA6 /* HomeView.swift */,
 			);
 			path = Home;
@@ -676,6 +681,17 @@
 				E52037D22B641EE700721F76 /* Features */,
 			);
 			path = BottomSheets;
+			sourceTree = "<group>";
+		};
+		E579483C2B80CC820058C733 /* MainTab */ = {
+			isa = PBXGroup;
+			children = (
+				E579483D2B80CD310058C733 /* MainTabFeature+Navigation.swift */,
+				E579483E2B80CD310058C733 /* MainTabView.swift */,
+				E579483F2B80CD310058C733 /* MainTabFeature.swift */,
+				E57948432B80CF970058C733 /* MainTab.swift */,
+			);
+			path = MainTab;
 			sourceTree = "<group>";
 		};
 		E586DCCD2B73A0340052E8D7 /* Lottie */ = {
@@ -818,6 +834,7 @@
 			children = (
 				E5A7A9FA2B57F81400590EA6 /* Root */,
 				E5A7A9E52B57F81400590EA6 /* Intro */,
+				E579483C2B80CC820058C733 /* MainTab */,
 				E5A7A9D92B57F81400590EA6 /* Home */,
 				E5A7A9DC2B57F81400590EA6 /* MakeBox */,
 				E539378D2B67B513000F3A86 /* OpenBox */,
@@ -1454,6 +1471,7 @@
 				E5A59BE62B727DDD00D120CF /* GiftBoxType.swift in Sources */,
 				E5A7AA852B57F81400590EA6 /* UserNotificationClient.swift in Sources */,
 				E5A7AA532B57F81400590EA6 /* HomeView.swift in Sources */,
+				E57948402B80CD310058C733 /* MainTabFeature+Navigation.swift in Sources */,
 				E5E5110F2B69212900CE86AF /* BoxDetailLetterView.swift in Sources */,
 				E5B22CF62B70F8F2003DAC7B /* SettingMenuType.swift in Sources */,
 				E56344162B79E09700AC411B /* SelectStickerFeature.swift in Sources */,
@@ -1479,6 +1497,7 @@
 				E5A7AA4B2B57F81400590EA6 /* CarouselView.swift in Sources */,
 				E5A7AA5E2B57F81400590EA6 /* TermsAgreementFeature.swift in Sources */,
 				E5A59BE42B727D7500D120CF /* GiftBoxesRequest.swift in Sources */,
+				E57948422B80CD310058C733 /* MainTabFeature.swift in Sources */,
 				E54484ED2B6F3E00003DFA1B /* MyBoxView.swift in Sources */,
 				E5FDE05F2B6BAD6D00E00B00 /* ReceivedBox.swift in Sources */,
 				E5A7AA4C2B57F81400590EA6 /* Font+Pretendard.swift in Sources */,
@@ -1524,7 +1543,6 @@
 				E5A7AA832B57F81400590EA6 /* AppleLoginController.swift in Sources */,
 				E5A7AA5F2B57F81400590EA6 /* TermsAgreementView.swift in Sources */,
 				E5A7AA662B57F81400590EA6 /* LoginFeature.swift in Sources */,
-				E54485032B6F838C003DFA1B /* HomeFeature+Navigation.swift in Sources */,
 				E54485162B6F9116003DFA1B /* DeleteAccountView.swift in Sources */,
 				E5A7AA742B57F81400590EA6 /* Terms.swift in Sources */,
 				E52037D92B6420E100721F76 /* WriteLetterFeature.swift in Sources */,
@@ -1569,6 +1587,7 @@
 				E5A7AA782B57F81400590EA6 /* TokenRequest.swift in Sources */,
 				E5551B7F2B6001CC00DB81F3 /* SelectBoxBottomSheet.swift in Sources */,
 				E5A7AA822B57F81400590EA6 /* KakaoLoginController.swift in Sources */,
+				E57948442B80CF970058C733 /* MainTab.swift in Sources */,
 				E54484F42B6F4A17003DFA1B /* DateFormat.swift in Sources */,
 				E5A59BE22B72792400D120CF /* Profile.swift in Sources */,
 				E5001F912B5BE44D004B65E6 /* UploadEndpoint.swift in Sources */,
@@ -1608,6 +1627,7 @@
 				E5A7AA472B57F81400590EA6 /* MusicPlayerView.swift in Sources */,
 				E5A7AA462B57F81400590EA6 /* PackyButton.swift in Sources */,
 				E53937912B67B599000F3A86 /* BoxDetailView.swift in Sources */,
+				E57948412B80CD310058C733 /* MainTabView.swift in Sources */,
 				E5551B7D2B5FF5AD00DB81F3 /* MoyaProvider+Build.swift in Sources */,
 				E54484F02B6F3E63003DFA1B /* TabSegmentedControl.swift in Sources */,
 				E5A7AA552B57F81400590EA6 /* BoxChoiceView.swift in Sources */,

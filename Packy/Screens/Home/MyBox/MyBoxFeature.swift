@@ -47,7 +47,7 @@ struct MyBoxFeature: Reducer {
         case _setFetchBoxLoading(Bool)
         case _setShowDetailLoading(Bool)
 
-        // MARK: - Delegate Action
+        // MARK: Delegate Action
         enum Delegate {
             case moveToBoxDetail(ReceivedGiftBox)
         }

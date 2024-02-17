@@ -1,8 +1,8 @@
 //
-//  HomeFeature+Navigation.swift
+//  MainTabFeature+Navigation.swift
 //  Packy
 //
-//  Created Mason Kim on 2/4/24.
+//  Created Mason Kim on 2/17/24.
 //
 
 import ComposableArchitecture
@@ -10,7 +10,7 @@ import ComposableArchitecture
 // MARK: - Navigation Path
 
 @Reducer
-struct HomeNavigationPath {
+struct MainTabNavigationPath {
     enum State: Equatable {
         case myBox(MyBoxFeature.State = .init())
         case boxDetail(BoxDetailFeature.State)
@@ -65,18 +65,24 @@ struct HomeNavigationPath {
 
 // MARK: - Navigation Reducer
 
-extension HomeFeature {
+extension MainTabFeature {
     var navigationReducer: some Reducer<State, Action> {
         Reduce { state, action in
             switch action {
+
+            case let .myBox(.delegate(.moveToBoxDetail(giftBox))),
+                 let .home(.delegate(.moveToBoxDetail(giftBox))):
+                state.path.append(.boxDetail(.init(giftBox: giftBox)))
+                return .none
+
             case let .path(action):
                 switch action {
-                /// 회원탈퇴, 로그아웃 완료, 박스 공유창 닫기 시 Stack 전부 비우기
+                    /// 회원탈퇴, 로그아웃 완료, 박스 공유창 닫기 시 Stack 전부 비우기
                 case .element(id: _, action: .deleteAccount(.delegate(.completedSignOut))),
-                     .element(id: _, action: .setting(.delegate(.completeSignOut))),
-                     .element(id: _, action: .addTitle(.delegate(.moveToHome))),
-                     .element(id: _, action: .boxChoice(.delegate(.closeMakeBox))),
-                     .element(id: _, action: .boxOpen(.delegate(.moveToHome))):
+                        .element(id: _, action: .setting(.delegate(.completeSignOut))),
+                        .element(id: _, action: .addTitle(.delegate(.moveToHome))),
+                        .element(id: _, action: .boxChoice(.delegate(.closeMakeBox))),
+                        .element(id: _, action: .boxOpen(.delegate(.moveToHome))):
                     state.path.removeAll()
                     return .none
 
@@ -88,12 +94,11 @@ extension HomeFeature {
                     state.path.append(.addTitle(.init(giftBoxData: giftBoxData, boxDesign: boxDesign)))
                     return .none
 
-                case let .element(id: _, action: .boxOpen(.delegate(.moveToBoxDetail(giftBox)))),
-                     let .element(id: _, action: .myBox(.delegate(.moveToBoxDetail(giftBox)))):
+                case let .element(id: _, action: .boxOpen(.delegate(.moveToBoxDetail(giftBox)))):
                     state.path.append(.boxDetail(.init(giftBox: giftBox)))
                     return .none
 
-                /// Box Detail 에서 닫기 시,
+                    /// Box Detail 에서 닫기 시,
                 case .element(id: _, action: .boxDetail(.delegate(.closeBoxOpen))):
                     // BoxOpen 에서 열린 BoxDetail 이면 Home 까지 다 닫아줌
                     let hasBoxOpen = state.path.contains { state in
@@ -117,7 +122,7 @@ extension HomeFeature {
             }
         }
         .forEach(\.path, action: /Action.path) {
-            HomeNavigationPath()
+            MainTabNavigationPath()
         }
     }
 }

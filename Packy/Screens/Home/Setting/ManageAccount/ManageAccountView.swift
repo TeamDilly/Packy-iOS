@@ -29,7 +29,7 @@ struct ManageAccountView: View {
             VStack(spacing: 24) {
                 connectedSocialAccountView
 
-                NavigationLink(state: HomeNavigationPath.State.deleteAccount()) {
+                NavigationLink(state: MainTabNavigationPath.State.deleteAccount()) {
                     SettingListCell(title: "회원탈퇴")
                 }
             }

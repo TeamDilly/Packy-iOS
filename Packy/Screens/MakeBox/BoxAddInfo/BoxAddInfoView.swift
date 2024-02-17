@@ -47,7 +47,7 @@ struct BoxAddInfoView: View {
 
             Spacer()
 
-            let destinationState = HomeNavigationPath.State.boxChoice(
+            let destinationState = MainTabNavigationPath.State.boxChoice(
                 .init(senderInfo: .init(receiver: viewStore.boxSendTo, sender: viewStore.boxSendFrom))
             )
 

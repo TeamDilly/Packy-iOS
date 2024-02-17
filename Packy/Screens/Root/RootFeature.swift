@@ -13,7 +13,7 @@ struct RootFeature: Reducer {
 
     enum State: Equatable {
         case intro(IntroFeature.State = .init())
-        case home(HomeFeature.State = .init())
+        case mainTab(MainTabFeature.State = .init())
 
         init() { self = .intro() }
     }
@@ -30,7 +30,7 @@ struct RootFeature: Reducer {
 
         // MARK: Child Action
         case intro(IntroFeature.Action)
-        case home(HomeFeature.Action)
+        case mainTab(MainTabFeature.Action)
     }
 
     @Dependency(\.socialLogin) var socialLogin
@@ -47,9 +47,9 @@ struct RootFeature: Reducer {
                 // keychain.delete(.refreshToken)
 
                 return .run { send in
-                    /// AccessToken 존재 시, home 으로 이동
+                    /// AccessToken 존재 시, mainTab 으로 이동
                     if keychain.read(.accessToken) != nil {
-                        await send(._changeScreen(.home()), animation: .spring)
+                        await send(._changeScreen(.mainTab()), animation: .spring)
                     }
 
                     await userDefaults.setBool(true, .isPopGestureEnabled)
@@ -67,7 +67,7 @@ struct RootFeature: Reducer {
                 }
 
                 return .run { send in
-                    await send(._changeScreen(.home(.init(path: .init([.boxOpen(BoxOpenFeature.State(boxId: boxId))])))))
+                    await send(._changeScreen(.mainTab(.init(path: .init([.boxOpen(BoxOpenFeature.State(boxId: boxId))])))))
                 }
 
             case let .intro(action):
@@ -75,15 +75,15 @@ struct RootFeature: Reducer {
                     // 로그인 완료, 회원가입 완료 시 홈으로 이동
                 case .login(.delegate(.completeLogin)),
                      .signUp(.delegate(.completeSignUp)):
-                    return .send(._changeScreen(.home()), animation: .spring)
+                    return .send(._changeScreen(.mainTab()), animation: .spring)
 
                 default:
                     return .none
                 }
 
             // 회원탈퇴, 로그아웃 완료 시 로그인 화면으로 이동
-            case .home(.path(.element(id: _, action: .deleteAccount(.delegate(.completedSignOut))))),
-                 .home(.path(.element(id: _, action: .setting(.delegate(.completeSignOut))))):
+            case .mainTab(.path(.element(id: _, action: .deleteAccount(.delegate(.completedSignOut))))),
+                 .mainTab(.path(.element(id: _, action: .setting(.delegate(.completeSignOut))))):
                 return .send(._changeScreen(.intro(.login())), animation: .spring)
 
             default:
@@ -91,6 +91,6 @@ struct RootFeature: Reducer {
             }
         }
         .ifCaseLet(\.intro, action: \.intro) { IntroFeature() }
-        .ifCaseLet(\.home, action: \.home) { HomeFeature() }
+        .ifCaseLet(\.mainTab, action: \.mainTab) { MainTabFeature() }
     }
 }

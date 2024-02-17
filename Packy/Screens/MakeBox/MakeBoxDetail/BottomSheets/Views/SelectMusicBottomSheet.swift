@@ -144,12 +144,13 @@ private extension SelectMusicBottomSheet {
             
             Spacer()
             
-            // FIXME: 차후) 무한 캐러셀 구현
-            
+            // TODO: 차후) 무한 캐러셀 구현 / 재생중일 때 드래그 안되는 현상 해결
+
             ScrollView(.horizontal) {
                 HStack(spacing: 12) {
                     ForEach(viewStore.recommendedMusics, id: \.self) { music in
                         VStack(spacing: 0) {
+                            // TODO: 다음 스크롤로 넘어가면 일시정지 되도록 처리 가능?
                             MusicPlayerView(youtubeUrl: music.youtubeUrl, autoPlay: false)
                                 .aspectRatio(16 / 9, contentMode: .fit)
                                 .padding(.bottom, 20)

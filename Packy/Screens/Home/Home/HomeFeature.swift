@@ -12,7 +12,6 @@ import ComposableArchitecture
 struct HomeFeature: Reducer {
 
     struct State: Equatable {
-        var path: StackState<HomeNavigationPath.State> = .init()
         var profile: Profile?
         var giftBoxes: [SentReceivedGiftBox] = []
         var isShowDetailLoading: Bool = false
@@ -28,19 +27,19 @@ struct HomeFeature: Reducer {
         // MARK: Inner SetState Action
         case _setProfile(Profile)
         case _setGiftBoxes([SentReceivedGiftBox])
-        case _moveToBoxDetail(ReceivedGiftBox)
         case _setShowDetailLoading(Bool)
 
-        // MARK: Child Action
-        case path(StackAction<HomeNavigationPath.State, HomeNavigationPath.Action>)
+        // MARK: Delegate Action
+        enum Delegate {
+            case moveToBoxDetail(ReceivedGiftBox)
+        }
+        case delegate(Delegate)
     }
 
     @Dependency(\.authClient) var authClient
     @Dependency(\.boxClient) var boxClient
 
     var body: some Reducer<State, Action> {
-        navigationReducer
-
         Reduce<State, Action> { state, action in
             switch action {
             case ._onTask:
@@ -54,7 +53,7 @@ struct HomeFeature: Reducer {
                 return .run { send in
                     do {
                         let giftBox = try await boxClient.openGiftBox(boxId)
-                        await send(._moveToBoxDetail(giftBox))
+                        await send(.delegate(.moveToBoxDetail(giftBox)))
                         await send(._setShowDetailLoading(false))
                     } catch {
                         print("🐛 \(error)")
@@ -73,11 +72,7 @@ struct HomeFeature: Reducer {
                 state.isShowDetailLoading = isLoading
                 return .none
 
-            case .path:
-                return .none
-
-            case let ._moveToBoxDetail(giftBox):
-                state.path.append(.boxDetail(.init(giftBox: giftBox)))
+            case .delegate:
                 return .none
             }
         }

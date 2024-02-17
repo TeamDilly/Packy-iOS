@@ -27,9 +27,9 @@ struct RootView: View {
                     IntroView(store: store)
                 }
 
-            case .home:
-                CaseLet(\RootFeature.State.home, action: RootFeature.Action.home) { store in
-                    HomeView(store: store)
+            case .mainTab:
+                CaseLet(\RootFeature.State.mainTab, action: RootFeature.Action.mainTab) { store in
+                    MainTabView(store: store)
                 }
             }
         }

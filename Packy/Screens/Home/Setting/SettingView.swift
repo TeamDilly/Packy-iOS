@@ -30,7 +30,7 @@ struct SettingView: View {
                 VStack(alignment: .leading, spacing: 24) {
                     profileView
 
-                    let destination = HomeNavigationPath.State.manageAccount(
+                    let destination = MainTabNavigationPath.State.manageAccount(
                         .init(socialLoginProvider: viewStore.profile?.provider)
                     )
                     NavigationLink(state: destination) {
@@ -43,7 +43,7 @@ struct SettingView: View {
                     ForEach(SettingMenuType.allCases, id: \.self) { menuType in
                         let urlString = viewStore.settingMenus.first { $0.type == menuType }?.url ?? ""
 
-                        let destinationState = HomeNavigationPath.State.webContent(.init(urlString: urlString, navigationTitle: menuType.title))
+                        let destinationState = MainTabNavigationPath.State.webContent(.init(urlString: urlString, navigationTitle: menuType.title))
                         NavigationLink(state: destinationState) {
                             SettingListCell(title: menuType.title)
                         }

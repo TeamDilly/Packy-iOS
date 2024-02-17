@@ -25,102 +25,13 @@ struct HomeView: View {
     }
 
     var body: some View {
-        NavigationStackStore(store.scope(state: \.path, action: \.path)) {
-            content
-        } destination: { state in
-            switch state {
-            case .myBox:
-                CaseLet(
-                    \HomeNavigationPath.State.myBox,
-                     action: HomeNavigationPath.Action.myBox,
-                     then: MyBoxView.init
-                )
-
-            case .boxDetail:
-                CaseLet(
-                    \HomeNavigationPath.State.boxDetail,
-                     action: HomeNavigationPath.Action.boxDetail,
-                     then: BoxDetailView.init
-                )
-
-            case .boxOpen:
-                CaseLet(
-                    \HomeNavigationPath.State.boxOpen,
-                     action: HomeNavigationPath.Action.boxOpen,
-                     then: BoxOpenView.init
-                )
-
-            case .setting:
-                CaseLet(
-                    \HomeNavigationPath.State.setting,
-                     action: HomeNavigationPath.Action.setting,
-                     then: SettingView.init
-                )
-
-            case .manageAccount:
-                CaseLet(
-                    \HomeNavigationPath.State.manageAccount,
-                     action: HomeNavigationPath.Action.manageAccount,
-                     then: ManageAccountView.init
-                )
-
-            case .deleteAccount:
-                CaseLet(
-                    \HomeNavigationPath.State.deleteAccount,
-                     action: HomeNavigationPath.Action.deleteAccount,
-                     then: DeleteAccountView.init
-                )
-
-            case .boxAddInfo:
-                CaseLet(
-                    \HomeNavigationPath.State.boxAddInfo,
-                     action: HomeNavigationPath.Action.boxAddInfo,
-                     then: BoxAddInfoView.init
-                )
-
-            case .boxChoice:
-                CaseLet(
-                    \HomeNavigationPath.State.boxChoice,
-                     action: HomeNavigationPath.Action.boxChoice,
-                     then: BoxChoiceView.init
-                )
-
-            case .makeBoxDetail:
-                CaseLet(
-                    \HomeNavigationPath.State.makeBoxDetail,
-                     action: HomeNavigationPath.Action.makeBoxDetail,
-                     then: MakeBoxDetailView.init
-                )
-
-            case .addTitle:
-                CaseLet(
-                    \HomeNavigationPath.State.addTitle,
-                     action: HomeNavigationPath.Action.addTitle,
-                     then: BoxAddTitleAndShareView.init
-                )
-
-            case .webContent:
-                CaseLet(
-                    \HomeNavigationPath.State.webContent,
-                     action: HomeNavigationPath.Action.webContent,
-                     then: WebContentView.init
-                )
-            }
-        }
-    }
-}
-
-// MARK: - Inner Views
-
-private extension HomeView {
-    var content: some View {
         VStack {
             navigationBar
                 .padding(.top, 8)
             ScrollView {
                 VStack(spacing: 16) {
                     NavigationLink(
-                        state: HomeNavigationPath.State.boxAddInfo()
+                        state: MainTabNavigationPath.State.boxAddInfo()
                     ) {
                         topBanner
                     }
@@ -135,6 +46,7 @@ private extension HomeView {
             }
             .scrollBounceBehavior(.basedOnSize)
         }
+        .popGestureEnabled()
         .padding(.horizontal, 16)
         .background(.gray100)
         .task {
@@ -144,7 +56,11 @@ private extension HomeView {
         }
         .showLoading(viewStore.isShowDetailLoading)
     }
+}
 
+// MARK: - Inner Views
+
+private extension HomeView {
     var navigationBar: some View {
         HStack {
             Image(.logo)
@@ -157,7 +73,7 @@ private extension HomeView {
             Spacer()
 
             NavigationLink(
-                state: HomeNavigationPath.State.setting(
+                state: MainTabNavigationPath.State.setting(
                     .init(profile: viewStore.profile)
                 )
             ) {
@@ -205,7 +121,7 @@ private extension HomeView {
 
                 Spacer()
 
-                NavigationLink("더보기", state: HomeNavigationPath.State.myBox())
+                NavigationLink("더보기", state: MainTabNavigationPath.State.myBox())
                     .buttonStyle(.text)
             }
             .padding(.horizontal, 24)

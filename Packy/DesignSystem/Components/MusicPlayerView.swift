@@ -10,6 +10,7 @@ import YouTubePlayerKit
 
 struct MusicPlayerView: View {
     let player: YouTubePlayer
+    // TODO: isPlaying @Binding 으로 만들어서 처리 가능하게 해보기
 
     init(youtubeUrl: String, autoPlay: Bool = true) {
         self.player = .init(
@@ -23,6 +24,7 @@ struct MusicPlayerView: View {
         )
     }
 
+    // TODO: 재생중인 상태에서 좌우 드래그 제스쳐 막아지는지 확인하기... 
     var body: some View {
         YouTubePlayerView(player) { state in
             switch state {
