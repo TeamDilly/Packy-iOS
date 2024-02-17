@@ -24,6 +24,8 @@ struct MyBoxFeature: Reducer {
             sentBoxesData?.giftBoxes.sorted(by: \.giftBoxDate) ?? []
         }
 
+        @BindingState var selectedBoxToDelete: SentReceivedGiftBox?
+
         var isFetchBoxesLoading: Bool = true
         var isShowDetailLoading: Bool = false
     }
@@ -33,6 +35,7 @@ struct MyBoxFeature: Reducer {
         case binding(BindingAction<State>)
         case backButtonTapped
         case tappedGiftBox(boxId: Int)
+        case deleteBottomMenuConfirmButtonTapped
 
         // MARK: Inner Business Action
         case _onTask
@@ -72,6 +75,18 @@ struct MyBoxFeature: Reducer {
                         let giftBox = try await boxClient.openGiftBox(boxId)
                         await send(.delegate(.moveToBoxDetail(giftBox)))
                         await send(._setShowDetailLoading(false))
+                    } catch {
+                        print("🐛 \(error)")
+                    }
+                }
+
+            case .deleteBottomMenuConfirmButtonTapped:
+                guard let selectedBoxToDelete = state.selectedBoxToDelete else { return .none }
+                return .run { send in
+                    // TODO: 서버에 실제로 삭제 반영 _ 삭제 후 반영 어떻게 할건지? 페이지 유지하려면 따로 원본 데이터 관리해야 함.
+                    do {
+                        // try await boxClient.deleteGiftBox(selectedBoxToDelete.giftBoxId)
+                        // await send(._onTask)
                     } catch {
                         print("🐛 \(error)")
                     }

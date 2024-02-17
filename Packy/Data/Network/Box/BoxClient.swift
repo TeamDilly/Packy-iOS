@@ -54,7 +54,7 @@ extension BoxClient: DependencyKey {
                 return .mock
             },
             fetchGiftBoxes: { _ in
-                return .init(giftBoxes: [.mock], isFirstPage: false, isLastPage: false)
+                return .init(giftBoxes: [.mock], isFirstPage: true, isLastPage: true)
             }
         )
     }()

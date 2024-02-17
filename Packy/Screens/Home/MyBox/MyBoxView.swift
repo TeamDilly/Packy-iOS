@@ -43,6 +43,19 @@ struct MyBoxView: View {
 
             Spacer()
         }
+        .bottomMenu(
+            isPresented: .init(
+                get: { viewStore.selectedBoxToDelete != nil },
+                set: {
+                    guard $0 == false else { return }
+                    viewStore.send(.binding(.set(\.$selectedBoxToDelete, nil)))
+                }
+            ),
+            confirmTitle: "삭제하기",
+            confirmAction: {
+                viewStore.send(.deleteBottomMenuConfirmButtonTapped)
+            }
+        )
         .showLoading(viewStore.isShowDetailLoading)
         .navigationBarBackButtonHidden(true)
         .ignoresSafeArea(edges: .bottom)
@@ -92,28 +105,34 @@ private extension MyBoxView {
                             boxUrl: giftBox.boxImageUrl,
                             senderReceiverInfo: giftBox.senderReceiverInfo,
                             boxTitle: giftBox.name,
-                            date: giftBox.giftBoxDate
+                            date: giftBox.giftBoxDate,
+                            menuAction: {
+                                viewStore.send(.binding(.set(\.$selectedBoxToDelete, giftBox)))
+                            }
                         )
+                        .onLongPressGesture {
+                            viewStore.send(.binding(.set(\.$selectedBoxToDelete, giftBox)))
+                        }
                         .bouncyTapGesture {
                             throttle(identifier: ThrottleId.moveToBoxDetail.rawValue) {
                                 viewStore.send(.tappedGiftBox(boxId: giftBox.id))
                             }
                         }
                     }
-
-                    if isLastPage(for: tab) == false {
-                        PackyProgress()
-                            .onAppear {
-                                switch tab {
-                                case .sentBox:
-                                    viewStore.send(._fetchMoreSentGiftBoxes)
-                                case .receivedBox:
-                                    viewStore.send(._fetchMoreReceivedGiftBoxes)
-                                }
-                            }
-                    }
                 }
                 .padding(24)
+
+                if isLastPage(for: tab) == false {
+                    PackyProgress()
+                        .onAppear {
+                            switch tab {
+                            case .sentBox:
+                                viewStore.send(._fetchMoreSentGiftBoxes)
+                            case .receivedBox:
+                                viewStore.send(._fetchMoreReceivedGiftBoxes)
+                            }
+                        }
+                }
             }
             .scrollIndicators(.hidden)
         }
@@ -162,6 +181,7 @@ private struct MyBoxInfoCell: View {
     var senderReceiverInfo: String
     var boxTitle: String
     var date: Date
+    var menuAction: () -> Void
 
     var body: some View {
         VStack(spacing: 0) {
@@ -183,11 +203,21 @@ private struct MyBoxInfoCell: View {
                     .lineLimit(2)
                     .frame(height: 44, alignment: .top)
 
-                Text(date.formattedString(by: .yyyyMdKorean))
-                    .packyFont(.body6)
-                    .foregroundStyle(.gray600)
-                    .frame(maxWidth: .infinity, alignment: .leading)
+                HStack {
+                    Text(date.formattedString(by: .yyyyMdKorean))
+                        .packyFont(.body6)
+                        .foregroundStyle(.gray600)
+                        .frame(maxWidth: .infinity, alignment: .leading)
 
+                    Button {
+                        menuAction()
+                    } label: {
+                        Image(.ellipsis)
+                            .resizable()
+                            .frame(width: 24, height: 24)
+                            .foregroundColor(.gray600)
+                    }
+                }
             }
         }
         .padding(16)
