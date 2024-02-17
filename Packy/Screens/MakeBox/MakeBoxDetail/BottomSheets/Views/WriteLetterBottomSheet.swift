@@ -76,7 +76,11 @@ struct WriteLetterBottomSheet: View {
                 .padding(.top, 16)
             }
 
-            Spacer()
+            // Spacer 로 처리할 시, 키보드 숨기는 Tap이 안먹히기에 Rectangle 로 처리
+            Rectangle()
+                .fill(.clear)
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .makeTapToHideKeyboard()
 
             if !hideNonInputViews {
                 PackyButton(title: "저장", colorType: .black) {
@@ -96,7 +100,6 @@ struct WriteLetterBottomSheet: View {
         .animation(.spring, value: viewStore.letterInput.selectedLetterDesign)
         // .animation(.spring, value: isLetterFieldFocused)
         .keyboardHideToolbar()
-        .makeTapToHideKeyboard()
     }
 }
 
