@@ -23,4 +23,12 @@ enum MainTab: CaseIterable {
             Image(isSelected ? .archiveboxFill : .archivebox)
         }
     }
+
+    var backgroundColor: Color {
+        switch self {
+        case .home:     return .gray100
+        case .myBox:    return .white
+        case .archive:  return .gray100
+        }
+    }
 }

@@ -113,7 +113,6 @@ private extension MainTabView {
             tabView
             bottomTabBar
         }
-        .ignoresSafeArea()
         .navigationBarBackButtonHidden()
         .task {
             await viewStore
@@ -124,12 +123,24 @@ private extension MainTabView {
 
     var tabView: some View {
         TabView(selection: viewStore.$selectedTab) {
-            HomeView(store: store.scope(state: \.home, action: \.home))
-                .tag(MainTab.home)
+            // 탭뷰 컨텐츠간의 좌우 Swipe를 막기위해 이런 형태로 작성
+            switch viewStore.selectedTab {
+            case .home:
+                HomeView(store: store.scope(state: \.home, action: \.home))
+                    .tag(MainTab.home)
 
-            MyBoxView(store: store.scope(state: \.myBox, action: \.myBox))
-                .tag(MainTab.myBox)
+            case .myBox:
+                MyBoxView(store: store.scope(state: \.myBox, action: \.myBox))
+                    .tag(MainTab.myBox)
+
+            case .archive:
+                Text("Archive View")
+                    .tag(MainTab.archive)
+            }
         }
+        .scrollIndicators(.hidden)
+        .background(viewStore.selectedTab.backgroundColor)
+        .toolbar(.hidden, for: .tabBar)
         .tabViewStyle(.page(indexDisplayMode: .never))
     }
 
