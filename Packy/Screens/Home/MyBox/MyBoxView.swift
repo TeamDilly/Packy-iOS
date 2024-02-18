@@ -38,8 +38,8 @@ struct MyBoxView: View {
                 .animation(.spring, value: viewStore.selectedTab)
                 .background(.gray100)
                 .safeAreaPadding(.bottom, 30)
+                .frame(maxHeight: .infinity)
 
-            Spacer()
         }
         .showLoading(viewStore.isShowDetailLoading)
         .navigationBarBackButtonHidden(true)

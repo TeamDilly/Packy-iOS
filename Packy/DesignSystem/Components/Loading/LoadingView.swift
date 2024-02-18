@@ -14,12 +14,17 @@ extension View {
     }
 
     func showLoading(_ isLoading: Bool, allowTouch: Bool = true) -> some View {
-        LoadingManager.shared.isLoading = isLoading
-        LoadingManager.shared.allowTouch = allowTouch
+        Task {
+            await MainActor.run {
+                LoadingManager.shared.isLoading = isLoading
+                LoadingManager.shared.allowTouch = allowTouch
+            }
+        }
         return self
     }
 }
 
+@MainActor
 private final class LoadingManager: ObservableObject {
     static let shared = LoadingManager()
     private init() {}

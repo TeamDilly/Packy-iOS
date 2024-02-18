@@ -148,6 +148,7 @@ private extension MainTabView {
                         tab.image(forSelected: isSelected)
                     }
                     .frame(maxWidth: .infinity)
+                    .contentShape(Rectangle())
                     .onTapGesture {
                         viewStore.send(.binding(.set(\.$selectedTab, tab)))
                     }
