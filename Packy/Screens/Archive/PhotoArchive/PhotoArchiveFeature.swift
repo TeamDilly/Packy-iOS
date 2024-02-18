@@ -62,8 +62,8 @@ private extension PhotoArchiveFeature {
     func fetchPhotos(lastPhotoId: Int?) -> Effect<Action> {
         .run { send in
             do {
-                let response = try await archiveClient.fetchPhotos(.init(lastPhotoId: lastPhotoId))
-                await send(._setPhotoPageData(response))
+                let response = try await archiveClient.fetchPhotos(lastPhotoId)
+                await send(._setPhotoPageData(response), animation: .spring)
             } catch {
                 print("🐛 \(error)")
             }

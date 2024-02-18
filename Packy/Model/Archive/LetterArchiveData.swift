@@ -26,8 +26,26 @@ extension LetterArchivePageData {
         first: true,
         last: true,
         content: [
-            LetterArchiveData(id: 1, letterContent: "이 편지는 영국에서 시작되어...", envelope: Envelope(imgUrl: "https://www.example.com/envelope1.jpg", borderColorCode: "ED76A5", opacity: 30)),
-            LetterArchiveData(id: 2, letterContent: "당신에게 전하는 마음을 담았어요...", envelope: Envelope(imgUrl: "https://www.example.com/envelope2.jpg", borderColorCode: "FFD700", opacity: 50))
+            LetterArchiveData(
+                id: 1,
+                letterContent: "안녕 생일 축하해 어쩌구저쩌구 내 생일은 4월 30일이야 기대할게^^",
+                envelope: .mock
+            ),
+            LetterArchiveData(
+                id: 2,
+                letterContent: "당신에게 전하는 마음을 담았어요...",
+                envelope: .mock
+            ),
+            LetterArchiveData(
+                id: 3,
+                letterContent: "안녕 생일 축하해 어쩌구저쩌구 내 생일은 4월 30일이야 기대할게^^",
+                envelope: .mock
+            ),
+            LetterArchiveData(
+                id: 4,
+                letterContent: "당신에게 전하는 마음을 담았어요...",
+                envelope: .mock
+            )
         ]
     )
 }

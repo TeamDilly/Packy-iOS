@@ -21,7 +21,10 @@ extension DependencyValues {
 // MARK: - Client
 
 struct ArchiveClient {
-    var fetchPhotos: @Sendable (PhotoArchiveRequest) async throws -> PhotoArchivePageData
+    var fetchPhotos: @Sendable (_ lastId: Int?) async throws -> PhotoArchivePageData
+    var fetchLetters: @Sendable (_ lastId: Int?) async throws -> LetterArchivePageData
+    var fetchMusics: @Sendable (_ lastId: Int?) async throws -> MusicArchivePageData
+    var fetchGifts: @Sendable (_ lastId: Int?) async throws -> GiftArchivePageData
 }
 
 extension ArchiveClient: DependencyKey {
@@ -30,14 +33,26 @@ extension ArchiveClient: DependencyKey {
 
         return Self(
             fetchPhotos: {
-                try await provider.request(.getPhotos($0))
+                try await provider.request(.getPhotos(lastId: $0))
+            },
+            fetchLetters: {
+                try await provider.request(.getLetters(lastId: $0))
+            },
+            fetchMusics: {
+                try await provider.request(.getMusics(lastId: $0))
+            },
+            fetchGifts: {
+                try await provider.request(.getItems(lastId: $0))
             }
         )
     }()
 
     static let previewValue: Self = {
         Self(
-            fetchPhotos: { _ in .mock }
+            fetchPhotos: { _ in .mock },
+            fetchLetters: { _ in .mock },
+            fetchMusics: { _ in .mock },
+            fetchGifts: { _ in .mock }
         )
     }()
 }

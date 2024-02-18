@@ -7,12 +7,14 @@
 
 import SwiftUI
 import ComposableArchitecture
+import YouTubePlayerKit
 
 // MARK: - View
 
 struct MusicArchiveView: View {
     private let store: StoreOf<MusicArchiveFeature>
     @ObservedObject private var viewStore: ViewStoreOf<MusicArchiveFeature>
+    @Environment(\.scenePhase) private var scenePhase
 
     init(store: StoreOf<MusicArchiveFeature>) {
         self.store = store
@@ -20,16 +22,67 @@ struct MusicArchiveView: View {
     }
 
     var body: some View {
-        List {
-            Text("Hello, MusicArchive!")
+        VStack {
+            StaggeredGrid(columns: 2, data: viewStore.musics.elements) { music in
+                MusicCell(youtubeUrl: music.youtubeUrl)
+                    .onAppear {
+                        // Pagination
+                        guard viewStore.isLastPage == false,
+                              let index = viewStore.musics.firstIndex(of: music) else { return }
+
+                        let isNearEndForNextPageLoad = index == viewStore.musics.endIndex - 3
+                        guard isNearEndForNextPageLoad else { return }
+                        viewStore.send(._fetchMoreMusics)
+                    }
+            }
+            .zigzagPadding(80)
+            .innerSpacing(vertical: 32, horizontal: 16)
         }
-        .task {
+        .padding(.horizontal, 24)
+        .background(.gray100)
+        .didLoad {
             await viewStore
                 .send(._onTask)
                 .finish()
         }
+        .onChange(of: scenePhase) {
+            guard $1 == .active else { return }
+            viewStore.send(._didActiveScene)
+        }
     }
 }
+
+// MARK: - Inner Views
+
+private struct MusicCell: View {
+    var imageUrl: String?
+
+    init(youtubeUrl: String) {
+        if let videoId = YouTubePlayer(stringLiteral: youtubeUrl).source?.id {
+            self.imageUrl = "https://img.youtube.com/vi/\(videoId)/0.jpg"
+        } else {
+            imageUrl = nil
+        }
+    }
+
+    var body: some View {
+        NetworkImage(url: imageUrl ?? "", contentMode: .fill)
+            .redacted(reason: imageUrl == nil ? .placeholder : [])
+            .aspectRatio(1, contentMode: .fit)
+            .clipShape(Circle())
+            .overlay(
+                Circle()
+                    .fill(.gray900)
+                    .frame(width: 44, height: 44)
+            )
+            .overlay(
+                Circle()
+                    .fill(.gray100)
+                    .frame(width: 10, height: 10)
+            )
+    }
+}
+
 
 // MARK: - Preview
 
@@ -39,7 +92,7 @@ struct MusicArchiveView: View {
             initialState: .init(),
             reducer: {
                 MusicArchiveFeature()
-                    ._printChanges()
+                    // ._printChanges()
             }
         )
     )
