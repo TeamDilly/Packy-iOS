@@ -230,6 +230,7 @@
 		E5B22D022B711D33003DAC7B /* SplashFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B22D002B711D33003DAC7B /* SplashFeature.swift */; };
 		E5C5C9DB2B71314F003F0AB9 /* ShakeAnimationModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C5C9DA2B71314F003F0AB9 /* ShakeAnimationModifier.swift */; };
 		E5C8557C2B8224BE0076A211 /* YoutubeThumbnailGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C8557B2B8224BE0076A211 /* YoutubeThumbnailGenerator.swift */; };
+		E5C8557E2B8246890076A211 /* DimmedFullScreenModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C8557D2B8246890076A211 /* DimmedFullScreenModifier.swift */; };
 		E5D0129A2B58086F00236FEF /* SetWindowBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D012992B58086F00236FEF /* SetWindowBackground.swift */; };
 		E5D1C0472B7D18DE009D2DE1 /* PhotoData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D1C0462B7D18DE009D2DE1 /* PhotoData.swift */; };
 		E5D749762B4A7B9200213F63 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = E5D749752B4A7B9200213F63 /* Alamofire */; };
@@ -483,6 +484,7 @@
 		E5B22D002B711D33003DAC7B /* SplashFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashFeature.swift; sourceTree = "<group>"; };
 		E5C5C9DA2B71314F003F0AB9 /* ShakeAnimationModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShakeAnimationModifier.swift; sourceTree = "<group>"; };
 		E5C8557B2B8224BE0076A211 /* YoutubeThumbnailGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YoutubeThumbnailGenerator.swift; sourceTree = "<group>"; };
+		E5C8557D2B8246890076A211 /* DimmedFullScreenModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DimmedFullScreenModifier.swift; sourceTree = "<group>"; };
 		E5D012992B58086F00236FEF /* SetWindowBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetWindowBackground.swift; sourceTree = "<group>"; };
 		E5D1C0462B7D18DE009D2DE1 /* PhotoData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoData.swift; sourceTree = "<group>"; };
 		E5D7495D2B4A72E100213F63 /* Packy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Packy.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -945,6 +947,7 @@
 				E5A7A9D72B57F81400590EA6 /* SpinningModifier.swift */,
 				E5A59BEB2B729B0200D120CF /* BouncyTapGesture.swift */,
 				E57948702B82033C0058C733 /* ViewDidLoadModifier.swift */,
+				E5C8557D2B8246890076A211 /* DimmedFullScreenModifier.swift */,
 			);
 			path = ViewModifiers;
 			sourceTree = "<group>";
@@ -1642,6 +1645,7 @@
 				E54485072B6F86BC003DFA1B /* AppConstants.swift in Sources */,
 				E54485172B6F9116003DFA1B /* DeleteAccountFeature.swift in Sources */,
 				E52B954D2B80BCB100DB27FC /* BottomMenuModifier.swift in Sources */,
+				E5C8557E2B8246890076A211 /* DimmedFullScreenModifier.swift in Sources */,
 				E579485B2B81EB640058C733 /* MusicArchiveView.swift in Sources */,
 				E5A7AA452B57F81400590EA6 /* PhotoElementInputView.swift in Sources */,
 				E5A7AA622B57F81400590EA6 /* SignUpProfileFeature.swift in Sources */,
