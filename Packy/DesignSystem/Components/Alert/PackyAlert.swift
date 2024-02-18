@@ -67,6 +67,7 @@ private struct PackyAlertRootView: View {
                 }
             )
             .opacity(manager.isPresented ? 1 : 0)
+            .zIndex(1)
         }
         .animation(.spring, value: manager.isPresented)
     }

@@ -20,6 +20,7 @@ struct HomeFeature: Reducer {
     enum Action {
         // MARK: User Action
         case tappedGiftBox(boxId: Int)
+        case viewMoreButtonTapped
 
         // MARK: Inner Business Action
         case _onTask
@@ -32,6 +33,7 @@ struct HomeFeature: Reducer {
         // MARK: Delegate Action
         enum Delegate {
             case moveToBoxDetail(ReceivedGiftBox)
+            case moveToMyBox
         }
         case delegate(Delegate)
     }
@@ -59,6 +61,9 @@ struct HomeFeature: Reducer {
                         print("🐛 \(error)")
                     }
                 }
+
+            case .viewMoreButtonTapped:
+                return .send(.delegate(.moveToMyBox))
 
             case let ._setProfile(profile):
                 state.profile = profile

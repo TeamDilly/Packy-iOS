@@ -121,8 +121,11 @@ private extension HomeView {
 
                 Spacer()
 
-                NavigationLink("더보기", state: MainTabNavigationPath.State.myBox())
-                    .buttonStyle(.text)
+
+                Button("더보기") {
+                    viewStore.send(.viewMoreButtonTapped)
+                }
+                .buttonStyle(.text)
             }
             .padding(.horizontal, 24)
 

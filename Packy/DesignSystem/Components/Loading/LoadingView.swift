@@ -8,33 +8,42 @@
 import SwiftUI
 
 extension View {
+    /// 글로벌하게 사용하기 위한 Loading 설정 - App 단에서 1번만 등록하면 됨
+    func globalLoading() -> some View {
+        modifier(LoadingViewModifier())
+    }
+
     func showLoading(_ isLoading: Bool, allowTouch: Bool = true) -> some View {
-        modifier(
-            LoadingViewModifier(
-                isLoading: isLoading,
-                allowTouch: allowTouch
-            )
-        )
+        LoadingManager.shared.isLoading = isLoading
+        LoadingManager.shared.allowTouch = allowTouch
+        return self
     }
 }
 
+private final class LoadingManager: ObservableObject {
+    static let shared = LoadingManager()
+    private init() {}
+
+    @Published var isLoading: Bool = false
+    @Published var allowTouch: Bool = false
+}
+
 private struct LoadingViewModifier: ViewModifier {
-    var isLoading: Bool
-    var allowTouch: Bool
+    @ObservedObject private var manager = LoadingManager.shared
 
     func body(content: Content) -> some View {
         ZStack {
             content
 
-            if isLoading {
+            if manager.isLoading {
                 Group {
                     Color.black.opacity(0.1).ignoresSafeArea()
                     PackyProgress()
                 }
-                .allowsHitTesting(!allowTouch)
+                .allowsHitTesting(!manager.allowTouch)
             }
         }
-        .animation(.spring(duration: 0.3), value: isLoading)
+        .animation(.spring(duration: 0.3), value: manager.isLoading)
     }
 }
 
@@ -51,6 +60,7 @@ private struct LoadingViewModifier: ViewModifier {
                     isLoading.toggle()
                 }
             }
+            .globalLoading()
             .showLoading(isLoading, allowTouch: true)
         }
     }

@@ -15,7 +15,7 @@ struct BottomMenuConfiguration {
     let confirmAction: () async -> Void
 }
 
-// MARK: - PackyAlertManager
+// MARK: - BottomMenuManager
 
 @MainActor
 final class BottomMenuManager: ObservableObject {
