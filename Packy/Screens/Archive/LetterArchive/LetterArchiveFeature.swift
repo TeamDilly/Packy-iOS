@@ -18,10 +18,12 @@ struct LetterArchiveFeature: Reducer {
         }
 
         var letters: IdentifiedArrayOf<LetterArchiveData> = []
+        @BindingState var selectedLetter: LetterArchiveData?
     }
 
     enum Action {
         // MARK: User Action
+        case letterTapped(LetterArchiveData)
 
         // MARK: Inner Business Action
         case _onTask
@@ -37,6 +39,10 @@ struct LetterArchiveFeature: Reducer {
     var body: some Reducer<State, Action> {
         Reduce<State, Action> { state, action in
             switch action {
+            case let .letterTapped(letter):
+                state.selectedLetter = letter
+                return .none
+                
             case ._onTask:
                 guard state.letterArchivePageData.isEmpty else { return .none }
                 return fetchLetters(lastLetterId: nil)

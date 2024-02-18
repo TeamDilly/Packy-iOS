@@ -18,10 +18,12 @@ struct MusicArchiveFeature: Reducer {
         }
 
         var musics: IdentifiedArrayOf<MusicArchiveData> = []
+        @BindingState var selectedMusic: MusicArchiveData?
     }
 
     enum Action {
         // MARK: User Action
+        case musicTapped(MusicArchiveData)
 
         // MARK: Inner Business Action
         case _onTask
@@ -37,6 +39,10 @@ struct MusicArchiveFeature: Reducer {
     var body: some Reducer<State, Action> {
         Reduce<State, Action> { state, action in
             switch action {
+            case let .musicTapped(music):
+                state.selectedMusic = music
+                return .none
+
             case ._onTask:
                 guard state.musicArchivePageData.isEmpty else { return .none }
                 return fetchMusics(lastMusicId: nil)

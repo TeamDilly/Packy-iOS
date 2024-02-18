@@ -13,7 +13,6 @@ struct ArchiveFeature: Reducer {
 
     struct State: Equatable {
         @BindingState var selectedTab: ArchiveTab = .photo
-        @BindingState var textInput: String = ""
 
         var photoArchive: PhotoArchiveFeature.State = .init()
         var letterArchive: LetterArchiveFeature.State = .init()

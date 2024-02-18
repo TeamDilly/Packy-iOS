@@ -18,10 +18,12 @@ struct GiftArchiveFeature: Reducer {
         }
 
         var gifts: IdentifiedArrayOf<GiftArchiveData> = []
+        @BindingState var selectedGift: GiftArchiveData?
     }
 
     enum Action {
         // MARK: User Action
+        case giftTapped(GiftArchiveData)
 
         // MARK: Inner Business Action
         case _onTask
@@ -37,6 +39,10 @@ struct GiftArchiveFeature: Reducer {
     var body: some Reducer<State, Action> {
         Reduce<State, Action> { state, action in
             switch action {
+            case let .giftTapped(gift):
+                state.selectedGift = gift
+                return .none
+                
             case ._onTask:
                 guard state.giftArchivePageData.isEmpty else { return .none }
                 return fetchGifts(lastGiftId: nil)

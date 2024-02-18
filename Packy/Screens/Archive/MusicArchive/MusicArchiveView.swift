@@ -24,6 +24,9 @@ struct MusicArchiveView: View {
         VStack {
             StaggeredGrid(columns: 2, data: viewStore.musics.elements) { music in
                 MusicCell(youtubeUrl: music.youtubeUrl)
+                    .bouncyTapGesture {
+                        viewStore.send(.musicTapped(music))
+                    }
                     .onAppear {
                         // Pagination
                         guard viewStore.isLastPage == false,

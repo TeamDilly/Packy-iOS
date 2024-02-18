@@ -23,16 +23,14 @@ struct PhotoArchiveView: View {
     var body: some View {
         VStack {
             StaggeredGrid(columns: 2, data: viewStore.photos.elements) { photo in
-                NetworkImage(url: photo.photoUrl)
-                    .aspectRatio(1, contentMode: .fit)
-                    .padding(.horizontal, 8)
-                    .padding(.top, 8)
-                    .padding(.bottom, 40)
-                    .background(.white)
+                PhotoCell(photoUrl: photo.photoUrl)
+                    .bouncyTapGesture {
+                        viewStore.send(.photoTapped(photo))
+                    }
                     .onAppear {
                         // Pagination
-                        guard viewStore.isLastPage == false, 
-                              let index = viewStore.photos.firstIndex(of: photo) else { return }
+                        guard viewStore.isLastPage == false,
+                                let index = viewStore.photos.firstIndex(of: photo) else { return }
 
                         let isNearEndForNextPageLoad = index == viewStore.photos.endIndex - 3
                         guard isNearEndForNextPageLoad else { return }
@@ -53,6 +51,21 @@ struct PhotoArchiveView: View {
             guard $1 == .active else { return }
             viewStore.send(._didActiveScene)
         }
+    }
+}
+
+// MARK: - Inner Views
+
+private struct PhotoCell: View {
+    var photoUrl: String
+
+    var body: some View {
+        NetworkImage(url: photoUrl)
+            .aspectRatio(1, contentMode: .fit)
+            .padding(.horizontal, 8)
+            .padding(.top, 8)
+            .padding(.bottom, 40)
+            .background(.white)
     }
 }
 

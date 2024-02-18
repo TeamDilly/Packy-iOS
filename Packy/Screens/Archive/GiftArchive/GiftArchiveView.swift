@@ -24,6 +24,9 @@ struct GiftArchiveView: View {
         VStack {
             StaggeredGrid(columns: 2, data: viewStore.gifts.elements) { gift in
                 GiftCell(imageUrl: gift.gift.url)
+                    .bouncyTapGesture {
+                        viewStore.send(.giftTapped(gift))
+                    }
                     .onAppear {
                         // Pagination
                         guard viewStore.isLastPage == false,

@@ -27,6 +27,9 @@ struct LetterArchiveView: View {
                     imageUrl: letter.envelope.imageUrl,
                     text: letter.letterContent
                 )
+                .bouncyTapGesture {
+                    viewStore.send(.letterTapped(letter))
+                }
                 .onAppear {
                     // Pagination
                     guard viewStore.isLastPage == false,

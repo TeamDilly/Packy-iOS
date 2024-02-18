@@ -14,6 +14,8 @@ struct ArchiveView: View {
     private let store: StoreOf<ArchiveFeature>
     @ObservedObject private var viewStore: ViewStoreOf<ArchiveFeature>
 
+    @State private var isFullScreenPresented = false
+
     init(store: StoreOf<ArchiveFeature>) {
         self.store = store
         self.viewStore = ViewStore(store, observe: { $0 })
@@ -37,6 +39,22 @@ struct ArchiveView: View {
             case .gift:
                 GiftArchiveView(store: store.scope(state: \.giftArchive, action: \.giftArchive))
             }
+        }
+        .dimmedFullScreenCover(isPresented: photoPresentBinding) {
+            // 실제 컨텐츠
+            VStack {
+                Text("여기는 Full Screen Cover입니다.")
+                    .foregroundColor(.white)
+                Button("닫기") {
+                    photoPresentBinding.wrappedValue = false
+                }
+                .foregroundColor(.white)
+                .padding()
+                .background(Color.red)
+                .cornerRadius(10)
+            }
+            .background(.white)
+            .frame(height: 200)
         }
         .frame(maxHeight: .infinity, alignment: .top)
         .background(.gray100)
@@ -83,6 +101,50 @@ private extension ArchiveView {
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding(.horizontal, 24)
+    }
+}
+
+// MARK: - Inner Properties
+
+private extension ArchiveView {
+    var photoPresentBinding: Binding<Bool> {
+        .init(
+            get: { viewStore.photoArchive.selectedPhoto != nil },
+            set: {
+                guard $0 == false else { return }
+                viewStore.send(.binding(.set(\.photoArchive.$selectedPhoto, nil)))
+            }
+        )
+    }
+
+    var letterPresentBinding: Binding<Bool> {
+        .init(
+            get: { viewStore.letterArchive.selectedLetter != nil },
+            set: {
+                guard $0 == false else { return }
+                viewStore.send(.binding(.set(\.letterArchive.$selectedLetter, nil)))
+            }
+        )
+    }
+
+    var musicPresentBinding: Binding<Bool> {
+        .init(
+            get: { viewStore.musicArchive.selectedMusic != nil },
+            set: {
+                guard $0 == false else { return }
+                viewStore.send(.binding(.set(\.musicArchive.$selectedMusic, nil)))
+            }
+        )
+    }
+
+    var giftPresentBinding: Binding<Bool> {
+        .init(
+            get: { viewStore.giftArchive.selectedGift != nil },
+            set: {
+                guard $0 == false else { return }
+                viewStore.send(.binding(.set(\.giftArchive.$selectedGift, nil)))
+            }
+        )
     }
 }
 

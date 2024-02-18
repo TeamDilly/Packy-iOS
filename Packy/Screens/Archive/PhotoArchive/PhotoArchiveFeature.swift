@@ -18,10 +18,12 @@ struct PhotoArchiveFeature: Reducer {
         }
 
         var photos: IdentifiedArrayOf<PhotoArchiveData> = []
+        @BindingState var selectedPhoto: PhotoArchiveData?
     }
 
     enum Action {
         // MARK: User Action
+        case photoTapped(PhotoArchiveData)
 
         // MARK: Inner Business Action
         case _onTask
@@ -37,6 +39,10 @@ struct PhotoArchiveFeature: Reducer {
     var body: some Reducer<State, Action> {
         Reduce<State, Action> { state, action in
             switch action {
+            case let .photoTapped(photo):
+                state.selectedPhoto = photo
+                return .none
+                
             case ._onTask:
                 guard state.photoArchivePageData.isEmpty else { return .none }
                 return fetchPhotos(lastPhotoId: nil)
