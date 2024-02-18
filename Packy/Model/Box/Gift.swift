@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Gift: Codable, Equatable {
+struct Gift: Codable, Equatable, Hashable {
     let type: String
     var url: String
 }

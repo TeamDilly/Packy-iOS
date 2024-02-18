@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Envelope: Decodable, Equatable {
+struct Envelope: Decodable, Equatable, Hashable {
     let imageUrl: String
     let borderColorCode: String
     let opacityPercent: Int
