@@ -7,7 +7,6 @@
 
 import SwiftUI
 import ComposableArchitecture
-import YouTubePlayerKit
 
 // MARK: - View
 
@@ -58,8 +57,8 @@ private struct MusicCell: View {
     var imageUrl: String?
 
     init(youtubeUrl: String) {
-        if let videoId = YouTubePlayer(stringLiteral: youtubeUrl).source?.id {
-            self.imageUrl = "https://img.youtube.com/vi/\(videoId)/0.jpg"
+        if let thumbnailUrl = YoutubeThumbnailGenerator.thumbnailUrl(fromYoutubeUrl: youtubeUrl) {
+            self.imageUrl = thumbnailUrl
         } else {
             imageUrl = nil
         }

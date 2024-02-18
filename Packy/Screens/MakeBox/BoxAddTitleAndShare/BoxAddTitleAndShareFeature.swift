@@ -27,6 +27,8 @@ struct BoxAddTitleAndShareFeature: Reducer {
 
         @BindingState var boxNameInput: String = ""
         @BindingState var showingState: ShowingState = .addTitle
+
+        var isLoading: Bool = false
     }
 
     enum Action: BindableAction {
@@ -47,6 +49,7 @@ struct BoxAddTitleAndShareFeature: Reducer {
         // MARK: Inner SetState Action
         case _setSentGiftBoxInfo(SentGiftBoxInfo)
         case _showErrorMessage(String)
+        case _showIsLoading(Bool)
 
         // MARK: Delegate Action
         enum Delegate {
@@ -78,6 +81,8 @@ struct BoxAddTitleAndShareFeature: Reducer {
                 return .send(.delegate(.moveToHome))
 
             case .nextButtonTapped:
+                guard state.isLoading == false else { return .none }
+                state.isLoading = true
                 guard let photoData = state.giftBoxData.photos.first?.photoData else { return .none }
                 let giftData = state.giftBoxData.gift?.data
 
@@ -113,10 +118,12 @@ struct BoxAddTitleAndShareFeature: Reducer {
                 return .none
 
             case let ._setSentGiftBoxInfo(sentGiftBoxInfo):
+                state.isLoading = false
                 state.sentGiftBoxInfo = sentGiftBoxInfo
                 return .none
 
             case ._changeScreen:
+                print("🐛 changeScreen")
                 return .run { send in
                     await send(.binding(.set(\.$showingState, .completed)), animation: .spring)
                     try? await clock.sleep(for: .seconds(2.6))
@@ -124,6 +131,7 @@ struct BoxAddTitleAndShareFeature: Reducer {
                 }
 
             case let ._showErrorMessage(errorMessage):
+                state.isLoading = false
                 return .run { send in
                     await packyAlert.show(
                         .init(
@@ -134,6 +142,10 @@ struct BoxAddTitleAndShareFeature: Reducer {
                         )
                     )
                 }
+
+            case let ._showIsLoading(isLoading):
+                state.isLoading = isLoading
+                return .none
 
             case ._onTask:
                 return .none

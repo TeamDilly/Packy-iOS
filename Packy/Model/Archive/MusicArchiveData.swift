@@ -16,6 +16,11 @@ struct MusicArchivePageData: Decodable, Hashable {
 struct MusicArchiveData: Decodable, Hashable, Identifiable {
     let id: Int
     let youtubeUrl: String
+
+    enum CodingKeys: String, CodingKey {
+        case id = "giftBoxId"
+        case youtubeUrl
+    }
 }
 
 // MARK: - Mock Data

@@ -23,7 +23,12 @@ extension MoyaProvider {
                     }
 
                 case .failure(let error):
-                    continuation.resume(throwing: error)
+                    if let response = error.response?.data {
+                        let errorResponse = try? JSONDecoder().decode(ErrorResponse.self, from: response)
+                        continuation.resume(throwing: errorResponse ?? .base)
+                    } else {
+                        continuation.resume(throwing: error)
+                    }
                 }
             }
         }
@@ -42,7 +47,12 @@ extension MoyaProvider {
                     }
 
                 case .failure(let error):
-                    continuation.resume(throwing: error)
+                    if let response = error.response?.data {
+                        let errorResponse = try? JSONDecoder().decode(ErrorResponse.self, from: response)
+                        continuation.resume(throwing: errorResponse ?? .base)
+                    } else {
+                        continuation.resume(throwing: error)
+                    }
                 }
             }
         }

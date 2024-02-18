@@ -13,6 +13,7 @@ import ComposableArchitecture
 struct GiftArchiveView: View {
     private let store: StoreOf<GiftArchiveFeature>
     @ObservedObject private var viewStore: ViewStoreOf<GiftArchiveFeature>
+    @Environment(\.scenePhase) private var scenePhase
 
     init(store: StoreOf<GiftArchiveFeature>) {
         self.store = store
@@ -20,14 +21,44 @@ struct GiftArchiveView: View {
     }
 
     var body: some View {
-        List {
-            Text("Hello, GiftArchive!")
+        VStack {
+            StaggeredGrid(columns: 2, data: viewStore.gifts.elements) { gift in
+                GiftCell(imageUrl: gift.gift.url)
+                    .onAppear {
+                        // Pagination
+                        guard viewStore.isLastPage == false,
+                              let index = viewStore.gifts.firstIndex(of: gift) else { return }
+
+                        let isNearEndForNextPageLoad = index == viewStore.gifts.endIndex - 3
+                        guard isNearEndForNextPageLoad else { return }
+                        viewStore.send(._fetchMoreGifts)
+                    }
+            }
+            .zigzagPadding(80)
+            .innerSpacing(vertical: 16, horizontal: 16)
         }
-        .task {
+        .padding(.horizontal, 24)
+        .background(.gray100)
+        .didLoad {
             await viewStore
                 .send(._onTask)
                 .finish()
         }
+        .onChange(of: scenePhase) {
+            guard $1 == .active else { return }
+            viewStore.send(._didActiveScene)
+        }
+    }
+}
+
+// MARK: - Inner Views
+
+private struct GiftCell: View {
+    var imageUrl: String
+
+    var body: some View {
+        NetworkImage(url: imageUrl, contentMode: .fill, cropAlignment: .top)
+            .aspectRatio(1, contentMode: .fit)
     }
 }
 

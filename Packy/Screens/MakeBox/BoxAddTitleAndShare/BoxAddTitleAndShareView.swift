@@ -62,6 +62,7 @@ struct BoxAddTitleAndShareView: View {
                 .padding(.bottom, 16)
             }
         }
+        .showLoading(viewStore.isLoading)
         .popGestureDisabled()
         .makeTapToHideKeyboard()
         .navigationBarBackButtonHidden(true)
