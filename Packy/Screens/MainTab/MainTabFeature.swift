@@ -18,6 +18,7 @@ struct MainTabFeature: Reducer {
         var path: StackState<MainTabNavigationPath.State> = .init()
         var home: HomeFeature.State = .init()
         var myBox: MyBoxFeature.State = .init()
+        var archive: ArchiveFeature.State = .init()
     }
 
     enum Action: BindableAction {
@@ -33,12 +34,14 @@ struct MainTabFeature: Reducer {
         case path(StackAction<MainTabNavigationPath.State, MainTabNavigationPath.Action>)
         case home(HomeFeature.Action)
         case myBox(MyBoxFeature.Action)
+        case archive(ArchiveFeature.Action)
     }
 
 
     var body: some Reducer<State, Action> {
         Scope(state: \.home, action: \.home) { HomeFeature() }
         Scope(state: \.myBox, action: \.myBox) { MyBoxFeature() }
+        Scope(state: \.archive, action: \.archive) { ArchiveFeature() }
 
         BindingReducer()
         navigationReducer

@@ -89,6 +89,10 @@
 		E57948632B81EC2C0058C733 /* ArchiveTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57948622B81EC2C0058C733 /* ArchiveTab.swift */; };
 		E57948652B81EFEC0058C733 /* StaggeredGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57948642B81EFEC0058C733 /* StaggeredGrid.swift */; };
 		E57948682B81F1AC0058C733 /* PhotoArchiveData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57948672B81F1AC0058C733 /* PhotoArchiveData.swift */; };
+		E579486B2B81FE900058C733 /* ArchiveClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = E579486A2B81FE900058C733 /* ArchiveClient.swift */; };
+		E579486D2B81FED10058C733 /* ArchiveEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = E579486C2B81FED10058C733 /* ArchiveEndpoint.swift */; };
+		E579486F2B81FF960058C733 /* PhotoArchiveRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = E579486E2B81FF960058C733 /* PhotoArchiveRequest.swift */; };
+		E57948712B82033C0058C733 /* ViewDidLoadModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57948702B82033C0058C733 /* ViewDidLoadModifier.swift */; };
 		E58048C12B5BF0D200B974B3 /* UIImage+Compression.swift in Sources */ = {isa = PBXBuildFile; fileRef = E58048C02B5BF0D200B974B3 /* UIImage+Compression.swift */; };
 		E58048C32B5BFF3800B974B3 /* WriteLetterBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = E58048C22B5BFF3800B974B3 /* WriteLetterBottomSheet.swift */; };
 		E58048C92B5C36DD00B974B3 /* CornerRadiusWithBorderModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = E58048C82B5C36DD00B974B3 /* CornerRadiusWithBorderModifier.swift */; };
@@ -338,6 +342,10 @@
 		E57948622B81EC2C0058C733 /* ArchiveTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArchiveTab.swift; sourceTree = "<group>"; };
 		E57948642B81EFEC0058C733 /* StaggeredGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StaggeredGrid.swift; sourceTree = "<group>"; };
 		E57948672B81F1AC0058C733 /* PhotoArchiveData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoArchiveData.swift; sourceTree = "<group>"; };
+		E579486A2B81FE900058C733 /* ArchiveClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArchiveClient.swift; sourceTree = "<group>"; };
+		E579486C2B81FED10058C733 /* ArchiveEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArchiveEndpoint.swift; sourceTree = "<group>"; };
+		E579486E2B81FF960058C733 /* PhotoArchiveRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoArchiveRequest.swift; sourceTree = "<group>"; };
+		E57948702B82033C0058C733 /* ViewDidLoadModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewDidLoadModifier.swift; sourceTree = "<group>"; };
 		E58048C02B5BF0D200B974B3 /* UIImage+Compression.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Compression.swift"; sourceTree = "<group>"; };
 		E58048C22B5BFF3800B974B3 /* WriteLetterBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteLetterBottomSheet.swift; sourceTree = "<group>"; };
 		E58048C82B5C36DD00B974B3 /* CornerRadiusWithBorderModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CornerRadiusWithBorderModifier.swift; sourceTree = "<group>"; };
@@ -783,6 +791,16 @@
 			path = Archive;
 			sourceTree = "<group>";
 		};
+		E57948692B81FE710058C733 /* Archive */ = {
+			isa = PBXGroup;
+			children = (
+				E579486A2B81FE900058C733 /* ArchiveClient.swift */,
+				E579486C2B81FED10058C733 /* ArchiveEndpoint.swift */,
+				E579486E2B81FF960058C733 /* PhotoArchiveRequest.swift */,
+			);
+			path = Archive;
+			sourceTree = "<group>";
+		};
 		E586DCCD2B73A0340052E8D7 /* Lottie */ = {
 			isa = PBXGroup;
 			children = (
@@ -915,6 +933,7 @@
 				E5C5C9DA2B71314F003F0AB9 /* ShakeAnimationModifier.swift */,
 				E5A7A9D72B57F81400590EA6 /* SpinningModifier.swift */,
 				E5A59BEB2B729B0200D120CF /* BouncyTapGesture.swift */,
+				E57948702B82033C0058C733 /* ViewDidLoadModifier.swift */,
 			);
 			path = ViewModifiers;
 			sourceTree = "<group>";
@@ -1113,10 +1132,11 @@
 		E5A7AA0E2B57F81400590EA6 /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				E57948692B81FE710058C733 /* Archive */,
+				E5A7AA0F2B57F81400590EA6 /* Auth */,
 				E5E06B3E2B654EE500F6FD01 /* Box */,
 				E5A416A32B5D1F6900313E5A /* Design */,
 				E5001F8F2B5BE43E004B65E6 /* Upload */,
-				E5A7AA0F2B57F81400590EA6 /* Auth */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -1548,6 +1568,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E5A59BE82B727F0500D120CF /* GiftBoxesResponse.swift in Sources */,
+				E579486F2B81FF960058C733 /* PhotoArchiveRequest.swift in Sources */,
 				E58048C12B5BF0D200B974B3 /* UIImage+Compression.swift in Sources */,
 				E5B22D012B711D33003DAC7B /* SplashView.swift in Sources */,
 				E5A7AA412B57F81400590EA6 /* BoxElementShape.swift in Sources */,
@@ -1582,6 +1603,7 @@
 				E54484E52B6E80BE003DFA1B /* BoxOpenView.swift in Sources */,
 				E5FDE05D2B6BAD1F00E00B00 /* Sticker.swift in Sources */,
 				E5E06B402B654EF200F6FD01 /* BoxClient.swift in Sources */,
+				E579486B2B81FE900058C733 /* ArchiveClient.swift in Sources */,
 				E5551B7B2B5FF2AF00DB81F3 /* HTTPSession.swift in Sources */,
 				E5A7AA4E2B57F81400590EA6 /* Font+Packy.swift in Sources */,
 				E58048C32B5BFF3800B974B3 /* WriteLetterBottomSheet.swift in Sources */,
@@ -1694,6 +1716,7 @@
 				E57948442B80CF970058C733 /* MainTab.swift in Sources */,
 				E54484F42B6F4A17003DFA1B /* DateFormat.swift in Sources */,
 				E5A59BE22B72792400D120CF /* Profile.swift in Sources */,
+				E579486D2B81FED10058C733 /* ArchiveEndpoint.swift in Sources */,
 				E5001F912B5BE44D004B65E6 /* UploadEndpoint.swift in Sources */,
 				E55558282B6E10AC00461352 /* YoutubeLinkValidationResponse.swift in Sources */,
 				E52037D72B64203E00721F76 /* SelectMusicFeature.swift in Sources */,
@@ -1742,6 +1765,7 @@
 				E5A416AB2B5D215800313E5A /* ProfileImage.swift in Sources */,
 				E5E06B382B654D9A00F6FD01 /* Gift.swift in Sources */,
 				E5A7AA592B57F81400590EA6 /* MakeBoxDetailFeature.swift in Sources */,
+				E57948712B82033C0058C733 /* ViewDidLoadModifier.swift in Sources */,
 				E5D0129A2B58086F00236FEF /* SetWindowBackground.swift in Sources */,
 				E5A7AA362B57F81400590EA6 /* Color+Hex.swift in Sources */,
 				E5A416AD2B5D218E00313E5A /* MessageDesign.swift in Sources */,

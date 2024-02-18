@@ -127,7 +127,7 @@ private extension MainTabView {
                     .tag(MainTab.myBox)
 
             case .archive:
-                Text("Archive View")
+                ArchiveView(store: store.scope(state: \.archive, action: \.archive))
                     .tag(MainTab.archive)
             }
         }

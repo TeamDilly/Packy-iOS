@@ -43,11 +43,6 @@ struct LoginView: View {
             .padding(.horizontal, 24)
             .padding(.bottom, 120)
         }
-        .task {
-            await viewStore
-                .send(._onAppear)
-                .finish()
-        }
     }
 }
 

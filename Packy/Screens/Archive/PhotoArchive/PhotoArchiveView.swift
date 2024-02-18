@@ -13,6 +13,7 @@ import ComposableArchitecture
 struct PhotoArchiveView: View {
     private let store: StoreOf<PhotoArchiveFeature>
     @ObservedObject private var viewStore: ViewStoreOf<PhotoArchiveFeature>
+    @Environment(\.scenePhase) private var scenePhase
 
     init(store: StoreOf<PhotoArchiveFeature>) {
         self.store = store
@@ -21,23 +22,36 @@ struct PhotoArchiveView: View {
 
     var body: some View {
         VStack {
-            StaggeredGrid(columns: 2, data: viewStore.photos) { photo in
+            StaggeredGrid(columns: 2, data: viewStore.photos.elements) { photo in
                 NetworkImage(url: photo.photoUrl)
                     .aspectRatio(1, contentMode: .fit)
                     .padding(.horizontal, 8)
                     .padding(.top, 8)
                     .padding(.bottom, 40)
                     .background(.white)
+                    .onAppear {
+                        // Pagination
+                        guard viewStore.isLastPage == false, 
+                              let index = viewStore.photos.firstIndex(of: photo) else { return }
+
+                        let isNearEndForNextPageLoad = index == viewStore.photos.endIndex - 3
+                        guard isNearEndForNextPageLoad else { return }
+                        viewStore.send(._fetchMorePhotos)
+                    }
             }
             .zigzagPadding(80)
             .innerSpacing(vertical: 32, horizontal: 16)
         }
         .padding(.horizontal, 24)
         .background(.gray100)
-        .task {
+        .didLoad {
             await viewStore
                 .send(._onTask)
                 .finish()
+        }
+        .onChange(of: scenePhase) {
+            guard $1 == .active else { return }
+            viewStore.send(._didActiveScene)
         }
     }
 }

@@ -113,6 +113,7 @@ private extension MyBoxView {
                             }
                         }
                         .onAppear {
+                            // Pagination
                             guard isLastPage(for: tab) == false,
                                   let giftBoxIndex = giftBoxes.firstIndex(of: giftBox) else { return }
 

@@ -20,9 +20,6 @@ struct LoginFeature: Reducer {
         case kakaoLoginButtonTapped
         case appleLoginButtonTapped
 
-        // MARK: Inner Business Action
-        case _onAppear
-
         // MARK: Inner SetState Action
         case _setSocialLoginInfo(SocialLoginInfo)
 
@@ -61,9 +58,6 @@ struct LoginFeature: Reducer {
 
             case let ._setSocialLoginInfo(info):
                 state.socialLoginInfo = info
-                return .none
-
-            case ._onAppear:
                 return .none
 
             default:
