@@ -236,8 +236,8 @@ private extension MyBoxView {
 
     func isLastPage(for tab: MyBoxTab) -> Bool {
         switch tab {
-        case .sentBox:      return viewStore.sentBoxesData.last?.isLastPage ?? true
-        case .receivedBox:  return viewStore.receivedBoxesData.last?.isLastPage ?? true
+        case .sentBox:      return viewStore.isSentBoxesLastPage
+        case .receivedBox:  return viewStore.isReceivedBoxesLastPage
         }
     }
 }

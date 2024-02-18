@@ -14,8 +14,11 @@ struct MyBoxFeature: Reducer {
     struct State: Equatable {
         @BindingState var selectedTab: MyBoxTab = .sentBox
 
-        var receivedBoxesData: [SentReceivedGiftBoxPageData] = []
-        var sentBoxesData: [SentReceivedGiftBoxPageData] = []
+        fileprivate var receivedBoxesData: [SentReceivedGiftBoxPageData] = []
+        fileprivate var sentBoxesData: [SentReceivedGiftBoxPageData] = []
+
+        var isReceivedBoxesLastPage: Bool { receivedBoxesData.last?.isLastPage ?? true }
+        var isSentBoxesLastPage: Bool { sentBoxesData.last?.isLastPage ?? true }
 
         var receivedBoxes: [SentReceivedGiftBox] {
             Set(receivedBoxesData.flatMap(\.giftBoxes))
