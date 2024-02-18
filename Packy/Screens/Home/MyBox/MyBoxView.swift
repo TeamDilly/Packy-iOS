@@ -41,20 +41,6 @@ struct MyBoxView: View {
 
             Spacer()
         }
-        // FIXME: 변경
-        // .bottomMenu(
-        //     isPresented: .init(
-        //         get: { viewStore.selectedBoxToDelete != nil },
-        //         set: {
-        //             guard $0 == false else { return }
-        //             viewStore.send(.binding(.set(\.$selectedBoxToDelete, nil)))
-        //         }
-        //     ),
-        //     confirmTitle: "삭제하기",
-        //     confirmAction: {
-        //         viewStore.send(.deleteBottomMenuConfirmButtonTapped)
-        //     }
-        // )
         .showLoading(viewStore.isShowDetailLoading)
         .navigationBarBackButtonHidden(true)
         .ignoresSafeArea(edges: .bottom)
@@ -125,6 +111,7 @@ private extension MyBoxView {
                         .simultaneousGesture(
                             LongPressGesture()
                                 .onEnded { _ in
+                                    HapticManager.shared.fireFeedback(.soft)
                                     viewStore.send(.binding(.set(\.$selectedBoxToDelete, giftBox)))
                                 }
                         )

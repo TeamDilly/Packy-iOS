@@ -22,6 +22,7 @@ struct PackyApp: App {
         WindowGroup {
             RootView(store: store)
                 .packyGlobalAlert()
+                .globalBottomMenu()
                 .onOpenURL { url in
                     socialLogin.handleKakaoUrlIfNeeded(url)
                     store.send(._handleScheme(url.queryParameters))

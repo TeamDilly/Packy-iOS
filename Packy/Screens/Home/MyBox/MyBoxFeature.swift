@@ -54,6 +54,7 @@ struct MyBoxFeature: Reducer {
     }
 
     @Dependency(\.boxClient) var boxClient
+    @Dependency(\.bottomMenu) var bottomMenu
     @Dependency(\.packyAlert) var packyAlert
 
     var body: some Reducer<State, Action> {
@@ -61,6 +62,18 @@ struct MyBoxFeature: Reducer {
 
         Reduce<State, Action> { state, action in
             switch action {
+            case .binding(\.$selectedBoxToDelete):
+                return .run { send in
+                    await bottomMenu.show(
+                        .init(
+                            confirmTitle: "삭제하기",
+                            confirmAction: {
+                                await send(.deleteBottomMenuConfirmButtonTapped)
+                            }
+                        )
+                    )
+                }
+
             case .binding:
                 return .none
                 

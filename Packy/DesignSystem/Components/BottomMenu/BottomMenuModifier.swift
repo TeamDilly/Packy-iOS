@@ -8,28 +8,14 @@
 import SwiftUI
 
 extension View {
-    func bottomMenu(
-        isPresented: Binding<Bool>,
-        confirmTitle: String,
-        cancelTitle: String = "취소",
-        confirmAction: @escaping () -> Void
-    ) -> some View {
-        modifier(
-            BottomMenuModifier(
-                isPresented: isPresented,
-                confirmTitle: confirmTitle,
-                cancelTitle: cancelTitle,
-                confirmAction: confirmAction
-            )
-        )
+    /// 글로벌하게 사용하기 위한 BottomMenu 설정 - App 단에서 1번만 등록하면 됨
+    func globalBottomMenu() -> some View {
+        modifier(BottomMenuModifier())
     }
 }
 
 struct BottomMenuModifier: ViewModifier {
-    @Binding var isPresented: Bool
-    let confirmTitle: String
-    var cancelTitle: String = "취소"
-    let confirmAction: () -> Void
+    @ObservedObject var manager = BottomMenuManager.shared
 
     func body(content: Content) -> some View {
         ZStack {
@@ -38,28 +24,29 @@ struct BottomMenuModifier: ViewModifier {
             ZStack(alignment: .bottom) {
                 Color.black
                     .ignoresSafeArea()
-                    .opacity(isPresented ? 0.6 : 0)
+                    .opacity(manager.isPresented ? 0.6 : 0)
                     .onTapGesture {
-                        isPresented = false
+                        manager.dismiss()
                     }
 
-                if isPresented {
+                if manager.isPresented {
                     BottomMenu(
-                        confirmTitle: confirmTitle,
-                        cancelTitle: cancelTitle,
+                        confirmTitle: manager.configuration.confirmTitle,
+                        cancelTitle: manager.configuration.cancelTitle,
                         confirmAction: {
-                            confirmAction()
-                            isPresented = false
+                            await manager.configuration.confirmAction()
+                            manager.dismiss()
                         },
                         cancelAction: {
-                            isPresented = false
+                            manager.dismiss()
                         }
                     )
                     .transition(.move(edge: .bottom))
                     .zIndex(1)
                 }
             }
-            .animation(.spring(duration: 0.4), value: isPresented)
+            .zIndex(2)
+            .animation(.spring(duration: 0.4), value: manager.isPresented)
             .ignoresSafeArea(edges: .bottom)
         }
     }
@@ -68,22 +55,24 @@ struct BottomMenuModifier: ViewModifier {
 
 #Preview {
     struct SampleView: View {
-        @State private var isPresented: Bool = false
-
         var body: some View {
             VStack {
                 Button("delete!") {
-                    isPresented = true
+                    Task {
+                        await BottomMenuManager.shared.show(
+                            configuration: .init(
+                                confirmTitle: "삭제하기",
+                                confirmAction: {
+                                    try? await Task.sleep(for: .seconds(1))
+                                    print("완료")
+                                }
+                            )
+                        )
+                    }
                 }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .bottomMenu(
-                isPresented: $isPresented,
-                confirmTitle: "삭제하기",
-                confirmAction: {
-                    print("delete")
-                }
-            )
+            .globalBottomMenu()
             .background(.gray)
         }
     }

@@ -11,13 +11,15 @@ struct BottomMenu: View {
     let confirmTitle: String
     var cancelTitle: String = "취소"
 
-    let confirmAction: () -> Void
-    let cancelAction: () -> Void
+    let confirmAction: (() async -> Void)
+    let cancelAction: (() async -> Void)
 
     var body: some View {
         VStack {
             Button {
-                confirmAction()
+                Task { @MainActor in
+                    await confirmAction()
+                }
             } label: {
                 Text(confirmTitle)
                     .packyFont(.body2)
@@ -30,7 +32,9 @@ struct BottomMenu: View {
             PackyDivider()
 
             Button {
-                cancelAction()
+                Task { @MainActor in
+                    await cancelAction()
+                }
             } label: {
                 Text(cancelTitle)
                     .packyFont(.body2)
