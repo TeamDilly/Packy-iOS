@@ -40,9 +40,6 @@ struct MyBoxView: View {
                 .background(.gray100)
                 .safeAreaPadding(.bottom, 30)
                 .frame(maxHeight: .infinity)
-                .refreshable {
-                    // await viewStore.send(._onRefresh)
-                }
         }
         .showLoading(viewStore.isShowDetailLoading)
         .navigationBarBackButtonHidden(true)

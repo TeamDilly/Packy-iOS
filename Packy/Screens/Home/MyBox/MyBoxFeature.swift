@@ -43,6 +43,7 @@ struct MyBoxFeature: Reducer {
         case _didActiveScene
         case _fetchMoreSentGiftBoxes
         case _fetchMoreReceivedGiftBoxes
+        case _resetAndFetchGiftBoxes
 
         // MARK: Inner SetState Action
         case _setGiftBoxData(SentReceivedGiftBoxPageData, GiftBoxType)
@@ -66,16 +67,11 @@ struct MyBoxFeature: Reducer {
         Reduce<State, Action> { state, action in
             switch action {
             case ._onTask:
-                state.sentBoxesData = []
-                state.receivedBoxesData = []
-                // guard state.sentBoxes.isEmpty && state.receivedBoxes.isEmpty else { return .none }
+                guard state.sentBoxes.isEmpty && state.receivedBoxes.isEmpty else { return .none }
                 return fetchAllInitialGiftBoxes()
 
             case ._didActiveScene:
-                return .none
-                // state.sentBoxesData = []
-                // state.receivedBoxesData = []
-                // return fetchAllInitialGiftBoxes()
+                return .send(._resetAndFetchGiftBoxes)
 
             case .binding(\.$selectedBoxToDelete):
                 return .run { send in
@@ -128,12 +124,9 @@ struct MyBoxFeature: Reducer {
                 }
 
             case ._fetchMoreSentGiftBoxes:
-                print("🐛 _fetchMoreSentGiftBoxes")
                 guard let lastBoxData = state.sentBoxesData.last,
                       lastBoxData.isLastPage == false,
                       let lastBoxDate = lastBoxData.giftBoxes.last?.giftBoxDate else { return .none }
-
-                print("🐛 _fetchMoreSentGiftBoxes fire!! \(lastBoxDate)")
 
                 return fetchGiftBoxes(
                     type: .sent,
@@ -161,6 +154,12 @@ struct MyBoxFeature: Reducer {
                 }
                 return .none
 
+            case ._resetAndFetchGiftBoxes:
+                state.isFetchBoxesLoading = true
+                state.sentBoxesData = []
+                state.receivedBoxesData = []
+                return fetchAllInitialGiftBoxes()
+
             case let ._setFetchBoxLoading(isLoading):
                 state.isFetchBoxesLoading = isLoading
                 return .none
@@ -184,7 +183,6 @@ private extension MyBoxFeature {
         )
     }
 
-    // TODO: 페이지네이션 관련 로직 확인 필요 _ 배열로 관리해서 더하는 형태인지? 일단은 size를 늘리는 형태로 처리하도록 함
     func fetchGiftBoxes(type: GiftBoxType, lastGiftBoxDate: Date) -> Effect<Action> {
         .run { send in
             do {
