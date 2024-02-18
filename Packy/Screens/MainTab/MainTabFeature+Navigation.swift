@@ -12,7 +12,6 @@ import ComposableArchitecture
 @Reducer
 struct MainTabNavigationPath {
     enum State: Equatable {
-        case myBox(MyBoxFeature.State = .init())
         case boxDetail(BoxDetailFeature.State)
         case boxOpen(BoxOpenFeature.State)
 
@@ -29,7 +28,6 @@ struct MainTabNavigationPath {
     }
 
     enum Action {
-        case myBox(MyBoxFeature.Action)
         case boxDetail(BoxDetailFeature.Action)
         case boxOpen(BoxOpenFeature.Action)
 
@@ -46,7 +44,6 @@ struct MainTabNavigationPath {
     }
 
     var body: some Reducer<State, Action> {
-        Scope(state: \.myBox, action: \.myBox) { MyBoxFeature() }
         Scope(state: \.boxDetail, action: \.boxDetail) { BoxDetailFeature() }
         Scope(state: \.boxOpen, action: \.boxOpen) { BoxOpenFeature() }
 

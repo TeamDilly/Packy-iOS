@@ -54,10 +54,14 @@ struct MainTabFeature: Reducer {
             case .path:
                 return .none
 
-            case .home:
+            case .home(.delegate(.moveToMyBox)):
+                state.selectedTab = .myBox
                 return .none
 
-            case .myBox(_):
+            case .myBox:
+                return .none
+
+            default:
                 return .none
             }
         }

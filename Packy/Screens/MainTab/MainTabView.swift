@@ -24,13 +24,6 @@ struct MainTabView: View {
             content
         } destination: { state in
             switch state {
-            case .myBox:
-                CaseLet(
-                    \MainTabNavigationPath.State.myBox,
-                     action: MainTabNavigationPath.Action.myBox,
-                     then: MyBoxView.init
-                )
-
             case .boxDetail:
                 CaseLet(
                     \MainTabNavigationPath.State.boxDetail,

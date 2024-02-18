@@ -25,16 +25,14 @@ struct MyBoxView: View {
 
     var body: some View {
         VStack(spacing: 0) {
-            NavigationBar.onlyBackButton {
-                viewStore.send(.backButtonTapped)
-            }
-            .padding(.top, 8)
+            navigationBar
+                .padding(.top, 16)
 
             TabSegmentedControl(
                 selectedTab: viewStore.$selectedTab,
                 selections: MyBoxTab.allCases
             )
-            .padding(.top, 26)
+            .padding(.top, 32)
 
             boxGridTabView
                 .animation(.spring, value: viewStore.selectedTab)
@@ -43,19 +41,20 @@ struct MyBoxView: View {
 
             Spacer()
         }
-        .bottomMenu(
-            isPresented: .init(
-                get: { viewStore.selectedBoxToDelete != nil },
-                set: {
-                    guard $0 == false else { return }
-                    viewStore.send(.binding(.set(\.$selectedBoxToDelete, nil)))
-                }
-            ),
-            confirmTitle: "삭제하기",
-            confirmAction: {
-                viewStore.send(.deleteBottomMenuConfirmButtonTapped)
-            }
-        )
+        // FIXME: 변경
+        // .bottomMenu(
+        //     isPresented: .init(
+        //         get: { viewStore.selectedBoxToDelete != nil },
+        //         set: {
+        //             guard $0 == false else { return }
+        //             viewStore.send(.binding(.set(\.$selectedBoxToDelete, nil)))
+        //         }
+        //     ),
+        //     confirmTitle: "삭제하기",
+        //     confirmAction: {
+        //         viewStore.send(.deleteBottomMenuConfirmButtonTapped)
+        //     }
+        // )
         .showLoading(viewStore.isShowDetailLoading)
         .navigationBarBackButtonHidden(true)
         .ignoresSafeArea(edges: .bottom)
@@ -70,6 +69,14 @@ struct MyBoxView: View {
 // MARK: - Inner Views
 
 private extension MyBoxView {
+    var navigationBar: some View {
+        Text("선물박스")
+            .packyFont(.heading1)
+            .foregroundStyle(.gray900)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .padding(.leading, 24)
+    }
+
     var boxGridTabView: some View {
         TabView(selection: viewStore.$selectedTab) {
             boxGridView(.sentBox)
@@ -110,14 +117,17 @@ private extension MyBoxView {
                                 viewStore.send(.binding(.set(\.$selectedBoxToDelete, giftBox)))
                             }
                         )
-                        .onLongPressGesture {
-                            viewStore.send(.binding(.set(\.$selectedBoxToDelete, giftBox)))
-                        }
                         .bouncyTapGesture {
                             throttle(identifier: ThrottleId.moveToBoxDetail.rawValue) {
                                 viewStore.send(.tappedGiftBox(boxId: giftBox.id))
                             }
                         }
+                        .simultaneousGesture(
+                            LongPressGesture()
+                                .onEnded { _ in
+                                    viewStore.send(.binding(.set(\.$selectedBoxToDelete, giftBox)))
+                                }
+                        )
                     }
                 }
                 .padding(24)

@@ -33,7 +33,6 @@ struct MyBoxFeature: Reducer {
     enum Action: BindableAction {
         // MARK: User Action
         case binding(BindingAction<State>)
-        case backButtonTapped
         case tappedGiftBox(boxId: Int)
         case deleteBottomMenuConfirmButtonTapped
 
@@ -55,7 +54,6 @@ struct MyBoxFeature: Reducer {
     }
 
     @Dependency(\.boxClient) var boxClient
-    @Dependency(\.dismiss) var dismiss
     @Dependency(\.packyAlert) var packyAlert
 
     var body: some Reducer<State, Action> {
@@ -65,10 +63,7 @@ struct MyBoxFeature: Reducer {
             switch action {
             case .binding:
                 return .none
-
-            case .backButtonTapped:
-                return .run { _ in await dismiss() }
-
+                
             case let .tappedGiftBox(boxId):
                 state.isShowDetailLoading = true
                 return .run { send in
