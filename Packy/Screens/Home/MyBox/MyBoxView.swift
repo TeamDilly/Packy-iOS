@@ -13,6 +13,7 @@ import ComposableArchitecture
 struct MyBoxView: View {
     private let store: StoreOf<MyBoxFeature>
     @ObservedObject private var viewStore: ViewStoreOf<MyBoxFeature>
+    @Environment(\.scenePhase) private var scenePhase
 
     init(store: StoreOf<MyBoxFeature>) {
         self.store = store
@@ -39,7 +40,9 @@ struct MyBoxView: View {
                 .background(.gray100)
                 .safeAreaPadding(.bottom, 30)
                 .frame(maxHeight: .infinity)
-
+                .refreshable {
+                    // await viewStore.send(._onRefresh)
+                }
         }
         .showLoading(viewStore.isShowDetailLoading)
         .navigationBarBackButtonHidden(true)
@@ -48,6 +51,10 @@ struct MyBoxView: View {
             await viewStore
                 .send(._onTask)
                 .finish()
+        }
+        .onChange(of: scenePhase) {
+            guard $1 == .active else { return }
+            viewStore.send(._didActiveScene)
         }
     }
 }
@@ -108,20 +115,13 @@ private extension MyBoxView {
                                 viewStore.send(.tappedGiftBox(boxId: giftBox.id))
                             }
                         }
-                        .simultaneousGesture(
-                            LongPressGesture()
-                                .onEnded { _ in
-                                    HapticManager.shared.fireFeedback(.soft)
-                                    viewStore.send(.binding(.set(\.$selectedBoxToDelete, giftBox)))
-                                }
-                        )
-                    }
-                }
-                .padding(24)
-
-                if isLastPage(for: tab) == false {
-                    PackyProgress()
                         .onAppear {
+                            guard isLastPage(for: tab) == false,
+                                  let giftBoxIndex = giftBoxes.firstIndex(of: giftBox) else { return }
+
+                            let isNearEndForNextPageLoad = giftBoxIndex == giftBoxes.endIndex - 3
+                            guard isNearEndForNextPageLoad else { return }
+
                             switch tab {
                             case .sentBox:
                                 viewStore.send(._fetchMoreSentGiftBoxes)
@@ -129,7 +129,9 @@ private extension MyBoxView {
                                 viewStore.send(._fetchMoreReceivedGiftBoxes)
                             }
                         }
+                    }
                 }
+                .padding(24)
             }
             .scrollIndicators(.hidden)
         }
@@ -237,8 +239,8 @@ private extension MyBoxView {
 
     func isLastPage(for tab: MyBoxTab) -> Bool {
         switch tab {
-        case .sentBox:      return viewStore.sentBoxesData?.isLastPage ?? true
-        case .receivedBox:  return viewStore.receivedBoxesData?.isLastPage ?? true
+        case .sentBox:      return viewStore.sentBoxesData.last?.isLastPage ?? true
+        case .receivedBox:  return viewStore.receivedBoxesData.last?.isLastPage ?? true
         }
     }
 }

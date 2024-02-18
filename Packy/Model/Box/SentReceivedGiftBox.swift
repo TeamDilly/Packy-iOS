@@ -7,14 +7,14 @@
 
 import Foundation
 
-struct SentReceivedGiftBoxPageData: Equatable {
+struct SentReceivedGiftBoxPageData: Hashable {
     let giftBoxes: [SentReceivedGiftBox]
     let isFirstPage: Bool
     let isLastPage: Bool
 }
 
 /// 주고받은 선물박스 정보
-struct SentReceivedGiftBox: Equatable {
+struct SentReceivedGiftBox: Hashable {
     let id: Int
     let type: SentReceivedType
     let sender: String

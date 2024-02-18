@@ -8,7 +8,7 @@
 import Foundation
 
 struct GiftBoxesRequest: Encodable {
-    var lastGiftBoxDate: String = Date().formattedString(by: .serverDateTime)
+    var lastGiftBoxDate: String
     var type: GiftBoxType = .all
     var size: Int = 6
 }
