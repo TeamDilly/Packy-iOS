@@ -16,25 +16,25 @@ struct NetworkImage: View {
 
     var body: some View {
         if respectPhotoSize {
-            KFImage(URL(string: url))
-                .placeholder {
-                    PackyProgress()
-                }
-                .retry(maxCount: 3, interval: .seconds(1))
+            kfImage
                 .aspectRatio(contentMode: contentMode)
         } else {
             GeometryReader { proxy in
-                KFImage(URL(string: url))
-                    .placeholder {
-                        PackyProgress()
-                    }
-                    .retry(maxCount: 3, interval: .seconds(1))
+                kfImage
                     .resizable()
                     .aspectRatio(contentMode: contentMode)
                     .frame(width: proxy.size.width, height: proxy.size.height, alignment: cropAlignment)
                     .clipped()
             }
         }
+    }
+
+    private var kfImage: KFImage {
+        KFImage(URL(string: url))
+            .placeholder {
+                PackyProgress()
+            }
+            .retry(maxCount: 3, interval: .seconds(1))
     }
 }
 
@@ -46,10 +46,10 @@ struct NetworkImage: View {
         )
         .border(Color.red)
         .padding(.horizontal, 10)
-        .frame(width: 50, height: 50)
+        .frame(width: 500, height: 500)
 
         Text("Hello")
-            // .frame(height: 200)
+        // .frame(height: 200)
     }
     .frame(height: 400)
 }

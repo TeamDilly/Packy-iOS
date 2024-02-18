@@ -21,24 +21,31 @@ struct PhotoArchiveView: View {
     }
 
     var body: some View {
-        VStack {
-            StaggeredGrid(columns: 2, data: viewStore.photos.elements) { photo in
-                PhotoCell(photoUrl: photo.photoUrl)
-                    .bouncyTapGesture {
-                        viewStore.send(.photoTapped(photo))
-                    }
-                    .onAppear {
-                        // Pagination
-                        guard viewStore.isLastPage == false,
-                                let index = viewStore.photos.firstIndex(of: photo) else { return }
+        GeometryReader { proxy in
+            let cellWidth = (proxy.size.width - 16) / 2
 
-                        let isNearEndForNextPageLoad = index == viewStore.photos.endIndex - 3
-                        guard isNearEndForNextPageLoad else { return }
-                        viewStore.send(._fetchMorePhotos)
-                    }
+            VStack {
+                StaggeredGrid(columns: 2, data: viewStore.photos.elements) { photo in
+                    PhotoCell(photoUrl: photo.photoUrl)
+                        .frame(width: cellWidth)
+                        // BouncyTapGesture 를 주게되면 dimmedFullScreen 에 의해 애니메이션이 사라져서, 그냥 tap 으로 처리
+                        .onTapGesture {
+                            HapticManager.shared.fireFeedback(.soft)
+                            viewStore.send(.photoTapped(photo))
+                        }
+                        .onAppear {
+                            // Pagination
+                            guard viewStore.isLastPage == false,
+                                  let index = viewStore.photos.firstIndex(of: photo) else { return }
+
+                            let isNearEndForNextPageLoad = index == viewStore.photos.endIndex - 3
+                            guard isNearEndForNextPageLoad else { return }
+                            viewStore.send(._fetchMorePhotos)
+                        }
+                }
+                .zigzagPadding(80)
+                .innerSpacing(vertical: 32, horizontal: 16)
             }
-            .zigzagPadding(80)
-            .innerSpacing(vertical: 32, horizontal: 16)
         }
         .padding(.horizontal, 24)
         .background(.gray100)

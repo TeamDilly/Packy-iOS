@@ -29,16 +29,21 @@ struct ArchiveView: View {
             tabSelector
                 .padding(.vertical, 16)
 
-            switch viewStore.selectedTab {
-            case .photo: 
+            /// 각각의 뷰를 한 번씩만 띄워놓고 유지할 수 있도록 이렇게 처리함
+            ZStack(alignment: .center) {
                 PhotoArchiveView(store: store.scope(state: \.photoArchive, action: \.photoArchive))
-            case .letter:
+                    .opacity(viewStore.selectedTab == .photo ? 1 : 0)
+
                 LetterArchiveView(store: store.scope(state: \.letterArchive, action: \.letterArchive))
-            case .music:
+                    .opacity(viewStore.selectedTab == .letter ? 1 : 0)
+
                 MusicArchiveView(store: store.scope(state: \.musicArchive, action: \.musicArchive))
-            case .gift:
+                    .opacity(viewStore.selectedTab == .music ? 1 : 0)
+
                 GiftArchiveView(store: store.scope(state: \.giftArchive, action: \.giftArchive))
+                    .opacity(viewStore.selectedTab == .gift ? 1 : 0)
             }
+            .frame(maxHeight: .infinity, alignment: .top)
         }
         .dimmedFullScreenCover(isPresented: photoPresentBinding) {
             photoOverlayView

@@ -32,7 +32,7 @@ struct StaggeredGrid<Content: View, T: Identifiable & Hashable>: View {
             HStack(alignment: .top, spacing: horizontalSpacing) {
                 ForEach(arrangedSubarrays.indices, id: \.self) { index in
                     let columnData = arrangedSubarrays[index]
-                    LazyVStack(spacing: verticalSpacing) {
+                    VStack(spacing: verticalSpacing) {
                         ForEach(columnData) { object in
                             content(object)
                         }
