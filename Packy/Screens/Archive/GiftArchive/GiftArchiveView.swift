@@ -22,26 +22,33 @@ struct GiftArchiveView: View {
 
     var body: some View {
         VStack {
-            StaggeredGrid(columns: 2, data: viewStore.gifts.elements) { gift in
-                GiftCell(imageUrl: gift.gift.url)
-                    .onTapGesture {
-                        HapticManager.shared.fireFeedback(.soft)
-                        viewStore.send(.giftTapped(gift))
-                    }
-                    .onAppear {
-                        // Pagination
-                        guard viewStore.isLastPage == false,
-                              let index = viewStore.gifts.firstIndex(of: gift) else { return }
+            if viewStore.gifts.isEmpty {
+                Text("아직 받은 선물이 없어요")
+                    .packyFont(.body2)
+                    .foregroundStyle(.gray600)
+                    .padding(.bottom, 50)
+            } else {
+                StaggeredGrid(columns: 2, data: viewStore.gifts.elements) { gift in
+                    GiftCell(imageUrl: gift.gift.url)
+                        .onTapGesture {
+                            HapticManager.shared.fireFeedback(.soft)
+                            viewStore.send(.giftTapped(gift))
+                        }
+                        .onAppear {
+                            // Pagination
+                            guard viewStore.isLastPage == false,
+                                  let index = viewStore.gifts.firstIndex(of: gift) else { return }
 
-                        let isNearEndForNextPageLoad = index == viewStore.gifts.endIndex - 3
-                        guard isNearEndForNextPageLoad else { return }
-                        viewStore.send(._fetchMoreGifts)
-                    }
+                            let isNearEndForNextPageLoad = index == viewStore.gifts.endIndex - 3
+                            guard isNearEndForNextPageLoad else { return }
+                            viewStore.send(._fetchMoreGifts)
+                        }
+                }
+                .zigzagPadding(80)
+                .innerSpacing(vertical: 16, horizontal: 16)
+                .transition(.opacity)
+                .frame(maxWidth: .infinity)
             }
-            .zigzagPadding(80)
-            .innerSpacing(vertical: 16, horizontal: 16)
-            .transition(.opacity)
-            .frame(maxWidth: .infinity)
         }
         .padding(.horizontal, 24)
         .background(.gray100)

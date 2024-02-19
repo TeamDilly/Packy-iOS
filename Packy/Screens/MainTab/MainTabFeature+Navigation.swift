@@ -16,6 +16,7 @@ struct MainTabNavigationPath {
         case boxOpen(BoxOpenFeature.State)
 
         case setting(SettingFeature.State)
+        // TODO: Edit ~ Delete 부분 PresentationState 로 변경 _ Path에 반영되는지 확인 필요...
         case editProfile(EditProfileFeature.State)
         case manageAccount(ManageAccountFeature.State)
         case deleteAccount(DeleteAccountFeature.State = .init())

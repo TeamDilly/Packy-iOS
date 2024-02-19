@@ -22,27 +22,34 @@ struct MusicArchiveView: View {
 
     var body: some View {
         VStack {
-            StaggeredGrid(columns: 2, data: viewStore.musics.elements) { music in
-                MusicCell(youtubeUrl: music.youtubeUrl)
-                    .onTapGesture {
-                        HapticManager.shared.fireFeedback(.soft)
-                        viewStore.send(.musicTapped(music))
-                    }
-                    .onAppear {
-                        // Pagination
-                        guard viewStore.isLastPage == false,
-                              let index = viewStore.musics.firstIndex(of: music) else { return }
+            if viewStore.musics.isEmpty {
+                Text("아직 선물받은 음악이 없어요")
+                    .packyFont(.body2)
+                    .foregroundStyle(.gray600)
+                    .padding(.bottom, 50)
+            } else {
+                StaggeredGrid(columns: 2, data: viewStore.musics.elements) { music in
+                    MusicCell(youtubeUrl: music.youtubeUrl)
+                        .onTapGesture {
+                            HapticManager.shared.fireFeedback(.soft)
+                            viewStore.send(.musicTapped(music))
+                        }
+                        .onAppear {
+                            // Pagination
+                            guard viewStore.isLastPage == false,
+                                  let index = viewStore.musics.firstIndex(of: music) else { return }
 
-                        let isNearEndForNextPageLoad = index == viewStore.musics.endIndex - 3
-                        guard isNearEndForNextPageLoad else { return }
-                        print("🐛 fetch more musics")
-                        viewStore.send(._fetchMoreMusics)
-                    }
+                            let isNearEndForNextPageLoad = index == viewStore.musics.endIndex - 3
+                            guard isNearEndForNextPageLoad else { return }
+                            print("🐛 fetch more musics")
+                            viewStore.send(._fetchMoreMusics)
+                        }
+                }
+                .zigzagPadding(80)
+                .innerSpacing(vertical: 32, horizontal: 16)
+                .transition(.opacity)
+                .frame(maxWidth: .infinity)
             }
-            .zigzagPadding(80)
-            .innerSpacing(vertical: 32, horizontal: 16)
-            .transition(.opacity)
-            .frame(maxWidth: .infinity)
         }
         .padding(.horizontal, 24)
         .background(.gray100)

@@ -22,29 +22,36 @@ struct LetterArchiveView: View {
 
     var body: some View {
         VStack {
-            StaggeredGrid(columns: 2, data: viewStore.letters.elements) { letter in
-                LetterCell(
-                    imageUrl: letter.envelope.imageUrl,
-                    text: letter.letterContent
-                )
-                .onTapGesture {
-                    HapticManager.shared.fireFeedback(.soft)
-                    viewStore.send(.letterTapped(letter))
+            if viewStore.letters.isEmpty {
+                Text("아직 선물받은 편지가 없어요")
+                    .packyFont(.body2)
+                    .foregroundStyle(.gray600)
+                    .padding(.bottom, 50)
+            } else {
+                StaggeredGrid(columns: 2, data: viewStore.letters.elements) { letter in
+                    LetterCell(
+                        imageUrl: letter.envelope.imageUrl,
+                        text: letter.letterContent
+                    )
+                    .onTapGesture {
+                        HapticManager.shared.fireFeedback(.soft)
+                        viewStore.send(.letterTapped(letter))
+                    }
+                    .onAppear {
+                        // Pagination
+                        guard viewStore.isLastPage == false,
+                              let index = viewStore.letters.firstIndex(of: letter) else { return }
+
+                        let isNearEndForNextPageLoad = index == viewStore.letters.endIndex - 3
+                        guard isNearEndForNextPageLoad else { return }
+                        viewStore.send(._fetchMoreLetters)
+                    }
                 }
-                .onAppear {
-                    // Pagination
-                    guard viewStore.isLastPage == false,
-                          let index = viewStore.letters.firstIndex(of: letter) else { return }
-                    
-                    let isNearEndForNextPageLoad = index == viewStore.letters.endIndex - 3
-                    guard isNearEndForNextPageLoad else { return }
-                    viewStore.send(._fetchMoreLetters)
-                }
+                .zigzagPadding(80)
+                .innerSpacing(vertical: 32, horizontal: 16)
+                .transition(.opacity)
+                .frame(maxWidth: .infinity)
             }
-            .zigzagPadding(80)
-            .innerSpacing(vertical: 32, horizontal: 16)
-            .transition(.opacity)
-            .frame(maxWidth: .infinity)
         }
         .refreshable {
             viewStore.send(.didRefresh)

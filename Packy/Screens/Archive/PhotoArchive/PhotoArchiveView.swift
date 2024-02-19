@@ -23,27 +23,34 @@ struct PhotoArchiveView: View {
 
     var body: some View {
         VStack {
-            StaggeredGrid(columns: columns, data: viewStore.photos.elements) { photo in
-                PhotoCell(photoUrl: photo.photoUrl)
+            if viewStore.photos.isEmpty {
+                Text("아직 선물받은 사진이 없어요")
+                    .packyFont(.body2)
+                    .foregroundStyle(.gray600)
+                    .padding(.bottom, 50)
+            } else {
+                StaggeredGrid(columns: columns, data: viewStore.photos.elements) { photo in
+                    PhotoCell(photoUrl: photo.photoUrl)
                     // BouncyTapGesture 를 주게되면 dimmedFullScreen 에 의해 애니메이션이 사라져서, 그냥 tap 으로 처리
-                    .onTapGesture {
-                        HapticManager.shared.fireFeedback(.soft)
-                        viewStore.send(.photoTapped(photo))
-                    }
-                    .onAppear {
-                        // Pagination
-                        guard viewStore.isLastPage == false,
-                              let index = viewStore.photos.firstIndex(of: photo) else { return }
+                        .onTapGesture {
+                            HapticManager.shared.fireFeedback(.soft)
+                            viewStore.send(.photoTapped(photo))
+                        }
+                        .onAppear {
+                            // Pagination
+                            guard viewStore.isLastPage == false,
+                                  let index = viewStore.photos.firstIndex(of: photo) else { return }
 
-                        let isNearEndForNextPageLoad = index == viewStore.photos.endIndex - 3
-                        guard isNearEndForNextPageLoad else { return }
-                        viewStore.send(._fetchMorePhotos)
-                    }
+                            let isNearEndForNextPageLoad = index == viewStore.photos.endIndex - 3
+                            guard isNearEndForNextPageLoad else { return }
+                            viewStore.send(._fetchMorePhotos)
+                        }
+                }
+                .zigzagPadding(80)
+                .innerSpacing(vertical: 32, horizontal: 16)
+                .transition(.opacity)
+                .frame(maxWidth: .infinity)
             }
-            .zigzagPadding(80)
-            .innerSpacing(vertical: 32, horizontal: 16)
-            .transition(.opacity)
-            .frame(maxWidth: .infinity)
         }
         .padding(.horizontal, 24)
         .background(.gray100)
