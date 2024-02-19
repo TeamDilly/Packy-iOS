@@ -112,7 +112,7 @@ struct PackyAlert: View {
                 } label: {
                     Text(confirm)
                         .packyFont(.body2)
-                        .foregroundStyle(.gray900)
+                        .foregroundStyle(.gray700)
                         .frame(maxWidth: .infinity, alignment: .center)
                         .contentShape(Rectangle())
                 }
@@ -129,7 +129,7 @@ struct PackyAlert: View {
                     } label: {
                         Text(cancel)
                             .packyFont(.body2)
-                            .foregroundStyle(.gray700)
+                            .foregroundStyle(.gray900)
                             .frame(maxWidth: .infinity, alignment: .center)
                             .contentShape(Rectangle())
                     }
