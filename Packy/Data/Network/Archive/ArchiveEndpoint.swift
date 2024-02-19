@@ -41,7 +41,7 @@ extension ArchiveEndpoint: TargetType {
         case let .getPhotos(lastId):
            return makeTask(key: "last-photo-id", fromId: lastId)
         case let .getMusics(lastId):
-            return makeTask(key: "last-music-id", fromId: lastId)
+            return makeTask(key: "last-giftbox-id", fromId: lastId)
         case let .getLetters(lastId):
             return makeTask(key: "last-letter-id", fromId: lastId)
         case let .getItems(lastId):

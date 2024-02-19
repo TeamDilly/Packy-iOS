@@ -32,7 +32,7 @@ struct StaggeredGrid<Content: View, T: Identifiable & Hashable>: View {
             HStack(alignment: .top, spacing: horizontalSpacing) {
                 ForEach(arrangedSubarrays.indices, id: \.self) { index in
                     let columnData = arrangedSubarrays[index]
-                    VStack(spacing: verticalSpacing) {
+                    LazyVStack(spacing: verticalSpacing) {
                         ForEach(columnData) { object in
                             content(object)
                         }
@@ -45,7 +45,7 @@ struct StaggeredGrid<Content: View, T: Identifiable & Hashable>: View {
     }
 
     private var arrangedSubarrays: [[T]] {
-        var emptyArray = Array(repeating: [T](), count: columns)
+        let emptyArray = Array(repeating: [T](), count: columns)
         let gridArray = data.enumerated().reduce(into: emptyArray) { (grid, enumeration) in
             let (index, element) = enumeration
             let columnIndex = (columns - 1) - (index % columns) // 오른쪽에서 왼쪽으로 배치하기 위한 인덱스 계산
@@ -84,6 +84,7 @@ extension StaggeredGrid {
 #Preview {
     struct SampleView: View {
         @State var columns: Int = 2
+        @State var data: [Int] = [0]
         @Namespace var animation
 
         var body: some View {
@@ -96,24 +97,24 @@ extension StaggeredGrid {
                     }
                 }
 
-                StaggeredGrid(columns: columns, data: (0...10).map { $0 }) { number in
-                    // if number % 2 == 1 && number <= columns && columns > 1 {
-                        cell(number)
-                            // .padding(.top, 50)
-                    // } else {
-                        // cell(number)
-                    // }
+                StaggeredGrid(columns: columns, data: data) { number in
+                    cell(number)
                 }
                 .zigzagPadding(50)
                 .padding()
                 .animation(.spring, value: columns)
             }
+            .task {
+                try? await Task.sleep(for: .seconds(1))
+                withAnimation {
+                    data = (0...10).map { $0 }
+                }
+            }
+
         }
 
         private func cell(_ number: Int) -> some View {
             Text("\(number)")
-            // .frame(maxWidth: .infinity)
-            // .frame(height: 100)
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .background(
                     RoundedRectangle(cornerRadius: 8)

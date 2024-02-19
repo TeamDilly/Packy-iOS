@@ -24,10 +24,10 @@ struct GiftArchiveFeature: Reducer {
     enum Action {
         // MARK: User Action
         case giftTapped(GiftArchiveData)
+        case didRefresh
 
         // MARK: Inner Business Action
         case _onTask
-        case _didActiveScene
         case _fetchMoreGifts
 
         // MARK: Inner SetState Action
@@ -47,7 +47,7 @@ struct GiftArchiveFeature: Reducer {
                 guard state.giftArchivePageData.isEmpty else { return .none }
                 return fetchGifts(lastGiftId: nil)
 
-            case ._didActiveScene:
+            case .didRefresh:
                 state.giftArchivePageData = []
                 state.gifts = []
                 return fetchGifts(lastGiftId: nil)

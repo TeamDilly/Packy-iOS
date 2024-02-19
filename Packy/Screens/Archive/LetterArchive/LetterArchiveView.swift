@@ -35,7 +35,7 @@ struct LetterArchiveView: View {
                     // Pagination
                     guard viewStore.isLastPage == false,
                           let index = viewStore.letters.firstIndex(of: letter) else { return }
-
+                    
                     let isNearEndForNextPageLoad = index == viewStore.letters.endIndex - 3
                     guard isNearEndForNextPageLoad else { return }
                     viewStore.send(._fetchMoreLetters)
@@ -43,6 +43,11 @@ struct LetterArchiveView: View {
             }
             .zigzagPadding(80)
             .innerSpacing(vertical: 32, horizontal: 16)
+            .transition(.opacity)
+            .frame(maxWidth: .infinity)
+        }
+        .refreshable {
+            viewStore.send(.didRefresh)
         }
         .padding(.horizontal, 24)
         .background(.gray100)
@@ -50,10 +55,6 @@ struct LetterArchiveView: View {
             await viewStore
                 .send(._onTask)
                 .finish()
-        }
-        .onChange(of: scenePhase) {
-            guard $1 == .active else { return }
-            viewStore.send(._didActiveScene)
         }
     }
 }

@@ -40,17 +40,18 @@ struct GiftArchiveView: View {
             }
             .zigzagPadding(80)
             .innerSpacing(vertical: 16, horizontal: 16)
+            .transition(.opacity)
+            .frame(maxWidth: .infinity)
         }
         .padding(.horizontal, 24)
         .background(.gray100)
+        .refreshable {
+            viewStore.send(.didRefresh)
+        }
         .didLoad {
             await viewStore
                 .send(._onTask)
                 .finish()
-        }
-        .onChange(of: scenePhase) {
-            guard $1 == .active else { return }
-            viewStore.send(._didActiveScene)
         }
     }
 }

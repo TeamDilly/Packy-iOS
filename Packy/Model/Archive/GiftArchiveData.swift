@@ -14,8 +14,10 @@ struct GiftArchivePageData: Decodable, Hashable {
 }
 
 struct GiftArchiveData: Decodable, Hashable, Identifiable {
-    let id: Int
+    let giftBoxId: Int
     let gift: Gift
+
+    var id: Int { giftBoxId }
 }
 
 // MARK: - Mock Data
@@ -24,9 +26,8 @@ extension GiftArchivePageData {
     static let mock: Self = .init(
         first: true,
         last: true,
-        content: [
-            GiftArchiveData(id: 1, gift: Gift(type: "photo", url: "https://www.example.com/photo1.jpg")),
-            GiftArchiveData(id: 2, gift: Gift(type: "video", url: "https://www.example.com/video1.mp4"))
-        ]
+        content: (0...10).map {
+            GiftArchiveData(giftBoxId: $0, gift: Gift(type: "photo", url: Constants.mockImageUrl))
+        }
     )
 }

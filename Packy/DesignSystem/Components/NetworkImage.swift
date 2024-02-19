@@ -35,6 +35,7 @@ struct NetworkImage: View {
                 PackyProgress()
             }
             .retry(maxCount: 3, interval: .seconds(1))
+            .fade(duration: 0.3)
     }
 }
 

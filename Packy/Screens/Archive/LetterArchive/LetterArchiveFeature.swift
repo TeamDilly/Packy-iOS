@@ -24,10 +24,10 @@ struct LetterArchiveFeature: Reducer {
     enum Action {
         // MARK: User Action
         case letterTapped(LetterArchiveData)
+        case didRefresh
 
         // MARK: Inner Business Action
         case _onTask
-        case _didActiveScene
         case _fetchMoreLetters
 
         // MARK: Inner SetState Action
@@ -47,7 +47,7 @@ struct LetterArchiveFeature: Reducer {
                 guard state.letterArchivePageData.isEmpty else { return .none }
                 return fetchLetters(lastLetterId: nil)
 
-            case ._didActiveScene:
+            case .didRefresh:
                 state.letterArchivePageData = []
                 state.letters = []
                 return fetchLetters(lastLetterId: nil)

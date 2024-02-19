@@ -24,10 +24,10 @@ struct PhotoArchiveFeature: Reducer {
     enum Action {
         // MARK: User Action
         case photoTapped(PhotoArchiveData)
+        case didRefresh
 
         // MARK: Inner Business Action
         case _onTask
-        case _didActiveScene
         case _fetchMorePhotos
 
         // MARK: Inner SetState Action
@@ -47,7 +47,7 @@ struct PhotoArchiveFeature: Reducer {
                 guard state.photoArchivePageData.isEmpty else { return .none }
                 return fetchPhotos(lastPhotoId: nil)
 
-            case ._didActiveScene:
+            case .didRefresh:
                 state.photoArchivePageData = []
                 state.photos = []
                 return fetchPhotos(lastPhotoId: nil)

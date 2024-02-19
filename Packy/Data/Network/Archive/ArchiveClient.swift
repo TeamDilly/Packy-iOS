@@ -7,7 +7,7 @@
 
 import Foundation
 import Dependencies
-import Moya
+import class Moya.MoyaProvider
 
 // MARK: - Dependency Values
 
@@ -49,7 +49,10 @@ extension ArchiveClient: DependencyKey {
 
     static let previewValue: Self = {
         Self(
-            fetchPhotos: { _ in .mock },
+            fetchPhotos: { _ in
+                try? await Task.sleep(for: .seconds(1))
+                return .mock
+            },
             fetchLetters: { _ in .mock },
             fetchMusics: { _ in .mock },
             fetchGifts: { _ in .mock }

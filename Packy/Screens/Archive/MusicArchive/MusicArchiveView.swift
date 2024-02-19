@@ -35,22 +35,24 @@ struct MusicArchiveView: View {
 
                         let isNearEndForNextPageLoad = index == viewStore.musics.endIndex - 3
                         guard isNearEndForNextPageLoad else { return }
+                        print("🐛 fetch more musics")
                         viewStore.send(._fetchMoreMusics)
                     }
             }
             .zigzagPadding(80)
             .innerSpacing(vertical: 32, horizontal: 16)
+            .transition(.opacity)
+            .frame(maxWidth: .infinity)
         }
         .padding(.horizontal, 24)
         .background(.gray100)
+        .refreshable {
+            viewStore.send(.didRefresh)
+        }
         .didLoad {
             await viewStore
                 .send(._onTask)
                 .finish()
-        }
-        .onChange(of: scenePhase) {
-            guard $1 == .active else { return }
-            viewStore.send(._didActiveScene)
         }
     }
 }

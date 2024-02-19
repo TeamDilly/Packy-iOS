@@ -14,13 +14,10 @@ struct MusicArchivePageData: Decodable, Hashable {
 }
 
 struct MusicArchiveData: Decodable, Hashable, Identifiable {
-    let id: Int
+    let giftBoxId: Int
     let youtubeUrl: String
 
-    enum CodingKeys: String, CodingKey {
-        case id = "giftBoxId"
-        case youtubeUrl
-    }
+    var id: Int { giftBoxId }
 }
 
 // MARK: - Mock Data
@@ -30,8 +27,8 @@ extension MusicArchivePageData {
         first: true,
         last: true,
         content: [
-            MusicArchiveData(id: 1, youtubeUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ"),
-            MusicArchiveData(id: 2, youtubeUrl: "https://www.youtube.com/watch?v=C0DPdy98e4c")
+            MusicArchiveData(giftBoxId: 1, youtubeUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ"),
+            MusicArchiveData(giftBoxId: 2, youtubeUrl: "https://www.youtube.com/watch?v=C0DPdy98e4c")
         ]
     )
 }

@@ -43,7 +43,7 @@ struct ArchiveView: View {
                 GiftArchiveView(store: store.scope(state: \.giftArchive, action: \.giftArchive))
                     .opacity(viewStore.selectedTab == .gift ? 1 : 0)
             }
-            .frame(maxHeight: .infinity, alignment: .top)
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
         }
         .dimmedFullScreenCover(isPresented: photoPresentBinding) {
             photoOverlayView

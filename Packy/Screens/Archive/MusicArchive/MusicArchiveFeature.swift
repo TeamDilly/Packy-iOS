@@ -24,10 +24,10 @@ struct MusicArchiveFeature: Reducer {
     enum Action {
         // MARK: User Action
         case musicTapped(MusicArchiveData)
+        case didRefresh
 
         // MARK: Inner Business Action
         case _onTask
-        case _didActiveScene
         case _fetchMoreMusics
 
         // MARK: Inner SetState Action
@@ -47,7 +47,7 @@ struct MusicArchiveFeature: Reducer {
                 guard state.musicArchivePageData.isEmpty else { return .none }
                 return fetchMusics(lastMusicId: nil)
 
-            case ._didActiveScene:
+            case .didRefresh:
                 state.musicArchivePageData = []
                 state.musics = []
                 return fetchMusics(lastMusicId: nil)
