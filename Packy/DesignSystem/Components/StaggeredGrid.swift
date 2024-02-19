@@ -17,6 +17,8 @@ struct StaggeredGrid<Content: View, T: Identifiable & Hashable>: View {
     private var verticalSpacing: CGFloat = 32
     private var zigzagPadding: CGFloat = 0
 
+    @Namespace var animation
+
     init(
         columns: Int,
         data: [T],
@@ -35,6 +37,7 @@ struct StaggeredGrid<Content: View, T: Identifiable & Hashable>: View {
                     LazyVStack(spacing: verticalSpacing) {
                         ForEach(columnData) { object in
                             content(object)
+                                .matchedGeometryEffect(id: object, in: animation)
                         }
                     }
                     .padding(.top, index % 2 == 0 ? zigzagPadding : 0)
@@ -85,7 +88,6 @@ extension StaggeredGrid {
     struct SampleView: View {
         @State var columns: Int = 2
         @State var data: [Int] = [0]
-        @Namespace var animation
 
         var body: some View {
             VStack {
@@ -120,7 +122,6 @@ extension StaggeredGrid {
                     RoundedRectangle(cornerRadius: 8)
                         .fill(.green)
                 )
-                .matchedGeometryEffect(id: number, in: animation)
                 .aspectRatio(163 / 195, contentMode: .fill)
         }
     }
