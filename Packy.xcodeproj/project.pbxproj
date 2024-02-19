@@ -108,6 +108,10 @@
 		E58A7B072B57FA3F0059FBF3 /* KakaoSDKAuth in Frameworks */ = {isa = PBXBuildFile; productRef = E58A7B062B57FA3F0059FBF3 /* KakaoSDKAuth */; };
 		E58A7B092B57FA3F0059FBF3 /* KakaoSDKCommon in Frameworks */ = {isa = PBXBuildFile; productRef = E58A7B082B57FA3F0059FBF3 /* KakaoSDKCommon */; };
 		E58A7B0B2B57FA3F0059FBF3 /* KakaoSDKUser in Frameworks */ = {isa = PBXBuildFile; productRef = E58A7B0A2B57FA3F0059FBF3 /* KakaoSDKUser */; };
+		E591B9DF2B83845000B28B2E /* EditProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E591B9DD2B83845000B28B2E /* EditProfileView.swift */; };
+		E591B9E02B83845000B28B2E /* EditProfileFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = E591B9DE2B83845000B28B2E /* EditProfileFeature.swift */; };
+		E591B9E92B8396F000B28B2E /* EditSelectProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E591B9E72B8396F000B28B2E /* EditSelectProfileView.swift */; };
+		E591B9EA2B8396F000B28B2E /* EditSelectProfileFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = E591B9E82B8396F000B28B2E /* EditSelectProfileFeature.swift */; };
 		E5A416A22B5D076C00313E5A /* PopGestureDisableModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A416A12B5D076C00313E5A /* PopGestureDisableModifier.swift */; };
 		E5A416A52B5D1F8100313E5A /* DesignEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A416A42B5D1F8100313E5A /* DesignEndpoint.swift */; };
 		E5A416A72B5D20DC00313E5A /* DesignClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A416A62B5D20DC00313E5A /* DesignClient.swift */; };
@@ -362,6 +366,10 @@
 		E586DCDB2B73A0CB0052E8D7 /* LottieMotionType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottieMotionType.swift; sourceTree = "<group>"; };
 		E586DCDD2B73AA1A0052E8D7 /* BoxMotionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoxMotionView.swift; sourceTree = "<group>"; };
 		E586DCDF2B73CFB70052E8D7 /* PackyProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackyProgress.swift; sourceTree = "<group>"; };
+		E591B9DD2B83845000B28B2E /* EditProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileView.swift; sourceTree = "<group>"; };
+		E591B9DE2B83845000B28B2E /* EditProfileFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileFeature.swift; sourceTree = "<group>"; };
+		E591B9E72B8396F000B28B2E /* EditSelectProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditSelectProfileView.swift; sourceTree = "<group>"; };
+		E591B9E82B8396F000B28B2E /* EditSelectProfileFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditSelectProfileFeature.swift; sourceTree = "<group>"; };
 		E5A416A12B5D076C00313E5A /* PopGestureDisableModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopGestureDisableModifier.swift; sourceTree = "<group>"; };
 		E5A416A42B5D1F8100313E5A /* DesignEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignEndpoint.swift; sourceTree = "<group>"; };
 		E5A416A62B5D20DC00313E5A /* DesignClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignClient.swift; sourceTree = "<group>"; };
@@ -671,6 +679,7 @@
 				E54484FB2B6F8339003DFA1B /* SettingView.swift */,
 				E54484FC2B6F8339003DFA1B /* SettingFeature.swift */,
 				E544850E2B6F8E2C003DFA1B /* SettingListCell.swift */,
+				E591B9DC2B83842A00B28B2E /* EditProfile */,
 				E544850C2B6F8DC5003DFA1B /* ManageAccount */,
 				E544850D2B6F8DEA003DFA1B /* DeleteAccount */,
 				E5B22CF92B70FF76003DAC7B /* WebContent */,
@@ -836,6 +845,25 @@
 			children = (
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		E591B9DC2B83842A00B28B2E /* EditProfile */ = {
+			isa = PBXGroup;
+			children = (
+				E591B9E62B8396E700B28B2E /* EditSelectProfile */,
+				E591B9DD2B83845000B28B2E /* EditProfileView.swift */,
+				E591B9DE2B83845000B28B2E /* EditProfileFeature.swift */,
+			);
+			path = EditProfile;
+			sourceTree = "<group>";
+		};
+		E591B9E62B8396E700B28B2E /* EditSelectProfile */ = {
+			isa = PBXGroup;
+			children = (
+				E591B9E72B8396F000B28B2E /* EditSelectProfileView.swift */,
+				E591B9E82B8396F000B28B2E /* EditSelectProfileFeature.swift */,
+			);
+			path = EditSelectProfile;
 			sourceTree = "<group>";
 		};
 		E5A416A32B5D1F6900313E5A /* Design */ = {
@@ -1587,11 +1615,13 @@
 				E58048C12B5BF0D200B974B3 /* UIImage+Compression.swift in Sources */,
 				E5B22D012B711D33003DAC7B /* SplashView.swift in Sources */,
 				E5A7AA412B57F81400590EA6 /* BoxElementShape.swift in Sources */,
+				E591B9E92B8396F000B28B2E /* EditSelectProfileView.swift in Sources */,
 				E5A7AA4D2B57F81400590EA6 /* PackyFont.swift in Sources */,
 				E5A7AA752B57F81400590EA6 /* PackyApp.swift in Sources */,
 				E5E73D962B74F1950097D871 /* ColorFromServer.swift in Sources */,
 				E5A7AA642B57F81400590EA6 /* SignUpNicknameView.swift in Sources */,
 				E5B22D022B711D33003DAC7B /* SplashFeature.swift in Sources */,
+				E591B9DF2B83845000B28B2E /* EditProfileView.swift in Sources */,
 				E5A7AA522B57F81400590EA6 /* SpinningModifier.swift in Sources */,
 				E555582A2B6E248300461352 /* View+TextInteraction.swift in Sources */,
 				E5001F892B5BC09A004B65E6 /* AlertButtonTint.swift in Sources */,
@@ -1748,6 +1778,7 @@
 				E54484FE2B6F8339003DFA1B /* SettingFeature.swift in Sources */,
 				E5257CB42B693FB9000A091E /* ImageViewer.swift in Sources */,
 				E5FDE05B2B6BACFA00E00B00 /* Envelope.swift in Sources */,
+				E591B9EA2B8396F000B28B2E /* EditSelectProfileFeature.swift in Sources */,
 				E5B22CF82B70FD36003DAC7B /* WebView.swift in Sources */,
 				E5A59BEA2B72822A00D120CF /* SentReceivedGiftBox.swift in Sources */,
 				E5B22CFD2B70FF85003DAC7B /* WebContentFeature.swift in Sources */,
@@ -1795,6 +1826,7 @@
 				E5A7AA7E2B57F81400590EA6 /* KeychainClient.swift in Sources */,
 				E5E73D4A2B597C0200729D99 /* SelectMusicBottomSheet.swift in Sources */,
 				E52470ED2B612DD3003D49DE /* TextButtonStyle.swift in Sources */,
+				E591B9E02B83845000B28B2E /* EditProfileFeature.swift in Sources */,
 				E5A7AA7A2B57F81400590EA6 /* SignInRequest.swift in Sources */,
 				E5001F962B5BEAF6004B65E6 /* URL+Trimming.swift in Sources */,
 				E5A7AA602B57F81400590EA6 /* SignUpNavigation.swift in Sources */,

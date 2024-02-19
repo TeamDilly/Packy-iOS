@@ -16,6 +16,7 @@ struct MainTabNavigationPath {
         case boxOpen(BoxOpenFeature.State)
 
         case setting(SettingFeature.State)
+        case editProfile(EditProfileFeature.State)
         case manageAccount(ManageAccountFeature.State)
         case deleteAccount(DeleteAccountFeature.State = .init())
 
@@ -32,6 +33,7 @@ struct MainTabNavigationPath {
         case boxOpen(BoxOpenFeature.Action)
 
         case setting(SettingFeature.Action)
+        case editProfile(EditProfileFeature.Action)
         case manageAccount(ManageAccountFeature.Action)
         case deleteAccount(DeleteAccountFeature.Action)
 
@@ -48,6 +50,7 @@ struct MainTabNavigationPath {
         Scope(state: \.boxOpen, action: \.boxOpen) { BoxOpenFeature() }
 
         Scope(state: \.setting, action: \.setting) { SettingFeature() }
+        Scope(state: \.editProfile, action: \.editProfile) { EditProfileFeature() }
         Scope(state: \.manageAccount, action: \.manageAccount) { ManageAccountFeature() }
         Scope(state: \.deleteAccount, action: \.deleteAccount) { DeleteAccountFeature() }
 

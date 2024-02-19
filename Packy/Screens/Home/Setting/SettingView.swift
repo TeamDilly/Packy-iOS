@@ -83,15 +83,27 @@ struct SettingView: View {
 
 private extension SettingView {
     var profileView: some View {
-        HStack(spacing: 16) {
-            NetworkImage(url: viewStore.profile?.imageUrl ?? "")
-                .frame(width: 60, height: 60)
+        HStack {
+            HStack(spacing: 16) {
+                NetworkImage(url: viewStore.profile?.imageUrl ?? "")
+                    .frame(width: 60, height: 60)
 
-            Text(viewStore.profile?.nickname ?? "")
-                .packyFont(.heading2)
-                .foregroundStyle(.gray900)
+                Text(viewStore.profile?.nickname ?? "")
+                    .packyFont(.heading2)
+                    .foregroundStyle(.gray900)
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+
+            if let nickname = viewStore.profile?.nickname, 
+               let profileImageUrl = viewStore.profile?.imageUrl {
+                let destination = MainTabNavigationPath.State.editProfile(
+                    .init(nickname: nickname, imageUrl: profileImageUrl)
+                )
+
+                NavigationLink("프로필 수정", state: destination)
+                    .buttonStyle(.box(color: .tertiary, size: .roundSmall))
+            }
         }
-        .frame(maxWidth: .infinity, alignment: .leading)
     }
 
     var versionView: some View {
