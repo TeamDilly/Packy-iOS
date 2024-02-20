@@ -12,27 +12,28 @@ struct UnsentBoxCell: View {
     var receiver: String
     var title: String
     var generatedDate: Date
+    var menuAlignment: Alignment = .top
     var menuAction: () -> Void
 
     var body: some View {
         HStack(spacing: 8) {
             HStack(spacing: 12) {
                 NetworkImage(url: boxImageUrl)
-                    .aspectRatio(1, contentMode: .fit)
+                    .frame(width: 70, height: 70)
                     .clipShape(RoundedRectangle(cornerRadius: 8))
 
-                VStack(spacing: 0) {
-                    Text("To. \(receiver)")
-                        .packyFont(.body6)
-                        .foregroundStyle(.purple500)
-                        .frame(maxWidth: .infinity, alignment: .leading)
+                VStack(spacing: 10) {
+                    VStack(spacing: 0) {
+                        Text("To. \(receiver)")
+                            .packyFont(.body6)
+                            .foregroundStyle(.purple500)
+                            .frame(maxWidth: .infinity, alignment: .leading)
 
-                    Text(title)
-                        .packyFont(.body3)
-                        .foregroundStyle(.gray900)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-
-                    Spacer()
+                        Text(title)
+                            .packyFont(.body3)
+                            .foregroundStyle(.gray900)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                    }
 
                     Text("만든 날짜 \(generatedDate.formattedString(by: .yyyyMdKorean))")
                         .packyFont(.body6)
@@ -42,36 +43,58 @@ struct UnsentBoxCell: View {
             }
             .frame(maxWidth: .infinity, alignment: .leading)
 
-            VStack {
-                Button {
-                    menuAction()
-                } label: {
-                    Image(.ellipsis)
-                        .resizable()
-                        .frame(width: 24, height: 24)
-                }
-
-                Spacer()
+            Button {
+                menuAction()
+            } label: {
+                Image(.ellipsis)
+                    .resizable()
+                    .frame(width: 24, height: 24)
             }
+            .frame(maxHeight: .infinity, alignment: menuAlignment)
         }
-        .padding(16)
+        .frame(height: 70)
     }
 }
 
 // MARK: - Preview
 
 #Preview {
-    UnsentBoxCell(
-        boxImageUrl: Constants.mockImageUrl,
-        receiver: "Mason",
-        title: "햅삐햅삐 벌쓰데이",
-        generatedDate: .init()
-    ) {
-        print("menu")
+
+    ScrollView(.horizontal) {
+        HStack(spacing: 16) {
+            ForEach(0..<10, id: \.self) { item in
+                UnsentBoxCell(
+                    boxImageUrl: Constants.mockImageUrl,
+                    receiver: "mason",
+                    title: "Happy BirthDay!",
+                    generatedDate: Date()
+                ) {
+
+                }
+                .padding(16)
+                .background(.gray100)
+                .clipShape(RoundedRectangle(cornerRadius: 16))
+                .containerRelativeFrame(.horizontal)
+            }
+        }
+        .scrollTargetLayout()
     }
-    .bouncyTapGesture {
-        print("tap")
-    }
-    .frame(width: 320, height: 100)
-    .border(Color.black)
+    .scrollTargetBehavior(.viewAligned)
+    .scrollIndicators(.hidden)
+    .safeAreaPadding(.leading, 24)
+    .safeAreaPadding(.trailing, 40)
+
+    // UnsentBoxCell(
+    //     boxImageUrl: Constants.mockImageUrl,
+    //     receiver: "Mason",
+    //     title: "햅삐햅삐 벌쓰데이",
+    //     generatedDate: .init()
+    // ) {
+    //     print("menu")
+    // }
+    // .bouncyTapGesture {
+    //     print("tap")
+    // }
+    // // .frame(width: 320, height: 100)
+    // .border(Color.black)
 }

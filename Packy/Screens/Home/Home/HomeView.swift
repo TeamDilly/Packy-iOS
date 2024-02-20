@@ -41,11 +41,13 @@ struct HomeView: View {
                         giftBoxesListView
                     }
 
-                    Spacer()
+                    // TODO: 보내지 않은 박스 있을 때만 표시하게 처리
+                    unsentBoxesList
                 }
             }
             .scrollBounceBehavior(.basedOnSize)
         }
+        .frame(maxHeight: .infinity, alignment: .top)
         .popGestureEnabled()
         .padding(.horizontal, 16)
         .background(.gray100)
@@ -146,6 +148,35 @@ private extension HomeView {
             .scrollIndicators(.hidden)
         }
         .padding(.vertical, 24)
+        .background(
+            RoundedRectangle(cornerRadius: 24)
+                .fill(.white)
+        )
+    }
+
+    var unsentBoxesList: some View {
+        LazyVStack(spacing: 24) {
+            Text("보내지 않은 선물박스")
+                .packyFont(.heading2)
+                .foregroundStyle(.gray900)
+                .frame(maxWidth: .infinity, alignment: .leading)
+
+            ForEach(0..<10, id: \.id) { _ in
+                UnsentBoxCell(
+                    boxImageUrl: Constants.mockImageUrl,
+                    receiver: "mason",
+                    title: "Happy BirthDay!",
+                    generatedDate: Date(),
+                    menuAlignment: .center
+                ) {
+
+                }
+                .bouncyTapGesture {
+
+                }
+            }
+        }
+        .padding(24)
         .background(
             RoundedRectangle(cornerRadius: 24)
                 .fill(.white)
