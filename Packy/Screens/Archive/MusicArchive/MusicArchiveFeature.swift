@@ -19,6 +19,8 @@ struct MusicArchiveFeature: Reducer {
 
         var musics: IdentifiedArrayOf<MusicArchiveData> = []
         @BindingState var selectedMusic: MusicArchiveData?
+
+        var isLoading: Bool = true
     }
 
     enum Action {
@@ -32,9 +34,11 @@ struct MusicArchiveFeature: Reducer {
 
         // MARK: Inner SetState Action
         case _setMusicPageData(MusicArchivePageData)
+        case _setLoading(Bool)
     }
 
     @Dependency(\.archiveClient) var archiveClient
+    @Dependency(\.continuousClock) var clock
 
     var body: some Reducer<State, Action> {
         Reduce<State, Action> { state, action in
@@ -50,6 +54,7 @@ struct MusicArchiveFeature: Reducer {
             case .didRefresh:
                 state.musicArchivePageData = []
                 state.musics = []
+                state.isLoading = true
                 return fetchMusics(lastMusicId: nil)
 
             case let ._setMusicPageData(pageData):
@@ -59,6 +64,10 @@ struct MusicArchiveFeature: Reducer {
 
             case ._fetchMoreMusics:
                 return fetchMusics(lastMusicId: state.musics.last?.id)
+
+            case let ._setLoading(isLoading):
+                state.isLoading = isLoading
+                return .none
             }
         }
     }
@@ -70,8 +79,12 @@ private extension MusicArchiveFeature {
             do {
                 let response = try await archiveClient.fetchMusics(lastMusicId)
                 await send(._setMusicPageData(response), animation: .spring)
+
+                try? await clock.sleep(for: .seconds(0.3))
+                await send(._setLoading(false))
             } catch {
                 print("🐛 \(error)")
+                await send(._setLoading(false))
             }
         }
     }

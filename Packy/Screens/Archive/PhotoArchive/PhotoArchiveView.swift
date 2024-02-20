@@ -23,7 +23,7 @@ struct PhotoArchiveView: View {
 
     var body: some View {
         VStack {
-            if viewStore.photos.isEmpty {
+            if viewStore.photos.isEmpty && !viewStore.isLoading {
                 Text("아직 선물받은 사진이 없어요")
                     .packyFont(.body2)
                     .foregroundStyle(.gray600)
@@ -56,7 +56,7 @@ struct PhotoArchiveView: View {
         .padding(.horizontal, 24)
         .background(.gray100)
         .refreshable {
-            viewStore.send(.didRefresh)
+            await viewStore.send(.didRefresh, while: \.isLoading)
         }
         .didLoad {
             await viewStore

@@ -22,7 +22,7 @@ struct MusicArchiveView: View {
 
     var body: some View {
         VStack {
-            if viewStore.musics.isEmpty {
+            if viewStore.musics.isEmpty && !viewStore.isLoading {
                 Text("아직 선물받은 음악이 없어요")
                     .packyFont(.body2)
                     .foregroundStyle(.gray600)
@@ -55,7 +55,7 @@ struct MusicArchiveView: View {
         .padding(.horizontal, 24)
         .background(.gray100)
         .refreshable {
-            viewStore.send(.didRefresh)
+            await viewStore.send(.didRefresh, while: \.isLoading)
         }
         .didLoad {
             await viewStore

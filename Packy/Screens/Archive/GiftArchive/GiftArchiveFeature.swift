@@ -19,6 +19,8 @@ struct GiftArchiveFeature: Reducer {
 
         var gifts: IdentifiedArrayOf<GiftArchiveData> = []
         @BindingState var selectedGift: GiftArchiveData?
+
+        var isLoading: Bool = true
     }
 
     enum Action {
@@ -32,9 +34,11 @@ struct GiftArchiveFeature: Reducer {
 
         // MARK: Inner SetState Action
         case _setGiftPageData(GiftArchivePageData)
+        case _setLoading(Bool)
     }
 
     @Dependency(\.archiveClient) var archiveClient
+    @Dependency(\.continuousClock) var clock
 
     var body: some Reducer<State, Action> {
         Reduce<State, Action> { state, action in
@@ -50,6 +54,7 @@ struct GiftArchiveFeature: Reducer {
             case .didRefresh:
                 state.giftArchivePageData = []
                 state.gifts = []
+                state.isLoading = true
                 return fetchGifts(lastGiftId: nil)
 
             case let ._setGiftPageData(pageData):
@@ -59,6 +64,10 @@ struct GiftArchiveFeature: Reducer {
 
             case ._fetchMoreGifts:
                 return fetchGifts(lastGiftId: state.gifts.last?.id)
+
+            case let ._setLoading(isLoading):
+                state.isLoading = isLoading
+                return .none
             }
         }
     }
@@ -70,8 +79,12 @@ private extension GiftArchiveFeature {
             do {
                 let response = try await archiveClient.fetchGifts(lastGiftId)
                 await send(._setGiftPageData(response), animation: .spring)
+
+                try? await clock.sleep(for: .seconds(0.3))
+                await send(._setLoading(false))
             } catch {
                 print("🐛 \(error)")
+                await send(._setLoading(false))
             }
         }
     }

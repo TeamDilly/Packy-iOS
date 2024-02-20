@@ -19,6 +19,8 @@ struct LetterArchiveFeature: Reducer {
 
         var letters: IdentifiedArrayOf<LetterArchiveData> = []
         @BindingState var selectedLetter: LetterArchiveData?
+
+        var isLoading: Bool = true
     }
 
     enum Action {
@@ -32,9 +34,11 @@ struct LetterArchiveFeature: Reducer {
 
         // MARK: Inner SetState Action
         case _setLetterPageData(LetterArchivePageData)
+        case _setLoading(Bool)
     }
 
     @Dependency(\.archiveClient) var archiveClient
+    @Dependency(\.continuousClock) var clock
 
     var body: some Reducer<State, Action> {
         Reduce<State, Action> { state, action in
@@ -50,6 +54,7 @@ struct LetterArchiveFeature: Reducer {
             case .didRefresh:
                 state.letterArchivePageData = []
                 state.letters = []
+                state.isLoading = true
                 return fetchLetters(lastLetterId: nil)
 
             case let ._setLetterPageData(pageData):
@@ -59,6 +64,10 @@ struct LetterArchiveFeature: Reducer {
 
             case ._fetchMoreLetters:
                 return fetchLetters(lastLetterId: state.letters.last?.id)
+
+            case let ._setLoading(isLoading):
+                state.isLoading = isLoading
+                return .none
             }
         }
     }
@@ -70,8 +79,12 @@ private extension LetterArchiveFeature {
             do {
                 let response = try await archiveClient.fetchLetters(lastLetterId)
                 await send(._setLetterPageData(response), animation: .spring)
+
+                try? await clock.sleep(for: .seconds(0.3))
+                await send(._setLoading(false))
             } catch {
                 print("🐛 \(error)")
+                await send(._setLoading(false))
             }
         }
     }

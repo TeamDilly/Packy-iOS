@@ -20,7 +20,7 @@ struct PhotoArchiveFeature: Reducer {
         var photos: IdentifiedArrayOf<PhotoArchiveData> = []
         @BindingState var selectedPhoto: PhotoArchiveData?
 
-        var isLoading: Bool = false
+        var isLoading: Bool = true
     }
 
     enum Action {
@@ -38,6 +38,7 @@ struct PhotoArchiveFeature: Reducer {
     }
 
     @Dependency(\.archiveClient) var archiveClient
+    @Dependency(\.continuousClock) var clock
 
     var body: some Reducer<State, Action> {
         Reduce<State, Action> { state, action in
@@ -53,6 +54,7 @@ struct PhotoArchiveFeature: Reducer {
             case .didRefresh:
                 state.photoArchivePageData = []
                 state.photos = []
+                state.isLoading = true
                 return fetchPhotos(lastPhotoId: nil)
 
             case let ._setPhotoPageData(pageData):
@@ -74,13 +76,15 @@ struct PhotoArchiveFeature: Reducer {
 private extension PhotoArchiveFeature {
     func fetchPhotos(lastPhotoId: Int?) -> Effect<Action> {
         .run { send in
-            await send(._setLoading(true))
             do {
                 let response = try await archiveClient.fetchPhotos(lastPhotoId)
                 await send(._setPhotoPageData(response), animation: .spring)
+
+                try? await clock.sleep(for: .seconds(0.3))
                 await send(._setLoading(false))
             } catch {
                 print("🐛 \(error)")
+                await send(._setLoading(false))
             }
         }
     }

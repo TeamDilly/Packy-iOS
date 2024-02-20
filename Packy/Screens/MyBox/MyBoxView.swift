@@ -32,7 +32,7 @@ struct MyBoxView: View {
 
             // TODO: 보내지 않은 박스 있을 때만 표시하게 처리
             unsentBoxesCarousel
-                .padding(.bottom, 24)
+                .padding(.bottom, 12)
 
             TabSegmentedControl(
                 selectedTab: viewStore.$selectedTab,
@@ -73,36 +73,38 @@ private extension MyBoxView {
 
     @ViewBuilder
     var unsentBoxesCarousel: some View {
-        Text("보내지 않은 선물박스")
-            .packyFont(.body1)
-            .foregroundStyle(.gray900)
-            .frame(maxWidth: .infinity, alignment: .leading)
-            .padding(.horizontal, 24)
-            .padding(.bottom, 12)
+        VStack(spacing: 0) {
+            Text("보내지 않은 선물박스")
+                .packyFont(.body1)
+                .foregroundStyle(.gray900)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(.horizontal, 24)
+                .padding(.bottom, 12)
 
-        ScrollView(.horizontal) {
-            HStack(spacing: 16) {
-                ForEach(0..<10, id: \.self) { item in
-                    UnsentBoxCell(
-                        boxImageUrl: Constants.mockImageUrl,
-                        receiver: "mason",
-                        title: "Happy BirthDay!",
-                        generatedDate: Date()
-                    ) {
+            ScrollView(.horizontal) {
+                HStack(spacing: 16) {
+                    ForEach(0..<10, id: \.self) { item in
+                        UnsentBoxCell(
+                            boxImageUrl: Constants.mockImageUrl,
+                            receiver: "mason",
+                            title: "Happy BirthDay!",
+                            generatedDate: Date()
+                        ) {
 
+                        }
+                        .padding(16)
+                        .background(.gray100)
+                        .clipShape(RoundedRectangle(cornerRadius: 16))
+                        .containerRelativeFrame(.horizontal)
                     }
-                    .padding(16)
-                    .background(.gray100)
-                    .clipShape(RoundedRectangle(cornerRadius: 16))
-                    .containerRelativeFrame(.horizontal)
                 }
+                .scrollTargetLayout()
             }
-            .scrollTargetLayout()
+            .scrollTargetBehavior(.viewAligned)
+            .scrollIndicators(.hidden)
+            .safeAreaPadding(.leading, 24)
+            .safeAreaPadding(.trailing, 40)
         }
-        .scrollTargetBehavior(.viewAligned)
-        .scrollIndicators(.hidden)
-        .safeAreaPadding(.leading, 24)
-        .safeAreaPadding(.trailing, 40)
     }
 
     var boxGridTabView: some View {

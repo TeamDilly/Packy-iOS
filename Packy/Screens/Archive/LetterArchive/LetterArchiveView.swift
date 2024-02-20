@@ -22,7 +22,7 @@ struct LetterArchiveView: View {
 
     var body: some View {
         VStack {
-            if viewStore.letters.isEmpty {
+            if viewStore.letters.isEmpty && !viewStore.isLoading {
                 Text("아직 선물받은 편지가 없어요")
                     .packyFont(.body2)
                     .foregroundStyle(.gray600)
@@ -55,7 +55,7 @@ struct LetterArchiveView: View {
             }
         }
         .refreshable {
-            viewStore.send(.didRefresh)
+            await viewStore.send(.didRefresh, while: \.isLoading)
         }
         .padding(.horizontal, 24)
         .background(.gray100)
