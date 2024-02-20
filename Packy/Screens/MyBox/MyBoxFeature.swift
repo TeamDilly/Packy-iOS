@@ -47,6 +47,7 @@ struct MyBoxFeature: Reducer {
         case _fetchMoreSentGiftBoxes
         case _fetchMoreReceivedGiftBoxes
         case _resetAndFetchGiftBoxes
+        case _deleteBox(Int)
 
         // MARK: Inner SetState Action
         case _setGiftBoxData(SentReceivedGiftBoxPageData, GiftBoxType)
@@ -104,7 +105,7 @@ struct MyBoxFeature: Reducer {
                 }
 
             case .deleteBottomMenuConfirmButtonTapped:
-                guard let selectedBoxToDelete = state.selectedBoxToDelete else { return .none }
+                guard let selectedBoxIdToDelete = state.selectedBoxToDelete?.id else { return .none }
                 return .run { send in
                     await packyAlert.show(
                         .init(
@@ -113,17 +114,20 @@ struct MyBoxFeature: Reducer {
                             cancel: "취소",
                             confirm: "삭제",
                             confirmAction: {
-                                // TODO: 서버 스펙 나오면 실제로 삭제 로직 반영
-                                do {
-                                    // try await boxClient.deleteGiftBox(selectedBoxToDelete.giftBoxId)
-                                    // await send(.binding(.set(\.$selectedBoxToDelete, nil)))
-                                    // await send(._onTask)
-                                } catch {
-                                    print("🐛 \(error)")
-                                }
+                                await send(._deleteBox(selectedBoxIdToDelete))
                             }
                         )
                     )
+                }
+
+            case let ._deleteBox(boxId):
+                return .run { send in
+                    do {
+                        try await boxClient.deleteGiftBox(boxId)
+                        await send(._resetAndFetchGiftBoxes)
+                    } catch {
+                        print("🐛 \(error)")
+                    }
                 }
 
             case ._fetchMoreSentGiftBoxes:
