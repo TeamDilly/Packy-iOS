@@ -268,8 +268,8 @@ private struct MyBoxInfoCell: View {
 private extension MyBoxView {
     func giftBoxes(for tab: MyBoxTab) -> [SentReceivedGiftBox] {
         switch tab {
-        case .sentBox:      return viewStore.sentBoxes
-        case .receivedBox:  return viewStore.receivedBoxes
+        case .sentBox:      return viewStore.sentBoxes.elements
+        case .receivedBox:  return viewStore.receivedBoxes.elements
         }
     }
 

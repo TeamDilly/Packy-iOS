@@ -79,11 +79,7 @@ private extension HomeFeature {
     func fetchGiftBoxes() -> Effect<Action> {
         .run { send in
             do {
-                let giftBoxesData = try await boxClient.fetchGiftBoxes(
-                    .init(
-                        lastGiftBoxDate: Date().formattedString(by: .serverDateTime)
-                    )
-                )
+                let giftBoxesData = try await boxClient.fetchGiftBoxes(.init())
                 await send(._setGiftBoxes(giftBoxesData.giftBoxes))
             } catch {
                 print("🐛 \(error)")

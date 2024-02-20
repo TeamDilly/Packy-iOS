@@ -20,14 +20,8 @@ struct MyBoxFeature: Reducer {
         var isReceivedBoxesLastPage: Bool { receivedBoxesData.last?.isLastPage ?? true }
         var isSentBoxesLastPage: Bool { sentBoxesData.last?.isLastPage ?? true }
 
-        var receivedBoxes: [SentReceivedGiftBox] {
-            Set(receivedBoxesData.flatMap(\.giftBoxes))
-                .sorted(by: \.giftBoxDate, order: .decreasing)
-        }
-        var sentBoxes: [SentReceivedGiftBox] {
-            Set(sentBoxesData.flatMap(\.giftBoxes))
-                .sorted(by: \.giftBoxDate, order: .decreasing)
-        }
+        var receivedBoxes: IdentifiedArrayOf<SentReceivedGiftBox> = []
+        var sentBoxes: IdentifiedArrayOf<SentReceivedGiftBox> = []
 
         @BindingState var selectedBoxToDelete: SentReceivedGiftBox?
 
@@ -53,6 +47,7 @@ struct MyBoxFeature: Reducer {
         case _setGiftBoxData(SentReceivedGiftBoxPageData, GiftBoxType)
         case _setFetchBoxLoading(Bool)
         case _setShowDetailLoading(Bool)
+        case _setDeletedBox(Int)
 
         // MARK: Delegate Action
         enum Delegate {
@@ -124,11 +119,17 @@ struct MyBoxFeature: Reducer {
                 return .run { send in
                     do {
                         try await boxClient.deleteGiftBox(boxId)
-                        await send(._resetAndFetchGiftBoxes)
+                        await send(._setDeletedBox(boxId))
                     } catch {
                         print("🐛 \(error)")
                     }
                 }
+
+            // 낙관적 업데이트 방식으로 성공 시 화면에 반영
+            case let ._setDeletedBox(boxId):
+                state.sentBoxes.remove(id: boxId)
+                state.receivedBoxes.remove(id: boxId)
+                return .none
 
             case ._fetchMoreSentGiftBoxes:
                 guard let lastBoxData = state.sentBoxesData.last,
@@ -154,17 +155,21 @@ struct MyBoxFeature: Reducer {
                 switch type {
                 case .received:
                     state.receivedBoxesData.append(giftBoxData)
+                    state.receivedBoxes.append(contentsOf: giftBoxData.giftBoxes)
                 case .sent:
                     state.sentBoxesData.append(giftBoxData)
-                default: 
+                    state.sentBoxes.append(contentsOf: giftBoxData.giftBoxes)
+                default:
                     break
                 }
                 return .none
 
             case ._resetAndFetchGiftBoxes:
                 state.isFetchBoxesLoading = true
-                state.sentBoxesData = []
-                state.receivedBoxesData = []
+                state.sentBoxesData.removeAll()
+                state.receivedBoxesData.removeAll()
+                state.sentBoxes.removeAll()
+                state.receivedBoxes.removeAll()
                 return fetchAllInitialGiftBoxes()
 
             case let ._setFetchBoxLoading(isLoading):
@@ -185,17 +190,17 @@ struct MyBoxFeature: Reducer {
 private extension MyBoxFeature {
     func fetchAllInitialGiftBoxes() -> Effect<Action> {
         return .merge(
-            fetchGiftBoxes(type: .received, lastGiftBoxDate: Date()),
-            fetchGiftBoxes(type: .sent, lastGiftBoxDate: Date())
+            fetchGiftBoxes(type: .received, lastGiftBoxDate: nil),
+            fetchGiftBoxes(type: .sent, lastGiftBoxDate: nil)
         )
     }
 
-    func fetchGiftBoxes(type: GiftBoxType, lastGiftBoxDate: Date) -> Effect<Action> {
+    func fetchGiftBoxes(type: GiftBoxType, lastGiftBoxDate: Date?) -> Effect<Action> {
         .run { send in
             do {
                 let giftBoxesData = try await boxClient.fetchGiftBoxes(
                     .init(
-                        lastGiftBoxDate: lastGiftBoxDate.formattedString(by: .serverDateTime),
+                        lastGiftBoxDate: lastGiftBoxDate?.formattedString(by: .serverDateTime),
                         type: type
                     )
                 )

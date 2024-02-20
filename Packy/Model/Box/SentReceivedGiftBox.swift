@@ -14,7 +14,7 @@ struct SentReceivedGiftBoxPageData: Hashable {
 }
 
 /// 주고받은 선물박스 정보
-struct SentReceivedGiftBox: Hashable {
+struct SentReceivedGiftBox: Hashable, Identifiable {
     let id: Int
     let type: SentReceivedType
     let sender: String

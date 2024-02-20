@@ -19,6 +19,8 @@ struct PhotoArchiveFeature: Reducer {
 
         var photos: IdentifiedArrayOf<PhotoArchiveData> = []
         @BindingState var selectedPhoto: PhotoArchiveData?
+
+        var isLoading: Bool = false
     }
 
     enum Action {
@@ -32,6 +34,7 @@ struct PhotoArchiveFeature: Reducer {
 
         // MARK: Inner SetState Action
         case _setPhotoPageData(PhotoArchivePageData)
+        case _setLoading(Bool)
     }
 
     @Dependency(\.archiveClient) var archiveClient
@@ -59,6 +62,10 @@ struct PhotoArchiveFeature: Reducer {
 
             case ._fetchMorePhotos:
                 return fetchPhotos(lastPhotoId: state.photos.last?.id)
+
+            case let ._setLoading(isLoading):
+                state.isLoading = isLoading
+                return .none
             }
         }
     }
@@ -67,9 +74,11 @@ struct PhotoArchiveFeature: Reducer {
 private extension PhotoArchiveFeature {
     func fetchPhotos(lastPhotoId: Int?) -> Effect<Action> {
         .run { send in
+            await send(._setLoading(true))
             do {
                 let response = try await archiveClient.fetchPhotos(lastPhotoId)
                 await send(._setPhotoPageData(response), animation: .spring)
+                await send(._setLoading(false))
             } catch {
                 print("🐛 \(error)")
             }
