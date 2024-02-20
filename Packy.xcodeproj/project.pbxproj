@@ -272,6 +272,7 @@
 		E5FDE05D2B6BAD1F00E00B00 /* Sticker.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FDE05C2B6BAD1F00E00B00 /* Sticker.swift */; };
 		E5FDE05F2B6BAD6D00E00B00 /* ReceivedBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FDE05E2B6BAD6D00E00B00 /* ReceivedBox.swift */; };
 		E5FDF27B2B84BD8000A5EE18 /* ProfileRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FDF27A2B84BD8000A5EE18 /* ProfileRequest.swift */; };
+		E5FDF27D2B84CAC800A5EE18 /* UnsentBoxCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FDF27C2B84CAC800A5EE18 /* UnsentBoxCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -529,6 +530,7 @@
 		E5FDE05C2B6BAD1F00E00B00 /* Sticker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sticker.swift; sourceTree = "<group>"; };
 		E5FDE05E2B6BAD6D00E00B00 /* ReceivedBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceivedBox.swift; sourceTree = "<group>"; };
 		E5FDF27A2B84BD8000A5EE18 /* ProfileRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileRequest.swift; sourceTree = "<group>"; };
+		E5FDF27C2B84CAC800A5EE18 /* UnsentBoxCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnsentBoxCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -942,6 +944,7 @@
 				E54484EF2B6F3E63003DFA1B /* TabSegmentedControl.swift */,
 				E5B22CF72B70FD36003DAC7B /* WebView.swift */,
 				E57948642B81EFEC0058C733 /* StaggeredGrid.swift */,
+				E5FDF27C2B84CAC800A5EE18 /* UnsentBoxCell.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -1665,6 +1668,7 @@
 				E5A7AA4B2B57F81400590EA6 /* CarouselView.swift in Sources */,
 				E5A7AA5E2B57F81400590EA6 /* TermsAgreementFeature.swift in Sources */,
 				E5A59BE42B727D7500D120CF /* GiftBoxesRequest.swift in Sources */,
+				E5FDF27D2B84CAC800A5EE18 /* UnsentBoxCell.swift in Sources */,
 				E57948422B80CD310058C733 /* MainTabFeature.swift in Sources */,
 				E54484ED2B6F3E00003DFA1B /* MyBoxView.swift in Sources */,
 				E5FDE05F2B6BAD6D00E00B00 /* ReceivedBox.swift in Sources */,
