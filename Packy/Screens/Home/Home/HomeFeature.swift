@@ -12,7 +12,6 @@ import ComposableArchitecture
 struct HomeFeature: Reducer {
 
     struct State: Equatable {
-        var profile: Profile?
         var giftBoxes: [SentReceivedGiftBox] = []
         var isShowDetailLoading: Bool = false
     }
@@ -26,7 +25,6 @@ struct HomeFeature: Reducer {
         case _onTask
 
         // MARK: Inner SetState Action
-        case _setProfile(Profile)
         case _setGiftBoxes([SentReceivedGiftBox])
         case _setShowDetailLoading(Bool)
 
@@ -45,10 +43,7 @@ struct HomeFeature: Reducer {
         Reduce<State, Action> { state, action in
             switch action {
             case ._onTask:
-                return .merge(
-                    fetchProfileIfNeeded(state: state),
-                    fetchGiftBoxes()
-                )
+                return fetchGiftBoxes()
 
             case let .tappedGiftBox(boxId):
                 state.isShowDetailLoading = true
@@ -64,10 +59,6 @@ struct HomeFeature: Reducer {
 
             case .viewMoreButtonTapped:
                 return .send(.delegate(.moveToMyBox))
-
-            case let ._setProfile(profile):
-                state.profile = profile
-                return .none
 
             case let ._setGiftBoxes(giftBoxes):
                 state.giftBoxes = giftBoxes
@@ -85,19 +76,6 @@ struct HomeFeature: Reducer {
 }
 
 private extension HomeFeature {
-    func fetchProfileIfNeeded(state: State) -> Effect<Action> {
-        guard state.profile == nil else { return .none }
-
-        return .run { send in
-            do {
-                let profile = try await authClient.fetchProfile()
-                await send(._setProfile(profile))
-            } catch {
-                print("🐛 \(error)")
-            }
-        }
-    }
-
     func fetchGiftBoxes() -> Effect<Action> {
         .run { send in
             do {

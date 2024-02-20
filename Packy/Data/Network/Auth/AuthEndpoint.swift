@@ -42,9 +42,7 @@ extension AuthEndpoint: TargetType {
             return "auth/withdraw"
         case .settings:
             return "admin/settings"
-        case .profile:
-            return "my-page/profile"
-        case .editProfile:
+        case .profile, .editProfile:
             return "my-page/profile"
         }
     }

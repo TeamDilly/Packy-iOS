@@ -9,10 +9,10 @@ import Foundation
 
 struct ProfileRequest: Encodable {
     let nickname: String?
-    let profileImage: String?
+    let profileImageId: Int?
 
     enum CodingKeys: String, CodingKey {
         case nickname
-        case profileImage = "profileImg"
+        case profileImageId = "profileImg"
     }
 }

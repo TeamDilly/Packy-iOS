@@ -12,7 +12,8 @@ import ComposableArchitecture
 struct EditSelectProfileFeature: Reducer {
 
     struct State: Equatable {
-        var selectedImageUrl: String
+        var initialImageUrl: String
+        var selectedProfile: ProfileImage?
         var profileImages: [ProfileImage] = []
     }
 
@@ -43,8 +44,8 @@ struct EditSelectProfileFeature: Reducer {
                     await dismiss()
                 }
 
-            case let .selectProfile(profileImage):
-                state.selectedImageUrl = profileImage.imageUrl
+            case let .selectProfile(profile):
+                state.selectedProfile = profile
                 return .none
 
             case let ._setProfileImages(profileImages):

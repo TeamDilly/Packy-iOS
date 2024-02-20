@@ -26,6 +26,7 @@ struct LetterArchiveView: View {
                 Text("아직 선물받은 편지가 없어요")
                     .packyFont(.body2)
                     .foregroundStyle(.gray600)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
                     .padding(.bottom, 50)
             } else {
                 StaggeredGrid(columns: 2, data: viewStore.letters.elements) { letter in

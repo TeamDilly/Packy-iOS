@@ -13,7 +13,9 @@ struct SettingFeature: Reducer {
 
     struct State: Equatable {
         var settingMenus: [SettingMenu] = []
-        let profile: Profile?
+        var profile: Profile?
+
+        @PresentationState var editProfile: EditProfileFeature.State?
     }
 
     enum Action {
@@ -21,12 +23,17 @@ struct SettingFeature: Reducer {
         case backButtonTapped
         case logoutButtonTapped
         case logoutConfirmButtonTapped
+        case editProfileButtonTapped
 
         // MARK: Inner Business Action
         case _onTask
 
         // MARK: Inner SetState Action
         case _setSettingMenus([SettingMenu])
+        case _setProfile(Profile)
+
+        // MARK: Child Action
+        case editProfile(PresentationAction<EditProfileFeature.Action>)
 
         // MARK: Delegate Action
         enum Delegate {
@@ -45,8 +52,14 @@ struct SettingFeature: Reducer {
             switch action {
             case ._onTask:
                 return .merge(
+                    fetchProfileIfNeeded(state.profile),
                     fetchSettingMenus()
                 )
+
+            case .editProfileButtonTapped:
+                guard let profile = state.profile else { return .none }
+                state.editProfile = .init(fetchedProfile: profile)
+                return .none
 
             case .logoutButtonTapped:
                 return .run { send in
@@ -73,9 +86,20 @@ struct SettingFeature: Reducer {
                 state.settingMenus = menus
                 return .none
 
+            case let ._setProfile(profile):
+                state.profile = profile
+                return .none
+
+            case .editProfile(.presented(.delegate(.didUpdateProfile(let profile)))):
+                state.profile = profile
+                return .none
+
             default:
                 return .none
             }
+        }
+        .ifLet(\.$editProfile, action: /Action.editProfile) {
+            EditProfileFeature()
         }
     }
 }
@@ -86,6 +110,19 @@ private extension SettingFeature {
             do {
                 let settingMenus = try await authClient.fetchSettingMenus()
                 await send(._setSettingMenus(settingMenus))
+            } catch {
+                print("🐛 \(error)")
+            }
+        }
+    }
+
+    func fetchProfileIfNeeded(_ profile: Profile?) -> Effect<Action> {
+        guard profile == nil else { return .none }
+
+        return .run { send in
+            do {
+                let profile = try await authClient.fetchProfile()
+                await send(._setProfile(profile))
             } catch {
                 print("🐛 \(error)")
             }

@@ -33,6 +33,7 @@ struct AuthClient {
     var fetchSettingMenus: @Sendable () async throws -> SettingMenuResponse
     /// 나의 프로필 조회
     var fetchProfile: @Sendable () async throws -> Profile
+    /// 프로필 업데이트
     var updateProfile: @Sendable (ProfileRequest) async throws -> Profile
 }
 

@@ -94,15 +94,17 @@ private extension SettingView {
             }
             .frame(maxWidth: .infinity, alignment: .leading)
 
-            if let nickname = viewStore.profile?.nickname, 
-               let profileImageUrl = viewStore.profile?.imageUrl {
-                let destination = MainTabNavigationPath.State.editProfile(
-                    .init(nickname: nickname, imageUrl: profileImageUrl)
-                )
-
-                NavigationLink("프로필 수정", state: destination)
-                    .buttonStyle(.box(color: .tertiary, size: .roundSmall))
+            if viewStore.profile != nil {
+                Button("프로필 수정") {
+                    viewStore.send(.editProfileButtonTapped)
+                }
+                .buttonStyle(.box(color: .tertiary, size: .roundSmall))
             }
+        }
+        .navigationDestination(
+            store: store.scope(state: \.$editProfile, action: \.editProfile)
+        ) { store in
+            EditProfileView(store: store)
         }
     }
 

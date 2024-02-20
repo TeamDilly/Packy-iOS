@@ -27,6 +27,7 @@ struct PhotoArchiveView: View {
                 Text("아직 선물받은 사진이 없어요")
                     .packyFont(.body2)
                     .foregroundStyle(.gray600)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
                     .padding(.bottom, 50)
             } else {
                 StaggeredGrid(columns: columns, data: viewStore.photos.elements) { photo in

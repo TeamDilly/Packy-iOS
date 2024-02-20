@@ -72,11 +72,7 @@ private extension HomeView {
 
             Spacer()
 
-            NavigationLink(
-                state: MainTabNavigationPath.State.setting(
-                    .init(profile: viewStore.profile)
-                )
-            ) {
+            NavigationLink(state: MainTabNavigationPath.State.setting(.init())) {
                 Image(.setting)
             }
             .frame(width: 40, height: 40)

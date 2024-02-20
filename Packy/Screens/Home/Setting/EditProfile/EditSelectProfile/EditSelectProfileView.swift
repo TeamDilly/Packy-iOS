@@ -26,9 +26,11 @@ struct EditSelectProfileView: View {
             }
             .padding(.top, 8)
 
-            NetworkImage(url: viewStore.selectedImageUrl)
-                .frame(width: 160, height: 160)
-                .padding(.top, 60)
+            NetworkImage(
+                url: viewStore.selectedProfile?.imageUrl ?? viewStore.initialImageUrl
+            )
+            .frame(width: 160, height: 160)
+            .padding(.top, 60)
 
             HStack(spacing: 16) {
                 ForEach(viewStore.profileImages, id: \.id) { profileImage in
@@ -63,7 +65,7 @@ struct EditSelectProfileView: View {
 #Preview {
     EditSelectProfileView(
         store: .init(
-            initialState: .init(selectedImageUrl: Constants.mockImageUrl),
+            initialState: .init(initialImageUrl: Constants.mockImageUrl),
             reducer: {
                 EditSelectProfileFeature()
                     ._printChanges()

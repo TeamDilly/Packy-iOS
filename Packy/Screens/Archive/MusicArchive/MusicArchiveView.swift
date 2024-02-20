@@ -26,6 +26,7 @@ struct MusicArchiveView: View {
                 Text("아직 선물받은 음악이 없어요")
                     .packyFont(.body2)
                     .foregroundStyle(.gray600)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
                     .padding(.bottom, 50)
             } else {
                 StaggeredGrid(columns: 2, data: viewStore.musics.elements) { music in

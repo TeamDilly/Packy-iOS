@@ -45,13 +45,6 @@ struct MainTabView: View {
                      then: SettingView.init
                 )
 
-            case .editProfile:
-                CaseLet(
-                    \MainTabNavigationPath.State.editProfile,
-                     action: MainTabNavigationPath.Action.editProfile,
-                     then: EditProfileView.init
-                )
-
             case .manageAccount:
                 CaseLet(
                     \MainTabNavigationPath.State.manageAccount,
