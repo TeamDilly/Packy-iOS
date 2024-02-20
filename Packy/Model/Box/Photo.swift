@@ -24,7 +24,7 @@ struct PhotoRawData: Equatable {
 extension PhotoRawData {
     static var mock: Self {
         return .init(
-            photoData: nil,
+            photoData: Data(),
             description: "우리 같이 놀러갔던 날 :)",
             sequence: 1
         )

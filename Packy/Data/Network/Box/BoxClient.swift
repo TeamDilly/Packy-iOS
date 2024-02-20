@@ -7,7 +7,7 @@
 
 import Foundation
 import Dependencies
-import Moya
+import class Moya.MoyaProvider
 
 // MARK: - Dependency Values
 
@@ -52,6 +52,7 @@ extension BoxClient: DependencyKey {
     static var previewValue: Self = {
         Self(
             makeGiftBox: { _ in
+                try? await Task.sleep(for: .seconds(1))
                 return .init(id: Int.random(in: 0...100), uuid: UUID().uuidString, kakaoMessageImgUrl: nil)
             },
             openGiftBox: { _ in

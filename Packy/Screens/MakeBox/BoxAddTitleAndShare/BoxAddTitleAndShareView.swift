@@ -165,11 +165,12 @@ private extension BoxAddTitleAndShareView {
 #Preview {
     BoxAddTitleAndShareView(
         store: .init(
-            initialState: .init(giftBoxData: .mock, boxDesign: .mock, boxNameInput: "hello", showingState: .send),
+            initialState: .init(giftBoxData: .mock, boxDesign: .mock, boxNameInput: "hello"),
             reducer: {
                 BoxAddTitleAndShareFeature()
                     ._printChanges()
             }
         )
     )
+    .globalLoading()
 }

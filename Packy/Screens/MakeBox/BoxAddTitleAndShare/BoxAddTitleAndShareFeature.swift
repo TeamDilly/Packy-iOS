@@ -118,12 +118,11 @@ struct BoxAddTitleAndShareFeature: Reducer {
                 return .none
 
             case let ._setSentGiftBoxInfo(sentGiftBoxInfo):
-                state.isLoading = false
                 state.sentGiftBoxInfo = sentGiftBoxInfo
                 return .none
 
             case ._changeScreen:
-                print("🐛 changeScreen")
+                state.isLoading = false
                 return .run { send in
                     await send(.binding(.set(\.$showingState, .completed)), animation: .spring)
                     try? await clock.sleep(for: .seconds(2.6))
