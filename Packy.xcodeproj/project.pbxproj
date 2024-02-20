@@ -271,6 +271,7 @@
 		E5FDE05B2B6BACFA00E00B00 /* Envelope.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FDE05A2B6BACFA00E00B00 /* Envelope.swift */; };
 		E5FDE05D2B6BAD1F00E00B00 /* Sticker.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FDE05C2B6BAD1F00E00B00 /* Sticker.swift */; };
 		E5FDE05F2B6BAD6D00E00B00 /* ReceivedBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FDE05E2B6BAD6D00E00B00 /* ReceivedBox.swift */; };
+		E5FDF27B2B84BD8000A5EE18 /* ProfileRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FDF27A2B84BD8000A5EE18 /* ProfileRequest.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -527,6 +528,7 @@
 		E5FDE05A2B6BACFA00E00B00 /* Envelope.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Envelope.swift; sourceTree = "<group>"; };
 		E5FDE05C2B6BAD1F00E00B00 /* Sticker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sticker.swift; sourceTree = "<group>"; };
 		E5FDE05E2B6BAD6D00E00B00 /* ReceivedBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceivedBox.swift; sourceTree = "<group>"; };
+		E5FDF27A2B84BD8000A5EE18 /* ProfileRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileRequest.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1194,6 +1196,7 @@
 				E5A7AA122B57F81400590EA6 /* SignUpRequest.swift */,
 				E5A7AA142B57F81400590EA6 /* TokenInfoResponse.swift */,
 				E5A7AA112B57F81400590EA6 /* TokenRequest.swift */,
+				E5FDF27A2B84BD8000A5EE18 /* ProfileRequest.swift */,
 			);
 			path = Auth;
 			sourceTree = "<group>";
@@ -1802,6 +1805,7 @@
 				E5551B792B5FE8E300DB81F3 /* TokenInterceptor.swift in Sources */,
 				E5A7AA682B57F81400590EA6 /* OnboardingFeature.swift in Sources */,
 				E5A416B32B5D350C00313E5A /* SelectStickerBottomSheet.swift in Sources */,
+				E5FDF27B2B84BD8000A5EE18 /* ProfileRequest.swift in Sources */,
 				E5E06B322B654A1000F6FD01 /* BoxAddTitleAndShareFeature.swift in Sources */,
 				E5A7AA472B57F81400590EA6 /* MusicPlayerView.swift in Sources */,
 				E5A7AA462B57F81400590EA6 /* PackyButton.swift in Sources */,

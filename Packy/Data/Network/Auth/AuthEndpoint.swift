@@ -21,6 +21,8 @@ enum AuthEndpoint {
     case settings
     /// 나의 프로필 조회
     case profile
+    /// 나의 프로필 수정
+    case editProfile(ProfileRequest)
 }
 
 extension AuthEndpoint: TargetType {
@@ -42,6 +44,8 @@ extension AuthEndpoint: TargetType {
             return "admin/settings"
         case .profile:
             return "my-page/profile"
+        case .editProfile:
+            return "my-page/profile"
         }
     }
     
@@ -53,6 +57,8 @@ extension AuthEndpoint: TargetType {
             return .get
         case .withdraw:
             return .delete
+        case .editProfile:
+            return .patch
         }
     }
     
@@ -64,6 +70,8 @@ extension AuthEndpoint: TargetType {
             return .requestJSONEncodable(request)
         case .signIn, .withdraw, .settings, .profile:
             return .requestPlain
+        case let .editProfile(request):
+            return .requestJSONEncodable(request)
         }
     }
     

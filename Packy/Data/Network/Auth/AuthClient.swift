@@ -33,6 +33,7 @@ struct AuthClient {
     var fetchSettingMenus: @Sendable () async throws -> SettingMenuResponse
     /// 나의 프로필 조회
     var fetchProfile: @Sendable () async throws -> Profile
+    var updateProfile: @Sendable (ProfileRequest) async throws -> Profile
 }
 
 extension AuthClient: DependencyKey {
@@ -58,6 +59,9 @@ extension AuthClient: DependencyKey {
             },
             fetchProfile: {
                 try await provider.request(.profile)
+            },
+            updateProfile: {
+                try await provider.request(.editProfile($0))
             }
         )
     }()
@@ -69,7 +73,8 @@ extension AuthClient: DependencyKey {
             withdraw: { "" },
             reissueToken: { _ in .mock },
             fetchSettingMenus: { .mock },
-            fetchProfile: { .mock }
+            fetchProfile: { .mock },
+            updateProfile: { _ in .mock }
         )
     }()
 }
