@@ -29,6 +29,8 @@
 		E52B954D2B80BCB100DB27FC /* BottomMenuModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52B954C2B80BCB100DB27FC /* BottomMenuModifier.swift */; };
 		E52F8D242B860C4C00DE2B26 /* UnsentBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52F8D232B860C4C00DE2B26 /* UnsentBox.swift */; };
 		E52F8D262B860D2700DE2B26 /* UnsentBoxResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52F8D252B860D2700DE2B26 /* UnsentBoxResponse.swift */; };
+		E52F8D2C2B861B6D00DE2B26 /* BoxShareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52F8D2A2B861B6D00DE2B26 /* BoxShareView.swift */; };
+		E52F8D2D2B861B6D00DE2B26 /* BoxShareFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52F8D2B2B861B6D00DE2B26 /* BoxShareFeature.swift */; };
 		E53937862B67B40F000F3A86 /* PhotoElementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53937852B67B40F000F3A86 /* PhotoElementView.swift */; };
 		E53937882B67B42D000F3A86 /* LetterElementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53937872B67B42D000F3A86 /* LetterElementView.swift */; };
 		E539378A2B67B43E000F3A86 /* MusicElementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53937892B67B43E000F3A86 /* MusicElementView.swift */; };
@@ -300,6 +302,8 @@
 		E52B954C2B80BCB100DB27FC /* BottomMenuModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomMenuModifier.swift; sourceTree = "<group>"; };
 		E52F8D232B860C4C00DE2B26 /* UnsentBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnsentBox.swift; sourceTree = "<group>"; };
 		E52F8D252B860D2700DE2B26 /* UnsentBoxResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnsentBoxResponse.swift; sourceTree = "<group>"; };
+		E52F8D2A2B861B6D00DE2B26 /* BoxShareView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoxShareView.swift; sourceTree = "<group>"; };
+		E52F8D2B2B861B6D00DE2B26 /* BoxShareFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoxShareFeature.swift; sourceTree = "<group>"; };
 		E53937852B67B40F000F3A86 /* PhotoElementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoElementView.swift; sourceTree = "<group>"; };
 		E53937872B67B42D000F3A86 /* LetterElementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LetterElementView.swift; sourceTree = "<group>"; };
 		E53937892B67B43E000F3A86 /* MusicElementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicElementView.swift; sourceTree = "<group>"; };
@@ -618,6 +622,15 @@
 				E57948452B81C1FA0058C733 /* BottomMenuManager.swift */,
 			);
 			path = BottomMenu;
+			sourceTree = "<group>";
+		};
+		E52F8D292B861B6400DE2B26 /* BoxShare */ = {
+			isa = PBXGroup;
+			children = (
+				E52F8D2A2B861B6D00DE2B26 /* BoxShareView.swift */,
+				E52F8D2B2B861B6D00DE2B26 /* BoxShareFeature.swift */,
+			);
+			path = BoxShare;
 			sourceTree = "<group>";
 		};
 		E53937842B67B3F1000F3A86 /* Component */ = {
@@ -1022,6 +1035,7 @@
 				E5E73D462B597BC200729D99 /* BoxChoice */,
 				E5E73D472B597BCD00729D99 /* MakeBoxDetail */,
 				E5E06B2E2B6549FB00F6FD01 /* BoxAddTitleAndShare */,
+				E52F8D292B861B6400DE2B26 /* BoxShare */,
 			);
 			path = MakeBox;
 			sourceTree = "<group>";
@@ -1658,6 +1672,7 @@
 				E5E06B2D2B651D2200F6FD01 /* Throttle.swift in Sources */,
 				E5A7AA802B57F81400590EA6 /* UserDefaultsClient.swift in Sources */,
 				E5001F852B5BA011004B65E6 /* Line.swift in Sources */,
+				E52F8D2C2B861B6D00DE2B26 /* BoxShareView.swift in Sources */,
 				E5A7AA482B57F81400590EA6 /* PageIndicator.swift in Sources */,
 				E54484E52B6E80BE003DFA1B /* BoxOpenView.swift in Sources */,
 				E5FDE05D2B6BAD1F00E00B00 /* Sticker.swift in Sources */,
@@ -1789,6 +1804,7 @@
 				E5A7AA7B2B57F81400590EA6 /* TokenInfoResponse.swift in Sources */,
 				E52037DD2B64213600721F76 /* AddGiftFeature.swift in Sources */,
 				E544850B2B6F8A34003DFA1B /* PackyDivider.swift in Sources */,
+				E52F8D2D2B861B6D00DE2B26 /* BoxShareFeature.swift in Sources */,
 				E54484FE2B6F8339003DFA1B /* SettingFeature.swift in Sources */,
 				E5257CB42B693FB9000A091E /* ImageViewer.swift in Sources */,
 				E5FDE05B2B6BACFA00E00B00 /* Envelope.swift in Sources */,

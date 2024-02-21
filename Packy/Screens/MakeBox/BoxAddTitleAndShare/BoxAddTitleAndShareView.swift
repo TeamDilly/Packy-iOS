@@ -22,45 +22,12 @@ struct BoxAddTitleAndShareView: View {
 
     var body: some View {
         VStack(spacing: 0) {
-            if viewStore.showingState != .addTitle {
-                boxFinalDoneAndShareView
-            } else {
-                NavigationBar.onlyBackButton {
-                    viewStore.send(.backButtonTapped)
-                }
-
-                Text("마지막으로 선물박스에\n이름을 붙여주세요")
-                    .packyFont(.heading1)
-                    .foregroundStyle(.gray900)
-                    .padding(.top, 24)
-                    .multilineTextAlignment(.center)
-
-                Text("선물박스의 이름을 붙여 특별함을 더해요\n붙인 이름은 받는 분에게도 보여져요")
-                    .packyFont(.body4)
-                    .foregroundStyle(.gray600)
-                    .padding(.top, 8)
-                    .multilineTextAlignment(.center)
-
-                PackyTextField(text: viewStore.$boxNameInput, placeholder: "12자 이내로 입력해주세요")
-                    .focused($isFocused)
-                    .limitTextLength(text: viewStore.$boxNameInput, length: 12)
-                    .padding(.horizontal, 24)
-                    .padding(.top, 40)
-
-                Spacer()
-
-                Button("다음") {
-                    throttle {
-                        isFocused = false
-                        viewStore.send(.nextButtonTapped)
-                    }
-                }
-                .buttonStyle(PackyButtonStyle(colorType: .black))
-                .disabled(viewStore.boxNameInput.isEmpty)
-                .animation(.spring, value: viewStore.boxNameInput)
-                .padding(.horizontal, 24)
-                .padding(.bottom, 16)
+            IfLetStore(store.scope(state: \.$boxShare, action: \.boxShare)) { store in
+                BoxShareView(store: store)
+            } else: {
+                boxAddTitleView
             }
+            .animation(.spring, value: viewStore.boxShare == nil)
         }
         .showLoading(viewStore.isLoading)
         .popGestureDisabled()
@@ -82,81 +49,43 @@ struct BoxAddTitleAndShareView: View {
 // MARK: - Inner Views
 
 private extension BoxAddTitleAndShareView {
-    var boxFinalDoneAndShareView: some View {
-        let isSendState = viewStore.showingState == .send
+    @ViewBuilder
+    var boxAddTitleView: some View {
+        NavigationBar.onlyBackButton {
+            viewStore.send(.backButtonTapped)
+        }
 
-        return VStack(spacing: 0) {
-            NavigationBar(rightIcon: isSendState ? Image(.xmark) : nil) {
-                viewStore.send(.closeButtonTapped)
-            }
-
-            Spacer()
-
-            Group {
-                if isSendState {
-                    Text("\(viewStore.giftBoxData.receiverName)님에게\n선물박스를 보내보세요")
-                } else {
-                    Text("\(viewStore.giftBoxData.receiverName)님을 위한\n선물박스가 완성되었어요!")
-                        .textInteraction()
-                }
-            }
+        Text("마지막으로 선물박스에\n이름을 붙여주세요")
             .packyFont(.heading1)
             .foregroundStyle(.gray900)
-            .padding(.top, -24)
+            .padding(.top, 24)
             .multilineTextAlignment(.center)
 
-            if isSendState {
-                Text(viewStore.giftBox?.name ?? "")
-                    .packyFont(.body4)
-                    .foregroundStyle(.gray900)
-                    .padding(.vertical, 12)
-                    .padding(.horizontal, 24)
-                    .background(
-                        Capsule()
-                            .fill(.gray100)
-                            .stroke(.gray300, style: .init())
-                    )
-                    .padding(.top, 20)
-            } else {
-                Spacer()
-                    .frame(height: 46)
-                    .padding(.top, 20)
-            }
+        Text("선물박스의 이름을 붙여 특별함을 더해요\n붙인 이름은 받는 분에게도 보여져요")
+            .packyFont(.body4)
+            .foregroundStyle(.gray600)
+            .padding(.top, 8)
+            .multilineTextAlignment(.center)
 
-            Spacer()
+        PackyTextField(text: viewStore.$boxNameInput, placeholder: "12자 이내로 입력해주세요")
+            .focused($isFocused)
+            .limitTextLength(text: viewStore.$boxNameInput, length: 12)
+            .padding(.horizontal, 24)
+            .padding(.top, 40)
 
-            NetworkImage(url: viewStore.boxDesign.boxNormalUrl, contentMode: .fit)
-                .shakeRepeat(.veryWeak)
-                .aspectRatio(contentMode: .fit)
-                .padding(.horizontal, 80)
-                .padding(.bottom, 20)
+        Spacer()
 
-            Spacer()
-
-            if isSendState {
-                VStack(spacing: 8) {
-                    PackyButton(title: "카카오톡으로 보내기", colorType: .black) {
-                        throttle {
-                            viewStore.send(.sendButtonTapped)
-                        }
-                    }
-                    .padding(.horizontal, 24)
-
-                    // TODO: 차후 - 나중에 보내기 시 선물함 페이지로 이동?
-                    // Button("나중에 보낼래요") {
-                    // 
-                    // }
-                    // .buttonStyle(.text)
-                    // .frame(width: 129, height: 34)
-                }
-                .frame(height: 100)
-                .padding(.bottom, 20)
-            } else {
-                Spacer()
-                    .frame(height: 100)
-                    .padding(.bottom, 20)
+        Button("다음") {
+            throttle {
+                isFocused = false
+                viewStore.send(.nextButtonTapped)
             }
         }
+        .buttonStyle(PackyButtonStyle(colorType: .black))
+        .disabled(viewStore.boxNameInput.isEmpty)
+        .animation(.spring, value: viewStore.boxNameInput)
+        .padding(.horizontal, 24)
+        .padding(.bottom, 16)
     }
 }
 

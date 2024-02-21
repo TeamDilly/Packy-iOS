@@ -11,12 +11,6 @@ import ComposableArchitecture
 @Reducer
 struct BoxAddTitleAndShareFeature: Reducer {
 
-    enum ShowingState {
-        case addTitle
-        case completed
-        case send
-    }
-
     struct State: Equatable {
         var giftBoxData: SendingGiftBoxRawData
         var giftBox: SendingGiftBox?
@@ -26,30 +20,31 @@ struct BoxAddTitleAndShareFeature: Reducer {
         var sentGiftBoxInfo: SentGiftBoxInfo?
 
         @BindingState var boxNameInput: String = ""
-        @BindingState var showingState: ShowingState = .addTitle
 
         var isLoading: Bool = false
+        @PresentationState var boxShare: BoxShareFeature.State?
     }
 
     enum Action: BindableAction {
         // MARK: User Action
         case binding(BindingAction<State>)
         case backButtonTapped
-        case closeButtonTapped
         case nextButtonTapped
-        case sendButtonTapped
 
         // MARK: Inner Business Action
         case _onTask
         case _saveGiftBox
         case _setUploadedGiftUrl(String)
         case _setUploadedPhotoUrl(String)
-        case _changeScreen
+        case _changeScreenToShare
 
         // MARK: Inner SetState Action
         case _setSentGiftBoxInfo(SentGiftBoxInfo)
         case _showErrorMessage(String)
         case _showIsLoading(Bool)
+
+        // MARK: Child Action
+        case boxShare(PresentationAction<BoxShareFeature.Action>)
 
         // MARK: Delegate Action
         enum Delegate {
@@ -63,21 +58,18 @@ struct BoxAddTitleAndShareFeature: Reducer {
     @Dependency(\.boxClient) var boxClient
     @Dependency(\.uploadClient) var uploadClient
     @Dependency(\.dismiss) var dismiss
-    @Dependency(\.kakaoShare) var kakaoShare
     @Dependency(\.packyAlert) var packyAlert
 
     var body: some Reducer<State, Action> {
         BindingReducer()
-
+        
         Reduce<State, Action> { state, action in
             switch action {
-            case .binding:
-                return .none
-
             case .backButtonTapped:
                 return .run { _ in await dismiss() }
 
-            case .closeButtonTapped:
+            case .boxShare(.presented(.closeButtonTapped)),
+                 .boxShare(.presented(.sendLaterButtonTapped)):
                 return .send(.delegate(.moveToHome))
 
             case .nextButtonTapped:
@@ -102,13 +94,6 @@ struct BoxAddTitleAndShareFeature: Reducer {
                 return saveGiftBox(state)
                     .throttle(id: "saveGiftBox", for: .seconds(3), scheduler: DispatchQueue.main, latest: false)
 
-            case .sendButtonTapped:
-                guard let kakaoMessage = makeKakaoShareMessage(from: state) else { return .none }
-
-                return .run { send in
-                    try await kakaoShare.share(kakaoMessage)
-                }
-
             case let ._setUploadedPhotoUrl(url):
                 state.giftBox?.photos[0].photoUrl = url
                 return .none
@@ -119,15 +104,19 @@ struct BoxAddTitleAndShareFeature: Reducer {
 
             case let ._setSentGiftBoxInfo(sentGiftBoxInfo):
                 state.sentGiftBoxInfo = sentGiftBoxInfo
-                return .none
+                return .send(._changeScreenToShare)
 
-            case ._changeScreen:
+            case ._changeScreenToShare:
                 state.isLoading = false
-                return .run { send in
-                    await send(.binding(.set(\.$showingState, .completed)), animation: .spring)
-                    try? await clock.sleep(for: .seconds(2.6))
-                    await send(.binding(.set(\.$showingState, .send)), animation: .spring(duration: 1))
-                }
+                state.boxShare = .init(
+                    senderName: state.giftBoxData.senderName,
+                    receiverName: state.giftBoxData.receiverName,
+                    boxName: state.giftBox?.name ?? "",
+                    boxNormalUrl: state.boxDesign.boxNormalUrl,
+                    kakaoMessageImgUrl: state.sentGiftBoxInfo?.kakaoMessageImgUrl ?? state.boxDesign.boxNormalUrl,
+                    boxId: state.sentGiftBoxInfo?.id ?? -1
+                )
+                return .none
 
             case let ._showErrorMessage(errorMessage):
                 state.isLoading = false
@@ -146,12 +135,12 @@ struct BoxAddTitleAndShareFeature: Reducer {
                 state.isLoading = isLoading
                 return .none
 
-            case ._onTask:
-                return .none
-                
-            case .delegate:
+            case .binding, ._onTask, .delegate, .boxShare:
                 return .none
             }
+        }
+        .ifLet(\.$boxShare, action: \.boxShare) {
+            BoxShareFeature()
         }
     }
 }
@@ -205,7 +194,6 @@ private extension BoxAddTitleAndShareFeature {
             do {
                 let sentGiftBoxInfo = try await boxClient.makeGiftBox(giftBox)
                 await send(._setSentGiftBoxInfo(sentGiftBoxInfo))
-                await send(._changeScreen)
             } catch let error as ErrorResponse {
                 await send(._showErrorMessage(error.message))
             } catch {

@@ -69,8 +69,10 @@ struct MyBoxFeature: Reducer {
         Reduce<State, Action> { state, action in
             switch action {
             case ._onTask:
-                guard state.sentBoxes.isEmpty && state.receivedBoxes.isEmpty else { return .none }
-                return fetchAllInitialGiftBoxes()
+                return .merge(
+                    fetchAllInitialGiftBoxes(state),
+                    fetchUnsentBoxes()
+                )
 
             case ._didActiveScene:
                 return .send(._resetAndFetchGiftBoxes)
@@ -100,6 +102,7 @@ struct MyBoxFeature: Reducer {
                         await send(._setShowDetailLoading(false))
                     } catch {
                         print("🐛 \(error)")
+                        await send(._setShowDetailLoading(false))
                     }
                 }
 
@@ -155,7 +158,7 @@ struct MyBoxFeature: Reducer {
                 state.receivedBoxesData.removeAll()
                 state.sentBoxes.removeAll()
                 state.receivedBoxes.removeAll()
-                return fetchAllInitialGiftBoxes()
+                return fetchAllInitialGiftBoxes(state)
 
             case let ._setGiftBoxData(giftBoxData, type):
                 switch type {
@@ -197,7 +200,8 @@ struct MyBoxFeature: Reducer {
 }
 
 private extension MyBoxFeature {
-    func fetchAllInitialGiftBoxes() -> Effect<Action> {
+    func fetchAllInitialGiftBoxes(_ state: State) -> Effect<Action> {
+        guard state.sentBoxes.isEmpty && state.receivedBoxes.isEmpty else { return .none }
         return .merge(
             fetchGiftBoxes(type: .received, lastGiftBoxDate: nil),
             fetchGiftBoxes(type: .sent, lastGiftBoxDate: nil)
@@ -215,6 +219,17 @@ private extension MyBoxFeature {
                 )
                 await send(._setGiftBoxData(giftBoxesData, type), animation: .spring)
                 await send(._setFetchBoxLoading(false), animation: .spring)
+            } catch {
+                print("🐛 \(error)")
+            }
+        }
+    }
+
+    func fetchUnsentBoxes() -> Effect<Action> {
+        .run { send in
+            do {
+                let unsentBoxes = try await boxClient.fetchUnsentBoxes()
+                await send(._setUnsentBoxes(unsentBoxes))
             } catch {
                 print("🐛 \(error)")
             }

@@ -98,7 +98,7 @@ struct SettingFeature: Reducer {
                 return .none
             }
         }
-        .ifLet(\.$editProfile, action: /Action.editProfile) {
+        .ifLet(\.$editProfile, action: \.editProfile) {
             EditProfileFeature()
         }
     }

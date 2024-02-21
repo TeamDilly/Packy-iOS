@@ -56,7 +56,10 @@ struct HomeFeature: Reducer {
         Reduce<State, Action> { state, action in
             switch action {
             case ._onTask:
-                return fetchGiftBoxes()
+                return .merge(
+                    fetchGiftBoxes(),
+                    fetchUnsentBoxes()
+                )
 
             case .binding(\.$selectedBoxToDelete):
                 return .run { send in
@@ -79,6 +82,7 @@ struct HomeFeature: Reducer {
                         await send(._setShowDetailLoading(false))
                     } catch {
                         print("🐛 \(error)")
+                        await send(._setShowDetailLoading(false))
                     }
                 }
 
@@ -91,6 +95,7 @@ struct HomeFeature: Reducer {
                         await send(._setShowDetailLoading(false))
                     } catch {
                         print("🐛 \(error)")
+                        await send(._setShowDetailLoading(false))
                     }
                 }
 
