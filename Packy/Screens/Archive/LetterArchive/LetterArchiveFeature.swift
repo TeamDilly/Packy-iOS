@@ -31,6 +31,7 @@ struct LetterArchiveFeature: Reducer {
         // MARK: Inner Business Action
         case _onTask
         case _fetchMoreLetters
+        case _didActiveScene
 
         // MARK: Inner SetState Action
         case _setLetterPageData(LetterArchivePageData)
@@ -51,7 +52,7 @@ struct LetterArchiveFeature: Reducer {
                 guard state.letterArchivePageData.isEmpty else { return .none }
                 return fetchLetters(lastLetterId: nil)
 
-            case .didRefresh:
+            case .didRefresh, ._didActiveScene:
                 state.letterArchivePageData = []
                 state.letters = []
                 state.isLoading = true

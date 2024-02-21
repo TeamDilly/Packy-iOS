@@ -62,6 +62,10 @@ struct MusicArchiveView: View {
                 .send(._onTask)
                 .finish()
         }
+        .onChange(of: scenePhase) {
+            guard $1 == .active else { return }
+            viewStore.send(._didActiveScene)
+        }
     }
 }
 

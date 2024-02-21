@@ -31,6 +31,7 @@ struct MusicArchiveFeature: Reducer {
         // MARK: Inner Business Action
         case _onTask
         case _fetchMoreMusics
+        case _didActiveScene
 
         // MARK: Inner SetState Action
         case _setMusicPageData(MusicArchivePageData)
@@ -51,7 +52,7 @@ struct MusicArchiveFeature: Reducer {
                 guard state.musicArchivePageData.isEmpty else { return .none }
                 return fetchMusics(lastMusicId: nil)
 
-            case .didRefresh:
+            case .didRefresh, ._didActiveScene:
                 state.musicArchivePageData = []
                 state.musics = []
                 state.isLoading = true

@@ -31,6 +31,7 @@ struct PhotoArchiveFeature: Reducer {
         // MARK: Inner Business Action
         case _onTask
         case _fetchMorePhotos
+        case _didActiveScene
 
         // MARK: Inner SetState Action
         case _setPhotoPageData(PhotoArchivePageData)
@@ -51,7 +52,7 @@ struct PhotoArchiveFeature: Reducer {
                 guard state.photoArchivePageData.isEmpty else { return .none }
                 return fetchPhotos(lastPhotoId: nil)
 
-            case .didRefresh:
+            case .didRefresh, ._didActiveScene:
                 state.photoArchivePageData = []
                 state.photos = []
                 state.isLoading = true

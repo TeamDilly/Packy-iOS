@@ -31,6 +31,7 @@ struct GiftArchiveFeature: Reducer {
         // MARK: Inner Business Action
         case _onTask
         case _fetchMoreGifts
+        case _didActiveScene
 
         // MARK: Inner SetState Action
         case _setGiftPageData(GiftArchivePageData)
@@ -51,7 +52,7 @@ struct GiftArchiveFeature: Reducer {
                 guard state.giftArchivePageData.isEmpty else { return .none }
                 return fetchGifts(lastGiftId: nil)
 
-            case .didRefresh:
+            case .didRefresh, ._didActiveScene:
                 state.giftArchivePageData = []
                 state.gifts = []
                 state.isLoading = true
