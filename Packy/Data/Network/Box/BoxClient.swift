@@ -26,6 +26,7 @@ struct BoxClient {
     var fetchGiftBoxes: @Sendable (GiftBoxesRequest) async throws -> SentReceivedGiftBoxPageData
     var deleteGiftBox: @Sendable (Int) async throws -> Void
     var fetchUnsentBoxes: @Sendable () async throws -> [UnsentBox]
+    var changeBoxStatus: @Sendable (Int, BoxSentStatus) async throws -> Void
 }
 
 extension BoxClient: DependencyKey {
@@ -49,6 +50,9 @@ extension BoxClient: DependencyKey {
             fetchUnsentBoxes: {
                 let response: UnsentBoxResponse = try await provider.request(.getUnsentBoxes)
                 return response.map { $0.toDomain() }
+            },
+            changeBoxStatus: {
+                try await provider.requestEmpty(.changeBoxStats($0, $1))
             }
         )
     }()
@@ -66,7 +70,8 @@ extension BoxClient: DependencyKey {
                 return .init(giftBoxes: [.mock], isFirstPage: true, isLastPage: true)
             },
             deleteGiftBox: { _ in },
-            fetchUnsentBoxes: { [] }
+            fetchUnsentBoxes: { [] },
+            changeBoxStatus: { _, _ in }
         )
     }()
 }

@@ -47,6 +47,7 @@ struct BoxShareFeature: Reducer {
 
     @Dependency(\.continuousClock) var clock
     @Dependency(\.kakaoShare) var kakaoShare
+    @Dependency(\.boxClient) var boxClient
 
     var body: some Reducer<State, Action> {
         Reduce<State, Action> { state, action in
@@ -57,11 +58,12 @@ struct BoxShareFeature: Reducer {
 
             case .sendButtonTapped:
                 guard let kakaoMessage = makeKakaoShareMessage(from: state) else { return .none }
+                let boxId = state.boxId
 
-                // TODO: 박스 보냈다는 상태 변경
                 return .run { send in
                     do {
                         try await kakaoShare.share(kakaoMessage)
+                        try await boxClient.changeBoxStatus(boxId, .delivered)
                     } catch {
                         print("🐛 \(error)")
                     }

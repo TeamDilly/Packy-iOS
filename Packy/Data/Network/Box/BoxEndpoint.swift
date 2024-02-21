@@ -19,6 +19,8 @@ enum BoxEndpoint {
     case deleteBox(Int)
     /// 보내지 않은 선물박스 조회
     case getUnsentBoxes
+    /// 선물박스 전송 상태 변경
+    case changeBoxStats(Int, BoxSentStatus)
 }
 
 extension BoxEndpoint: TargetType {
@@ -36,6 +38,8 @@ extension BoxEndpoint: TargetType {
             return "giftboxes/\(boxId)"
         case .getUnsentBoxes:
             return "giftboxes/waiting"
+        case let .changeBoxStats(boxId, _):
+            return "giftboxes/\(boxId)"
         }
     }
 
@@ -47,6 +51,8 @@ extension BoxEndpoint: TargetType {
             return .get
         case .deleteBox:
             return .delete
+        case .changeBoxStats:
+            return .patch
         }
     }
 
@@ -54,16 +60,27 @@ extension BoxEndpoint: TargetType {
         switch self {
         case let .postGiftbox(giftbox):
             return .requestJSONEncodable(giftbox)
+
         case let .getGiftBoxes(request):
             let parameters = request.toDictionary()
-            return .requestParameters(parameters: parameters, encoding: URLEncoding.queryString)
+            return .requestParameters(
+                parameters: parameters,
+                encoding: URLEncoding.queryString
+            )
+
+        case let .changeBoxStats(_, status):
+            return .requestParameters(
+                parameters: ["deliverStatus": status.rawValue],
+                encoding: JSONEncoding.default
+            )
+
         default:
             return .requestPlain
         }
     }
 
     var headers: [String: String]? {
-        return nil
+        ["Content-Type": "application/json"]
     }
 
     var validationType: ValidationType { .successCodes }

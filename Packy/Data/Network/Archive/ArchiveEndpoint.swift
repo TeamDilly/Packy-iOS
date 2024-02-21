@@ -50,7 +50,7 @@ extension ArchiveEndpoint: TargetType {
     }
 
     var headers: [String : String]? {
-        return nil
+        ["Content-Type": "application/json"]
     }
 
     var validationType: ValidationType { .successCodes }

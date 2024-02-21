@@ -31,6 +31,7 @@
 		E52F8D262B860D2700DE2B26 /* UnsentBoxResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52F8D252B860D2700DE2B26 /* UnsentBoxResponse.swift */; };
 		E52F8D2C2B861B6D00DE2B26 /* BoxShareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52F8D2A2B861B6D00DE2B26 /* BoxShareView.swift */; };
 		E52F8D2D2B861B6D00DE2B26 /* BoxShareFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52F8D2B2B861B6D00DE2B26 /* BoxShareFeature.swift */; };
+		E52F8D2F2B86385A00DE2B26 /* BoxSentStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52F8D2E2B86385A00DE2B26 /* BoxSentStatus.swift */; };
 		E53937862B67B40F000F3A86 /* PhotoElementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53937852B67B40F000F3A86 /* PhotoElementView.swift */; };
 		E53937882B67B42D000F3A86 /* LetterElementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53937872B67B42D000F3A86 /* LetterElementView.swift */; };
 		E539378A2B67B43E000F3A86 /* MusicElementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53937892B67B43E000F3A86 /* MusicElementView.swift */; };
@@ -304,6 +305,7 @@
 		E52F8D252B860D2700DE2B26 /* UnsentBoxResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnsentBoxResponse.swift; sourceTree = "<group>"; };
 		E52F8D2A2B861B6D00DE2B26 /* BoxShareView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoxShareView.swift; sourceTree = "<group>"; };
 		E52F8D2B2B861B6D00DE2B26 /* BoxShareFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoxShareFeature.swift; sourceTree = "<group>"; };
+		E52F8D2E2B86385A00DE2B26 /* BoxSentStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoxSentStatus.swift; sourceTree = "<group>"; };
 		E53937852B67B40F000F3A86 /* PhotoElementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoElementView.swift; sourceTree = "<group>"; };
 		E53937872B67B42D000F3A86 /* LetterElementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LetterElementView.swift; sourceTree = "<group>"; };
 		E53937892B67B43E000F3A86 /* MusicElementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicElementView.swift; sourceTree = "<group>"; };
@@ -1441,6 +1443,7 @@
 				E5A59BE92B72822A00D120CF /* SentReceivedGiftBox.swift */,
 				E5FDE05C2B6BAD1F00E00B00 /* Sticker.swift */,
 				E52F8D232B860C4C00DE2B26 /* UnsentBox.swift */,
+				E52F8D2E2B86385A00DE2B26 /* BoxSentStatus.swift */,
 			);
 			path = Box;
 			sourceTree = "<group>";
@@ -1681,6 +1684,7 @@
 				E5551B7B2B5FF2AF00DB81F3 /* HTTPSession.swift in Sources */,
 				E5A7AA4E2B57F81400590EA6 /* Font+Packy.swift in Sources */,
 				E58048C32B5BFF3800B974B3 /* WriteLetterBottomSheet.swift in Sources */,
+				E52F8D2F2B86385A00DE2B26 /* BoxSentStatus.swift in Sources */,
 				E5A7AA632B57F81400590EA6 /* SignUpNicknameFeature.swift in Sources */,
 				E53937922B67B599000F3A86 /* BoxDetailFeature.swift in Sources */,
 				E5A7AA812B57F81400590EA6 /* SocialLoginInfo.swift in Sources */,
