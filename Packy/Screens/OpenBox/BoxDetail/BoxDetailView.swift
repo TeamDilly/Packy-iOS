@@ -279,22 +279,40 @@ private extension BoxDetailView {
 
     var navigationBar: some View {
         FloatingNavigationBar(
-            leadingIcon: isOnNextPage ? Image(.arrowDown) : Image(.arrowLeft),
+            leadingIcon: leadingNavigationBarIcon,
             leadingAction: {
                 if isOnNextPage {
                     withAnimation {
                         scrollProxy?.scrollTo(mainPage)
                     }
                 } else {
-                    viewStore.send(.backButtonTapped)
+                    viewStore.send(.navigationBarLeadingButtonTapped)
                 }
             },
-            trailingType: isOnNextPage ? .none : .close,
+            trailingType: trailingNavigationButtonType,
             trailingAction: {
-                viewStore.send(.closeButtonTapped)
+                viewStore.send(.navigationBarTrailingButtonTapped)
             }
         )
         .animation(.easeInOut, value: isOnNextPage)
+    }
+}
+
+// MARK: - Inner Properties
+
+private extension BoxDetailView {
+    var leadingNavigationBarIcon: Image {
+        guard !isOnNextPage else {
+            return Image(.arrowDown)
+        }
+        return viewStore.isToSend ? Image(.xmark) : Image(.arrowLeft)
+    }
+
+    var trailingNavigationButtonType: FloatingNavigationBar.TrailingButtonType {
+        if viewStore.isToSend {
+            return .text("보내기")
+        }
+        return .close
     }
 }
 
@@ -303,7 +321,7 @@ private extension BoxDetailView {
 #Preview {
     BoxDetailView(
         store: .init(
-            initialState: .init(giftBox: .mock, isToSend: true),
+            initialState: .init(boxId: 0, giftBox: .mock, isToSend: true),
             reducer: {
                 BoxDetailFeature()
                     ._printChanges()

@@ -24,6 +24,7 @@ struct MainTabNavigationPath {
         case boxChoice(BoxChoiceFeature.State)
         case makeBoxDetail(MakeBoxDetailFeature.State)
         case addTitle(BoxAddTitleAndShareFeature.State)
+        case boxShare(BoxShareFeature.State)
 
         case webContent(WebContentFeature.State)
     }
@@ -40,6 +41,7 @@ struct MainTabNavigationPath {
         case boxChoice(BoxChoiceFeature.Action)
         case makeBoxDetail(MakeBoxDetailFeature.Action)
         case addTitle(BoxAddTitleAndShareFeature.Action)
+        case boxShare(BoxShareFeature.Action)
 
         case webContent(WebContentFeature.Action)
     }
@@ -56,6 +58,7 @@ struct MainTabNavigationPath {
         Scope(state: \.boxChoice, action: \.boxChoice) { BoxChoiceFeature() }
         Scope(state: \.makeBoxDetail, action: \.makeBoxDetail) { MakeBoxDetailFeature() }
         Scope(state: \.addTitle, action: \.addTitle) { BoxAddTitleAndShareFeature() }
+        Scope(state: \.boxShare, action: \.boxShare) { BoxShareFeature() }
 
         Scope(state: \.webContent, action: \.webContent) { WebContentFeature() }
     }
@@ -68,9 +71,9 @@ extension MainTabFeature {
         Reduce { state, action in
             switch action {
 
-            case let .myBox(.delegate(.moveToBoxDetail(giftBox, isToSend))),
-                 let .home(.delegate(.moveToBoxDetail(giftBox, isToSend))):
-                state.path.append(.boxDetail(.init(giftBox: giftBox, isToSend: isToSend)))
+            case let .myBox(.delegate(.moveToBoxDetail(boxId, giftBox, isToSend))),
+                 let .home(.delegate(.moveToBoxDetail(boxId, giftBox, isToSend))):
+                state.path.append(.boxDetail(.init(boxId: boxId, giftBox: giftBox, isToSend: isToSend)))
                 return .none
 
             case let .path(action):
@@ -92,8 +95,8 @@ extension MainTabFeature {
                     state.path.append(.addTitle(.init(giftBoxData: giftBoxData, boxDesign: boxDesign)))
                     return .none
 
-                case let .element(id: _, action: .boxOpen(.delegate(.moveToBoxDetail(giftBox)))):
-                    state.path.append(.boxDetail(.init(giftBox: giftBox, isToSend: false)))
+                case let .element(id: _, action: .boxOpen(.delegate(.moveToBoxDetail(boxId, giftBox)))):
+                    state.path.append(.boxDetail(.init(boxId: boxId, giftBox: giftBox, isToSend: false)))
                     return .none
 
                     /// Box Detail 에서 닫기 시,
@@ -109,6 +112,10 @@ extension MainTabFeature {
                         // 아니면 BoxDetail 만 닫음 (ex. List에서 진입 시)
                         state.path.removeLast()
                     }
+                    return .none
+
+                case let .element(id: _, action: .boxDetail(.delegate(.moveToBoxShare(data)))):
+                    state.path.append(.boxShare(.init(data: data, showCompleteAnimation: false)))
                     return .none
 
                 default:

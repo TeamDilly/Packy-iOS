@@ -112,7 +112,17 @@ struct BoxShareView: View {
 #Preview {
     BoxShareView(
         store: .init(
-            initialState: .init(senderName: "Mason", receiverName: "Moon", boxName: "Box", boxNormalUrl: Constants.mockImageUrl, kakaoMessageImgUrl: Constants.mockImageUrl, boxId: 0, showCompleteAnimation: true),
+            initialState: .init(
+                data: .init(
+                    senderName: "Mason",
+                    receiverName: "Moon",
+                    boxName: "Box",
+                    boxNormalUrl: Constants.mockImageUrl,
+                    kakaoMessageImgUrl: Constants.mockImageUrl,
+                    boxId: 0
+                ),
+                showCompleteAnimation: true
+            ),
             reducer: {
                 BoxShareFeature()
                     ._printChanges()

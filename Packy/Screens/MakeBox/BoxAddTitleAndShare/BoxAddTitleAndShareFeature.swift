@@ -109,12 +109,15 @@ struct BoxAddTitleAndShareFeature: Reducer {
             case ._changeScreenToShare:
                 state.isLoading = false
                 state.boxShare = .init(
-                    senderName: state.giftBoxData.senderName,
-                    receiverName: state.giftBoxData.receiverName,
-                    boxName: state.giftBox?.name ?? "",
-                    boxNormalUrl: state.boxDesign.boxNormalUrl,
-                    kakaoMessageImgUrl: state.sentGiftBoxInfo?.kakaoMessageImgUrl ?? state.boxDesign.boxNormalUrl,
-                    boxId: state.sentGiftBoxInfo?.id ?? -1
+                    data: .init(
+                        senderName: state.giftBoxData.senderName,
+                        receiverName: state.giftBoxData.receiverName,
+                        boxName: state.giftBox?.name ?? "",
+                        boxNormalUrl: state.boxDesign.boxNormalUrl,
+                        kakaoMessageImgUrl: state.sentGiftBoxInfo?.kakaoMessageImgUrl ?? state.boxDesign.boxNormalUrl,
+                        boxId: state.sentGiftBoxInfo?.id ?? -1
+                    ),
+                    showCompleteAnimation: true
                 )
                 return .none
 

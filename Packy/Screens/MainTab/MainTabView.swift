@@ -87,6 +87,13 @@ struct MainTabView: View {
                      then: BoxAddTitleAndShareView.init
                 )
 
+            case .boxShare:
+                CaseLet(
+                    \MainTabNavigationPath.State.boxShare,
+                     action: MainTabNavigationPath.Action.boxShare,
+                     then: BoxShareView.init
+                )
+
             case .webContent:
                 CaseLet(
                     \MainTabNavigationPath.State.webContent,

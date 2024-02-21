@@ -54,7 +54,7 @@ struct MyBoxFeature: Reducer {
 
         // MARK: Delegate Action
         enum Delegate {
-            case moveToBoxDetail(ReceivedGiftBox, isToSend: Bool)
+            case moveToBoxDetail(boxId: Int, ReceivedGiftBox, isToSend: Bool)
         }
         case delegate(Delegate)
     }
@@ -98,7 +98,7 @@ struct MyBoxFeature: Reducer {
                 return .run { send in
                     do {
                         let giftBox = try await boxClient.openGiftBox(boxId)
-                        await send(.delegate(.moveToBoxDetail(giftBox, isToSend: isUnsent)))
+                        await send(.delegate(.moveToBoxDetail(boxId: boxId, giftBox, isToSend: isUnsent)))
                         await send(._setShowDetailLoading(false))
                     } catch {
                         print("🐛 \(error)")

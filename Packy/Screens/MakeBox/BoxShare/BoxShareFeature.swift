@@ -11,15 +11,23 @@ import ComposableArchitecture
 @Reducer
 struct BoxShareFeature: Reducer {
 
-    struct State: Equatable {
+    struct BoxShareData: Equatable {
         let senderName: String
         let receiverName: String
         let boxName: String
         let boxNormalUrl: String
-        let kakaoMessageImgUrl: String
+        var kakaoMessageImgUrl: String?
         let boxId: Int
+    }
 
+    @dynamicMemberLookup
+    struct State: Equatable {
+        let data: BoxShareData
         var showCompleteAnimation: Bool
+
+        subscript<T>(dynamicMember keyPath: KeyPath<BoxShareData, T>) -> T {
+            data[keyPath: keyPath]
+        }
     }
 
     enum Action {
@@ -64,6 +72,7 @@ struct BoxShareFeature: Reducer {
 
                 // MARK: Inner Business Action
             case ._onTask:
+                // TODO: 카카오 이미지 가져오는 API 호출
                 guard state.showCompleteAnimation else { return .none }
                 return .run { send in
                     try? await clock.sleep(for: .seconds(2.6))
@@ -87,7 +96,7 @@ private extension BoxShareFeature {
         return KakaoShareMessage(
             sender: state.senderName,
             receiver: state.receiverName,
-            imageUrl: state.kakaoMessageImgUrl,
+            imageUrl: state.kakaoMessageImgUrl ?? state.boxNormalUrl,
             boxId: "\(state.boxId)"
         )
     }
