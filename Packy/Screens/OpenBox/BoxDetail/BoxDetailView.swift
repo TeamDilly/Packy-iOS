@@ -303,7 +303,7 @@ private extension BoxDetailView {
 #Preview {
     BoxDetailView(
         store: .init(
-            initialState: .init(giftBox: .mock),
+            initialState: .init(giftBox: .mock, isToSend: true),
             reducer: {
                 BoxDetailFeature()
                     ._printChanges()

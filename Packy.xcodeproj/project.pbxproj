@@ -27,6 +27,8 @@
 		E5257CB42B693FB9000A091E /* ImageViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5257CB32B693FB9000A091E /* ImageViewer.swift */; };
 		E52B954B2B80B9F800DB27FC /* BottomMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52B954A2B80B9F800DB27FC /* BottomMenu.swift */; };
 		E52B954D2B80BCB100DB27FC /* BottomMenuModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52B954C2B80BCB100DB27FC /* BottomMenuModifier.swift */; };
+		E52F8D242B860C4C00DE2B26 /* UnsentBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52F8D232B860C4C00DE2B26 /* UnsentBox.swift */; };
+		E52F8D262B860D2700DE2B26 /* UnsentBoxResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52F8D252B860D2700DE2B26 /* UnsentBoxResponse.swift */; };
 		E53937862B67B40F000F3A86 /* PhotoElementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53937852B67B40F000F3A86 /* PhotoElementView.swift */; };
 		E53937882B67B42D000F3A86 /* LetterElementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53937872B67B42D000F3A86 /* LetterElementView.swift */; };
 		E539378A2B67B43E000F3A86 /* MusicElementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53937892B67B43E000F3A86 /* MusicElementView.swift */; };
@@ -296,6 +298,8 @@
 		E5257CB32B693FB9000A091E /* ImageViewer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewer.swift; sourceTree = "<group>"; };
 		E52B954A2B80B9F800DB27FC /* BottomMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomMenu.swift; sourceTree = "<group>"; };
 		E52B954C2B80BCB100DB27FC /* BottomMenuModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomMenuModifier.swift; sourceTree = "<group>"; };
+		E52F8D232B860C4C00DE2B26 /* UnsentBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnsentBox.swift; sourceTree = "<group>"; };
+		E52F8D252B860D2700DE2B26 /* UnsentBoxResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnsentBoxResponse.swift; sourceTree = "<group>"; };
 		E53937852B67B40F000F3A86 /* PhotoElementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoElementView.swift; sourceTree = "<group>"; };
 		E53937872B67B42D000F3A86 /* LetterElementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LetterElementView.swift; sourceTree = "<group>"; };
 		E53937892B67B43E000F3A86 /* MusicElementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicElementView.swift; sourceTree = "<group>"; };
@@ -1422,6 +1426,7 @@
 				E5E06B432B654FC500F6FD01 /* SentGiftBoxInfo.swift */,
 				E5A59BE92B72822A00D120CF /* SentReceivedGiftBox.swift */,
 				E5FDE05C2B6BAD1F00E00B00 /* Sticker.swift */,
+				E52F8D232B860C4C00DE2B26 /* UnsentBox.swift */,
 			);
 			path = Box;
 			sourceTree = "<group>";
@@ -1433,6 +1438,7 @@
 				E5E06B412B654EF600F6FD01 /* BoxEndpoint.swift */,
 				E5A59BE32B727D7500D120CF /* GiftBoxesRequest.swift */,
 				E5A59BE72B727F0500D120CF /* GiftBoxesResponse.swift */,
+				E52F8D252B860D2700DE2B26 /* UnsentBoxResponse.swift */,
 			);
 			path = Box;
 			sourceTree = "<group>";
@@ -1630,6 +1636,7 @@
 				E591B9DF2B83845000B28B2E /* EditProfileView.swift in Sources */,
 				E5A7AA522B57F81400590EA6 /* SpinningModifier.swift in Sources */,
 				E555582A2B6E248300461352 /* View+TextInteraction.swift in Sources */,
+				E52F8D262B860D2700DE2B26 /* UnsentBoxResponse.swift in Sources */,
 				E5001F892B5BC09A004B65E6 /* AlertButtonTint.swift in Sources */,
 				E5A7AA5A2B57F81400590EA6 /* BoxAddInfoFeature.swift in Sources */,
 				E5A7AA562B57F81400590EA6 /* BoxChoiceFeature.swift in Sources */,
@@ -1799,6 +1806,7 @@
 				E5A7AA712B57F81400590EA6 /* Encodable+ToDictionary.swift in Sources */,
 				E57948612B81EB760058C733 /* GiftArchiveFeature.swift in Sources */,
 				E52037D12B63F97900721F76 /* NetworkImage.swift in Sources */,
+				E52F8D242B860C4C00DE2B26 /* UnsentBox.swift in Sources */,
 				E55D16D12B6CF458005E71A4 /* KakaoShareMessage.swift in Sources */,
 				E5A7AA432B57F81400590EA6 /* PackyTextField.swift in Sources */,
 				E52470F42B6144D7003D49DE /* PhotoPicker.swift in Sources */,

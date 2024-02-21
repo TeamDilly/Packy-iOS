@@ -156,7 +156,7 @@ private extension MainTabView {
             }
             .frame(height: 72)
         }
-        .animation(.spring, value: viewStore.selectedTab)
+        .animation(.easeInOut, value: viewStore.selectedTab)
 
     }
 }

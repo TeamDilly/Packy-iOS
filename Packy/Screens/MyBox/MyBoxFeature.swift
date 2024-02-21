@@ -22,8 +22,10 @@ struct MyBoxFeature: Reducer {
 
         var receivedBoxes: IdentifiedArrayOf<SentReceivedGiftBox> = []
         var sentBoxes: IdentifiedArrayOf<SentReceivedGiftBox> = []
+        var unsentBoxes: IdentifiedArrayOf<UnsentBox> = []
 
         @BindingState var selectedBoxToDelete: SentReceivedGiftBox?
+        @BindingState var selectedUnsentBoxToDelete: UnsentBox?
 
         var isFetchBoxesLoading: Bool = true
         var isShowDetailLoading: Bool = false
@@ -32,7 +34,7 @@ struct MyBoxFeature: Reducer {
     enum Action: BindableAction {
         // MARK: User Action
         case binding(BindingAction<State>)
-        case tappedGiftBox(boxId: Int)
+        case tappedGiftBox(boxId: Int, isUnsent: Bool)
         case deleteBottomMenuConfirmButtonTapped
 
         // MARK: Inner Business Action
@@ -48,10 +50,11 @@ struct MyBoxFeature: Reducer {
         case _setFetchBoxLoading(Bool)
         case _setShowDetailLoading(Bool)
         case _setDeletedBox(Int)
+        case _setUnsentBoxes([UnsentBox])
 
         // MARK: Delegate Action
         enum Delegate {
-            case moveToBoxDetail(ReceivedGiftBox)
+            case moveToBoxDetail(ReceivedGiftBox, isToSend: Bool)
         }
         case delegate(Delegate)
     }
@@ -72,7 +75,8 @@ struct MyBoxFeature: Reducer {
             case ._didActiveScene:
                 return .send(._resetAndFetchGiftBoxes)
 
-            case .binding(\.$selectedBoxToDelete):
+            case .binding(\.$selectedBoxToDelete), 
+                 .binding(\.$selectedUnsentBoxToDelete):
                 return .run { send in
                     await bottomMenu.show(
                         .init(
@@ -87,12 +91,12 @@ struct MyBoxFeature: Reducer {
             case .binding:
                 return .none
                 
-            case let .tappedGiftBox(boxId):
+            case let .tappedGiftBox(boxId, isUnsent):
                 state.isShowDetailLoading = true
                 return .run { send in
                     do {
                         let giftBox = try await boxClient.openGiftBox(boxId)
-                        await send(.delegate(.moveToBoxDetail(giftBox)))
+                        await send(.delegate(.moveToBoxDetail(giftBox, isToSend: isUnsent)))
                         await send(._setShowDetailLoading(false))
                     } catch {
                         print("🐛 \(error)")
@@ -125,12 +129,6 @@ struct MyBoxFeature: Reducer {
                     }
                 }
 
-            // 낙관적 업데이트 방식으로 성공 시 화면에 반영
-            case let ._setDeletedBox(boxId):
-                state.sentBoxes.remove(id: boxId)
-                state.receivedBoxes.remove(id: boxId)
-                return .none
-
             case ._fetchMoreSentGiftBoxes:
                 guard let lastBoxData = state.sentBoxesData.last,
                       lastBoxData.isLastPage == false,
@@ -151,6 +149,14 @@ struct MyBoxFeature: Reducer {
                     lastGiftBoxDate: lastBoxDate
                 )
 
+            case ._resetAndFetchGiftBoxes:
+                state.isFetchBoxesLoading = true
+                state.sentBoxesData.removeAll()
+                state.receivedBoxesData.removeAll()
+                state.sentBoxes.removeAll()
+                state.receivedBoxes.removeAll()
+                return fetchAllInitialGiftBoxes()
+
             case let ._setGiftBoxData(giftBoxData, type):
                 switch type {
                 case .received:
@@ -164,13 +170,16 @@ struct MyBoxFeature: Reducer {
                 }
                 return .none
 
-            case ._resetAndFetchGiftBoxes:
-                state.isFetchBoxesLoading = true
-                state.sentBoxesData.removeAll()
-                state.receivedBoxesData.removeAll()
-                state.sentBoxes.removeAll()
-                state.receivedBoxes.removeAll()
-                return fetchAllInitialGiftBoxes()
+            case let ._setUnsentBoxes(unsentBoxes):
+                state.unsentBoxes.append(contentsOf: unsentBoxes)
+                return .none
+
+            // 낙관적 업데이트 방식으로 성공 시 화면에 반영
+            case let ._setDeletedBox(boxId):
+                state.sentBoxes.remove(id: boxId)
+                state.receivedBoxes.remove(id: boxId)
+                state.unsentBoxes.remove(id: boxId)
+                return .none
 
             case let ._setFetchBoxLoading(isLoading):
                 state.isFetchBoxesLoading = isLoading

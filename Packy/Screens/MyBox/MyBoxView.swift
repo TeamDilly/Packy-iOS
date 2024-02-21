@@ -30,9 +30,10 @@ struct MyBoxView: View {
                 .padding(.top, 16)
                 .padding(.bottom, 32)
 
-            // TODO: 보내지 않은 박스 있을 때만 표시하게 처리
-            unsentBoxesCarousel
-                .padding(.bottom, 12)
+            if !viewStore.unsentBoxes.isEmpty {
+                unsentBoxesCarousel
+                    .padding(.bottom, 12)
+            }
 
             TabSegmentedControl(
                 selectedTab: viewStore.$selectedTab,
@@ -83,14 +84,18 @@ private extension MyBoxView {
 
             ScrollView(.horizontal) {
                 HStack(spacing: 16) {
-                    ForEach(0..<10, id: \.self) { item in
+                    ForEach(viewStore.unsentBoxes) { unsentBox in
                         UnsentBoxCell(
-                            boxImageUrl: Constants.mockImageUrl,
-                            receiver: "mason",
-                            title: "Happy BirthDay!",
-                            generatedDate: Date()
-                        ) {
-
+                            boxImageUrl: unsentBox.imageUrl,
+                            receiver: unsentBox.receiverName,
+                            title: unsentBox.name,
+                            generatedDate: unsentBox.date,
+                            menuAction: {
+                                viewStore.send(.binding(.set(\.$selectedUnsentBoxToDelete, unsentBox)))
+                            }
+                        )
+                        .bouncyTapGesture {
+                            viewStore.send(.tappedGiftBox(boxId: unsentBox.id, isUnsent: true))
                         }
                         .padding(16)
                         .background(.gray100)
@@ -149,7 +154,7 @@ private extension MyBoxView {
                         )
                         .bouncyTapGesture {
                             throttle(identifier: ThrottleId.moveToBoxDetail.rawValue) {
-                                viewStore.send(.tappedGiftBox(boxId: giftBox.id))
+                                viewStore.send(.tappedGiftBox(boxId: giftBox.id, isUnsent: false))
                             }
                         }
                         .onAppear {

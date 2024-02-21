@@ -25,12 +25,12 @@ struct BoxClient {
     var openGiftBox: @Sendable (Int) async throws -> ReceivedGiftBox
     var fetchGiftBoxes: @Sendable (GiftBoxesRequest) async throws -> SentReceivedGiftBoxPageData
     var deleteGiftBox: @Sendable (Int) async throws -> Void
+    var fetchUnsentBoxes: @Sendable () async throws -> [UnsentBox]
 }
 
 extension BoxClient: DependencyKey {
     static let liveValue: Self = {
         let provider = MoyaProvider<BoxEndpoint>.build()
-        let nonTokenProvider = MoyaProvider<BoxEndpoint>.buildNonToken()
 
         return Self(
             makeGiftBox: {
@@ -45,6 +45,10 @@ extension BoxClient: DependencyKey {
             },
             deleteGiftBox: {
                 try await provider.requestEmpty(.deleteBox($0))
+            },
+            fetchUnsentBoxes: {
+                let response: UnsentBoxResponse = try await provider.request(.getUnsentBoxes)
+                return response.map { $0.toDomain() }
             }
         )
     }()
@@ -61,7 +65,8 @@ extension BoxClient: DependencyKey {
             fetchGiftBoxes: { _ in
                 return .init(giftBoxes: [.mock], isFirstPage: true, isLastPage: true)
             },
-            deleteGiftBox: { _ in }
+            deleteGiftBox: { _ in },
+            fetchUnsentBoxes: { [] }
         )
     }()
 }

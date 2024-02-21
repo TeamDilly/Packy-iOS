@@ -17,6 +17,8 @@ enum BoxEndpoint {
     case getGiftBoxes(GiftBoxesRequest)
     /// 선물박스 삭제
     case deleteBox(Int)
+    /// 보내지 않은 선물박스 조회
+    case getUnsentBoxes
 }
 
 extension BoxEndpoint: TargetType {
@@ -32,6 +34,8 @@ extension BoxEndpoint: TargetType {
             return "giftboxes/\(boxId)"
         case let .deleteBox(boxId):
             return "giftboxes/\(boxId)"
+        case .getUnsentBoxes:
+            return "giftboxes/waiting"
         }
     }
 
@@ -39,7 +43,7 @@ extension BoxEndpoint: TargetType {
         switch self {
         case .postGiftbox:
             return .post
-        case .getOpenGiftbox, .getGiftBoxes:
+        case .getOpenGiftbox, .getGiftBoxes, .getUnsentBoxes:
             return .get
         case .deleteBox:
             return .delete

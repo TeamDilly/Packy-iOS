@@ -41,9 +41,11 @@ struct HomeView: View {
                         giftBoxesListView
                     }
 
-                    // TODO: 보내지 않은 박스 있을 때만 표시하게 처리
-                    unsentBoxesList
+                    if !viewStore.unsentBoxes.isEmpty {
+                        unsentBoxesList
+                    }
                 }
+                .safeAreaPadding(.bottom, 20)
             }
             .scrollBounceBehavior(.basedOnSize)
         }
@@ -161,18 +163,19 @@ private extension HomeView {
                 .foregroundStyle(.gray900)
                 .frame(maxWidth: .infinity, alignment: .leading)
 
-            ForEach(0..<10, id: \.id) { _ in
+            ForEach(viewStore.unsentBoxes, id: \.id) { unsentBox in
                 UnsentBoxCell(
-                    boxImageUrl: Constants.mockImageUrl,
-                    receiver: "mason",
-                    title: "Happy BirthDay!",
-                    generatedDate: Date(),
-                    menuAlignment: .center
-                ) {
-
-                }
+                    boxImageUrl: unsentBox.imageUrl,
+                    receiver: unsentBox.receiverName,
+                    title: unsentBox.name,
+                    generatedDate: unsentBox.date,
+                    menuAlignment: .center, 
+                    menuAction: {
+                        viewStore.send(.binding(.set(\.$selectedBoxToDelete, unsentBox)))
+                    }
+                )
                 .bouncyTapGesture {
-
+                    viewStore.send(.tappedUnsentBox(boxId: unsentBox.id))
                 }
             }
         }

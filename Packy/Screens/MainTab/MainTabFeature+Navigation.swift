@@ -68,9 +68,9 @@ extension MainTabFeature {
         Reduce { state, action in
             switch action {
 
-            case let .myBox(.delegate(.moveToBoxDetail(giftBox))),
-                 let .home(.delegate(.moveToBoxDetail(giftBox))):
-                state.path.append(.boxDetail(.init(giftBox: giftBox)))
+            case let .myBox(.delegate(.moveToBoxDetail(giftBox, isToSend))),
+                 let .home(.delegate(.moveToBoxDetail(giftBox, isToSend))):
+                state.path.append(.boxDetail(.init(giftBox: giftBox, isToSend: isToSend)))
                 return .none
 
             case let .path(action):
@@ -93,7 +93,7 @@ extension MainTabFeature {
                     return .none
 
                 case let .element(id: _, action: .boxOpen(.delegate(.moveToBoxDetail(giftBox)))):
-                    state.path.append(.boxDetail(.init(giftBox: giftBox)))
+                    state.path.append(.boxDetail(.init(giftBox: giftBox, isToSend: false)))
                     return .none
 
                     /// Box Detail 에서 닫기 시,
