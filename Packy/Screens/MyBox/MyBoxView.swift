@@ -91,7 +91,7 @@ private extension MyBoxView {
                             title: unsentBox.name,
                             generatedDate: unsentBox.date,
                             menuAction: {
-                                viewStore.send(.binding(.set(\.$selectedUnsentBoxToDelete, unsentBox)))
+                                viewStore.send(.binding(.set(\.$selectedBoxIdToDelete, unsentBox.id)))
                             }
                         )
                         .bouncyTapGesture {
@@ -149,7 +149,7 @@ private extension MyBoxView {
                             boxTitle: giftBox.name,
                             date: giftBox.giftBoxDate,
                             menuAction: {
-                                viewStore.send(.binding(.set(\.$selectedBoxToDelete, giftBox)))
+                                viewStore.send(.binding(.set(\.$selectedBoxIdToDelete, giftBox.id)))
                             }
                         )
                         .bouncyTapGesture {

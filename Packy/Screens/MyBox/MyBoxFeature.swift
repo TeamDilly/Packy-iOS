@@ -24,8 +24,7 @@ struct MyBoxFeature: Reducer {
         var sentBoxes: IdentifiedArrayOf<SentReceivedGiftBox> = []
         var unsentBoxes: IdentifiedArrayOf<UnsentBox> = []
 
-        @BindingState var selectedBoxToDelete: SentReceivedGiftBox?
-        @BindingState var selectedUnsentBoxToDelete: UnsentBox?
+        @BindingState var selectedBoxIdToDelete: Int?
 
         var isFetchBoxesLoading: Bool = true
         var isShowDetailLoading: Bool = false
@@ -77,8 +76,7 @@ struct MyBoxFeature: Reducer {
             case ._didActiveScene:
                 return .send(._resetAndFetchGiftBoxes)
 
-            case .binding(\.$selectedBoxToDelete), 
-                 .binding(\.$selectedUnsentBoxToDelete):
+            case .binding(\.$selectedBoxIdToDelete):
                 return .run { send in
                     await bottomMenu.show(
                         .init(
@@ -107,7 +105,7 @@ struct MyBoxFeature: Reducer {
                 }
 
             case .deleteBottomMenuConfirmButtonTapped:
-                guard let selectedBoxIdToDelete = state.selectedBoxToDelete?.id else { return .none }
+                guard let selectedBoxIdToDelete = state.selectedBoxIdToDelete else { return .none }
                 return .run { send in
                     await packyAlert.show(
                         .init(
