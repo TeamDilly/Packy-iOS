@@ -24,6 +24,7 @@ struct BoxShareFeature: Reducer {
     struct State: Equatable {
         var data: BoxShareData
         var showCompleteAnimation: Bool
+        var didSendToKakao: Bool = false
 
         subscript<T>(dynamicMember keyPath: KeyPath<BoxShareData, T>) -> T {
             data[keyPath: keyPath]
@@ -42,6 +43,7 @@ struct BoxShareFeature: Reducer {
         // MARK: Inner SetState Action
         case _setShowCompleteAnimation(Bool)
         case _setKakaoImageUrl(String)
+        case _setDidSendToKakao(Bool)
 
         // MARK: Delegate Action
         enum Delegate {
@@ -69,6 +71,7 @@ struct BoxShareFeature: Reducer {
                     do {
                         try await kakaoShare.share(kakaoMessage)
                         try await boxClient.changeBoxStatus(boxId, .delivered)
+                        await send(._setDidSendToKakao(true))
                     } catch {
                         print("🐛 \(error)")
                     }
@@ -88,6 +91,10 @@ struct BoxShareFeature: Reducer {
 
             case let ._setKakaoImageUrl(imageUrl):
                 state.data.kakaoMessageImgUrl = imageUrl
+                return .none
+
+            case let ._setDidSendToKakao(didSendToKakao):
+                state.didSendToKakao = didSendToKakao
                 return .none
 
             case .delegate:

@@ -13,6 +13,7 @@ import ComposableArchitecture
 struct MainTabView: View {
     private let store: StoreOf<MainTabFeature>
     @ObservedObject private var viewStore: ViewStoreOf<MainTabFeature>
+    @State var presentBottomSheet: Bool = false
 
     init(store: StoreOf<MainTabFeature>) {
         self.store = store
@@ -112,6 +113,22 @@ private extension MainTabView {
         VStack(spacing: 0) {
             tabView
             bottomTabBar
+        }
+        .bottomSheet(
+            isPresented: .init(
+                get: { viewStore.packyBox.packyBox != nil },
+                set: {
+                    guard $0 == false else { return }
+                    viewStore.send(.packyBox(._setPackyBox(nil)))
+                }
+            ),
+            detents: [.height(525)]
+        ) {
+            PackyBoxBottomSheet(store: store.scope(state: \.packyBox, action: \.packyBox))
+        }
+        .task {
+            try? await Task.sleep(for: .seconds(1))
+            presentBottomSheet = true
         }
         .navigationBarBackButtonHidden()
         .task {

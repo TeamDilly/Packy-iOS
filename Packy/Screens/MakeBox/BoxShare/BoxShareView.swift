@@ -85,7 +85,7 @@ struct BoxShareView: View {
                     }
                     .padding(.horizontal, 24)
 
-                    Button("나중에 보낼래요") {
+                    Button(viewStore.didSendToKakao ? "" : "나중에 보낼래요") {
                         viewStore.send(.sendLaterButtonTapped)
                     }
                     .buttonStyle(.text)

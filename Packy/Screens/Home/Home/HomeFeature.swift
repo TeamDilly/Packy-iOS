@@ -55,12 +55,7 @@ struct HomeFeature: Reducer {
 
         Reduce<State, Action> { state, action in
             switch action {
-            case ._onTask:
-                return .merge(
-                    fetchGiftBoxes(),
-                    fetchUnsentBoxes()
-                )
-
+            // MARK: User Action
             case .binding(\.$selectedBoxToDelete):
                 return .run { send in
                     await bottomMenu.show(
@@ -118,6 +113,13 @@ struct HomeFeature: Reducer {
                     )
                 }
 
+            // MARK: Inner Business Action
+            case ._onTask:
+                return .merge(
+                    fetchGiftBoxes(),
+                    fetchUnsentBoxes()
+                )
+
             case let ._deleteBox(boxId):
                 return .run { send in
                     do {
@@ -128,6 +130,7 @@ struct HomeFeature: Reducer {
                     }
                 }
 
+            // MARK: Inner SetState Action
             // 낙관적 업데이트 방식으로 성공 시 화면에 반영
             case let ._setDeletedBox(boxId):
                 state.unsentBoxes.remove(id: boxId)
@@ -145,6 +148,7 @@ struct HomeFeature: Reducer {
                 state.isShowDetailLoading = isLoading
                 return .none
 
+            // MARK: Child Action
             case .delegate, .binding:
                 return .none
             }
