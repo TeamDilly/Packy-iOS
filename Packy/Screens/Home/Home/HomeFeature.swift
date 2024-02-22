@@ -138,7 +138,7 @@ struct HomeFeature: Reducer {
                 return .none
 
             case let ._setUnsentBoxes(unsentBoxes):
-                state.unsentBoxes.append(contentsOf: unsentBoxes)
+                state.unsentBoxes = .init(uniqueElements: unsentBoxes)
                 return .none
 
             case let ._setShowDetailLoading(isLoading):

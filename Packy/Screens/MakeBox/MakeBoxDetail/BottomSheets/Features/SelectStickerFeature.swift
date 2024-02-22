@@ -30,7 +30,7 @@ struct SelectStickerFeature: Reducer {
 
     @Dependency(\.continuousClock) var clock
     @Dependency(\.packyAlert) var packyAlert
-    @Dependency(\.designClient) var designClient
+    @Dependency(\.adminClient) var adminClient
 
     // MARK: - Reducer
 
@@ -79,7 +79,7 @@ private extension SelectStickerFeature {
     func fetchStickerDesigns(lastStickerId: Int? = nil) -> Effect<Action> {
         .run { send in
             do {
-                let response = try await designClient.fetchStickerDesigns(lastStickerId)
+                let response = try await adminClient.fetchStickerDesigns(lastStickerId)
                 await send(._setStickerDesigns(response))
             } catch {
                 print(error)

@@ -1,5 +1,5 @@
 //
-//  designClient.swift
+//  adminClient.swift
 //  Packy
 //
 //  Created Mason Kim on 1/21/24.
@@ -12,15 +12,15 @@ import Moya
 // MARK: - Dependency Values
 
 extension DependencyValues {
-    var designClient: DesignClient {
-        get { self[DesignClient.self] }
-        set { self[DesignClient.self] = newValue }
+    var adminClient: AdminClient {
+        get { self[AdminClient.self] }
+        set { self[AdminClient.self] = newValue }
     }
 }
 
-// MARK: - designClient Client
+// MARK: - adminClient Client
 
-struct DesignClient {
+struct AdminClient {
     var fetchRecommendedMusics: @Sendable () async throws -> RecommendedMusicResponse
     var fetchProfileImages: @Sendable () async throws -> ProfileImageResponse
     var fetchLetterDesigns: @Sendable () async throws -> LetterDesignResponse
@@ -29,10 +29,10 @@ struct DesignClient {
     var validateYoutubeUrl: @Sendable (_ url: String) async throws -> Bool
 }
 
-extension DesignClient: DependencyKey {
+extension AdminClient: DependencyKey {
     static let liveValue: Self = {
-        let provider = MoyaProvider<DesignEndpoint>.build()
-        let nonTokenProvider = MoyaProvider<DesignEndpoint>.buildNonToken()
+        let provider = MoyaProvider<AdminEndpoint>.build()
+        let nonTokenProvider = MoyaProvider<AdminEndpoint>.buildNonToken()
 
         return Self(
             fetchRecommendedMusics: {

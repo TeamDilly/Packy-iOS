@@ -60,7 +60,7 @@ struct BoxChoiceFeature: Reducer {
 
     @Dependency(\.continuousClock) var clock
     @Dependency(\.userDefaults) var userDefaults
-    @Dependency(\.designClient) var designClient
+    @Dependency(\.adminClient) var adminClient
     @Dependency(\.packyAlert) var packyAlert
     @Dependency(\.dismiss) var dismiss
 
@@ -75,7 +75,7 @@ struct BoxChoiceFeature: Reducer {
             case ._onTask:
                 return .run { send in
                     do {
-                        let boxDesigns = try await designClient.fetchBoxDesigns()
+                        let boxDesigns = try await adminClient.fetchBoxDesigns()
                         await send(._setBoxDesigns(boxDesigns), animation: .spring)
                         if let firstBox = boxDesigns.first {
                             await send(.selectBox(firstBox), animation: .spring)

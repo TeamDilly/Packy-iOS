@@ -41,7 +41,7 @@ struct MyBoxFeature: Reducer {
         case _didActiveScene
         case _fetchMoreSentGiftBoxes
         case _fetchMoreReceivedGiftBoxes
-        case _resetAndFetchGiftBoxes
+        case _resetAndFetchAllGiftBoxes
         case _deleteBox(Int)
 
         // MARK: Inner SetState Action
@@ -74,7 +74,7 @@ struct MyBoxFeature: Reducer {
                 )
 
             case ._didActiveScene:
-                return .send(._resetAndFetchGiftBoxes)
+                return .send(._resetAndFetchAllGiftBoxes)
 
             case .binding(\.$selectedBoxIdToDelete):
                 return .run { send in
@@ -150,13 +150,13 @@ struct MyBoxFeature: Reducer {
                     lastGiftBoxDate: lastBoxDate
                 )
 
-            case ._resetAndFetchGiftBoxes:
+            case ._resetAndFetchAllGiftBoxes:
+                state = .init()
                 state.isFetchBoxesLoading = true
-                state.sentBoxesData.removeAll()
-                state.receivedBoxesData.removeAll()
-                state.sentBoxes.removeAll()
-                state.receivedBoxes.removeAll()
-                return fetchAllInitialGiftBoxes(state)
+                return .merge(
+                    fetchAllInitialGiftBoxes(state),
+                    fetchUnsentBoxes()
+                )
 
             case let ._setGiftBoxData(giftBoxData, type):
                 switch type {
@@ -172,7 +172,7 @@ struct MyBoxFeature: Reducer {
                 return .none
 
             case let ._setUnsentBoxes(unsentBoxes):
-                state.unsentBoxes.append(contentsOf: unsentBoxes)
+                state.unsentBoxes = .init(uniqueElements: unsentBoxes)
                 return .none
 
             // 낙관적 업데이트 방식으로 성공 시 화면에 반영

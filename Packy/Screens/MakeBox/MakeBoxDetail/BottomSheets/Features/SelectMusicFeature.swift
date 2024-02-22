@@ -56,7 +56,7 @@ struct SelectMusicFeature: Reducer {
 
     @Dependency(\.continuousClock) var clock
     @Dependency(\.packyAlert) var packyAlert
-    @Dependency(\.designClient) var designClient
+    @Dependency(\.adminClient) var adminClient
 
     // MARK: - Reducer
 
@@ -96,7 +96,7 @@ struct SelectMusicFeature: Reducer {
                 let youtubeLinkUrl = state.musicInput.musicLinkUrlInput
                 return .run { send in
                     do {
-                        let isValidLink = try await designClient.validateYoutubeUrl(youtubeLinkUrl)
+                        let isValidLink = try await adminClient.validateYoutubeUrl(youtubeLinkUrl)
                         await send(._setShowInvalidMusicUrlError(!isValidLink))
 
                         guard isValidLink else { return }
@@ -193,7 +193,7 @@ private extension SelectMusicFeature {
     func fetchRecommendedMusics() -> Effect<Action> {
         .run { send in
             do {
-                let recommendedMusics = try await designClient.fetchRecommendedMusics()
+                let recommendedMusics = try await adminClient.fetchRecommendedMusics()
                 await send(._setRecommendedMusics(recommendedMusics))
             } catch {
                 print(error)

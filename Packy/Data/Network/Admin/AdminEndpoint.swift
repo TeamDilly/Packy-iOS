@@ -1,5 +1,5 @@
 //
-//  DesignEndpoint.swift
+//  AdminEndpoint.swift
 //  Packy
 //
 //  Created by Mason Kim on 1/21/24.
@@ -8,7 +8,7 @@
 import Foundation
 import Moya
 
-enum DesignEndpoint {
+enum AdminEndpoint {
     /// 패키 추천 음악 조회
     case getRecommendedMusics
     /// 패키 프로필 이미지 디자인 조회
@@ -23,7 +23,7 @@ enum DesignEndpoint {
     case getValidateYoutubeLink(url: String)
 }
 
-extension DesignEndpoint: TargetType {
+extension AdminEndpoint: TargetType {
     var baseURL: URL {
         Constants.serverUrl
     }

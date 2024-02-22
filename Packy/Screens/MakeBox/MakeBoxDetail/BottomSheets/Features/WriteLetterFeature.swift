@@ -44,7 +44,7 @@ struct WriteLetterFeature: Reducer {
     }
 
     @Dependency(\.packyAlert) var packyAlert
-    @Dependency(\.designClient) var designClient
+    @Dependency(\.adminClient) var adminClient
 
     // MARK: - Reducer
 
@@ -113,7 +113,7 @@ private extension WriteLetterFeature {
     func fetchLetterDesigns() -> Effect<Action> {
         .run { send in
             do {
-                let letterDesigns = try await designClient.fetchLetterDesigns()
+                let letterDesigns = try await adminClient.fetchLetterDesigns()
                 await send(._setLetterDesigns(letterDesigns))
             } catch {
                 print(error)

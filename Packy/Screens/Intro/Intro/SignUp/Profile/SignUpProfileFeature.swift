@@ -36,7 +36,7 @@ struct SignUpProfileFeature: Reducer {
     }
 
     @Dependency(\.dismiss) var dismiss
-    @Dependency(\.designClient) var designClient
+    @Dependency(\.adminClient) var adminClient
 
     var body: some Reducer<State, Action> {
         BindingReducer()
@@ -67,7 +67,7 @@ struct SignUpProfileFeature: Reducer {
     private func fetchProfileImages() -> Effect<Action> {
         .run { send in
             do {
-                let profileImages = try await designClient.fetchProfileImages()
+                let profileImages = try await adminClient.fetchProfileImages()
                 await send(._setProfileImages(profileImages))
             } catch {
                 print(error)

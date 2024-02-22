@@ -21,6 +21,7 @@ enum BoxEndpoint {
     case getUnsentBoxes
     /// 선물박스 전송 상태 변경
     case changeBoxStats(Int, BoxSentStatus)
+    /// 박스 공유용 카카오톡 이미지 조회
     case getKakaoImage(Int)
 }
 
