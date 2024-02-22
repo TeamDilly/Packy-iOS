@@ -25,7 +25,7 @@ struct PopupBoxBottomSheet: View {
                     .foregroundStyle(.gray900)
                     .multilineTextAlignment(.center)
 
-                Text(popupBox.title)
+                Text(popupBox.name)
                     .packyFont(.body4)
                     .foregroundStyle(.gray900)
                     .padding(.vertical, 12)
@@ -37,7 +37,7 @@ struct PopupBoxBottomSheet: View {
                     )
                     .padding(.top, 16)
 
-                NetworkImage(url: popupBox.boxImage)
+                NetworkImage(url: popupBox.normalImgUrl)
                     .shakeRepeat(.veryWeak)
                     .frame(width: 160, height: 160)
                     .padding(.top, 40)

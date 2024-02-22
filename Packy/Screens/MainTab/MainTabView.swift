@@ -131,7 +131,7 @@ private extension MainTabView {
             presentBottomSheet = true
         }
         .navigationBarBackButtonHidden()
-        .task {
+        .didLoad {
             await viewStore
                 .send(._onTask)
                 .finish()

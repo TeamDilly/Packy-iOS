@@ -10,9 +10,9 @@ import Foundation
 /// 화면 진입 시, 팝업 형태로 띄워줄 선물 박스 정보
 struct PopupGiftBox: Decodable, Hashable {
     let giftBoxId: Int
-    let title: String
-    let sender: String
-    let boxImage: String
+    let name: String
+    let senderName: String
+    let normalImgUrl: String
 }
 
 // MARK: - Mock Data
@@ -20,8 +20,8 @@ struct PopupGiftBox: Decodable, Hashable {
 extension PopupGiftBox {
     static let mock: Self = .init(
         giftBoxId: 93,
-        title: "Hello!",
-        sender: "Mason",
-        boxImage: Constants.mockImageUrl
+        name: "Hello!",
+        senderName: "Mason",
+        normalImgUrl: Constants.mockImageUrl
     )
 }
