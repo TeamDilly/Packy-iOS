@@ -119,8 +119,9 @@
 		E591B9E92B8396F000B28B2E /* EditSelectProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E591B9E72B8396F000B28B2E /* EditSelectProfileView.swift */; };
 		E591B9EA2B8396F000B28B2E /* EditSelectProfileFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = E591B9E82B8396F000B28B2E /* EditSelectProfileFeature.swift */; };
 		E5993D5B2B876DA900F4C76C /* ScreenType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5993D5A2B876DA900F4C76C /* ScreenType.swift */; };
-		E5993D5D2B876FC300F4C76C /* PackyBoxBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5993D5C2B876FC300F4C76C /* PackyBoxBottomSheet.swift */; };
-		E5993D622B877B9E00F4C76C /* PackyBoxFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5993D602B877B9E00F4C76C /* PackyBoxFeature.swift */; };
+		E5993D5D2B876FC300F4C76C /* PopupBoxBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5993D5C2B876FC300F4C76C /* PopupBoxBottomSheet.swift */; };
+		E5993D622B877B9E00F4C76C /* PopupBoxFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5993D602B877B9E00F4C76C /* PopupBoxFeature.swift */; };
+		E5993D662B87942700F4C76C /* PopupGiftBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5993D652B87942700F4C76C /* PopupGiftBox.swift */; };
 		E5A416A22B5D076C00313E5A /* PopGestureDisableModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A416A12B5D076C00313E5A /* PopGestureDisableModifier.swift */; };
 		E5A416A52B5D1F8100313E5A /* AdminEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A416A42B5D1F8100313E5A /* AdminEndpoint.swift */; };
 		E5A416A72B5D20DC00313E5A /* AdminClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A416A62B5D20DC00313E5A /* AdminClient.swift */; };
@@ -388,8 +389,9 @@
 		E591B9E72B8396F000B28B2E /* EditSelectProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditSelectProfileView.swift; sourceTree = "<group>"; };
 		E591B9E82B8396F000B28B2E /* EditSelectProfileFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditSelectProfileFeature.swift; sourceTree = "<group>"; };
 		E5993D5A2B876DA900F4C76C /* ScreenType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenType.swift; sourceTree = "<group>"; };
-		E5993D5C2B876FC300F4C76C /* PackyBoxBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackyBoxBottomSheet.swift; sourceTree = "<group>"; };
-		E5993D602B877B9E00F4C76C /* PackyBoxFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackyBoxFeature.swift; sourceTree = "<group>"; };
+		E5993D5C2B876FC300F4C76C /* PopupBoxBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupBoxBottomSheet.swift; sourceTree = "<group>"; };
+		E5993D602B877B9E00F4C76C /* PopupBoxFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupBoxFeature.swift; sourceTree = "<group>"; };
+		E5993D652B87942700F4C76C /* PopupGiftBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupGiftBox.swift; sourceTree = "<group>"; };
 		E5A416A12B5D076C00313E5A /* PopGestureDisableModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopGestureDisableModifier.swift; sourceTree = "<group>"; };
 		E5A416A42B5D1F8100313E5A /* AdminEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminEndpoint.swift; sourceTree = "<group>"; };
 		E5A416A62B5D20DC00313E5A /* AdminClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminClient.swift; sourceTree = "<group>"; };
@@ -775,7 +777,7 @@
 		E579483C2B80CC820058C733 /* MainTab */ = {
 			isa = PBXGroup;
 			children = (
-				E5993D5E2B877B8D00F4C76C /* PackyBox */,
+				E5993D5E2B877B8D00F4C76C /* Popup */,
 				E579483D2B80CD310058C733 /* MainTabFeature+Navigation.swift */,
 				E579483E2B80CD310058C733 /* MainTabView.swift */,
 				E579483F2B80CD310058C733 /* MainTabFeature.swift */,
@@ -906,13 +908,13 @@
 			path = Common;
 			sourceTree = "<group>";
 		};
-		E5993D5E2B877B8D00F4C76C /* PackyBox */ = {
+		E5993D5E2B877B8D00F4C76C /* Popup */ = {
 			isa = PBXGroup;
 			children = (
-				E5993D5C2B876FC300F4C76C /* PackyBoxBottomSheet.swift */,
-				E5993D602B877B9E00F4C76C /* PackyBoxFeature.swift */,
+				E5993D5C2B876FC300F4C76C /* PopupBoxBottomSheet.swift */,
+				E5993D602B877B9E00F4C76C /* PopupBoxFeature.swift */,
 			);
-			path = PackyBox;
+			path = Popup;
 			sourceTree = "<group>";
 		};
 		E5A416A32B5D1F6900313E5A /* Admin */ = {
@@ -1471,6 +1473,7 @@
 				E5FDE05C2B6BAD1F00E00B00 /* Sticker.swift */,
 				E52F8D232B860C4C00DE2B26 /* UnsentBox.swift */,
 				E52F8D2E2B86385A00DE2B26 /* BoxSentStatus.swift */,
+				E5993D652B87942700F4C76C /* PopupGiftBox.swift */,
 			);
 			path = Box;
 			sourceTree = "<group>";
@@ -1769,7 +1772,7 @@
 				E5A7AA392B57F81400590EA6 /* View+If.swift in Sources */,
 				E5A416A92B5D212300313E5A /* RecommendedMusic.swift in Sources */,
 				E5E06B422B654EF600F6FD01 /* BoxEndpoint.swift in Sources */,
-				E5993D622B877B9E00F4C76C /* PackyBoxFeature.swift in Sources */,
+				E5993D622B877B9E00F4C76C /* PopupBoxFeature.swift in Sources */,
 				E5A7AA4F2B57F81400590EA6 /* PretendardFont.swift in Sources */,
 				E57948462B81C1FA0058C733 /* BottomMenuManager.swift in Sources */,
 				E52470F22B6142EB003D49DE /* AddGiftBottomSheet.swift in Sources */,
@@ -1875,6 +1878,7 @@
 				E53937912B67B599000F3A86 /* BoxDetailView.swift in Sources */,
 				E57948412B80CD310058C733 /* MainTabView.swift in Sources */,
 				E5551B7D2B5FF5AD00DB81F3 /* MoyaProvider+Build.swift in Sources */,
+				E5993D662B87942700F4C76C /* PopupGiftBox.swift in Sources */,
 				E54484F02B6F3E63003DFA1B /* TabSegmentedControl.swift in Sources */,
 				E5A7AA552B57F81400590EA6 /* BoxChoiceView.swift in Sources */,
 				E57948482B81C2A40058C733 /* BottomMenuClient.swift in Sources */,
@@ -1899,7 +1903,7 @@
 				E5A7AA602B57F81400590EA6 /* SignUpNavigation.swift in Sources */,
 				E5A7AA722B57F81400590EA6 /* MoyaProvider+Request.swift in Sources */,
 				E5E06B342B654D7700F6FD01 /* SendingGiftBox.swift in Sources */,
-				E5993D5D2B876FC300F4C76C /* PackyBoxBottomSheet.swift in Sources */,
+				E5993D5D2B876FC300F4C76C /* PopupBoxBottomSheet.swift in Sources */,
 				E55DAE842B76376000208878 /* Print+Override.swift in Sources */,
 				E5A7AA772B57F81400590EA6 /* SignInResponse.swift in Sources */,
 				E579484C2B81EB330058C733 /* ArchiveView.swift in Sources */,

@@ -8,5 +8,5 @@
 import Foundation
 
 enum ScreenType: String {
-    case onboarding
+    case main
 }

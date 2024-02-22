@@ -111,7 +111,6 @@ private extension ArchiveView {
                 imageUrl: photo.photoUrl,
                 text: photo.description
             )
-            .border(Color.black)
         }
     }
 

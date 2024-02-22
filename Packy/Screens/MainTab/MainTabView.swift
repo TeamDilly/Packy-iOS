@@ -116,15 +116,15 @@ private extension MainTabView {
         }
         .bottomSheet(
             isPresented: .init(
-                get: { viewStore.packyBox.packyBox != nil },
+                get: { viewStore.popupBox.popupBox != nil },
                 set: {
                     guard $0 == false else { return }
-                    viewStore.send(.packyBox(._setPackyBox(nil)))
+                    viewStore.send(.popupBox(._hideBottomSheet))
                 }
             ),
             detents: [.height(525)]
         ) {
-            PackyBoxBottomSheet(store: store.scope(state: \.packyBox, action: \.packyBox))
+            PopupBoxBottomSheet(store: store.scope(state: \.popupBox, action: \.popupBox))
         }
         .task {
             try? await Task.sleep(for: .seconds(1))

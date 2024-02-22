@@ -28,6 +28,7 @@ struct BoxClient {
     var fetchUnsentBoxes: @Sendable () async throws -> [UnsentBox]
     var changeBoxStatus: @Sendable (Int, BoxSentStatus) async throws -> Void
     var fetchKakaoImageUrl: @Sendable (Int) async throws -> String
+    var fetchPopupGiftBox: @Sendable (ScreenType) async throws -> PopupGiftBox?
 }
 
 extension BoxClient: DependencyKey {
@@ -58,6 +59,9 @@ extension BoxClient: DependencyKey {
             fetchKakaoImageUrl: {
                 let response: KakaoMessageImageResponse = try await provider.request(.getKakaoImage($0))
                 return response.kakaoMessageImgUrl
+            },
+            fetchPopupGiftBox: {
+                try await provider.request(.getPopupGiftbox($0))
             }
         )
     }()
@@ -77,7 +81,8 @@ extension BoxClient: DependencyKey {
             deleteGiftBox: { _ in },
             fetchUnsentBoxes: { [] },
             changeBoxStatus: { _, _ in },
-            fetchKakaoImageUrl: { _ in Constants.mockImageUrl }
+            fetchKakaoImageUrl: { _ in Constants.mockImageUrl },
+            fetchPopupGiftBox: { _ in .mock }
         )
     }()
 }

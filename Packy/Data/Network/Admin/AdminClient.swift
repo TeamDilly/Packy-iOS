@@ -27,7 +27,6 @@ struct AdminClient {
     var fetchBoxDesigns: @Sendable () async throws -> BoxDesignResponse
     var fetchStickerDesigns: @Sendable (_ lastStickerId: Int?) async throws -> StickerDesignResponse
     var validateYoutubeUrl: @Sendable (_ url: String) async throws -> Bool
-    var fetchPackyGiftBox: @Sendable (ScreenType) async throws -> ReceivedGiftBox
 }
 
 extension AdminClient: DependencyKey {
@@ -59,9 +58,6 @@ extension AdminClient: DependencyKey {
             validateYoutubeUrl: {
                 let response: YoutubeLinkValidationResponse = try await provider.request(.getValidateYoutubeLink(url: $0))
                 return response.status
-            },
-            fetchPackyGiftBox: {
-                try await provider.request(.getPackyGiftbox($0))
             }
         )
     }()
@@ -76,8 +72,7 @@ extension AdminClient: DependencyKey {
                 try? await _Concurrency.Task.sleep(for: .seconds(1))
                 return .mock
             },
-            validateYoutubeUrl: { _ in return true },
-            fetchPackyGiftBox: { _ in .mock }
+            validateYoutubeUrl: { _ in return true }
         )
     }()
 }

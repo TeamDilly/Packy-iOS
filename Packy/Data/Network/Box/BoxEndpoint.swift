@@ -23,6 +23,8 @@ enum BoxEndpoint {
     case changeBoxStats(Int, BoxSentStatus)
     /// 박스 공유용 카카오톡 이미지 조회
     case getKakaoImage(Int)
+    /// 화면에서 팝업 형태로 띄워줄 선물박스 조회
+    case getPopupGiftbox(ScreenType)
 }
 
 extension BoxEndpoint: TargetType {
@@ -44,6 +46,8 @@ extension BoxEndpoint: TargetType {
             return "giftboxes/\(boxId)"
         case let .getKakaoImage(boxId):
             return "giftboxes/\(boxId)/kakao-image"
+        case let .getPopupGiftbox(screenType):
+            return "giftboxes/\(screenType.rawValue)"
         }
     }
 
@@ -51,7 +55,7 @@ extension BoxEndpoint: TargetType {
         switch self {
         case .postGiftbox:
             return .post
-        case .getOpenGiftbox, .getGiftBoxes, .getUnsentBoxes, .getKakaoImage:
+        case .getOpenGiftbox, .getGiftBoxes, .getUnsentBoxes, .getKakaoImage, .getPopupGiftbox:
             return .get
         case .deleteBox:
             return .delete

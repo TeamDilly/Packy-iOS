@@ -1,5 +1,5 @@
 //
-//  PackyBoxBottomSheet.swift
+//  PopupBoxBottomSheet.swift
 //  Packy
 //
 //  Created by Mason Kim on 2/22/24.
@@ -8,24 +8,24 @@
 import SwiftUI
 import ComposableArchitecture
 
-struct PackyBoxBottomSheet: View {
-    private let store: StoreOf<PackyBoxFeature>
-    @ObservedObject private var viewStore: ViewStoreOf<PackyBoxFeature>
+struct PopupBoxBottomSheet: View {
+    private let store: StoreOf<PopupGiftBoxFeature>
+    @ObservedObject private var viewStore: ViewStoreOf<PopupGiftBoxFeature>
 
-    init(store: StoreOf<PackyBoxFeature>) {
+    init(store: StoreOf<PopupGiftBoxFeature>) {
         self.store = store
         self.viewStore = ViewStore(store, observe: { $0 })
     }
 
     var body: some View {
-        if let giftBox = viewStore.packyBox {
+        if let popupBox = viewStore.popupBox {
             VStack(spacing: 0) {
                 Text("패키가 보낸\n선물박스가 도착했어요!")
                     .packyFont(.heading1)
                     .foregroundStyle(.gray900)
                     .multilineTextAlignment(.center)
 
-                Text(giftBox.name)
+                Text(popupBox.title)
                     .packyFont(.body4)
                     .foregroundStyle(.gray900)
                     .padding(.vertical, 12)
@@ -37,20 +37,20 @@ struct PackyBoxBottomSheet: View {
                     )
                     .padding(.top, 16)
 
-                NetworkImage(url: giftBox.box.boxNormalUrl)
+                NetworkImage(url: popupBox.boxImage)
                     .shakeRepeat(.veryWeak)
                     .frame(width: 160, height: 160)
                     .padding(.top, 40)
                     .padding(.bottom, 48)
                     .bouncyTapGesture {
                         throttle(.seconds(3)) {
-
+                            viewStore.send(.openButtonTapped)
                         }
                     }
 
                 PackyButton(title: "열어보기", colorType: .black) {
                     throttle(.seconds(3)) {
-
+                        viewStore.send(.openButtonTapped)
                     }
                 }
                 .padding(.horizontal, 24)
@@ -63,11 +63,11 @@ struct PackyBoxBottomSheet: View {
 // MARK: - Preview
 
 #Preview {
-    PackyBoxBottomSheet(
+    PopupBoxBottomSheet(
         store: .init(
-            initialState: PackyBoxFeature.State(),
+            initialState: PopupGiftBoxFeature.State(),
             reducer: {
-                PackyBoxFeature()
+                PopupGiftBoxFeature()
             })
     )
 }
