@@ -25,7 +25,7 @@ struct AddGiftBottomSheet: View {
                     .foregroundStyle(.gray900)
                     .frame(maxWidth: .infinity, alignment: .leading)
 
-                Text("선물 이미지를 담아서 친구에게 보여줄 수 있어요")
+                Text("선물 이미지를 함께 담아 친구에게 보내보세요")
                     .packyFont(.body4)
                     .foregroundStyle(.gray600)
                     .frame(maxWidth: .infinity, alignment: .leading)

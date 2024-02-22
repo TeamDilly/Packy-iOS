@@ -48,15 +48,15 @@ private extension SelectMusicBottomSheet {
                 .padding(.bottom, 24)
             
             MusicSelectionCell(
-                title: "직접 음악 선택하기",
+                title: "직접 음악 영상 담기",
                 caption: "유튜브 링크로 음악을 넣어주세요") {
                     viewStore.send(.musicChoiceUserSelectButtonTapped)
                 }
                 .padding(.bottom, 8)
             
             MusicSelectionCell(
-                title: "패키의 음악으로 담기",
-                caption: "다양한 테마의 음악들을 준비했어요!") {
+                title: "패키가 준비한 음악 담기",
+                caption: "기념일에 어울리는 음악을 준비했어요") {
                     viewStore.send(.musicChoiceRecommendButtonTapped)
                 }
             
@@ -69,14 +69,14 @@ private extension SelectMusicBottomSheet {
     
     var musicUserSelectBottomSheet: some View {
         VStack(spacing: 0) {
-            Text("들려주고 싶은 음악")
+            Text("직접 음악 영상 담기")
                 .packyFont(.heading1)
                 .foregroundStyle(.gray900)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.top, 8)
                 .padding(.bottom, 4)
             
-            Text("유튜브 영상 url을 넣어주세요")
+            Text("담고 싶은 음악의 유튜브 영상 링크를 붙여 넣어주세요")
                 .packyFont(.body4)
                 .foregroundStyle(.gray600)
                 .frame(maxWidth: .infinity, alignment: .leading)
@@ -97,7 +97,7 @@ private extension SelectMusicBottomSheet {
                     PackyTextField(
                         text: viewStore.$musicInput.musicLinkUrlInput,
                         placeholder: "링크를 붙여주세요",
-                        errorMessage: viewStore.musicInput.showInvalidMusicUrlError ? "올바른 url을 입력해주세요" : nil
+                        errorMessage: viewStore.musicInput.showInvalidMusicUrlError ? "올바른 영상 링크를 입력해주세요" : nil
                     )
                     
                     PackyButton(title: "확인", sizeType: .medium, colorType: .black) {
