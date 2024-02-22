@@ -99,6 +99,8 @@ struct BoxShareView: View {
                     .padding(.bottom, 20)
             }
         }
+        .showLoading(!viewStore.showCompleteAnimation && viewStore.kakaoMessageImgUrl == nil)
+        .navigationBarHidden(true)
         .task {
             await viewStore
                 .send(._onTask)

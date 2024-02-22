@@ -22,7 +22,7 @@ struct BoxShareFeature: Reducer {
 
     @dynamicMemberLookup
     struct State: Equatable {
-        let data: BoxShareData
+        var data: BoxShareData
         var showCompleteAnimation: Bool
 
         subscript<T>(dynamicMember keyPath: KeyPath<BoxShareData, T>) -> T {
@@ -41,8 +41,13 @@ struct BoxShareFeature: Reducer {
 
         // MARK: Inner SetState Action
         case _setShowCompleteAnimation(Bool)
+        case _setKakaoImageUrl(String)
 
-        // MARK: Child Action
+        // MARK: Delegate Action
+        enum Delegate {
+            case moveToHome
+        }
+        case delegate(Delegate)
     }
 
     @Dependency(\.continuousClock) var clock
@@ -52,9 +57,9 @@ struct BoxShareFeature: Reducer {
     var body: some Reducer<State, Action> {
         Reduce<State, Action> { state, action in
             switch action {
-                // MARK: User Action
-            case .closeButtonTapped:
-                return .none
+            // MARK: User Action
+            case .closeButtonTapped, .sendLaterButtonTapped:
+                return .send(.delegate(.moveToHome))
 
             case .sendButtonTapped:
                 guard let kakaoMessage = makeKakaoShareMessage(from: state) else { return .none }
@@ -69,36 +74,54 @@ struct BoxShareFeature: Reducer {
                     }
                 }
 
-            case .sendLaterButtonTapped:
-                return .none
-
-                // MARK: Inner Business Action
+            // MARK: Inner Business Action
             case ._onTask:
-                // TODO: 카카오 이미지 가져오는 API 호출
-                guard state.showCompleteAnimation else { return .none }
-                return .run { send in
-                    try? await clock.sleep(for: .seconds(2.6))
-                    await send(._setShowCompleteAnimation(false), animation: .spring(duration: 1))
-                }
+                return .merge(
+                    fetchKakaoImage(boxId: state.boxId),
+                    showAnimationIfNeeded(showCompleteAnimation: state.showCompleteAnimation)
+                )
 
-                // MARK: Inner SetState Action
-
+            // MARK: Inner SetState Action
             case let ._setShowCompleteAnimation(showCompleteAnimation):
                 state.showCompleteAnimation = showCompleteAnimation
                 return .none
 
-                // MARK: Child Action
+            case let ._setKakaoImageUrl(imageUrl):
+                state.data.kakaoMessageImgUrl = imageUrl
+                return .none
+
+            case .delegate:
+                return .none
             }
         }
     }
 }
 
 private extension BoxShareFeature {
+    func fetchKakaoImage(boxId: Int) -> Effect<Action> {
+        .run { send in
+            do {
+                let imageUrl = try await boxClient.fetchKakaoImageUrl(boxId)
+                await send(._setKakaoImageUrl(imageUrl))
+            } catch {
+                print("🐛 \(error)")
+            }
+        }
+    }
+
+    func showAnimationIfNeeded(showCompleteAnimation: Bool) -> Effect<Action> {
+        guard showCompleteAnimation else { return .none }
+        return .run { send in
+            try? await clock.sleep(for: .seconds(2.6))
+            await send(._setShowCompleteAnimation(false), animation: .spring(duration: 1))
+        }
+    }
+
     func makeKakaoShareMessage(from state: State) -> KakaoShareMessage? {
         return KakaoShareMessage(
             sender: state.senderName,
             receiver: state.receiverName,
-            imageUrl: state.kakaoMessageImgUrl ?? state.boxNormalUrl,
+            imageUrl: state.kakaoMessageImgUrl ?? state.boxNormalUrl, // 카카오 이미지를 불러오는데 실패하면 기본 이미지 삽입
             boxId: "\(state.boxId)"
         )
     }

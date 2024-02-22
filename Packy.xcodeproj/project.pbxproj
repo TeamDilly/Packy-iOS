@@ -27,6 +27,7 @@
 		E5257CB42B693FB9000A091E /* ImageViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5257CB32B693FB9000A091E /* ImageViewer.swift */; };
 		E52B954B2B80B9F800DB27FC /* BottomMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52B954A2B80B9F800DB27FC /* BottomMenu.swift */; };
 		E52B954D2B80BCB100DB27FC /* BottomMenuModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52B954C2B80BCB100DB27FC /* BottomMenuModifier.swift */; };
+		E52D10222B86F7AE00A3AFBF /* KakaoMessageImageResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52D10212B86F7AE00A3AFBF /* KakaoMessageImageResponse.swift */; };
 		E52F8D242B860C4C00DE2B26 /* UnsentBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52F8D232B860C4C00DE2B26 /* UnsentBox.swift */; };
 		E52F8D262B860D2700DE2B26 /* UnsentBoxResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52F8D252B860D2700DE2B26 /* UnsentBoxResponse.swift */; };
 		E52F8D2C2B861B6D00DE2B26 /* BoxShareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52F8D2A2B861B6D00DE2B26 /* BoxShareView.swift */; };
@@ -301,6 +302,7 @@
 		E5257CB32B693FB9000A091E /* ImageViewer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewer.swift; sourceTree = "<group>"; };
 		E52B954A2B80B9F800DB27FC /* BottomMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomMenu.swift; sourceTree = "<group>"; };
 		E52B954C2B80BCB100DB27FC /* BottomMenuModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomMenuModifier.swift; sourceTree = "<group>"; };
+		E52D10212B86F7AE00A3AFBF /* KakaoMessageImageResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoMessageImageResponse.swift; sourceTree = "<group>"; };
 		E52F8D232B860C4C00DE2B26 /* UnsentBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnsentBox.swift; sourceTree = "<group>"; };
 		E52F8D252B860D2700DE2B26 /* UnsentBoxResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnsentBoxResponse.swift; sourceTree = "<group>"; };
 		E52F8D2A2B861B6D00DE2B26 /* BoxShareView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoxShareView.swift; sourceTree = "<group>"; };
@@ -1456,6 +1458,7 @@
 				E5A59BE32B727D7500D120CF /* GiftBoxesRequest.swift */,
 				E5A59BE72B727F0500D120CF /* GiftBoxesResponse.swift */,
 				E52F8D252B860D2700DE2B26 /* UnsentBoxResponse.swift */,
+				E52D10212B86F7AE00A3AFBF /* KakaoMessageImageResponse.swift */,
 			);
 			path = Box;
 			sourceTree = "<group>";
@@ -1716,6 +1719,7 @@
 				E5A7AA3A2B57F81400590EA6 /* UINavigationController+PopGesture.swift in Sources */,
 				E5A7AA492B57F81400590EA6 /* Checkbox.swift in Sources */,
 				E5A7AA382B57F81400590EA6 /* Image+ScaleToFillFrame.swift in Sources */,
+				E52D10222B86F7AE00A3AFBF /* KakaoMessageImageResponse.swift in Sources */,
 				E5A7AA6A2B57F81400590EA6 /* RootView.swift in Sources */,
 				E5A7AA7D2B57F81400590EA6 /* AuthEndpoint.swift in Sources */,
 				E5A7AA7F2B57F81400590EA6 /* UserDefaultsKey.swift in Sources */,

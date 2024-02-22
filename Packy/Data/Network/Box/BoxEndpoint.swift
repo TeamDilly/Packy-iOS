@@ -21,6 +21,7 @@ enum BoxEndpoint {
     case getUnsentBoxes
     /// 선물박스 전송 상태 변경
     case changeBoxStats(Int, BoxSentStatus)
+    case getKakaoImage(Int)
 }
 
 extension BoxEndpoint: TargetType {
@@ -40,6 +41,8 @@ extension BoxEndpoint: TargetType {
             return "giftboxes/waiting"
         case let .changeBoxStats(boxId, _):
             return "giftboxes/\(boxId)"
+        case let .getKakaoImage(boxId):
+            return "giftboxes/\(boxId)/kakao-image"
         }
     }
 
@@ -47,7 +50,7 @@ extension BoxEndpoint: TargetType {
         switch self {
         case .postGiftbox:
             return .post
-        case .getOpenGiftbox, .getGiftBoxes, .getUnsentBoxes:
+        case .getOpenGiftbox, .getGiftBoxes, .getUnsentBoxes, .getKakaoImage:
             return .get
         case .deleteBox:
             return .delete

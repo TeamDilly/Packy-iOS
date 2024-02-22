@@ -45,13 +45,6 @@ struct BoxAddTitleAndShareFeature: Reducer {
 
         // MARK: Child Action
         case boxShare(PresentationAction<BoxShareFeature.Action>)
-
-        // MARK: Delegate Action
-        enum Delegate {
-            case moveToHome
-            case moveTo
-        }
-        case delegate(Delegate)
     }
 
     @Dependency(\.continuousClock) var clock
@@ -67,10 +60,6 @@ struct BoxAddTitleAndShareFeature: Reducer {
             switch action {
             case .backButtonTapped:
                 return .run { _ in await dismiss() }
-
-            case .boxShare(.presented(.closeButtonTapped)),
-                 .boxShare(.presented(.sendLaterButtonTapped)):
-                return .send(.delegate(.moveToHome))
 
             case .nextButtonTapped:
                 guard state.isLoading == false else { return .none }
@@ -138,7 +127,7 @@ struct BoxAddTitleAndShareFeature: Reducer {
                 state.isLoading = isLoading
                 return .none
 
-            case .binding, ._onTask, .delegate, .boxShare:
+            case .binding, ._onTask, .boxShare:
                 return .none
             }
         }
