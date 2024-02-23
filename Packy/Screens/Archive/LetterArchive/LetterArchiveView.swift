@@ -12,40 +12,38 @@ import ComposableArchitecture
 
 struct LetterArchiveView: View {
     private let store: StoreOf<LetterArchiveFeature>
-    @ObservedObject private var viewStore: ViewStoreOf<LetterArchiveFeature>
     @Environment(\.scenePhase) private var scenePhase
 
     init(store: StoreOf<LetterArchiveFeature>) {
         self.store = store
-        self.viewStore = ViewStore(store, observe: { $0 })
     }
 
     var body: some View {
         VStack {
-            if viewStore.letters.isEmpty && !viewStore.isLoading {
+            if store.letters.isEmpty && !store.isLoading {
                 Text("아직 선물받은 편지가 없어요")
                     .packyFont(.body2)
                     .foregroundStyle(.gray600)
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                     .padding(.bottom, 50)
             } else {
-                StaggeredGrid(columns: 2, data: viewStore.letters.elements) { letter in
+                StaggeredGrid(columns: 2, data: store.letters.elements) { letter in
                     LetterCell(
                         imageUrl: letter.envelope.imageUrl,
                         text: letter.letterContent
                     )
                     .onTapGesture {
                         HapticManager.shared.fireFeedback(.soft)
-                        viewStore.send(.letterTapped(letter))
+                        store.send(.letterTapped(letter))
                     }
                     .onAppear {
                         // Pagination
-                        guard viewStore.isLastPage == false,
-                              let index = viewStore.letters.firstIndex(of: letter) else { return }
+                        guard store.isLastPage == false,
+                              let index = store.letters.firstIndex(of: letter) else { return }
 
-                        let isNearEndForNextPageLoad = index == viewStore.letters.endIndex - 3
+                        let isNearEndForNextPageLoad = index == store.letters.endIndex - 3
                         guard isNearEndForNextPageLoad else { return }
-                        viewStore.send(._fetchMoreLetters)
+                        store.send(._fetchMoreLetters)
                     }
                 }
                 .zigzagPadding(80)
@@ -55,18 +53,20 @@ struct LetterArchiveView: View {
             }
         }
         .refreshable {
-            await viewStore.send(.didRefresh, while: \.isLoading)
+            await store
+                .send(.didRefresh)
+                .finish()
         }
         .padding(.horizontal, 24)
         .background(.gray100)
         .didLoad {
-            await viewStore
+            await store
                 .send(._onTask)
                 .finish()
         }
         .onChange(of: scenePhase) {
             guard $1 == .active else { return }
-            viewStore.send(._didActiveScene)
+            store.send(._didActiveScene)
         }
     }
 }

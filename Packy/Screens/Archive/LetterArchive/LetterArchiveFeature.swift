@@ -11,6 +11,7 @@ import ComposableArchitecture
 @Reducer
 struct LetterArchiveFeature: Reducer {
 
+    @ObservableState
     struct State: Equatable {
         fileprivate var letterArchivePageData: [LetterArchivePageData] = []
         var isLastPage: Bool {
@@ -18,7 +19,7 @@ struct LetterArchiveFeature: Reducer {
         }
 
         var letters: IdentifiedArrayOf<LetterArchiveData> = []
-        @BindingState var selectedLetter: LetterArchiveData?
+        var selectedLetter: LetterArchiveData?
 
         var isLoading: Bool = true
     }

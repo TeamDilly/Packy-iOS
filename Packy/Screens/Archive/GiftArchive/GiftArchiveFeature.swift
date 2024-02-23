@@ -11,6 +11,7 @@ import ComposableArchitecture
 @Reducer
 struct GiftArchiveFeature: Reducer {
 
+    @ObservableState
     struct State: Equatable {
         fileprivate var giftArchivePageData: [GiftArchivePageData] = []
         var isLastPage: Bool {
@@ -18,7 +19,7 @@ struct GiftArchiveFeature: Reducer {
         }
 
         var gifts: IdentifiedArrayOf<GiftArchiveData> = []
-        @BindingState var selectedGift: GiftArchiveData?
+        var selectedGift: GiftArchiveData?
 
         var isLoading: Bool = true
     }

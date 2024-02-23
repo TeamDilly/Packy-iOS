@@ -11,6 +11,7 @@ import ComposableArchitecture
 @Reducer
 struct MusicArchiveFeature: Reducer {
 
+    @ObservableState
     struct State: Equatable {
         fileprivate var musicArchivePageData: [MusicArchivePageData] = []
         var isLastPage: Bool {
@@ -18,7 +19,7 @@ struct MusicArchiveFeature: Reducer {
         }
 
         var musics: IdentifiedArrayOf<MusicArchiveData> = []
-        @BindingState var selectedMusic: MusicArchiveData?
+        var selectedMusic: MusicArchiveData?
 
         var isLoading: Bool = true
     }

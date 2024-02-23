@@ -11,6 +11,7 @@ import ComposableArchitecture
 @Reducer
 struct PhotoArchiveFeature: Reducer {
 
+    @ObservableState
     struct State: Equatable {
         fileprivate var photoArchivePageData: [PhotoArchivePageData] = []
         var isLastPage: Bool {
@@ -18,7 +19,7 @@ struct PhotoArchiveFeature: Reducer {
         }
 
         var photos: IdentifiedArrayOf<PhotoArchiveData> = []
-        @BindingState var selectedPhoto: PhotoArchiveData?
+        var selectedPhoto: PhotoArchiveData?
 
         var isLoading: Bool = true
     }
