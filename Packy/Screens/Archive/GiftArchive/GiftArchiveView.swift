@@ -31,7 +31,8 @@ struct GiftArchiveView: View {
             } else {
                 StaggeredGrid(columns: 2, data: viewStore.gifts.elements) { gift in
                     GiftCell(imageUrl: gift.gift.url)
-                        .bouncyTapGesture {
+                        .onTapGesture {
+                            HapticManager.shared.fireFeedback(.soft)
                             viewStore.send(.giftTapped(gift))
                         }
                         .onAppear {

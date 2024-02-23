@@ -14,8 +14,6 @@
 		E5001F912B5BE44D004B65E6 /* UploadEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5001F902B5BE44D004B65E6 /* UploadEndpoint.swift */; };
 		E5001F932B5BE5DD004B65E6 /* PreSignedUrlResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5001F922B5BE5DD004B65E6 /* PreSignedUrlResponse.swift */; };
 		E5001F962B5BEAF6004B65E6 /* URL+Trimming.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5001F952B5BEAF6004B65E6 /* URL+Trimming.swift */; };
-		E50CC57C2B881310000FF8A4 /* MainTabView+ArchiveOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50CC57B2B881310000FF8A4 /* MainTabView+ArchiveOverlay.swift */; };
-		E50CC57E2B88144E000FF8A4 /* DimmedOverlayModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50CC57D2B88144E000FF8A4 /* DimmedOverlayModifier.swift */; };
 		E52037D12B63F97900721F76 /* NetworkImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52037D02B63F97900721F76 /* NetworkImage.swift */; };
 		E52037D52B641FF900721F76 /* AddPhotoFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52037D42B641FF900721F76 /* AddPhotoFeature.swift */; };
 		E52037D72B64203E00721F76 /* SelectMusicFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52037D62B64203E00721F76 /* SelectMusicFeature.swift */; };
@@ -295,8 +293,6 @@
 		E5001F902B5BE44D004B65E6 /* UploadEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadEndpoint.swift; sourceTree = "<group>"; };
 		E5001F922B5BE5DD004B65E6 /* PreSignedUrlResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreSignedUrlResponse.swift; sourceTree = "<group>"; };
 		E5001F952B5BEAF6004B65E6 /* URL+Trimming.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+Trimming.swift"; sourceTree = "<group>"; };
-		E50CC57B2B881310000FF8A4 /* MainTabView+ArchiveOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MainTabView+ArchiveOverlay.swift"; sourceTree = "<group>"; };
-		E50CC57D2B88144E000FF8A4 /* DimmedOverlayModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DimmedOverlayModifier.swift; sourceTree = "<group>"; };
 		E52037D02B63F97900721F76 /* NetworkImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkImage.swift; sourceTree = "<group>"; };
 		E52037D42B641FF900721F76 /* AddPhotoFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPhotoFeature.swift; sourceTree = "<group>"; };
 		E52037D62B64203E00721F76 /* SelectMusicFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectMusicFeature.swift; sourceTree = "<group>"; };
@@ -605,14 +601,6 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
-		E50CC57A2B881300000FF8A4 /* ArchiveOverlay */ = {
-			isa = PBXGroup;
-			children = (
-				E50CC57B2B881310000FF8A4 /* MainTabView+ArchiveOverlay.swift */,
-			);
-			path = ArchiveOverlay;
-			sourceTree = "<group>";
-		};
 		E52037D22B641EE700721F76 /* Features */ = {
 			isa = PBXGroup;
 			children = (
@@ -789,7 +777,6 @@
 		E579483C2B80CC820058C733 /* MainTab */ = {
 			isa = PBXGroup;
 			children = (
-				E50CC57A2B881300000FF8A4 /* ArchiveOverlay */,
 				E5993D5E2B877B8D00F4C76C /* Popup */,
 				E579483D2B80CD310058C733 /* MainTabFeature+Navigation.swift */,
 				E579483E2B80CD310058C733 /* MainTabView.swift */,
@@ -1034,14 +1021,13 @@
 				E5001F882B5BC09A004B65E6 /* AlertButtonTint.swift */,
 				E5A7A9D52B57F81400590EA6 /* BottomSheetModifier.swift */,
 				E5A7A9D62B57F81400590EA6 /* BouncyButtonStyle.swift */,
-				E5A59BEB2B729B0200D120CF /* BouncyTapGesture.swift */,
 				E58048C82B5C36DD00B974B3 /* CornerRadiusWithBorderModifier.swift */,
-				E5C8557D2B8246890076A211 /* DimmedFullScreenModifier.swift */,
-				E50CC57D2B88144E000FF8A4 /* DimmedOverlayModifier.swift */,
 				E5A416A12B5D076C00313E5A /* PopGestureDisableModifier.swift */,
 				E5C5C9DA2B71314F003F0AB9 /* ShakeAnimationModifier.swift */,
 				E5A7A9D72B57F81400590EA6 /* SpinningModifier.swift */,
+				E5A59BEB2B729B0200D120CF /* BouncyTapGesture.swift */,
 				E57948702B82033C0058C733 /* ViewDidLoadModifier.swift */,
+				E5C8557D2B8246890076A211 /* DimmedFullScreenModifier.swift */,
 			);
 			path = ViewModifiers;
 			sourceTree = "<group>";
@@ -1748,14 +1734,12 @@
 				E539378C2B67B44F000F3A86 /* StickerElementView.swift in Sources */,
 				E5E06B3A2B654DA200F6FD01 /* SendingSticker.swift in Sources */,
 				E5A7AA5C2B57F81400590EA6 /* IntroFeature.swift in Sources */,
-				E50CC57C2B881310000FF8A4 /* MainTabView+ArchiveOverlay.swift in Sources */,
 				E53937882B67B42D000F3A86 /* LetterElementView.swift in Sources */,
 				E54484E92B6E84E9003DFA1B /* BoxOpenErrorView.swift in Sources */,
 				E5A7AA6E2B57F81400590EA6 /* ATTManager.swift in Sources */,
 				E54485072B6F86BC003DFA1B /* AppConstants.swift in Sources */,
 				E54485172B6F9116003DFA1B /* DeleteAccountFeature.swift in Sources */,
 				E52B954D2B80BCB100DB27FC /* BottomMenuModifier.swift in Sources */,
-				E50CC57E2B88144E000FF8A4 /* DimmedOverlayModifier.swift in Sources */,
 				E5C8557E2B8246890076A211 /* DimmedFullScreenModifier.swift in Sources */,
 				E579485B2B81EB640058C733 /* MusicArchiveView.swift in Sources */,
 				E5A7AA452B57F81400590EA6 /* PhotoElementInputView.swift in Sources */,

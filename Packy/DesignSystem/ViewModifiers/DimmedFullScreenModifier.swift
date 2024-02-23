@@ -39,13 +39,9 @@ struct DimmedFullScreenModifier<ScreenContent: View>: ViewModifier {
                             // 배경 탭 가능 영역
                             Color.black.opacity(0.6)
                                 .edgesIgnoringSafeArea(.all)
-                                .contentShape(Rectangle())
                                 .onTapGesture {
                                     isPresented = false
-                                    isFullScreenPresented = false
-                                    print("Background Tapped!")
                                 }
-                                .zIndex(0)
 
                             // 실제 컨텐츠
                             screenContent
@@ -65,8 +61,8 @@ struct DimmedFullScreenModifier<ScreenContent: View>: ViewModifier {
                 }
                 .presentationBackground(.clear)
             }
-            // .transaction { transaction in
-            //     transaction.disablesAnimations = true
-            // }
+            .transaction { transaction in
+                transaction.disablesAnimations = true
+            }
     }
 }

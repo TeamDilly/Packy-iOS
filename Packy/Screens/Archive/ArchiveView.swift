@@ -45,6 +45,18 @@ struct ArchiveView: View {
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
         }
+        .dimmedFullScreenCover(isPresented: photoPresentBinding) {
+            photoOverlayView
+        }
+        .dimmedFullScreenCover(isPresented: letterPresentBinding) {
+            letterOverlayView
+        }
+        .dimmedFullScreenCover(isPresented: musicPresentBinding) {
+            musicOverlayView
+        }
+        .dimmedFullScreenCover(isPresented: giftPresentBinding) {
+            giftOverlayView
+        }
         .frame(maxHeight: .infinity, alignment: .top)
         .background(.gray100)
         .task {
@@ -90,6 +102,93 @@ private extension ArchiveView {
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding(.horizontal, 24)
+    }
+
+    @ViewBuilder
+    var photoOverlayView: some View {
+        if let photo = viewStore.photoArchive.selectedPhoto {
+            BoxDetailPhotoView(
+                imageUrl: photo.photoUrl,
+                text: photo.description
+            )
+        }
+    }
+
+    @ViewBuilder
+    var letterOverlayView: some View {
+        if let letter = viewStore.letterArchive.selectedLetter {
+            BoxDetailLetterView(
+                text: letter.letterContent,
+                borderColor: Color(hexString: letter.envelope.borderColorCode)
+            )
+            .padding(.horizontal, 24)
+        }
+    }
+
+    @ViewBuilder
+    var musicOverlayView: some View {
+        if let music = viewStore.musicArchive.selectedMusic {
+            MusicPlayerView(youtubeUrl: music.youtubeUrl)
+                .aspectRatio(16 / 9, contentMode: .fit)
+                .clipShape(RoundedRectangle(cornerRadius: 16))
+                .padding(.horizontal, 24)
+        }
+    }
+
+    @ViewBuilder
+    var giftOverlayView: some View {
+        if let gift = viewStore.giftArchive.selectedGift {
+            ImageViewer {
+                NetworkImage(url: gift.gift.url, contentMode: .fit)
+            } dismissedImage: {
+                giftPresentBinding.wrappedValue = false
+            }
+            .padding(50)
+        }
+    }
+}
+
+// MARK: - Inner Properties
+
+private extension ArchiveView {
+    var photoPresentBinding: Binding<Bool> {
+        .init(
+            get: { viewStore.photoArchive.selectedPhoto != nil },
+            set: {
+                guard $0 == false else { return }
+                viewStore.send(.binding(.set(\.photoArchive.$selectedPhoto, nil)))
+            }
+        )
+    }
+
+    var letterPresentBinding: Binding<Bool> {
+        .init(
+            get: { viewStore.letterArchive.selectedLetter != nil },
+            set: {
+                guard $0 == false else { return }
+                viewStore.send(.binding(.set(\.letterArchive.$selectedLetter, nil)))
+            }
+        )
+    }
+
+    var musicPresentBinding: Binding<Bool> {
+        .init(
+            get: { viewStore.musicArchive.selectedMusic != nil },
+            set: {
+                guard $0 == false else { return }
+                viewStore.send(.binding(.set(\.musicArchive.$selectedMusic, nil)))
+            }
+        )
+    }
+
+    var giftPresentBinding: Binding<Bool> {
+        .init(
+            get: { viewStore.giftArchive.selectedGift != nil },
+            set: {
+                guard $0 == false else { return }
+                viewStore.send(.binding(.set(\.giftArchive.$selectedGift, nil)))
+            }
+        )
     }
 }
 

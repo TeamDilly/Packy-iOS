@@ -32,7 +32,8 @@ struct PhotoArchiveView: View {
             } else {
                 StaggeredGrid(columns: columns, data: viewStore.photos.elements) { photo in
                     PhotoCell(photoUrl: photo.photoUrl)
-                        .bouncyTapGesture {
+                        .onTapGesture {
+                            HapticManager.shared.fireFeedback(.soft)
                             viewStore.send(.photoTapped(photo))
                         }
                         .onAppear {
