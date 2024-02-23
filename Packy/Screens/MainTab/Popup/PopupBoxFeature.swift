@@ -78,13 +78,11 @@ private extension PopupGiftBoxFeature {
         .run { send in
             do {
                 try await clock.sleep(for: .seconds(1))
-                // TODO: 수정
                 guard let popupBox = try await boxClient.fetchPopupGiftBox(.main) else {
                     print("🎁 보여줄 팝업 박스가 존재하지 않습니다.")
                     return
                 }
                 await send(._setPopupGiftBox(popupBox))
-                // await send(._setPopupGiftBox(.mock))
             } catch {
                 print("🐛 \(error)")
             }

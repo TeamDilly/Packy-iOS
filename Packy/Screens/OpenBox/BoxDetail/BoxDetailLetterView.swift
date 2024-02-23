@@ -21,8 +21,8 @@ struct BoxDetailLetterView: View {
                     .multilineTextAlignment(.center)
                     .zIndex(1)
                     .padding(20)
-                    .frame(width: width)
                     .frame(minHeight: height)
+                    .frame(maxWidth: .infinity)
             }
             .scrollIndicators(.hidden)
             .frame(width: width, height: height - 20)

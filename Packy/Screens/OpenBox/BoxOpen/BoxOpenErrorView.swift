@@ -41,7 +41,7 @@ struct BoxOpenErrorView: View {
                 }
                 .padding(.bottom, 8)
 
-                // TODO: 문의하기 기능 구현
+                // TODO: 차후 문의하기 기능 구현
                 // NavigationLink("문의하기", state: MainTabNavigationPath.State.webContent(.init(urlString: <#T##String#>, navigationTitle: <#T##String#>)))
                 //     .buttonStyle(TextButtonStyle())
                 //     .padding(.bottom, 20)
