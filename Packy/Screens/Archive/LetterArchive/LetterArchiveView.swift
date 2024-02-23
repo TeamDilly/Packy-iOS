@@ -32,6 +32,7 @@ struct LetterArchiveView: View {
                         imageUrl: letter.envelope.imageUrl,
                         text: letter.letterContent
                     )
+                    .contentShape(Rectangle())
                     .onTapGesture {
                         HapticManager.shared.fireFeedback(.soft)
                         store.send(.letterTapped(letter))
@@ -59,7 +60,7 @@ struct LetterArchiveView: View {
         }
         .padding(.horizontal, 24)
         .background(.gray100)
-        .didLoad {
+        .task {
             await store
                 .send(._onTask)
                 .finish()

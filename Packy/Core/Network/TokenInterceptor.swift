@@ -43,6 +43,7 @@ final class TokenInterceptor: RequestInterceptor {
 
         guard let accessToken = keychain.read(.accessToken),
               let refreshToken = keychain.read(.refreshToken) else {
+            deleteAllToken()
             completion(.doNotRetryWithError(error))
             return
         }
@@ -54,6 +55,7 @@ final class TokenInterceptor: RequestInterceptor {
 
                 guard let accessToken = tokenResponse.accessToken,
                       let refreshToken = tokenResponse.refreshToken else {
+                    deleteAllToken()
                     completion(.doNotRetryWithError(error))
                     return
                 }
@@ -63,9 +65,14 @@ final class TokenInterceptor: RequestInterceptor {
 
                 completion(.retryWithDelay(1))
             } catch {
+                deleteAllToken()
                 completion(.doNotRetryWithError(error))
             }
         }
     }
 
+    private func deleteAllToken() {
+        keychain.delete(.accessToken)
+        keychain.delete(.refreshToken)
+    }
 }

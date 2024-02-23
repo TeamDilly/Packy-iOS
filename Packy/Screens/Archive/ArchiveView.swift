@@ -91,7 +91,7 @@ private extension ArchiveView {
                     .onTapGesture {
                         store.send(
                             .binding(.set(\.selectedTab, tab)),
-                            animation: .spring
+                            animation: .spring(duration: 0.4)
                         )
                     }
             }

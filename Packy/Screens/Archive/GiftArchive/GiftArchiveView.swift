@@ -29,6 +29,7 @@ struct GiftArchiveView: View {
             } else {
                 StaggeredGrid(columns: 2, data: store.gifts.elements) { gift in
                     GiftCell(imageUrl: gift.gift.url)
+                        .contentShape(Rectangle())
                         .onTapGesture {
                             HapticManager.shared.fireFeedback(.soft)
                             store.send(.giftTapped(gift))
@@ -56,7 +57,7 @@ struct GiftArchiveView: View {
                 .send(.didRefresh)
                 .finish()
         }
-        .didLoad {
+        .task {
             await store
                 .send(._onTask)
                 .finish()

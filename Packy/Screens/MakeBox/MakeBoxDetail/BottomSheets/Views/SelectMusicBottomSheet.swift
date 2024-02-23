@@ -160,7 +160,7 @@ private extension SelectMusicBottomSheet {
 
                             HStack(spacing: 6) {
                                 ForEach(music.hashtags, id: \.self) { hashtag in
-                                    Text(hashtag)
+                                    Text("#\(hashtag)")
                                         .packyFont(.body4)
                                         .foregroundStyle(.purple500)
                                         .padding(.bottom, 20)

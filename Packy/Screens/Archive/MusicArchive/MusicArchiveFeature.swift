@@ -50,7 +50,6 @@ struct MusicArchiveFeature: Reducer {
                 return .none
 
             case ._onTask:
-                guard state.musicArchivePageData.isEmpty else { return .none }
                 return fetchMusics(lastMusicId: nil)
 
             case .didRefresh, ._didActiveScene:

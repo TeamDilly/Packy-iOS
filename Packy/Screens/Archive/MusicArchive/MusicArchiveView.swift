@@ -29,6 +29,7 @@ struct MusicArchiveView: View {
             } else {
                 StaggeredGrid(columns: 2, data: store.musics.elements) { music in
                     MusicCell(youtubeUrl: music.youtubeUrl)
+                        .contentShape(Rectangle())
                         .onTapGesture {
                             HapticManager.shared.fireFeedback(.soft)
                             store.send(.musicTapped(music))
@@ -57,7 +58,7 @@ struct MusicArchiveView: View {
                 .send(.didRefresh)
                 .finish()
         }
-        .didLoad {
+        .task {
             await store
                 .send(._onTask)
                 .finish()
