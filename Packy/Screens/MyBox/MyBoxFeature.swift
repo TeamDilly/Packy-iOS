@@ -115,7 +115,7 @@ struct MyBoxFeature: Reducer {
                             cancel: "취소",
                             confirm: "삭제",
                             confirmAction: {
-                                await send(._deleteBox(selectedBoxIdToDelete))
+                                await send(._deleteBox(selectedBoxIdToDelete), animation: .spring)
                             }
                         )
                     )
@@ -125,7 +125,7 @@ struct MyBoxFeature: Reducer {
                 return .run { send in
                     do {
                         try await boxClient.deleteGiftBox(boxId)
-                        await send(._setDeletedBox(boxId))
+                        await send(._setDeletedBox(boxId), animation: .spring)
                     } catch {
                         print("🐛 \(error)")
                     }
@@ -227,7 +227,7 @@ private extension MyBoxFeature {
         .run { send in
             do {
                 let unsentBoxes = try await boxClient.fetchUnsentBoxes()
-                await send(._setUnsentBoxes(unsentBoxes))
+                await send(._setUnsentBoxes(unsentBoxes), animation: .spring)
             } catch {
                 print("🐛 \(error)")
             }

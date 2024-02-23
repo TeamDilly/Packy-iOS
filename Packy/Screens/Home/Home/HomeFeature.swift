@@ -125,7 +125,7 @@ struct HomeFeature: Reducer {
                 return .run { send in
                     do {
                         try await boxClient.deleteGiftBox(boxId)
-                        await send(._setDeletedBox(boxId))
+                        await send(._setDeletedBox(boxId), animation: .spring)
                     } catch {
                         print("🐛 \(error)")
                     }
@@ -164,7 +164,7 @@ private extension HomeFeature {
         .run { send in
             do {
                 let giftBoxesData = try await boxClient.fetchGiftBoxes(.init())
-                await send(._setGiftBoxes(giftBoxesData.giftBoxes))
+                await send(._setGiftBoxes(giftBoxesData.giftBoxes), animation: .spring)
             } catch {
                 print("🐛 \(error)")
             }
@@ -175,7 +175,7 @@ private extension HomeFeature {
         .run { send in
             do {
                 let unsentBoxes = try await boxClient.fetchUnsentBoxes()
-                await send(._setUnsentBoxes(unsentBoxes))
+                await send(._setUnsentBoxes(unsentBoxes), animation: .spring)
             } catch {
                 print("🐛 \(error)")
             }
