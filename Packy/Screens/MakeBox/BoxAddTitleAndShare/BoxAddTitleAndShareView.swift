@@ -11,7 +11,7 @@ import ComposableArchitecture
 // MARK: - View
 
 struct BoxAddTitleAndShareView: View {
-    private let store: StoreOf<BoxAddTitleAndShareFeature>
+    @Bindable private var store: StoreOf<BoxAddTitleAndShareFeature>
     @FocusState private var isFocused: Bool
 
     init(store: StoreOf<BoxAddTitleAndShareFeature>) {
@@ -65,9 +65,9 @@ private extension BoxAddTitleAndShareView {
             .padding(.top, 8)
             .multilineTextAlignment(.center)
 
-        PackyTextField(text: store.$boxNameInput, placeholder: "12자 이내로 입력해주세요")
+        PackyTextField(text: $store.boxNameInput, placeholder: "12자 이내로 입력해주세요")
             .focused($isFocused)
-            .limitTextLength(text: store.$boxNameInput, length: 12)
+            .limitTextLength(text: $store.boxNameInput, length: 12)
             .padding(.horizontal, 24)
             .padding(.top, 40)
 
@@ -92,7 +92,7 @@ private extension BoxAddTitleAndShareView {
 #Preview {
     BoxAddTitleAndShareView(
         store: .init(
-            initialState: .init(giftBoxData: .mock, boxDesign: .mock, boxNameInput: "hello"),
+            initialState: .init(giftBoxData: .mock, boxDesign: .mock),
             reducer: {
                 BoxAddTitleAndShareFeature()
                     ._printChanges()

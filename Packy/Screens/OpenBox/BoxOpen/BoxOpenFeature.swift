@@ -17,6 +17,7 @@ struct BoxOpenFeature: Reducer {
         case openError
     }
 
+    @ObservableState
     struct State: Equatable {
         let boxId: Int
         var showingState: ShowingState = .openBox

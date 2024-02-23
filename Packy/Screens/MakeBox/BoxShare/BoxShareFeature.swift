@@ -27,10 +27,9 @@ struct BoxShareFeature: Reducer {
         var showCompleteAnimation: Bool
         var didSendToKakao: Bool = false
 
-        init(data: BoxShareData, showCompleteAnimation: Bool, didSendToKakao: Bool) {
+        init(data: BoxShareData, showCompleteAnimation: Bool) {
             self.data = data
             self.showCompleteAnimation = showCompleteAnimation
-            self.didSendToKakao = didSendToKakao
         }
 
         subscript<T>(dynamicMember keyPath: KeyPath<BoxShareData, T>) -> T {

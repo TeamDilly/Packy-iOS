@@ -11,13 +11,11 @@ import ComposableArchitecture
 // MARK: - View
 
 struct MyBoxView: View {
-    private let store: StoreOf<MyBoxFeature>
-    @ObservedObject private var viewStore: ViewStoreOf<MyBoxFeature>
+    @Bindable private var store: StoreOf<MyBoxFeature>
     @Environment(\.scenePhase) private var scenePhase
 
     init(store: StoreOf<MyBoxFeature>) {
         self.store = store
-        self.viewStore = ViewStore(store, observe: { $0 })
     }
 
     enum ThrottleId: String {
@@ -30,33 +28,33 @@ struct MyBoxView: View {
                 .padding(.top, 16)
                 .padding(.bottom, 32)
 
-            if !viewStore.unsentBoxes.isEmpty {
+            if !store.unsentBoxes.isEmpty {
                 unsentBoxesCarousel
                     .padding(.bottom, 12)
             }
 
             TabSegmentedControl(
-                selectedTab: viewStore.$selectedTab,
+                selectedTab: $store.selectedTab,
                 selections: MyBoxTab.allCases
             )
 
             boxGridTabView
-                .animation(.spring, value: viewStore.selectedTab)
+                .animation(.spring, value: store.selectedTab)
                 .background(.gray100)
                 .safeAreaPadding(.bottom, 30)
                 .frame(maxHeight: .infinity)
         }
-        .showLoading(viewStore.isShowDetailLoading)
+        .showLoading(store.isShowDetailLoading)
         .navigationBarBackButtonHidden(true)
         .ignoresSafeArea(edges: .bottom)
         .didLoad {
-            await viewStore
+            await store
                 .send(._onTask)
                 .finish()
         }
         .onChange(of: scenePhase) {
             guard $1 == .active else { return }
-            viewStore.send(._didActiveScene)
+            store.send(._didActiveScene)
         }
     }
 }
@@ -84,18 +82,18 @@ private extension MyBoxView {
 
             ScrollView(.horizontal) {
                 HStack(spacing: 16) {
-                    ForEach(viewStore.unsentBoxes) { unsentBox in
+                    ForEach(store.unsentBoxes) { unsentBox in
                         UnsentBoxCell(
                             boxImageUrl: unsentBox.imageUrl,
                             receiver: unsentBox.receiverName,
                             title: unsentBox.name,
                             generatedDate: unsentBox.date,
                             menuAction: {
-                                viewStore.send(.binding(.set(\.$selectedBoxIdToDelete, unsentBox.id)))
+                                store.send(.binding(.set(\.selectedBoxIdToDelete, unsentBox.id)))
                             }
                         )
                         .bouncyTapGesture {
-                            viewStore.send(.tappedGiftBox(boxId: unsentBox.id, isUnsent: true))
+                            store.send(.tappedGiftBox(boxId: unsentBox.id, isUnsent: true))
                         }
                         .padding(16)
                         .background(.gray100)
@@ -113,7 +111,7 @@ private extension MyBoxView {
     }
 
     var boxGridTabView: some View {
-        TabView(selection: viewStore.$selectedTab) {
+        TabView(selection: $store.selectedTab) {
             boxGridView(.sentBox)
                 .tag(MyBoxTab.sentBox)
 
@@ -129,7 +127,7 @@ private extension MyBoxView {
         let columns = [GridItem(spacing: 16), GridItem(spacing: 16)]
         let giftBoxes = giftBoxes(for: tab)
 
-        if viewStore.isFetchBoxesLoading {
+        if store.isFetchBoxesLoading {
             PackyProgress()
         } else if giftBoxes.isEmpty {
             switch tab {
@@ -149,12 +147,12 @@ private extension MyBoxView {
                             boxTitle: giftBox.name,
                             date: giftBox.giftBoxDate,
                             menuAction: {
-                                viewStore.send(.binding(.set(\.$selectedBoxIdToDelete, giftBox.id)))
+                                store.send(.binding(.set(\.selectedBoxIdToDelete, giftBox.id)))
                             }
                         )
                         .bouncyTapGesture {
                             throttle(identifier: ThrottleId.moveToBoxDetail.rawValue) {
-                                viewStore.send(.tappedGiftBox(boxId: giftBox.id, isUnsent: false))
+                                store.send(.tappedGiftBox(boxId: giftBox.id, isUnsent: false))
                             }
                         }
                         .onAppear {
@@ -167,9 +165,9 @@ private extension MyBoxView {
 
                             switch tab {
                             case .sentBox:
-                                viewStore.send(._fetchMoreSentGiftBoxes)
+                                store.send(._fetchMoreSentGiftBoxes)
                             case .receivedBox:
-                                viewStore.send(._fetchMoreReceivedGiftBoxes)
+                                store.send(._fetchMoreReceivedGiftBoxes)
                             }
                         }
                     }
@@ -275,15 +273,15 @@ private struct MyBoxInfoCell: View {
 private extension MyBoxView {
     func giftBoxes(for tab: MyBoxTab) -> [SentReceivedGiftBox] {
         switch tab {
-        case .sentBox:      return viewStore.sentBoxes.elements
-        case .receivedBox:  return viewStore.receivedBoxes.elements
+        case .sentBox:      return store.sentBoxes.elements
+        case .receivedBox:  return store.receivedBoxes.elements
         }
     }
 
     func isLastPage(for tab: MyBoxTab) -> Bool {
         switch tab {
-        case .sentBox:      return viewStore.isSentBoxesLastPage
-        case .receivedBox:  return viewStore.isReceivedBoxesLastPage
+        case .sentBox:      return store.isSentBoxesLastPage
+        case .receivedBox:  return store.isReceivedBoxesLastPage
         }
     }
 }

@@ -18,12 +18,13 @@ struct BoxDetailFeature: Reducer {
         case letter
     }
 
+    @ObservableState
     @dynamicMemberLookup
     struct State: Equatable {
         let boxId: Int
         let giftBox: ReceivedGiftBox
         let isToSend: Bool
-        @BindingState var presentingState: PresentingState = .detail
+        var presentingState: PresentingState = .detail
 
         subscript<T>(dynamicMember keyPath: KeyPath<ReceivedGiftBox, T>) -> T {
             giftBox[keyPath: keyPath]

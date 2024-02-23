@@ -13,7 +13,6 @@ import Kingfisher
 
 struct BoxDetailView: View {
     private let store: StoreOf<BoxDetailFeature>
-    @ObservedObject private var viewStore: ViewStoreOf<BoxDetailFeature>
 
     @Namespace private var mainPage
     @Namespace private var giftPage
@@ -24,7 +23,6 @@ struct BoxDetailView: View {
 
     init(store: StoreOf<BoxDetailFeature>) {
         self.store = store
-        self.viewStore = ViewStore(store, observe: { $0 })
     }
 
     var body: some View {
@@ -43,7 +41,7 @@ struct BoxDetailView: View {
                 ZStack(alignment: .topTrailing) {
 
                     if isBoxPartPresented {
-                        KFImage(URL(string: viewStore.box.boxTopUrl))
+                        KFImage(URL(string: store.box.boxTopUrl))
                             .resizable()
                             .scaledToFit()
                         .frame(width: screenWidth * 0.7)
@@ -54,7 +52,7 @@ struct BoxDetailView: View {
                     }
 
                     navigationBar
-                        .blur(radius: viewStore.presentingState != .detail ? 3 : 0)
+                        .blur(radius: store.presentingState != .detail ? 3 : 0)
                         .zIndex(2)
 
                     GeometryReader { proxy in
@@ -64,7 +62,7 @@ struct BoxDetailView: View {
                                     .id(mainPage)
                                     .frame(height: proxy.size.height)
 
-                                if viewStore.gift != nil {
+                                if store.gift != nil {
                                     giftPageView
                                         .id(giftPage)
                                         .frame(height: proxy.size.height)
@@ -77,7 +75,7 @@ struct BoxDetailView: View {
                                 self.scrollProxy = scrollProxy
                             }
                         }
-                        .blur(radius: viewStore.presentingState != .detail ? 3 : 0)
+                        .blur(radius: store.presentingState != .detail ? 3 : 0)
                     }
                 }
                 .animation(.spring, value: isOnNextPage)
@@ -85,14 +83,14 @@ struct BoxDetailView: View {
         }
         .navigationBarBackButtonHidden()
         .background(.gray900)
-        .animation(.easeInOut, value: viewStore.presentingState)
+        .animation(.easeInOut, value: store.presentingState)
         .onAppear {
             withAnimation(.spring) {
                 isBoxPartPresented = true
             }
         }
         .task {
-            await viewStore
+            await store
                 .send(._onTask)
                 .finish()
         }
@@ -111,35 +109,35 @@ struct BoxDetailView: View {
 private extension BoxDetailView {
     var overlayBackground: some View {
         Color.black
-            .opacity(viewStore.presentingState == .detail ? 0 : 0.6)
+            .opacity(store.presentingState == .detail ? 0 : 0.6)
             .ignoresSafeArea()
             .onTapGesture {
-                viewStore.send(.binding(.set(\.$presentingState, .detail)))
+                store.send(.binding(.set(\.presentingState, .detail)))
             }
     }
 
     @ViewBuilder
     var overlayPresentingViews: some View {
-        if let photo = viewStore.photos.first {
+        if let photo = store.photos.first {
             BoxDetailPhotoView(
                 imageUrl: photo.photoUrl,
                 text: photo.description
             )
-            .opacity(viewStore.presentingState == .photo ? 1 : 0)
+            .opacity(store.presentingState == .photo ? 1 : 0)
         }
 
         BoxDetailLetterView(
-            text: viewStore.letterContent,
-            borderColor: Color(hexString: viewStore.envelope.borderColorCode)
+            text: store.letterContent,
+            borderColor: Color(hexString: store.envelope.borderColorCode)
         )
         .padding(.horizontal, 24)
-        .opacity(viewStore.presentingState == .letter ? 1 : 0)
+        .opacity(store.presentingState == .letter ? 1 : 0)
         
-        if viewStore.presentingState == .gift {
+        if store.presentingState == .gift {
             ImageViewer {
-                NetworkImage(url: viewStore.gift?.url ?? "", contentMode: .fit)
+                NetworkImage(url: store.gift?.url ?? "", contentMode: .fit)
             } dismissedImage: {
-                viewStore.send(.binding(.set(\.$presentingState, .detail)))
+                store.send(.binding(.set(\.presentingState, .detail)))
             }
             .padding(30)
         }
@@ -150,7 +148,7 @@ private extension BoxDetailView {
             let screenWidth = proxy.size.width
             VStack(spacing: 0) {
                 ZStack {
-                    Text("From. \(viewStore.senderName)")
+                    Text("From. \(store.senderName)")
                         .packyFont(.body2)
                         .foregroundStyle(.white)
                         .frame(maxWidth: .infinity, alignment: .leading)
@@ -164,15 +162,15 @@ private extension BoxDetailView {
                 HStack {
                     // 추억 사진
                     PhotoElementView(
-                        photoUrl: viewStore.photos.first?.photoUrl ?? "",
+                        photoUrl: store.photos.first?.photoUrl ?? "",
                         screenWidth: screenWidth
                     ) {
-                        viewStore.send(.binding(.set(\.$presentingState, .photo)))
+                        store.send(.binding(.set(\.presentingState, .photo)))
                     }
 
                     Spacer()
 
-                    if let firstSticker = viewStore.stickers.first(where: { $0.location == 0 }) {
+                    if let firstSticker = store.stickers.first(where: { $0.location == 0 }) {
                         // 스티커1
                         StickerElementView(
                             stickerType: .sticker1,
@@ -188,7 +186,7 @@ private extension BoxDetailView {
                 .padding(.top, 36)
 
                 HStack {
-                    if let secondSticker = viewStore.stickers.first(where: { $0.location == 1 }) {
+                    if let secondSticker = store.stickers.first(where: { $0.location == 1 }) {
                         // 스티커 2
                         StickerElementView(
                             stickerType: .sticker2,
@@ -202,11 +200,11 @@ private extension BoxDetailView {
 
                     // 편지
                     LetterElementView(
-                        lettetContent: viewStore.letterContent,
-                        letterImageUrl: viewStore.envelope.imageUrl,
+                        lettetContent: store.letterContent,
+                        letterImageUrl: store.envelope.imageUrl,
                         screenWidth: screenWidth
                     ) {
-                        viewStore.send(.binding(.set(\.$presentingState, .letter)))
+                        store.send(.binding(.set(\.presentingState, .letter)))
                     }
                 }
                 .padding(.leading, 36)
@@ -215,7 +213,7 @@ private extension BoxDetailView {
 
                 // 음악
                 MusicElementView(
-                    youtubeUrl: viewStore.youtubeUrl,
+                    youtubeUrl: store.youtubeUrl,
                     screenWidth: screenWidth
                 )
                 .padding(.horizontal, 32)
@@ -224,7 +222,7 @@ private extension BoxDetailView {
 
                 Spacer()
 
-                if !isOnNextPage, viewStore.gift != nil {
+                if !isOnNextPage, store.gift != nil {
                     Button {
                         withAnimation(.spring) {
                             scrollProxy.scrollTo(giftPage, anchor: .top)
@@ -254,14 +252,14 @@ private extension BoxDetailView {
                 .foregroundStyle(.gray950)
                 .scaledToFit()
                 .overlay {
-                    NetworkImage(url: viewStore.gift?.url ?? "", cropAlignment: .top)
+                    NetworkImage(url: store.gift?.url ?? "", cropAlignment: .top)
                         .aspectRatio(1, contentMode: .fit)
                         .padding(20)
                 }
                 .padding(35)
                 .overlay(alignment: .bottom) {
                     Button{
-                        viewStore.send(.binding(.set(\.$presentingState, .gift)))
+                        store.send(.binding(.set(\.presentingState, .gift)))
                     } label: {
                         Text("이미지 전체보기")
                             .packyFont(.body6)
@@ -286,12 +284,12 @@ private extension BoxDetailView {
                         scrollProxy?.scrollTo(mainPage)
                     }
                 } else {
-                    viewStore.send(.navigationBarLeadingButtonTapped)
+                    store.send(.navigationBarLeadingButtonTapped)
                 }
             },
             trailingType: trailingNavigationButtonType,
             trailingAction: {
-                viewStore.send(.navigationBarTrailingButtonTapped)
+                store.send(.navigationBarTrailingButtonTapped)
             }
         )
         .animation(.easeInOut, value: isOnNextPage)
@@ -305,11 +303,11 @@ private extension BoxDetailView {
         guard !isOnNextPage else {
             return Image(.arrowDown)
         }
-        return viewStore.isToSend ? Image(.xmark) : Image(.arrowLeft)
+        return store.isToSend ? Image(.xmark) : Image(.arrowLeft)
     }
 
     var trailingNavigationButtonType: FloatingNavigationBar.TrailingButtonType {
-        if viewStore.isToSend {
+        if store.isToSend {
             return .text("보내기")
         }
         return .close

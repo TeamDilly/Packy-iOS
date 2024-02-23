@@ -12,32 +12,30 @@ import ComposableArchitecture
 
 struct BoxOpenView: View {
     private let store: StoreOf<BoxOpenFeature>
-    @ObservedObject private var viewStore: ViewStoreOf<BoxOpenFeature>
 
     init(store: StoreOf<BoxOpenFeature>) {
         self.store = store
-        self.viewStore = ViewStore(store, observe: { $0 })
     }
 
     var body: some View {
         VStack {
-            switch viewStore.showingState {
+            switch store.showingState {
             case .openBox:
-                if let giftBox = viewStore.giftBox {
+                if let giftBox = store.giftBox {
                     openBoxContent(giftBox)
                 }
             case .openMotion:
-                if let boxDesignId = viewStore.giftBox?.box.designId {
+                if let boxDesignId = store.giftBox?.box.designId {
                     BoxMotionView(motionType: .boxArrived(boxDesignId: boxDesignId))
                 }
 
             case .openError:
-                BoxOpenErrorView(viewStore: viewStore)
+                BoxOpenErrorView(store: store)
             }
         }
         .navigationBarBackButtonHidden()
         .task {
-            await viewStore
+            await store
                 .send(._onTask)
                 .finish()
         }
@@ -50,7 +48,7 @@ private extension BoxOpenView {
     func openBoxContent(_ giftBox: ReceivedGiftBox) -> some View {
         VStack(spacing: 0) {
             NavigationBar.onlyLeftCloseButton {
-                viewStore.send(.closeButtonTapped)
+                store.send(.closeButtonTapped)
             }
             Spacer()
 
@@ -80,7 +78,7 @@ private extension BoxOpenView {
                 .padding(.bottom, 20)
                 .bouncyTapGesture {
                     throttle(.seconds(3)) {
-                        viewStore.send(.openBoxButtonTapped, animation: .spring)
+                        store.send(.openBoxButtonTapped, animation: .spring)
                     }
                 }
 
@@ -89,7 +87,7 @@ private extension BoxOpenView {
 
             PackyButton(title: "열어보기", colorType: .black) {
                 throttle(.seconds(3)) {
-                    viewStore.send(.openBoxButtonTapped, animation: .spring)
+                    store.send(.openBoxButtonTapped, animation: .spring)
                 }
             }
             .padding(.horizontal, 24)
