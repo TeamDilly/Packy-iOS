@@ -11,6 +11,7 @@ import ComposableArchitecture
 @Reducer
 struct LoginFeature: Reducer {
 
+    @ObservableState
     struct State: Equatable {
         var socialLoginInfo: SocialLoginInfo?
     }

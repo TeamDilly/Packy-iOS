@@ -11,6 +11,7 @@ import ComposableArchitecture
 @Reducer
 struct TermsAgreementFeature: Reducer {
 
+    @ObservableState
     struct State: Equatable {
         let socialLoginInfo: SocialLoginInfo
         let nickName: String
@@ -32,7 +33,7 @@ struct TermsAgreementFeature: Reducer {
         var isATTAuthorized: Bool = false
         var isNotificationAllowed: Bool = false
 
-        @BindingState var isAllowNotificationBottomSheetPresented: Bool = false
+        var isAllowNotificationBottomSheetPresented: Bool = false
     }
 
     enum Action: BindableAction {
@@ -103,7 +104,7 @@ struct TermsAgreementFeature: Reducer {
             case .allowNotificationButtonTapped:
                 return .run { send in
                     let isGranted = try await userNotification.requestAuthorization([.alert, .badge, .sound])
-                    await send(.binding(.set(\.$isAllowNotificationBottomSheetPresented, false)))
+                    await send(.binding(.set(\.isAllowNotificationBottomSheetPresented, false)))
                     await send(._setNotificationAllowed(isGranted))
                     print("🔔 UserNotification isGranted: \(isGranted)")
 

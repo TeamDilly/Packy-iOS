@@ -11,6 +11,7 @@ import ComposableArchitecture
 
 @Reducer
 struct SignUpNavigationPath {
+    @ObservableState
     enum State: Equatable {
         case profile(SignUpProfileFeature.State)
         case termsAgreement(TermsAgreementFeature.State)

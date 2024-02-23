@@ -12,30 +12,28 @@ import ComposableArchitecture
 
 struct RootView: View {
     private let store: StoreOf<RootFeature>
-    @ObservedObject private var viewStore: ViewStoreOf<RootFeature>
 
     init(store: StoreOf<RootFeature>) {
         self.store = store
-        self.viewStore = ViewStore(store, observe: { $0 })
     }
 
     var body: some View {
-        SwitchStore(store) { state in
-            switch state {
+        Group {
+            switch store.state {
             case .intro:
-                CaseLet(\RootFeature.State.intro, action: RootFeature.Action.intro) { store in
+                if let store = store.scope(state: \.intro, action: \.intro) {
                     IntroView(store: store)
                 }
-
+                
             case .mainTab:
-                CaseLet(\RootFeature.State.mainTab, action: RootFeature.Action.mainTab) { store in
+                if let store = store.scope(state: \.mainTab, action: \.mainTab) {
                     MainTabView(store: store)
                 }
             }
         }
-        .animation(.spring, value: viewStore.state)
+        .animation(.spring, value: store.state)
         .task {
-            await viewStore
+            await store
                 .send(._onAppear)
                 .finish()
         }

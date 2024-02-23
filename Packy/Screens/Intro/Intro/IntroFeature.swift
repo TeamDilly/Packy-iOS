@@ -11,6 +11,7 @@ import ComposableArchitecture
 @Reducer
 struct IntroFeature: Reducer {
 
+    @ObservableState
     enum State: Equatable {
         case splash(SplashFeature.State = .init())
         case onboarding(OnboardingFeature.State = .init())

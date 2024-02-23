@@ -11,18 +11,16 @@ import ComposableArchitecture
 // MARK: - View
 
 struct SignUpProfileView: View {
-    private let store: StoreOf<SignUpProfileFeature>
-    @ObservedObject private var viewStore: ViewStoreOf<SignUpProfileFeature>
+    private var store: StoreOf<SignUpProfileFeature>
 
     init(store: StoreOf<SignUpProfileFeature>) {
         self.store = store
-        self.viewStore = ViewStore(store, observe: { $0 })
     }
 
     var body: some View {
         VStack(spacing: 0) {
             NavigationBar.onlyBackButton {
-                viewStore.send(.backButtonTapped)
+                store.send(.backButtonTapped)
             }
             .padding(.bottom, 8)
 
@@ -34,22 +32,22 @@ struct SignUpProfileView: View {
                 .padding(.horizontal, 24)
 
             VStack(spacing: 40) {
-                if let selectedImageUrl = viewStore.selectedProfileImage?.imageUrl {
+                if let selectedImageUrl = store.selectedProfileImage?.imageUrl {
                     NetworkImage(url: selectedImageUrl)
                         .frame(width: 160, height: 160)
                 }
 
                 HStack(spacing: 16) {
-                    ForEach(viewStore.profileImages, id: \.id) { profileImage in
+                    ForEach(store.profileImages, id: \.id) { profileImage in
                         NetworkImage(url: profileImage.imageUrl)
                             .frame(width: 60, height: 60)
                             .bouncyTapGesture {
-                                viewStore.send(.selectProfile(profileImage))
+                                store.send(.selectProfile(profileImage))
                             }
                     }
                 }
             }
-            .animation(.spring, value: viewStore.selectedProfileImage)
+            .animation(.spring, value: store.selectedProfileImage)
 
             Spacer()
 
@@ -57,9 +55,9 @@ struct SignUpProfileView: View {
                 title: "저장",
                 pathState: SignUpNavigationPath.State.termsAgreement(
                     .init(
-                        socialLoginInfo: viewStore.socialLoginInfo,
-                        nickName: viewStore.nickName,
-                        selectedProfileId: viewStore.selectedProfileImage?.id ?? 0
+                        socialLoginInfo: store.socialLoginInfo,
+                        nickName: store.nickName,
+                        selectedProfileId: store.selectedProfileImage?.id ?? 0
                     )
                 )
             )
@@ -68,7 +66,7 @@ struct SignUpProfileView: View {
         }
         .navigationBarBackButtonHidden(true)
         .task {
-            await viewStore
+            await store
                 .send(._onTask)
                 .finish()
         }

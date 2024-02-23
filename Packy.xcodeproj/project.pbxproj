@@ -1144,8 +1144,8 @@
 		E5A7A9FA2B57F81400590EA6 /* Root */ = {
 			isa = PBXGroup;
 			children = (
-				E5A7A9FB2B57F81400590EA6 /* RootView.swift */,
 				E5A7A9FC2B57F81400590EA6 /* RootFeature.swift */,
+				E5A7A9FB2B57F81400590EA6 /* RootView.swift */,
 			);
 			path = Root;
 			sourceTree = "<group>";

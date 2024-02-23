@@ -12,11 +12,9 @@ import ComposableArchitecture
 
 struct LoginView: View {
     private let store: StoreOf<LoginFeature>
-    @ObservedObject private var viewStore: ViewStoreOf<LoginFeature>
 
     init(store: StoreOf<LoginFeature>) {
         self.store = store
-        self.viewStore = ViewStore(store, observe: { $0 })
     }
 
     var body: some View {
@@ -33,11 +31,11 @@ struct LoginView: View {
 
             VStack(spacing: 8) {
                 SocialLoginButton(loginType: .kakao) {
-                    viewStore.send(.kakaoLoginButtonTapped)
+                    store.send(.kakaoLoginButtonTapped)
                 }
 
                 SocialLoginButton(loginType: .apple) {
-                    viewStore.send(.appleLoginButtonTapped)
+                    store.send(.appleLoginButtonTapped)
                 }
             }
             .padding(.horizontal, 24)

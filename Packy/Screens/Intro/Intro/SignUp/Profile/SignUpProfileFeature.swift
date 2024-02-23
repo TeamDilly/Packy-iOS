@@ -11,18 +11,17 @@ import ComposableArchitecture
 @Reducer
 struct SignUpProfileFeature: Reducer {
 
+    @ObservableState
     struct State: Equatable {
         let socialLoginInfo: SocialLoginInfo
         let nickName: String
 
-        @BindingState var textInput: String = ""
         var selectedProfileImage: ProfileImage?
         var profileImages: [ProfileImage] = []
     }
 
-    enum Action: BindableAction {
+    enum Action {
         // MARK: User Action
-        case binding(BindingAction<State>)
         case backButtonTapped
         case selectProfile(ProfileImage)
 
@@ -31,23 +30,16 @@ struct SignUpProfileFeature: Reducer {
 
         // MARK: Inner SetState Action
         case _setProfileImages([ProfileImage])
-
-        // MARK: Child Action
     }
 
     @Dependency(\.dismiss) var dismiss
     @Dependency(\.adminClient) var adminClient
 
     var body: some Reducer<State, Action> {
-        BindingReducer()
-
         Reduce<State, Action> { state, action in
             switch action {
             case ._onTask:
                 return fetchProfileImages()
-
-            case .binding:
-                return .none
 
             case .backButtonTapped:
                 return .run { _ in await dismiss() }

@@ -11,6 +11,7 @@ import ComposableArchitecture
 @Reducer
 struct RootFeature: Reducer {
 
+    @ObservableState
     enum State: Equatable {
         case intro(IntroFeature.State = .init())
         case mainTab(MainTabFeature.State = .init())
