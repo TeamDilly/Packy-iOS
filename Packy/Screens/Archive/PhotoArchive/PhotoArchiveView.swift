@@ -30,6 +30,7 @@ struct PhotoArchiveView: View {
             } else {
                 StaggeredGrid(columns: columns, data: store.photos.elements) { photo in
                     PhotoCell(photoUrl: photo.photoUrl)
+                        .contentShape(Rectangle())
                         .onTapGesture {
                             HapticManager.shared.fireFeedback(.soft)
                             store.send(.photoTapped(photo))
