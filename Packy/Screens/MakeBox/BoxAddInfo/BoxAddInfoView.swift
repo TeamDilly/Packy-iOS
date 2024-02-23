@@ -11,18 +11,16 @@ import ComposableArchitecture
 // MARK: - View
 
 struct BoxAddInfoView: View {
-    private let store: StoreOf<BoxAddInfoFeature>
-    @ObservedObject private var viewStore: ViewStoreOf<BoxAddInfoFeature>
+    @Bindable private var store: StoreOf<BoxAddInfoFeature>
 
     init(store: StoreOf<BoxAddInfoFeature>) {
         self.store = store
-        self.viewStore = ViewStore(store, observe: { $0 })
     }
 
     var body: some View {
         VStack(spacing: 0) {
             NavigationBar.onlyBackButton {
-                viewStore.send(.backButtonTapped)
+                store.send(.backButtonTapped)
             }
             .padding(.bottom, 66)
 
@@ -40,27 +38,27 @@ struct BoxAddInfoView: View {
                 .padding(.horizontal, 24)
 
             ToFromInputTextField(
-                to: viewStore.$boxSendTo,
-                from: viewStore.$boxSendFrom
+                to: $store.boxSendTo,
+                from: $store.boxSendFrom
             )
             .padding(.horizontal, 24)
 
             Spacer()
 
             let destinationState = MainTabNavigationPath.State.boxChoice(
-                .init(senderInfo: .init(receiver: viewStore.boxSendTo, sender: viewStore.boxSendFrom))
+                .init(senderInfo: .init(receiver: store.boxSendTo, sender: store.boxSendFrom))
             )
 
             NavigationLink("다음", state: destinationState)
                 .buttonStyle(PackyButtonStyle(colorType: .black))
                 .padding(.bottom, 16)
                 .padding(.horizontal, 24)
-                .disabled(!viewStore.nextButtonEnabled)
-                .animation(.spring, value: viewStore.nextButtonEnabled)
+                .disabled(!store.nextButtonEnabled)
+                .animation(.spring, value: store.nextButtonEnabled)
         }
         .navigationBarBackButtonHidden(true)
         .task {
-            await viewStore
+            await store
                 .send(._onTask)
                 .finish()
         }

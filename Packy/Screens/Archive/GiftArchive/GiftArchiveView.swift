@@ -12,36 +12,35 @@ import ComposableArchitecture
 
 struct GiftArchiveView: View {
     private let store: StoreOf<GiftArchiveFeature>
-    @ObservedObject private var viewStore: ViewStoreOf<GiftArchiveFeature>
     @Environment(\.scenePhase) private var scenePhase
 
     init(store: StoreOf<GiftArchiveFeature>) {
         self.store = store
-        self.viewStore = ViewStore(store, observe: { $0 })
     }
 
     var body: some View {
         VStack {
-            if viewStore.gifts.isEmpty && !viewStore.isLoading {
+            if store.gifts.isEmpty && !store.isLoading {
                 Text("아직 받은 선물이 없어요")
                     .packyFont(.body2)
                     .foregroundStyle(.gray600)
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                     .padding(.bottom, 50)
             } else {
-                StaggeredGrid(columns: 2, data: viewStore.gifts.elements) { gift in
+                StaggeredGrid(columns: 2, data: store.gifts.elements) { gift in
                     GiftCell(imageUrl: gift.gift.url)
-                        .bouncyTapGesture {
-                            viewStore.send(.giftTapped(gift))
+                        .onTapGesture {
+                            HapticManager.shared.fireFeedback(.soft)
+                            store.send(.giftTapped(gift))
                         }
                         .onAppear {
                             // Pagination
-                            guard viewStore.isLastPage == false,
-                                  let index = viewStore.gifts.firstIndex(of: gift) else { return }
+                            guard store.isLastPage == false,
+                                  let index = store.gifts.firstIndex(of: gift) else { return }
 
-                            let isNearEndForNextPageLoad = index == viewStore.gifts.endIndex - 3
+                            let isNearEndForNextPageLoad = index == store.gifts.endIndex - 3
                             guard isNearEndForNextPageLoad else { return }
-                            viewStore.send(._fetchMoreGifts)
+                            store.send(._fetchMoreGifts)
                         }
                 }
                 .zigzagPadding(80)
@@ -53,16 +52,18 @@ struct GiftArchiveView: View {
         .padding(.horizontal, 24)
         .background(.gray100)
         .refreshable {
-            await viewStore.send(.didRefresh, while: \.isLoading)
+            await store
+                .send(.didRefresh)
+                .finish()
         }
         .didLoad {
-            await viewStore
+            await store
                 .send(._onTask)
                 .finish()
         }
         .onChange(of: scenePhase) {
             guard $1 == .active else { return }
-            viewStore.send(._didActiveScene)
+            store.send(._didActiveScene)
         }
     }
 }

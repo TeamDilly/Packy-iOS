@@ -11,8 +11,9 @@ import ComposableArchitecture
 @Reducer
 struct ArchiveFeature: Reducer {
 
+    @ObservableState
     struct State: Equatable {
-        @BindingState var selectedTab: ArchiveTab = .photo
+        var selectedTab: ArchiveTab = .photo
 
         var photoArchive: PhotoArchiveFeature.State = .init()
         var letterArchive: LetterArchiveFeature.State = .init()
@@ -39,22 +40,10 @@ struct ArchiveFeature: Reducer {
 
     var body: some Reducer<State, Action> {
         BindingReducer()
+
         Scope(state: \.photoArchive, action: \.photoArchive) { PhotoArchiveFeature() }
         Scope(state: \.letterArchive, action: \.letterArchive) { LetterArchiveFeature() }
         Scope(state: \.musicArchive, action: \.musicArchive) { MusicArchiveFeature() }
         Scope(state: \.giftArchive, action: \.giftArchive) { GiftArchiveFeature() }
-
-        Reduce<State, Action> { state, action in
-            switch action {
-            case .binding:
-                return .none
-
-            case ._onTask:
-                return .none
-
-            default:
-                return .none
-            }
-        }
     }
 }

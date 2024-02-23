@@ -15,20 +15,20 @@ struct SelectMusicFeature: Reducer {
         var musicBottomSheetMode: MusicBottomSheetMode = .choice
         var musicSheetDetents: Set<PresentationDetent> = MusicBottomSheetMode.allDetents
 
-        @BindingState var musicLinkUrlInput: String = ""
+        var musicLinkUrlInput: String = ""
         var showInvalidMusicUrlError: Bool = false
 
-        @BindingState var selectedRecommendedMusic: RecommendedMusic? = nil
+        var selectedRecommendedMusic: RecommendedMusic? = nil
 
         /// 최종 유저가 선택한 음악 url
         var selectedMusicUrl: String? = nil
         var isCompleted: Bool { selectedMusicUrl != nil }
     }
 
-
+    @ObservableState
     struct State: Equatable {
         var isMusicBottomSheetPresented: Bool = false
-        @BindingState var musicInput: MusicInput = .init()
+        var musicInput: MusicInput = .init()
         var savedMusic: MusicInput = .init()
         var recommendedMusics: [RecommendedMusic] = []
     }
@@ -73,7 +73,7 @@ struct SelectMusicFeature: Reducer {
                 state.isMusicBottomSheetPresented = true
                 return .none
 
-            case .binding(\.musicInput.$musicLinkUrlInput):
+            case .binding(\.musicInput.musicLinkUrlInput):
                 state.musicInput.showInvalidMusicUrlError = false
                 return .none
 

@@ -11,33 +11,27 @@ import ComposableArchitecture
 // MARK: - View
 
 struct SignUpNicknameView: View {
-    private let store: StoreOf<SignUpNicknameFeature>
-    @ObservedObject private var viewStore: ViewStoreOf<SignUpNicknameFeature>
+    @Bindable private var store: StoreOf<SignUpNicknameFeature>
     @FocusState private var isFocused: Bool
 
     init(store: StoreOf<SignUpNicknameFeature>) {
         self.store = store
-        self.viewStore = ViewStore(store, observe: { $0 })
     }
 
     var body: some View {
-        NavigationStackStore(store.scope(state: \.path, action: \.path)) {
+        NavigationStack(path: $store.scope(state: \.path, action: \.path)) {
             content
-        } destination: { state in
-            switch state {
+        } destination: { store in
+            switch store.state {
             case .profile:
-                CaseLet(
-                    \SignUpNavigationPath.State.profile,
-                     action: SignUpNavigationPath.Action.profile,
-                     then: SignUpProfileView.init
-                )
+                if let store = store.scope(state: \.profile, action: \.profile) {
+                    SignUpProfileView(store: store)
+                }
 
             case .termsAgreement:
-                CaseLet(
-                    \SignUpNavigationPath.State.termsAgreement,
-                     action: SignUpNavigationPath.Action.termsAgreement,
-                     then: TermsAgreementView.init
-                )
+                if let store = store.scope(state: \.termsAgreement, action: \.termsAgreement) {
+                    TermsAgreementView(store: store)
+                }
             }
         }
     }
@@ -62,11 +56,11 @@ private extension SignUpNicknameView {
                 .padding(.bottom, 40)
 
             PackyTextField(
-                text: viewStore.$nickname,
+                text: $store.nickname,
                 placeholder: "6자 이내로 입력해주세요"
             )
             .focused($isFocused)
-            .limitTextLength(text: viewStore.$nickname, length: 6)
+            .limitTextLength(text: $store.nickname, length: 6)
 
             Spacer()
 
@@ -74,19 +68,19 @@ private extension SignUpNicknameView {
                 title: "저장",
                 pathState: SignUpNavigationPath.State.profile(
                     .init(
-                        socialLoginInfo: viewStore.socialLoginInfo,
-                        nickName: viewStore.nickname
+                        socialLoginInfo: store.socialLoginInfo,
+                        nickName: store.nickname
                     )
                 )
             )
-            .disabled(viewStore.nickname.count < 2)
+            .disabled(store.nickname.count < 2)
             .padding(.bottom, 16)
         }
-        .animation(.spring, value: viewStore.nickname)
+        .animation(.spring, value: store.nickname)
         .padding(.horizontal, 24)
         .makeTapToHideKeyboard()
         .task {
-            await viewStore
+            await store
                 .send(._onAppear)
                 .finish()
             isFocused = true

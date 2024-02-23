@@ -11,6 +11,7 @@ import SwiftUI
 @Reducer
 struct SelectStickerFeature: Reducer {
 
+    @ObservableState
     struct State: Equatable {
         var isStickerBottomSheetPresented: Bool = false
 

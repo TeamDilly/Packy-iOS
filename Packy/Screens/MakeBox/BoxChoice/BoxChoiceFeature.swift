@@ -17,16 +17,17 @@ struct BoxChoiceFeature: Reducer {
         let boxDesigns: [BoxDesign]
     }
 
+    @ObservableState
     struct State: Equatable {
         let senderInfo: BoxSenderInfo
         var selectedBox: BoxDesign?
-        @BindingState var selectedMessage: Int = 0
+        var selectedMessage: Int = 0
         var isPresentingFinishedMotionView: Bool = false
         var didShowBoxMotion: Bool = false
 
         var boxDesigns: [BoxDesign] = []
 
-        var passingData: PassingData {
+        fileprivate var passingData: PassingData {
             .init(
                 senderInfo: senderInfo,
                 selectedBox: selectedBox,

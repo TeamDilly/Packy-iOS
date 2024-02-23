@@ -11,8 +11,9 @@ import ComposableArchitecture
 @Reducer
 struct OnboardingFeature: Reducer {
 
+    @ObservableState
     struct State: Equatable {
-        @BindingState var currentPage: OnboardingPage = .one
+        var currentPage: OnboardingPage = .one
     }
 
     enum Action: BindableAction {

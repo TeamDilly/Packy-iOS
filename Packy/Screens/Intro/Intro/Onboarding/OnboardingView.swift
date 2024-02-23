@@ -11,12 +11,10 @@ import ComposableArchitecture
 // MARK: - View
 
 struct OnboardingView: View {
-    private let store: StoreOf<OnboardingFeature>
-    @ObservedObject private var viewStore: ViewStoreOf<OnboardingFeature>
+    @Bindable private var store: StoreOf<OnboardingFeature>
 
     init(store: StoreOf<OnboardingFeature>) {
         self.store = store
-        self.viewStore = ViewStore(store, observe: { $0 })
     }
 
     var body: some View {
@@ -26,7 +24,7 @@ struct OnboardingView: View {
 
             VStack(spacing: 0) {
                 Button("건너뛰기") {
-                    viewStore.send(.skipButtonTapped)
+                    store.send(.skipButtonTapped)
                 }
                 .buttonStyle(TextButtonStyle(colorType: .gray))
                 .frame(width: 65, height: 48)
@@ -35,7 +33,7 @@ struct OnboardingView: View {
 
                 Spacer()
 
-                TabView(selection: viewStore.$currentPage) {
+                TabView(selection: $store.currentPage) {
                     ForEach(OnboardingPage.allCases, id: \.self) {
                         pageView($0)
                     }
@@ -47,23 +45,23 @@ struct OnboardingView: View {
 
                 PageIndicator(
                     totalPages: OnboardingPage.allCases.count,
-                    currentPage: viewStore.currentPage.rawValue
+                    currentPage: store.currentPage.rawValue
                 )
                 .offset(y: yOffset)
 
                 Spacer()
 
-                PackyButton(title: viewStore.currentPage.buttonTitle) {
-                    viewStore.send(.bottomButtonTapped)
+                PackyButton(title: store.currentPage.buttonTitle) {
+                    store.send(.bottomButtonTapped)
                 }
                 .padding(.horizontal, 24)
                 .padding(.bottom, 16)
             }
 
         }
-        .animation(.spring, value: viewStore.currentPage)
+        .animation(.spring, value: store.currentPage)
         .task {
-            await viewStore
+            await store
                 .send(._onAppear)
                 .finish()
         }

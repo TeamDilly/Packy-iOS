@@ -11,18 +11,16 @@ import ComposableArchitecture
 // MARK: - View
 
 struct TermsAgreementView: View {
-    private let store: StoreOf<TermsAgreementFeature>
-    @ObservedObject private var viewStore: ViewStoreOf<TermsAgreementFeature>
+    @Bindable private var store: StoreOf<TermsAgreementFeature>
 
     init(store: StoreOf<TermsAgreementFeature>) {
         self.store = store
-        self.viewStore = ViewStore(store, observe: { $0 })
     }
 
     var body: some View {
         VStack {
             NavigationBar.onlyBackButton {
-                viewStore.send(.backButtonTapped)
+                store.send(.backButtonTapped)
             }
             .padding(.bottom, 8)
 
@@ -35,9 +33,9 @@ struct TermsAgreementView: View {
 
             VStack(alignment: .leading, spacing: 16) {
                 Button {
-                    viewStore.send(.agreeAllTermsButtonTapped)
+                    store.send(.agreeAllTermsButtonTapped)
                 } label: {
-                    allAgreedView(isChecked: viewStore.isAllTermsAgreed)
+                    allAgreedView(isChecked: store.isAllTermsAgreed)
                         .frame(maxWidth: .infinity)
                         .frame(height: 50)
                 }
@@ -45,9 +43,9 @@ struct TermsAgreementView: View {
                 Group {
                     ForEach(Terms.allCases, id: \.self) { terms in
                         Button {
-                            viewStore.send(.agreeTermsButtonTapped(terms))
+                            store.send(.agreeTermsButtonTapped(terms))
                         } label: {
-                            Checkbox(isChecked: viewStore.termsStates[terms] ?? false, label: terms.title)
+                            Checkbox(isChecked: store.termsStates[terms] ?? false, label: terms.title)
                                 .containerShape(Rectangle())
                                 .frame(maxWidth: .infinity, alignment: .leading)
                         }
@@ -61,15 +59,15 @@ struct TermsAgreementView: View {
             Spacer()
 
             PackyButton(title: "확인") {
-                viewStore.send(.confirmButtonTapped)
+                store.send(.confirmButtonTapped)
             }
-            .disabled(!viewStore.isAllRequiredTermsAgreed)
-            .animation(.spring, value: viewStore.isAllRequiredTermsAgreed)
+            .disabled(!store.isAllRequiredTermsAgreed)
+            .animation(.spring, value: store.isAllRequiredTermsAgreed)
             .padding(.horizontal, 24)
             .padding(.bottom, 16)
         }
         .bottomSheet(
-            isPresented: viewStore.$isAllowNotificationBottomSheetPresented,
+            isPresented: $store.isAllowNotificationBottomSheetPresented,
             detents: [.height(591)]
         ) {
             bottomSheetContent
@@ -77,7 +75,7 @@ struct TermsAgreementView: View {
         }
         .navigationBarBackButtonHidden(true)
         .task {
-            await viewStore
+            await store
                 .send(._onAppear)
                 .finish()
         }
@@ -133,7 +131,7 @@ private extension TermsAgreementView {
             Spacer()
 
             PackyButton(title: "허용하기") {
-                viewStore.send(.allowNotificationButtonTapped)
+                store.send(.allowNotificationButtonTapped)
             }
             .padding(.bottom, 16)
         }

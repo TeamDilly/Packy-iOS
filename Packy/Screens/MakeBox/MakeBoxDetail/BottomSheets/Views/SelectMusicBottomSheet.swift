@@ -9,17 +9,15 @@ import SwiftUI
 import ComposableArchitecture
 
 struct SelectMusicBottomSheet: View {
-    private let store: StoreOf<SelectMusicFeature>
-    @ObservedObject var viewStore: ViewStoreOf<SelectMusicFeature>
+    @Bindable private var store: StoreOf<SelectMusicFeature>
 
     init(store: StoreOf<SelectMusicFeature>) {
         self.store = store
-        self.viewStore = ViewStore(store, observe: { $0 })
     }
 
     var body: some View {
         VStack {
-            switch viewStore.musicInput.musicBottomSheetMode {
+            switch store.musicInput.musicBottomSheetMode {
             case .choice:
                 musicAddChoiceBottomSheet
             case .userSelect:
@@ -28,7 +26,7 @@ struct SelectMusicBottomSheet: View {
                 musicRecommendationBottomSheet
             }
         }
-        .animation(.easeInOut, value: viewStore.musicInput.musicBottomSheetMode.detent)
+        .animation(.easeInOut, value: store.musicInput.musicBottomSheetMode.detent)
     }
 }
 
@@ -50,14 +48,14 @@ private extension SelectMusicBottomSheet {
             MusicSelectionCell(
                 title: "직접 음악 영상 담기",
                 caption: "유튜브 링크로 음악을 넣어주세요") {
-                    viewStore.send(.musicChoiceUserSelectButtonTapped)
+                    store.send(.musicChoiceUserSelectButtonTapped)
                 }
                 .padding(.bottom, 8)
             
             MusicSelectionCell(
                 title: "패키가 준비한 음악 담기",
                 caption: "기념일에 어울리는 음악을 준비했어요") {
-                    viewStore.send(.musicChoiceRecommendButtonTapped)
+                    store.send(.musicChoiceRecommendButtonTapped)
                 }
             
             Spacer()
@@ -81,13 +79,13 @@ private extension SelectMusicBottomSheet {
                 .foregroundStyle(.gray600)
                 .frame(maxWidth: .infinity, alignment: .leading)
             
-            if let selectedMusicUrl = viewStore.musicInput.selectedMusicUrl {
+            if let selectedMusicUrl = store.musicInput.selectedMusicUrl {
                 MusicPlayerView(youtubeUrl: selectedMusicUrl, autoPlay: false)
                     .aspectRatio(16 / 9, contentMode: .fit)
                     .clipShape(RoundedRectangle(cornerRadius: 16))
                     .overlay(alignment: .topTrailing) {
                         CloseButton(sizeType: .medium, colorType: .dark) {
-                            viewStore.send(.musicLinkDeleteButtonInSheetTapped)
+                            store.send(.musicLinkDeleteButtonInSheetTapped)
                         }
                         .offset(x: 4, y: -4)
                     }
@@ -95,13 +93,13 @@ private extension SelectMusicBottomSheet {
             } else {
                 HStack(alignment: .top, spacing: 8) {
                     PackyTextField(
-                        text: viewStore.$musicInput.musicLinkUrlInput,
+                        text: $store.musicInput.musicLinkUrlInput,
                         placeholder: "링크를 붙여주세요",
-                        errorMessage: viewStore.musicInput.showInvalidMusicUrlError ? "올바른 영상 링크를 입력해주세요" : nil
+                        errorMessage: store.musicInput.showInvalidMusicUrlError ? "올바른 영상 링크를 입력해주세요" : nil
                     )
                     
                     PackyButton(title: "확인", sizeType: .medium, colorType: .black) {
-                        viewStore.send(.musicLinkConfirmButtonTapped)
+                        store.send(.musicLinkConfirmButtonTapped)
                     }
                     .frame(width: 100)
                 }
@@ -111,11 +109,11 @@ private extension SelectMusicBottomSheet {
             Spacer()
             
             PackyButton(title: "저장", colorType: .black) {
-                viewStore.send(.musicSaveButtonTapped)
+                store.send(.musicSaveButtonTapped)
             }
             .disabled(
-                viewStore.musicInput.musicBottomSheetMode == .userSelect
-                && viewStore.musicInput.selectedMusicUrl == nil
+                store.musicInput.musicBottomSheetMode == .userSelect
+                && store.musicInput.selectedMusicUrl == nil
             )
             .padding(.bottom, 16)
         }
@@ -148,7 +146,7 @@ private extension SelectMusicBottomSheet {
 
             ScrollView(.horizontal) {
                 HStack(spacing: 12) {
-                    ForEach(viewStore.recommendedMusics, id: \.self) { music in
+                    ForEach(store.recommendedMusics, id: \.self) { music in
                         VStack(spacing: 0) {
                             // TODO: 다음 스크롤로 넘어가면 일시정지 되도록 처리 가능?
                             MusicPlayerView(youtubeUrl: music.youtubeUrl, autoPlay: false)
@@ -177,22 +175,22 @@ private extension SelectMusicBottomSheet {
                 .scrollTargetLayout()
             }
             .scrollPosition(id: .init(
-                get: { viewStore.musicInput.selectedRecommendedMusic },
-                set: { viewStore.send(.binding(.set(\.musicInput.$selectedRecommendedMusic, $0))) }
+                get: { store.musicInput.selectedRecommendedMusic },
+                set: { store.send(.binding(.set(\.musicInput.selectedRecommendedMusic, $0))) }
             ))
             .scrollIndicators(.hidden)
             .scrollTargetBehavior(.viewAligned)
             .safeAreaPadding(.horizontal, 32)
             
-            let selectedRecommendedMusic = viewStore.musicInput.selectedRecommendedMusic
-            let musicIndex = viewStore.recommendedMusics.firstIndex { $0.id == selectedRecommendedMusic?.id ?? 0 } ?? 0
-            PageIndicator(totalPages: viewStore.recommendedMusics.count, currentPage: musicIndex)
+            let selectedRecommendedMusic = store.musicInput.selectedRecommendedMusic
+            let musicIndex = store.recommendedMusics.firstIndex { $0.id == selectedRecommendedMusic?.id ?? 0 } ?? 0
+            PageIndicator(totalPages: store.recommendedMusics.count, currentPage: musicIndex)
                 .padding(.vertical, 32)
             
             Spacer()
             
             PackyButton(title: "저장", colorType: .black) {
-                viewStore.send(.musicSaveButtonTapped)
+                store.send(.musicSaveButtonTapped)
             }
             .padding(.horizontal, 24)
             .padding(.bottom, 16)

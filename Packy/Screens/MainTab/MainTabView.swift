@@ -11,96 +11,71 @@ import ComposableArchitecture
 // MARK: - View
 
 struct MainTabView: View {
-    private let store: StoreOf<MainTabFeature>
-    @ObservedObject private(set) var viewStore: ViewStoreOf<MainTabFeature>
-    @State var presentBottomSheet: Bool = false
+    @Bindable private var store: StoreOf<MainTabFeature>
 
     init(store: StoreOf<MainTabFeature>) {
         self.store = store
-        self.viewStore = ViewStore(store, observe: { $0 })
     }
 
     var body: some View {
-        NavigationStackStore(store.scope(state: \.path, action: \.path)) {
+        NavigationStack(path: $store.scope(state: \.path, action: \.path)) {
             content
-        } destination: { state in
-            switch state {
+        } destination: { store in
+            switch store.state {
             case .boxDetail:
-                CaseLet(
-                    \MainTabNavigationPath.State.boxDetail,
-                     action: MainTabNavigationPath.Action.boxDetail,
-                     then: BoxDetailView.init
-                )
+                if let store = store.scope(state: \.boxDetail, action: \.boxDetail) {
+                    BoxDetailView(store: store)
+                }
 
             case .boxOpen:
-                CaseLet(
-                    \MainTabNavigationPath.State.boxOpen,
-                     action: MainTabNavigationPath.Action.boxOpen,
-                     then: BoxOpenView.init
-                )
-
+                if let store = store.scope(state: \.boxOpen, action: \.boxOpen) {
+                    BoxOpenView(store: store)
+                }
+            
             case .setting:
-                CaseLet(
-                    \MainTabNavigationPath.State.setting,
-                     action: MainTabNavigationPath.Action.setting,
-                     then: SettingView.init
-                )
+                if let store = store.scope(state: \.setting, action: \.setting) {
+                    SettingView(store: store)
+                }
 
             case .manageAccount:
-                CaseLet(
-                    \MainTabNavigationPath.State.manageAccount,
-                     action: MainTabNavigationPath.Action.manageAccount,
-                     then: ManageAccountView.init
-                )
+                if let store = store.scope(state: \.manageAccount, action: \.manageAccount) {
+                    ManageAccountView(store: store)
+                }
 
             case .deleteAccount:
-                CaseLet(
-                    \MainTabNavigationPath.State.deleteAccount,
-                     action: MainTabNavigationPath.Action.deleteAccount,
-                     then: DeleteAccountView.init
-                )
+                if let store = store.scope(state: \.deleteAccount, action: \.deleteAccount) {
+                    DeleteAccountView(store: store)
+                }
 
             case .boxAddInfo:
-                CaseLet(
-                    \MainTabNavigationPath.State.boxAddInfo,
-                     action: MainTabNavigationPath.Action.boxAddInfo,
-                     then: BoxAddInfoView.init
-                )
+                if let store = store.scope(state: \.boxAddInfo, action: \.boxAddInfo) {
+                    BoxAddInfoView(store: store)
+                }
 
             case .boxChoice:
-                CaseLet(
-                    \MainTabNavigationPath.State.boxChoice,
-                     action: MainTabNavigationPath.Action.boxChoice,
-                     then: BoxChoiceView.init
-                )
+                if let store = store.scope(state: \.boxChoice, action: \.boxChoice) {
+                    BoxChoiceView(store: store)
+                }
 
             case .makeBoxDetail:
-                CaseLet(
-                    \MainTabNavigationPath.State.makeBoxDetail,
-                     action: MainTabNavigationPath.Action.makeBoxDetail,
-                     then: MakeBoxDetailView.init
-                )
+                if let store = store.scope(state: \.makeBoxDetail, action: \.makeBoxDetail) {
+                    MakeBoxDetailView(store: store)
+                }
 
             case .addTitle:
-                CaseLet(
-                    \MainTabNavigationPath.State.addTitle,
-                     action: MainTabNavigationPath.Action.addTitle,
-                     then: BoxAddTitleAndShareView.init
-                )
+                if let store = store.scope(state: \.addTitle, action: \.addTitle) {
+                    BoxAddTitleAndShareView(store: store)
+                }
 
             case .boxShare:
-                CaseLet(
-                    \MainTabNavigationPath.State.boxShare,
-                     action: MainTabNavigationPath.Action.boxShare,
-                     then: BoxShareView.init
-                )
+                if let store = store.scope(state: \.boxShare, action: \.boxShare) {
+                    BoxShareView(store: store)
+                }
 
             case .webContent:
-                CaseLet(
-                    \MainTabNavigationPath.State.webContent,
-                     action: MainTabNavigationPath.Action.webContent,
-                     then: WebContentView.init
-                )
+                if let store = store.scope(state: \.webContent, action: \.webContent) {
+                    WebContentView(store: store)
+                }
             }
         }
     }
@@ -110,37 +85,34 @@ struct MainTabView: View {
 
 private extension MainTabView {
     var content: some View {
-        archiveOverlay {
-            VStack(spacing: 0) {
-                tabView
-                bottomTabBar
-            }
+        VStack(spacing: 0) {
+            tabView
+            bottomTabBar
         }
         .bottomSheet(
             isPresented: .init(
-                get: { viewStore.popupBox.popupBox != nil },
-                set: { if $0 == false { viewStore.send(.popupBox(._hideBottomSheet)) } }
+                get: { store.popupBox.popupBox != nil },
+                set: {
+                    guard $0 == false else { return }
+                    store.send(.popupBox(._hideBottomSheet))
+                }
             ),
             detents: [.height(525)]
         ) {
             PopupBoxBottomSheet(store: store.scope(state: \.popupBox, action: \.popupBox))
         }
-        .task {
-            try? await Task.sleep(for: .seconds(1))
-            presentBottomSheet = true
-        }
         .navigationBarBackButtonHidden()
         .didLoad {
-            await viewStore
+            await store
                 .send(._onTask)
                 .finish()
         }
     }
 
     var tabView: some View {
-        TabView(selection: viewStore.$selectedTab) {
+        TabView(selection: $store.selectedTab) {
             // 탭뷰 컨텐츠간의 좌우 Swipe를 막기위해 이런 형태로 작성
-            switch viewStore.selectedTab {
+            switch store.selectedTab {
             case .home:
                 HomeView(store: store.scope(state: \.home, action: \.home))
                     .tag(MainTab.home)
@@ -155,7 +127,7 @@ private extension MainTabView {
             }
         }
         .scrollIndicators(.hidden)
-        .background(viewStore.selectedTab.backgroundColor)
+        .background(store.selectedTab.backgroundColor)
         .toolbar(.hidden, for: .tabBar)
         .tabViewStyle(.page(indexDisplayMode: .never))
     }
@@ -167,19 +139,19 @@ private extension MainTabView {
             HStack {
                 ForEach(MainTab.allCases, id: \.self) { tab in
                     HStack {
-                        let isSelected = viewStore.selectedTab == tab
+                        let isSelected = store.selectedTab == tab
                         tab.image(forSelected: isSelected)
                     }
                     .frame(maxWidth: .infinity)
                     .contentShape(Rectangle())
                     .onTapGesture {
-                        viewStore.send(.binding(.set(\.$selectedTab, tab)))
+                        store.send(.binding(.set(\.selectedTab, tab)))
                     }
                 }
             }
             .frame(height: 72)
         }
-        .animation(.easeInOut, value: viewStore.selectedTab)
+        .animation(.easeInOut, value: store.selectedTab)
 
     }
 }

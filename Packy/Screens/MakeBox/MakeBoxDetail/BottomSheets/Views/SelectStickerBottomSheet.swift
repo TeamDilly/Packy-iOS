@@ -10,11 +10,9 @@ import ComposableArchitecture
 
 struct SelectStickerBottomSheet: View {
     private let store: StoreOf<SelectStickerFeature>
-    @ObservedObject var viewStore: ViewStoreOf<SelectStickerFeature>
 
     init(store: StoreOf<SelectStickerFeature>) {
         self.store = store
-        self.viewStore = ViewStore(store, observe: { $0 })
     }
 
     var body: some View {
@@ -34,7 +32,7 @@ struct SelectStickerBottomSheet: View {
                     }
                     
                     Button("확인") {
-                        viewStore.send(.stickerConfirmButtonTapped)
+                        store.send(.stickerConfirmButtonTapped)
                     }
                     .buttonStyle(.text)
                 }
@@ -43,20 +41,20 @@ struct SelectStickerBottomSheet: View {
                 
                 let columns = [GridItem(spacing: 12), GridItem(spacing: 12), GridItem(spacing: 12)]
                 LazyVGrid(columns: columns, spacing: 12) {
-                    ForEach(viewStore.stickerDesigns.flatMap(\.contents), id: \.id) { stickerDesign in
-                        let index = viewStore.selectedStickers.firstIndex(of: stickerDesign)
+                    ForEach(store.stickerDesigns.flatMap(\.contents), id: \.id) { stickerDesign in
+                        let index = store.selectedStickers.firstIndex(of: stickerDesign)
                         
                         StickerCell(imageUrl: stickerDesign.imageUrl, selectedIndex: index)
                             .aspectRatio(1, contentMode: .fit)
                             .bouncyTapGesture {
-                                viewStore.send(.stickerTapped(stickerDesign), animation: .easeInOut)
+                                store.send(.stickerTapped(stickerDesign), animation: .easeInOut)
                             }
                     }
                     
-                    if viewStore.stickerDesigns.last?.isLastPage == false {
+                    if store.stickerDesigns.last?.isLastPage == false {
                         PackyProgress()
                             .onAppear {
-                                viewStore.send(.fetchMoreStickers)
+                                store.send(.fetchMoreStickers)
                             }
                     }
                 }

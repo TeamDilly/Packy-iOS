@@ -12,18 +12,16 @@ import ComposableArchitecture
 
 struct BoxShareView: View {
     private let store: StoreOf<BoxShareFeature>
-    @ObservedObject private var viewStore: ViewStoreOf<BoxShareFeature>
 
     init(store: StoreOf<BoxShareFeature>) {
         self.store = store
-        self.viewStore = ViewStore(store, observe: { $0 })
     }
 
     var body: some View {
-        let isSendState = !viewStore.showCompleteAnimation
+        let isSendState = !store.showCompleteAnimation
         VStack(spacing: 0) {
             Button {
-                viewStore.send(.closeButtonTapped)
+                store.send(.closeButtonTapped)
             } label: {
                 Text(isSendState ? "나가기" : "")
                     .packyFont(.body4)
@@ -37,9 +35,9 @@ struct BoxShareView: View {
 
             Group {
                 if isSendState {
-                    Text("\(viewStore.receiverName)님에게\n선물박스를 보내보세요")
+                    Text("\(store.receiverName)님에게\n선물박스를 보내보세요")
                 } else {
-                    Text("\(viewStore.receiverName)님을 위한\n선물박스가 완성되었어요!")
+                    Text("\(store.receiverName)님을 위한\n선물박스가 완성되었어요!")
                         .textInteraction()
                 }
             }
@@ -49,7 +47,7 @@ struct BoxShareView: View {
             .multilineTextAlignment(.center)
 
             if isSendState {
-                Text(viewStore.boxName)
+                Text(store.boxName)
                     .packyFont(.body4)
                     .foregroundStyle(.gray900)
                     .padding(.vertical, 12)
@@ -68,7 +66,7 @@ struct BoxShareView: View {
 
             Spacer()
 
-            NetworkImage(url: viewStore.boxNormalUrl, contentMode: .fit)
+            NetworkImage(url: store.boxNormalUrl, contentMode: .fit)
                 .shakeRepeat(.veryWeak)
                 .aspectRatio(contentMode: .fit)
                 .padding(.horizontal, 80)
@@ -80,13 +78,13 @@ struct BoxShareView: View {
                 VStack(spacing: 8) {
                     PackyButton(title: "카카오톡으로 보내기", colorType: .black) {
                         throttle {
-                            viewStore.send(.sendButtonTapped)
+                            store.send(.sendButtonTapped)
                         }
                     }
                     .padding(.horizontal, 24)
 
-                    Button(viewStore.didSendToKakao ? "" : "나중에 보낼래요") {
-                        viewStore.send(.sendLaterButtonTapped)
+                    Button(store.didSendToKakao ? "" : "나중에 보낼래요") {
+                        store.send(.sendLaterButtonTapped)
                     }
                     .buttonStyle(.text)
                     .frame(width: 129, height: 34)
@@ -99,10 +97,10 @@ struct BoxShareView: View {
                     .padding(.bottom, 20)
             }
         }
-        .showLoading(!viewStore.showCompleteAnimation && viewStore.kakaoMessageImgUrl == nil)
+        .showLoading(!store.showCompleteAnimation && store.kakaoMessageImgUrl == nil)
         .navigationBarHidden(true)
         .task {
-            await viewStore
+            await store
                 .send(._onTask)
                 .finish()
         }

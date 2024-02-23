@@ -11,13 +11,11 @@ import ComposableArchitecture
 // MARK: - View
 
 struct HomeView: View {
-    private let store: StoreOf<HomeFeature>
-    @ObservedObject private var viewStore: ViewStoreOf<HomeFeature>
+    @Bindable private var store: StoreOf<HomeFeature>
     @State private var easterEggShakeAnimation: Bool = false
 
     init(store: StoreOf<HomeFeature>) {
         self.store = store
-        self.viewStore = ViewStore(store, observe: { $0 })
     }
 
     enum ThrottleId: String {
@@ -37,11 +35,11 @@ struct HomeView: View {
                     }
                     .buttonStyle(.bouncy)
 
-                    if !viewStore.giftBoxes.isEmpty {
+                    if !store.giftBoxes.isEmpty {
                         giftBoxesListView
                     }
 
-                    if !viewStore.unsentBoxes.isEmpty {
+                    if !store.unsentBoxes.isEmpty {
                         unsentBoxesList
                     }
                 }
@@ -54,11 +52,11 @@ struct HomeView: View {
         .padding(.horizontal, 16)
         .background(.gray100)
         .task {
-            await viewStore
+            await store
                 .send(._onTask)
                 .finish()
         }
-        .showLoading(viewStore.isShowDetailLoading)
+        .showLoading(store.isShowDetailLoading)
     }
 }
 
@@ -123,7 +121,7 @@ private extension HomeView {
 
 
                 Button("더보기") {
-                    viewStore.send(.viewMoreButtonTapped)
+                    store.send(.viewMoreButtonTapped)
                 }
                 .buttonStyle(.text)
             }
@@ -132,7 +130,7 @@ private extension HomeView {
 
             ScrollView(.horizontal) {
                 HStack(alignment: .top, spacing: 16) {
-                    ForEach(viewStore.giftBoxes, id: \.id) { giftBox in
+                    ForEach(store.giftBoxes, id: \.id) { giftBox in
                         BoxInfoCell(
                             boxUrl: giftBox.boxImageUrl,
                             senderReceiverInfo: giftBox.senderReceiverInfo,
@@ -140,7 +138,7 @@ private extension HomeView {
                         )
                         .bouncyTapGesture {
                             throttle(identifier: ThrottleId.moveToBoxDetail.rawValue) {
-                                viewStore.send(.tappedGiftBox(boxId: giftBox.id))
+                                store.send(.tappedGiftBox(boxId: giftBox.id))
                             }
                         }
                     }
@@ -163,7 +161,7 @@ private extension HomeView {
                 .foregroundStyle(.gray900)
                 .frame(maxWidth: .infinity, alignment: .leading)
 
-            ForEach(viewStore.unsentBoxes, id: \.id) { unsentBox in
+            ForEach(store.unsentBoxes, id: \.id) { unsentBox in
                 UnsentBoxCell(
                     boxImageUrl: unsentBox.imageUrl,
                     receiver: unsentBox.receiverName,
@@ -171,11 +169,11 @@ private extension HomeView {
                     generatedDate: unsentBox.date,
                     menuAlignment: .center, 
                     menuAction: {
-                        viewStore.send(.binding(.set(\.$selectedBoxToDelete, unsentBox)))
+                        store.send(.binding(.set(\.selectedBoxToDelete, unsentBox)))
                     }
                 )
                 .bouncyTapGesture {
-                    viewStore.send(.tappedUnsentBox(boxId: unsentBox.id))
+                    store.send(.tappedUnsentBox(boxId: unsentBox.id))
                 }
             }
         }

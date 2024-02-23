@@ -12,39 +12,37 @@ import ComposableArchitecture
 
 struct IntroView: View {
     private let store: StoreOf<IntroFeature>
-    @ObservedObject private var viewStore: ViewStoreOf<IntroFeature>
 
     init(store: StoreOf<IntroFeature>) {
         self.store = store
-        self.viewStore = ViewStore(store, observe: { $0 })
     }
 
     var body: some View {
-        SwitchStore(store) { state in
-            switch state {
+        Group {
+            switch store.state {
             case .splash:
-                CaseLet(\IntroFeature.State.splash, action: IntroFeature.Action.splash) { store in
+                if let store = store.scope(state: \.splash, action: \.splash) {
                     SplashView(store: store)
                 }
 
             case .onboarding:
-                CaseLet(\IntroFeature.State.onboarding, action: IntroFeature.Action.onboarding) { store in
+                if let store = store.scope(state: \.onboarding, action: \.onboarding) {
                     OnboardingView(store: store)
                 }
 
             case .login:
-                CaseLet(\IntroFeature.State.login, action: IntroFeature.Action.login) { store in
+                if let store = store.scope(state: \.login, action: \.login) {
                     LoginView(store: store)
                 }
 
             case .signUp:
-                CaseLet(\IntroFeature.State.signUp, action: IntroFeature.Action.signUp) { store in
+                if let store = store.scope(state: \.signUp, action: \.signUp) {
                     SignUpNicknameView(store: store)
                 }
             }
         }
         .task {
-            await viewStore
+            await store
                 .send(._onAppear)
                 .finish()
         }

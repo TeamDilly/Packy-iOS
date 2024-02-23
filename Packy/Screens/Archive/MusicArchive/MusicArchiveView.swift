@@ -12,37 +12,36 @@ import ComposableArchitecture
 
 struct MusicArchiveView: View {
     private let store: StoreOf<MusicArchiveFeature>
-    @ObservedObject private var viewStore: ViewStoreOf<MusicArchiveFeature>
     @Environment(\.scenePhase) private var scenePhase
 
     init(store: StoreOf<MusicArchiveFeature>) {
         self.store = store
-        self.viewStore = ViewStore(store, observe: { $0 })
     }
 
     var body: some View {
         VStack {
-            if viewStore.musics.isEmpty && !viewStore.isLoading {
+            if store.musics.isEmpty && !store.isLoading {
                 Text("아직 선물받은 음악이 없어요")
                     .packyFont(.body2)
                     .foregroundStyle(.gray600)
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                     .padding(.bottom, 50)
             } else {
-                StaggeredGrid(columns: 2, data: viewStore.musics.elements) { music in
+                StaggeredGrid(columns: 2, data: store.musics.elements) { music in
                     MusicCell(youtubeUrl: music.youtubeUrl)
-                        .bouncyTapGesture {
-                            viewStore.send(.musicTapped(music))
+                        .onTapGesture {
+                            HapticManager.shared.fireFeedback(.soft)
+                            store.send(.musicTapped(music))
                         }
                         .onAppear {
                             // Pagination
-                            guard viewStore.isLastPage == false,
-                                  let index = viewStore.musics.firstIndex(of: music) else { return }
+                            guard store.isLastPage == false,
+                                  let index = store.musics.firstIndex(of: music) else { return }
 
-                            let isNearEndForNextPageLoad = index == viewStore.musics.endIndex - 3
+                            let isNearEndForNextPageLoad = index == store.musics.endIndex - 3
                             guard isNearEndForNextPageLoad else { return }
                             print("🐛 fetch more musics")
-                            viewStore.send(._fetchMoreMusics)
+                            store.send(._fetchMoreMusics)
                         }
                 }
                 .zigzagPadding(80)
@@ -54,16 +53,18 @@ struct MusicArchiveView: View {
         .padding(.horizontal, 24)
         .background(.gray100)
         .refreshable {
-            await viewStore.send(.didRefresh, while: \.isLoading)
+            await store
+                .send(.didRefresh)
+                .finish()
         }
         .didLoad {
-            await viewStore
+            await store
                 .send(._onTask)
                 .finish()
         }
         .onChange(of: scenePhase) {
             guard $1 == .active else { return }
-            viewStore.send(._didActiveScene)
+            store.send(._didActiveScene)
         }
     }
 }

@@ -20,11 +20,17 @@ struct BoxShareFeature: Reducer {
         let boxId: Int
     }
 
+    @ObservableState
     @dynamicMemberLookup
     struct State: Equatable {
         var data: BoxShareData
         var showCompleteAnimation: Bool
         var didSendToKakao: Bool = false
+
+        init(data: BoxShareData, showCompleteAnimation: Bool) {
+            self.data = data
+            self.showCompleteAnimation = showCompleteAnimation
+        }
 
         subscript<T>(dynamicMember keyPath: KeyPath<BoxShareData, T>) -> T {
             data[keyPath: keyPath]

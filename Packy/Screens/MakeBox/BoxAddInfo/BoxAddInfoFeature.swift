@@ -11,9 +11,10 @@ import ComposableArchitecture
 @Reducer
 struct BoxAddInfoFeature: Reducer {
 
+    @ObservableState
     struct State: Equatable {
-        @BindingState var boxSendTo: String = ""
-        @BindingState var boxSendFrom: String = ""
+        var boxSendTo: String = ""
+        var boxSendFrom: String = ""
         var nextButtonEnabled: Bool {
             !boxSendTo.isEmpty && !boxSendFrom.isEmpty
         }

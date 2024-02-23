@@ -10,15 +10,13 @@ import ComposableArchitecture
 import Kingfisher
 
 struct WriteLetterBottomSheet: View {
-    private let store: StoreOf<WriteLetterFeature>
-    @ObservedObject var viewStore: ViewStoreOf<WriteLetterFeature>
+    @Bindable private var store: StoreOf<WriteLetterFeature>
 
     @FocusState private var isLetterFieldFocused: Bool
     @State private var hideNonInputViews: Bool = false
 
     init(store: StoreOf<WriteLetterFeature>) {
         self.store = store
-        self.viewStore = ViewStore(store, observe: { $0 })
     }
 
     var body: some View {
@@ -41,9 +39,9 @@ struct WriteLetterBottomSheet: View {
             }
 
             PackyTextArea(
-                text: viewStore.$letterInput.letter,
+                text: $store.letterInput.letter,
                 placeholder: "편지에 어떤 마음을 담아볼까요?\n따뜻한 인사, 잊지 못할 추억, 고마웠던 순간까지\n모두 좋아요 :)",
-                borderColor: viewStore.letterInput.selectedLetterDesign?.envelopeColor.color ?? .gray200
+                borderColor: store.letterInput.selectedLetterDesign?.envelopeColor.color ?? .gray200
             )
             .frame(width: 342, height: 300)
             .focused($isLetterFieldFocused)
@@ -52,8 +50,8 @@ struct WriteLetterBottomSheet: View {
             if !hideNonInputViews {
                 ScrollView(.horizontal) {
                     HStack(spacing: 10) {
-                        ForEach(viewStore.letterDesigns, id: \.id) { letterDesign in
-                            let isSelected = viewStore.letterInput.selectedLetterDesign == letterDesign
+                        ForEach(store.letterDesigns, id: \.id) { letterDesign in
+                            let isSelected = store.letterInput.selectedLetterDesign == letterDesign
 
                             let width: CGFloat = UIScreen.main.isWiderThan375pt ? 118 : 100
                             NetworkImage(url: letterDesign.imageUrl, contentMode: .fit)
@@ -64,7 +62,7 @@ struct WriteLetterBottomSheet: View {
                                     lineWidth: isSelected ? 5 : 0
                                 )
                                 .bouncyTapGesture {
-                                    viewStore.send(.binding(.set(\.letterInput.$selectedLetterDesign, letterDesign)))
+                                    store.send(.binding(.set(\.letterInput.selectedLetterDesign, letterDesign)))
                                 }
                                 .padding(.vertical, 5)
                         }
@@ -84,11 +82,11 @@ struct WriteLetterBottomSheet: View {
 
             if !hideNonInputViews {
                 PackyButton(title: "저장", colorType: .black) {
-                    viewStore.send(.letterSaveButtonTapped)
+                    store.send(.letterSaveButtonTapped)
                 }
                 .padding(.bottom, 16)
                 .padding(.horizontal, 24)
-                .disabled(viewStore.letterInput.letter.isEmpty || viewStore.letterInput.selectedLetterDesign == nil)
+                .disabled(store.letterInput.letter.isEmpty || store.letterInput.selectedLetterDesign == nil)
             }
         }
         .onChange(of: isLetterFieldFocused) { oldValue, newValue in
@@ -97,7 +95,7 @@ struct WriteLetterBottomSheet: View {
                 hideNonInputViews = newValue
             }
         }
-        .animation(.spring, value: viewStore.letterInput.selectedLetterDesign)
+        .animation(.spring, value: store.letterInput.selectedLetterDesign)
         // .animation(.spring, value: isLetterFieldFocused)
         .keyboardHideToolbar()
     }

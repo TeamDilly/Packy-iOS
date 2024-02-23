@@ -16,6 +16,7 @@ struct DeleteAccountFeature: Reducer {
         case completed
     }
 
+    @ObservableState
     struct State: Equatable {
         var showingState: ShowingState = .signOut
     }

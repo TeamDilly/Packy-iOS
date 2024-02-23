@@ -9,13 +9,11 @@ import SwiftUI
 import ComposableArchitecture
 
 struct AddPhotoBottomSheet: View {
-    private let store: StoreOf<AddPhotoFeature>
-    @ObservedObject var viewStore: ViewStoreOf<AddPhotoFeature>
+    @Bindable private var store: StoreOf<AddPhotoFeature>
     @FocusState private var textFieldFocused: Bool
 
     init(store: StoreOf<AddPhotoFeature>) {
         self.store = store
-        self.viewStore = ViewStore(store, observe: { $0 })
     }
 
     var body: some View {
@@ -39,15 +37,15 @@ struct AddPhotoBottomSheet: View {
             }
 
             PhotoElementInputView(
-                image: viewStore.photoInput.photoData?.image,
-                text: viewStore.$photoInput.text
+                image: store.photoInput.photoData?.image,
+                text: $store.photoInput.text
             )
             .photoPickable { data in
                 guard let data else { return }
-                viewStore.send(.selectPhoto(data))
+                store.send(.selectPhoto(data))
             }
-            .deleteButton(isShown: viewStore.photoInput.photoData != nil) {
-                viewStore.send(.photoDeleteButtonTapped)
+            .deleteButton(isShown: store.photoInput.photoData != nil) {
+                store.send(.photoDeleteButtonTapped)
             }
             .focused($textFieldFocused)
             .frame(height: 374)
@@ -56,9 +54,9 @@ struct AddPhotoBottomSheet: View {
 
             if !textFieldFocused {
                 PackyButton(title: "저장", colorType: .black) {
-                    viewStore.send(.photoSaveButtonTapped)
+                    store.send(.photoSaveButtonTapped)
                 }
-                .disabled(!viewStore.photoInput.isCompleted)
+                .disabled(!store.photoInput.isCompleted)
                 .padding(.horizontal, 24)
                 .padding(.bottom, 16)
             }

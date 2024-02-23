@@ -11,18 +11,25 @@ import ComposableArchitecture
 @Reducer
 struct BoxAddTitleAndShareFeature: Reducer {
 
+    @ObservableState
     struct State: Equatable {
         var giftBoxData: SendingGiftBoxRawData
         var giftBox: SendingGiftBox?
         let boxDesign: BoxDesign
 
         /// 보내는데 성공한 박스 정보
-        var sentGiftBoxInfo: SentGiftBoxInfo?
+        fileprivate var sentGiftBoxInfo: SentGiftBoxInfo?
 
-        @BindingState var boxNameInput: String = ""
+        var boxNameInput: String = ""
 
         var isLoading: Bool = false
-        @PresentationState var boxShare: BoxShareFeature.State?
+        var boxShare: BoxShareFeature.State?
+
+        init(giftBoxData: SendingGiftBoxRawData, giftBox: SendingGiftBox? = nil, boxDesign: BoxDesign) {
+            self.giftBoxData = giftBoxData
+            self.giftBox = giftBox
+            self.boxDesign = boxDesign
+        }
     }
 
     enum Action: BindableAction {
@@ -44,7 +51,7 @@ struct BoxAddTitleAndShareFeature: Reducer {
         case _showIsLoading(Bool)
 
         // MARK: Child Action
-        case boxShare(PresentationAction<BoxShareFeature.Action>)
+        case boxShare(BoxShareFeature.Action)
 
         // MARK: Delegate Action
         enum Delegate {
@@ -67,8 +74,8 @@ struct BoxAddTitleAndShareFeature: Reducer {
             case .backButtonTapped:
                 return .run { _ in await dismiss() }
 
-            case .boxShare(.presented(.closeButtonTapped)),
-                 .boxShare(.presented(.sendLaterButtonTapped)):
+            case .boxShare(.closeButtonTapped),
+                 .boxShare(.sendLaterButtonTapped):
                 return .send(.delegate(.moveToHome))
 
             case .nextButtonTapped:
@@ -141,7 +148,7 @@ struct BoxAddTitleAndShareFeature: Reducer {
                 return .none
             }
         }
-        .ifLet(\.$boxShare, action: \.boxShare) {
+        .ifLet(\.boxShare, action: \.boxShare) {
             BoxShareFeature()
         }
     }

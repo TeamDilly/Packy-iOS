@@ -11,13 +11,14 @@ import ComposableArchitecture
 @Reducer
 struct EditProfileFeature: Reducer {
 
+    @ObservableState
     struct State: Equatable {
         let fetchedProfile: Profile
 
-        @BindingState var nickname: String
+        var nickname: String
         var selectedProfile: ProfileImage?
 
-        @PresentationState var editSelectProfile: EditSelectProfileFeature.State?
+        @Presents var editSelectProfile: EditSelectProfileFeature.State?
 
         var hasProfileChanges: Bool {
             fetchedProfile.nickname != nickname ||

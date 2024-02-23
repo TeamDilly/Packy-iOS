@@ -12,37 +12,36 @@ import ComposableArchitecture
 
 struct PhotoArchiveView: View {
     private let store: StoreOf<PhotoArchiveFeature>
-    @ObservedObject private var viewStore: ViewStoreOf<PhotoArchiveFeature>
     @Environment(\.scenePhase) private var scenePhase
     @State private var columns: Int = 2
 
     init(store: StoreOf<PhotoArchiveFeature>) {
         self.store = store
-        self.viewStore = ViewStore(store, observe: { $0 })
     }
 
     var body: some View {
         VStack {
-            if viewStore.photos.isEmpty && !viewStore.isLoading {
+            if store.photos.isEmpty && !store.isLoading {
                 Text("아직 선물받은 사진이 없어요")
                     .packyFont(.body2)
                     .foregroundStyle(.gray600)
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                     .padding(.bottom, 50)
             } else {
-                StaggeredGrid(columns: columns, data: viewStore.photos.elements) { photo in
+                StaggeredGrid(columns: columns, data: store.photos.elements) { photo in
                     PhotoCell(photoUrl: photo.photoUrl)
-                        .bouncyTapGesture {
-                            viewStore.send(.photoTapped(photo))
+                        .onTapGesture {
+                            HapticManager.shared.fireFeedback(.soft)
+                            store.send(.photoTapped(photo))
                         }
                         .onAppear {
                             // Pagination
-                            guard viewStore.isLastPage == false,
-                                  let index = viewStore.photos.firstIndex(of: photo) else { return }
+                            guard store.isLastPage == false,
+                                  let index = store.photos.firstIndex(of: photo) else { return }
 
-                            let isNearEndForNextPageLoad = index == viewStore.photos.endIndex - 3
+                            let isNearEndForNextPageLoad = index == store.photos.endIndex - 3
                             guard isNearEndForNextPageLoad else { return }
-                            viewStore.send(._fetchMorePhotos)
+                            store.send(._fetchMorePhotos)
                         }
                 }
                 .zigzagPadding(80)
@@ -54,16 +53,18 @@ struct PhotoArchiveView: View {
         .padding(.horizontal, 24)
         .background(.gray100)
         .refreshable {
-            await viewStore.send(.didRefresh, while: \.isLoading)
+            await store
+                .send(.didRefresh)
+                .finish()
         }
         .didLoad {
-            await viewStore
+            await store
                 .send(._onTask)
                 .finish()
         }
         .onChange(of: scenePhase) {
             guard $1 == .active else { return }
-            viewStore.send(._didActiveScene)
+            store.send(._didActiveScene)
         }
     }
 }

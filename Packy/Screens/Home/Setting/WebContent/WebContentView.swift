@@ -12,26 +12,26 @@ import ComposableArchitecture
 
 struct WebContentView: View {
     private let store: StoreOf<WebContentFeature>
-    @ObservedObject private var viewStore: ViewStoreOf<WebContentFeature>
 
     init(store: StoreOf<WebContentFeature>) {
         self.store = store
-        self.viewStore = ViewStore(store, observe: { $0 })
     }
 
     var body: some View {
         VStack {
             NavigationBar(
-                title: viewStore.navigationTitle,
+                title: store.navigationTitle,
                 leftIcon: Image(.arrowLeft), 
-                leftIconAction: { viewStore.send(.backButtonTapped) }
+                leftIconAction: {
+                    store.send(.backButtonTapped)
+                }
             )
 
-            WebView(urlString: viewStore.urlString)
+            WebView(urlString: store.urlString)
         }
         .navigationBarBackButtonHidden()
         .task {
-            await viewStore
+            await store
                 .send(._onTask)
                 .finish()
         }

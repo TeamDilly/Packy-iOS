@@ -11,8 +11,9 @@ import ComposableArchitecture
 @Reducer
 struct MyBoxFeature: Reducer {
 
+    @ObservableState
     struct State: Equatable {
-        @BindingState var selectedTab: MyBoxTab = .sentBox
+        var selectedTab: MyBoxTab = .sentBox
 
         fileprivate var receivedBoxesData: [SentReceivedGiftBoxPageData] = []
         fileprivate var sentBoxesData: [SentReceivedGiftBoxPageData] = []
@@ -24,7 +25,7 @@ struct MyBoxFeature: Reducer {
         var sentBoxes: IdentifiedArrayOf<SentReceivedGiftBox> = []
         var unsentBoxes: IdentifiedArrayOf<UnsentBox> = []
 
-        @BindingState var selectedBoxIdToDelete: Int?
+        var selectedBoxIdToDelete: Int?
 
         var isFetchBoxesLoading: Bool = true
         var isShowDetailLoading: Bool = false
@@ -76,7 +77,7 @@ struct MyBoxFeature: Reducer {
             case ._didActiveScene:
                 return .send(._resetAndFetchAllGiftBoxes)
 
-            case .binding(\.$selectedBoxIdToDelete):
+            case .binding(\.selectedBoxIdToDelete):
                 return .run { send in
                     await bottomMenu.show(
                         .init(

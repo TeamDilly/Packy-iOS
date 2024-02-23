@@ -11,30 +11,28 @@ import ComposableArchitecture
 // MARK: - View
 
 struct BoxAddTitleAndShareView: View {
-    private let store: StoreOf<BoxAddTitleAndShareFeature>
-    @ObservedObject private var viewStore: ViewStoreOf<BoxAddTitleAndShareFeature>
+    @Bindable private var store: StoreOf<BoxAddTitleAndShareFeature>
     @FocusState private var isFocused: Bool
 
     init(store: StoreOf<BoxAddTitleAndShareFeature>) {
         self.store = store
-        self.viewStore = ViewStore(store, observe: { $0 })
     }
 
     var body: some View {
         VStack(spacing: 0) {
-            IfLetStore(store.scope(state: \.$boxShare, action: \.boxShare)) { store in
+            if let store = store.scope(state: \.boxShare, action: \.boxShare) {
                 BoxShareView(store: store)
-            } else: {
+            } else {
                 boxAddTitleView
             }
-            .animation(.spring, value: viewStore.boxShare == nil)
         }
-        .showLoading(viewStore.isLoading)
+        .animation(.spring, value: store.boxShare == nil)
+        .showLoading(store.isLoading)
         .popGestureDisabled()
         .makeTapToHideKeyboard()
         .navigationBarBackButtonHidden(true)
         .task {
-            await viewStore
+            await store
                 .send(._onTask)
                 .finish()
 
@@ -52,7 +50,7 @@ private extension BoxAddTitleAndShareView {
     @ViewBuilder
     var boxAddTitleView: some View {
         NavigationBar.onlyBackButton {
-            viewStore.send(.backButtonTapped)
+            store.send(.backButtonTapped)
         }
 
         Text("마지막으로 선물박스에\n이름을 붙여주세요")
@@ -67,9 +65,9 @@ private extension BoxAddTitleAndShareView {
             .padding(.top, 8)
             .multilineTextAlignment(.center)
 
-        PackyTextField(text: viewStore.$boxNameInput, placeholder: "12자 이내로 입력해주세요")
+        PackyTextField(text: $store.boxNameInput, placeholder: "12자 이내로 입력해주세요")
             .focused($isFocused)
-            .limitTextLength(text: viewStore.$boxNameInput, length: 12)
+            .limitTextLength(text: $store.boxNameInput, length: 12)
             .padding(.horizontal, 24)
             .padding(.top, 40)
 
@@ -78,12 +76,12 @@ private extension BoxAddTitleAndShareView {
         Button("다음") {
             throttle {
                 isFocused = false
-                viewStore.send(.nextButtonTapped)
+                store.send(.nextButtonTapped)
             }
         }
         .buttonStyle(PackyButtonStyle(colorType: .black))
-        .disabled(viewStore.boxNameInput.isEmpty)
-        .animation(.spring, value: viewStore.boxNameInput)
+        .disabled(store.boxNameInput.isEmpty)
+        .animation(.spring, value: store.boxNameInput)
         .padding(.horizontal, 24)
         .padding(.bottom, 16)
     }
@@ -94,7 +92,7 @@ private extension BoxAddTitleAndShareView {
 #Preview {
     BoxAddTitleAndShareView(
         store: .init(
-            initialState: .init(giftBoxData: .mock, boxDesign: .mock, boxNameInput: "hello"),
+            initialState: .init(giftBoxData: .mock, boxDesign: .mock),
             reducer: {
                 BoxAddTitleAndShareFeature()
                     ._printChanges()

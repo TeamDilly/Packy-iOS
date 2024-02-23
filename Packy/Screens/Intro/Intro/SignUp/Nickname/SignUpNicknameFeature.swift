@@ -11,9 +11,10 @@ import ComposableArchitecture
 @Reducer
 struct SignUpNicknameFeature: Reducer {
 
+    @ObservableState
     struct State: Equatable {
         let socialLoginInfo: SocialLoginInfo
-        @BindingState var nickname: String = ""
+        var nickname: String = ""
         
         var path: StackState<SignUpNavigationPath.State> = .init()
 
