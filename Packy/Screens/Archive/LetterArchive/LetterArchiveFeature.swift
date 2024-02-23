@@ -50,7 +50,6 @@ struct LetterArchiveFeature: Reducer {
                 return .none
                 
             case ._onTask:
-                guard state.letterArchivePageData.isEmpty else { return .none }
                 return fetchLetters(lastLetterId: nil)
 
             case .didRefresh, ._didActiveScene:

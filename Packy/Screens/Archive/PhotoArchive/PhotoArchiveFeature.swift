@@ -50,7 +50,6 @@ struct PhotoArchiveFeature: Reducer {
                 return .none
                 
             case ._onTask:
-                guard state.photoArchivePageData.isEmpty else { return .none }
                 return fetchPhotos(lastPhotoId: nil)
 
             case .didRefresh, ._didActiveScene:

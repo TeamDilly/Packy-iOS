@@ -200,7 +200,6 @@ struct MyBoxFeature: Reducer {
 
 private extension MyBoxFeature {
     func fetchAllInitialGiftBoxes(_ state: State) -> Effect<Action> {
-        guard state.sentBoxes.isEmpty && state.receivedBoxes.isEmpty else { return .none }
         return .merge(
             fetchGiftBoxes(type: .received, lastGiftBoxDate: nil),
             fetchGiftBoxes(type: .sent, lastGiftBoxDate: nil)

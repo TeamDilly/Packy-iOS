@@ -47,7 +47,7 @@ struct MyBoxView: View {
         .showLoading(store.isShowDetailLoading)
         .navigationBarBackButtonHidden(true)
         .ignoresSafeArea(edges: .bottom)
-        .didLoad {
+        .task {
             await store
                 .send(._onTask)
                 .finish()

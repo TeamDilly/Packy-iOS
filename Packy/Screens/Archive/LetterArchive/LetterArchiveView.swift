@@ -59,7 +59,7 @@ struct LetterArchiveView: View {
         }
         .padding(.horizontal, 24)
         .background(.gray100)
-        .didLoad {
+        .task {
             await store
                 .send(._onTask)
                 .finish()

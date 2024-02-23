@@ -56,7 +56,7 @@ struct GiftArchiveView: View {
                 .send(.didRefresh)
                 .finish()
         }
-        .didLoad {
+        .task {
             await store
                 .send(._onTask)
                 .finish()

@@ -50,7 +50,6 @@ struct GiftArchiveFeature: Reducer {
                 return .none
                 
             case ._onTask:
-                guard state.giftArchivePageData.isEmpty else { return .none }
                 return fetchGifts(lastGiftId: nil)
 
             case .didRefresh, ._didActiveScene:
