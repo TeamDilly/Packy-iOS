@@ -11,11 +11,12 @@ import ComposableArchitecture
 @Reducer
 struct SettingFeature: Reducer {
 
+    @ObservableState
     struct State: Equatable {
         var settingMenus: [SettingMenu] = []
         var profile: Profile?
 
-        @PresentationState var editProfile: EditProfileFeature.State?
+        @Presents var editProfile: EditProfileFeature.State?
     }
 
     enum Action {

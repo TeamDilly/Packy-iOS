@@ -11,9 +11,15 @@ import ComposableArchitecture
 @Reducer
 struct WebContentFeature: Reducer {
 
+    @ObservableState
     struct State: Equatable {
         var urlString: String
         var navigationTitle: String
+
+        init(urlString: String, navigationTitle: String) {
+            self.urlString = urlString
+            self.navigationTitle = navigationTitle
+        }
     }
 
     enum Action {

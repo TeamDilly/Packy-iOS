@@ -11,10 +11,15 @@ import ComposableArchitecture
 @Reducer
 struct EditSelectProfileFeature: Reducer {
 
+    @ObservableState
     struct State: Equatable {
         var initialImageUrl: String
         var selectedProfile: ProfileImage?
         var profileImages: [ProfileImage] = []
+
+        init(initialImageUrl: String) {
+            self.initialImageUrl = initialImageUrl
+        }
     }
 
     enum Action {

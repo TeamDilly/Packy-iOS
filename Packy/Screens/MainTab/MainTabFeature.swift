@@ -11,9 +11,10 @@ import ComposableArchitecture
 @Reducer
 struct MainTabFeature: Reducer {
 
+    @ObservableState
     struct State: Equatable {
-        @BindingState var textInput: String = ""
-        @BindingState var selectedTab: MainTab = .home
+        var textInput: String = ""
+        var selectedTab: MainTab = .home
 
         var path: StackState<MainTabNavigationPath.State> = .init()
         

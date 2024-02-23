@@ -11,6 +11,7 @@ import ComposableArchitecture
 
 @Reducer
 struct MainTabNavigationPath {
+    @ObservableState
     enum State: Equatable {
         case boxDetail(BoxDetailFeature.State)
         case boxOpen(BoxOpenFeature.State)

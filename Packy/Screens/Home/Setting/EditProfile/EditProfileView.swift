@@ -11,24 +11,22 @@ import ComposableArchitecture
 // MARK: - View
 
 struct EditProfileView: View {
-    private let store: StoreOf<EditProfileFeature>
-    @ObservedObject private var viewStore: ViewStoreOf<EditProfileFeature>
-    
+    @Bindable private var store: StoreOf<EditProfileFeature>
+
     init(store: StoreOf<EditProfileFeature>) {
         self.store = store
-        self.viewStore = ViewStore(store, observe: { $0 })
     }
     
     var body: some View {
         VStack(spacing: 40) {
             NavigationBar(title: "프로필 수정", leftIcon: Image(.arrowLeft), leftIconAction: {
-                viewStore.send(.backButtonTapped)
+                store.send(.backButtonTapped)
             })
             .padding(.top, 8)
             
             profileImageView
                 .bouncyTapGesture {
-                    viewStore.send(.profileButtonTapped)
+                    store.send(.profileButtonTapped)
                 }
             
             nicknameTextField
@@ -37,17 +35,19 @@ struct EditProfileView: View {
             Spacer()
             
             PackyButton(title: "저장", sizeType: .large, colorType: .black) {
-                viewStore.send(.saveButtonTapped)
+                store.send(.saveButtonTapped)
             }
             .padding(.horizontal, 24)
             .padding(.bottom, 16)
         }
-        .navigationDestination(store: store.scope(state: \.$editSelectProfile, action: \.editSelectProfile)) { store in
+        .navigationDestination(
+            item: $store.scope(state: \.editSelectProfile, action: \.editSelectProfile)
+        ) { store in
             EditSelectProfileView(store: store)
         }
         .navigationBarBackButtonHidden(true)
         .task {
-            await viewStore
+            await store
                 .send(._onTask)
                 .finish()
         }
@@ -59,7 +59,7 @@ struct EditProfileView: View {
 private extension EditProfileView {
     var profileImageView: some View {
         NetworkImage(
-            url: viewStore.selectedProfile?.imageUrl ?? viewStore.fetchedProfile.imageUrl
+            url: store.selectedProfile?.imageUrl ?? store.fetchedProfile.imageUrl
         )
         .frame(width: 80, height: 80)
         .overlay(alignment: .bottomTrailing) {
@@ -83,10 +83,10 @@ private extension EditProfileView {
                 .frame(maxWidth: .infinity, alignment: .leading)
             
             PackyTextField(
-                text: viewStore.$nickname,
+                text: $store.nickname,
                 placeholder: "6자 이내로 입력해주세요"
             )
-            .limitTextLength(text: viewStore.$nickname, length: 6)
+            .limitTextLength(text: $store.nickname, length: 6)
         }
     }
 }

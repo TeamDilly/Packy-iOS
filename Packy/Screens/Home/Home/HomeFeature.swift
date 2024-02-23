@@ -11,12 +11,13 @@ import ComposableArchitecture
 @Reducer
 struct HomeFeature: Reducer {
 
+    @ObservableState
     struct State: Equatable {
         var giftBoxes: [SentReceivedGiftBox] = []
         var unsentBoxes: IdentifiedArrayOf<UnsentBox> = []
         var isShowDetailLoading: Bool = false
 
-        @BindingState var selectedBoxToDelete: UnsentBox?
+        var selectedBoxToDelete: UnsentBox?
     }
 
     enum Action: BindableAction {
@@ -56,7 +57,7 @@ struct HomeFeature: Reducer {
         Reduce<State, Action> { state, action in
             switch action {
             // MARK: User Action
-            case .binding(\.$selectedBoxToDelete):
+            case .binding(\.selectedBoxToDelete):
                 return .run { send in
                     await bottomMenu.show(
                         .init(
@@ -155,6 +156,8 @@ struct HomeFeature: Reducer {
         }
     }
 }
+
+// MARK: - Inner Functions
 
 private extension HomeFeature {
     func fetchGiftBoxes() -> Effect<Action> {
