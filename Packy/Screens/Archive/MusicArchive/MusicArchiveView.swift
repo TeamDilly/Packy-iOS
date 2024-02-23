@@ -31,8 +31,7 @@ struct MusicArchiveView: View {
             } else {
                 StaggeredGrid(columns: 2, data: viewStore.musics.elements) { music in
                     MusicCell(youtubeUrl: music.youtubeUrl)
-                        .onTapGesture {
-                            HapticManager.shared.fireFeedback(.soft)
+                        .bouncyTapGesture {
                             viewStore.send(.musicTapped(music))
                         }
                         .onAppear {

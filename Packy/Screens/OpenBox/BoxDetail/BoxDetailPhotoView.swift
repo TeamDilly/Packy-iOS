@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import Kingfisher
 
 struct BoxDetailPhotoView: View {
     var imageUrl: String
@@ -14,9 +13,9 @@ struct BoxDetailPhotoView: View {
 
     var body: some View {
         VStack(spacing: 16) {
-            
-            KFImage(URL(string: imageUrl))
-                .scaleToFillFrame(width: 280, height: 280)
+            NetworkImage(url: imageUrl)
+                .frame(width: 280, height: 280)
+                .allowsHitTesting(false)
 
             Text(text)
                 .tint(.black)
@@ -27,7 +26,6 @@ struct BoxDetailPhotoView: View {
         .padding(16)
         .background(.gray200)
         .animation(.spring, value: imageUrl)
-        .clipped()
     }
 }
 

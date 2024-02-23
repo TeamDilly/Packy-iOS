@@ -34,8 +34,7 @@ struct LetterArchiveView: View {
                         imageUrl: letter.envelope.imageUrl,
                         text: letter.letterContent
                     )
-                    .onTapGesture {
-                        HapticManager.shared.fireFeedback(.soft)
+                    .bouncyTapGesture {
                         viewStore.send(.letterTapped(letter))
                     }
                     .onAppear {

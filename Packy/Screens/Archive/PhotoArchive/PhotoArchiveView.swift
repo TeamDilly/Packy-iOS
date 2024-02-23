@@ -32,9 +32,7 @@ struct PhotoArchiveView: View {
             } else {
                 StaggeredGrid(columns: columns, data: viewStore.photos.elements) { photo in
                     PhotoCell(photoUrl: photo.photoUrl)
-                    // BouncyTapGesture 를 주게되면 dimmedFullScreen 에 의해 애니메이션이 사라져서, 그냥 tap 으로 처리
-                        .onTapGesture {
-                            HapticManager.shared.fireFeedback(.soft)
+                        .bouncyTapGesture {
                             viewStore.send(.photoTapped(photo))
                         }
                         .onAppear {
