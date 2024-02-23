@@ -12,7 +12,7 @@ import ComposableArchitecture
 
 struct MainTabView: View {
     private let store: StoreOf<MainTabFeature>
-    @ObservedObject private var viewStore: ViewStoreOf<MainTabFeature>
+    @ObservedObject private(set) var viewStore: ViewStoreOf<MainTabFeature>
     @State var presentBottomSheet: Bool = false
 
     init(store: StoreOf<MainTabFeature>) {
@@ -110,17 +110,16 @@ struct MainTabView: View {
 
 private extension MainTabView {
     var content: some View {
-        VStack(spacing: 0) {
-            tabView
-            bottomTabBar
+        archiveOverlay {
+            VStack(spacing: 0) {
+                tabView
+                bottomTabBar
+            }
         }
         .bottomSheet(
             isPresented: .init(
                 get: { viewStore.popupBox.popupBox != nil },
-                set: {
-                    guard $0 == false else { return }
-                    viewStore.send(.popupBox(._hideBottomSheet))
-                }
+                set: { if $0 == false { viewStore.send(.popupBox(._hideBottomSheet)) } }
             ),
             detents: [.height(525)]
         ) {

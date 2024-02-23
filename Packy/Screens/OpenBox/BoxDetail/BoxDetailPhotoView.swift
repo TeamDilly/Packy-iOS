@@ -14,6 +14,7 @@ struct BoxDetailPhotoView: View {
 
     var body: some View {
         VStack(spacing: 16) {
+            
             KFImage(URL(string: imageUrl))
                 .scaleToFillFrame(width: 280, height: 280)
 
@@ -26,6 +27,7 @@ struct BoxDetailPhotoView: View {
         .padding(16)
         .background(.gray200)
         .animation(.spring, value: imageUrl)
+        .clipped()
     }
 }
 
