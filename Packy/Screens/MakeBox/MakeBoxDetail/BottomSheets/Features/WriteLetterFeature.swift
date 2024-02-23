@@ -12,13 +12,14 @@ import Foundation
 struct WriteLetterFeature: Reducer {
 
     struct LetterInput: Equatable {
-        @BindingState var selectedLetterDesign: LetterDesign?
+        var selectedLetterDesign: LetterDesign?
         var letter: String = ""
         var isCompleted: Bool { letter.isEmpty == false }
     }
 
+    @ObservableState
     struct State: Equatable {
-        @BindingState var letterInput: LetterInput = .init()
+        var letterInput: LetterInput = .init()
         var isWriteLetterBottomSheetPresented: Bool = false
         var savedLetter: LetterInput = .init()
         var letterDesigns: [LetterDesign] = []

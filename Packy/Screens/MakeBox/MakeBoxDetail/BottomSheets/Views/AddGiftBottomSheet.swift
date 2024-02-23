@@ -10,11 +10,9 @@ import ComposableArchitecture
 
 struct AddGiftBottomSheet: View {
     private let store: StoreOf<AddGiftFeature>
-    @ObservedObject var viewStore: ViewStoreOf<AddGiftFeature>
 
     init(store: StoreOf<AddGiftFeature>) {
         self.store = store
-        self.viewStore = ViewStore(store, observe: { $0 })
     }
 
     var body: some View {
@@ -31,25 +29,25 @@ struct AddGiftBottomSheet: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
             }
 
-            PhotoPicker(image: viewStore.giftInput.photoData?.image) { data in
-                viewStore.send(.selectGiftImage(data))
+            PhotoPicker(image: store.giftInput.photoData?.image) { data in
+                store.send(.selectGiftImage(data))
             }
             .cropAlignment(.top)
-            .deleteButton(isShown: viewStore.giftInput.photoData != nil) {
-                viewStore.send(.deleteGiftImageButtonTapped)
+            .deleteButton(isShown: store.giftInput.photoData != nil) {
+                store.send(.deleteGiftImageButtonTapped)
             }
             .padding(.top, 32)
 
             Spacer()
 
             PackyButton(title: "저장", colorType: .black) {
-                viewStore.send(.giftSaveButtonTapped)
+                store.send(.giftSaveButtonTapped)
             }
-            .disabled(viewStore.giftInput.photoData == nil)
+            .disabled(store.giftInput.photoData == nil)
             .padding(.bottom, 8)
 
             Button("안 담을래요") {
-                viewStore.send(.notSelectGiftButtonTapped)
+                store.send(.notSelectGiftButtonTapped)
             }
             .buttonStyle(TextButtonStyle())
             .padding(.bottom, 20)

@@ -11,6 +11,7 @@ import ComposableArchitecture
 @Reducer
 struct MakeBoxDetailFeature: Reducer {
 
+    @ObservableState
     struct State: Equatable {
         let senderInfo: BoxSenderInfo
         let boxDesigns: [BoxDesign]
@@ -18,12 +19,12 @@ struct MakeBoxDetailFeature: Reducer {
 
         var isShowingGuideText: Bool = false
 
-        @BindingState var addPhoto: AddPhotoFeature.State = .init()
-        @BindingState var writeLetter: WriteLetterFeature.State = .init()
-        @BindingState var selectMusic: SelectMusicFeature.State = .init()
-        @BindingState var addGift: AddGiftFeature.State = .init()
-        @BindingState var selectSticker: SelectStickerFeature.State = .init()
-        @BindingState var isSelectBoxBottomSheetPresented: Bool = false
+        var addPhoto: AddPhotoFeature.State = .init()
+        var writeLetter: WriteLetterFeature.State = .init()
+        var selectMusic: SelectMusicFeature.State = .init()
+        var addGift: AddGiftFeature.State = .init()
+        var selectSticker: SelectStickerFeature.State = .init()
+        var isSelectBoxBottomSheetPresented: Bool = false
 
         /// 모든 요소가 입력되어서, 완성할 수 있는 상태인지
         var isCompletable: Bool {

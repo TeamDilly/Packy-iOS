@@ -16,6 +16,7 @@ struct AddGiftFeature: Reducer {
         var isCompleted: Bool { photoData != nil }
     }
 
+    @ObservableState
     struct State: Equatable {
         var isAddGiftBottomSheetPresented: Bool = false
         var giftInput: GiftInput = .init()

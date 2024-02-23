@@ -18,9 +18,10 @@ struct AddPhotoFeature: Reducer {
         var isCompleted: Bool { photoData != nil }
     }
 
+    @ObservableState
     struct State: Equatable {
         var isPhotoBottomSheetPresented: Bool = false
-        @BindingState var photoInput: PhotoInput = .init()
+        var photoInput: PhotoInput = .init()
         var savedPhoto: PhotoInput = .init()
     }
 

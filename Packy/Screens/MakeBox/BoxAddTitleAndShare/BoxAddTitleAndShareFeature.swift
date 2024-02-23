@@ -11,6 +11,7 @@ import ComposableArchitecture
 @Reducer
 struct BoxAddTitleAndShareFeature: Reducer {
 
+    @ObservableState
     struct State: Equatable {
         var giftBoxData: SendingGiftBoxRawData
         var giftBox: SendingGiftBox?
@@ -19,10 +20,16 @@ struct BoxAddTitleAndShareFeature: Reducer {
         /// 보내는데 성공한 박스 정보
         var sentGiftBoxInfo: SentGiftBoxInfo?
 
-        @BindingState var boxNameInput: String = ""
+        var boxNameInput: String = ""
 
         var isLoading: Bool = false
-        @PresentationState var boxShare: BoxShareFeature.State?
+        @Presents var boxShare: BoxShareFeature.State?
+
+        init(giftBoxData: SendingGiftBoxRawData, giftBox: SendingGiftBox? = nil, boxDesign: BoxDesign) {
+            self.giftBoxData = giftBoxData
+            self.giftBox = giftBox
+            self.boxDesign = boxDesign
+        }
     }
 
     enum Action: BindableAction {

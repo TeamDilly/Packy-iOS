@@ -12,8 +12,7 @@ import Kingfisher
 // MARK: - View
 
 struct MakeBoxDetailView: View {
-    private let store: StoreOf<MakeBoxDetailFeature>
-    @ObservedObject var viewStore: ViewStoreOf<MakeBoxDetailFeature>
+    @Bindable private var store: StoreOf<MakeBoxDetailFeature>
 
     @State private var isShowingGuideText: Bool = false
 
@@ -21,7 +20,6 @@ struct MakeBoxDetailView: View {
 
     init(store: StoreOf<MakeBoxDetailFeature>) {
         self.store = store
-        self.viewStore = ViewStore(store, observe: { $0 })
     }
 
     var body: some View {
@@ -29,11 +27,11 @@ struct MakeBoxDetailView: View {
             let screenWidth = proxy.size.width
 
             ZStack(alignment: .topTrailing) {
-                if viewStore.isShowingGuideText {
+                if store.isShowingGuideText {
                     guideOverlayView
                         .zIndex(3)
                 } else {
-                    if let boxTopUrl = viewStore.selectedBox?.boxTopUrl {
+                    if let boxTopUrl = store.selectedBox?.boxTopUrl {
                         KFImage(URL(string: boxTopUrl))
                             .resizable()
                             .scaledToFit()
@@ -41,25 +39,25 @@ struct MakeBoxDetailView: View {
                             .transition(.asymmetric(insertion: .move(edge: .top), removal: .opacity))
                             .ignoresSafeArea()
                             .zIndex(1)
-                            .id(viewStore.selectedBox?.id)
+                            .id(store.selectedBox?.id)
                     }
 
                     FloatingNavigationBar(
                         leadingAction: {
-                            viewStore.send(.backButtonTapped)
+                            store.send(.backButtonTapped)
                         },
                         trailingType: .text("완성"),
                         trailingAction: {
-                            viewStore.send(.completeButtonTapped)
+                            store.send(.completeButtonTapped)
                         },
-                        trailingDisabled: !viewStore.isCompletable
+                        trailingDisabled: !store.isCompletable
                     )
                     .zIndex(2)
                 }
 
                 VStack(spacing: 0) {
                     ZStack {
-                        Text("To. \(viewStore.senderInfo.receiver)")
+                        Text("To. \(store.senderInfo.receiver)")
                             .packyFont(.body2)
                             .foregroundStyle(.white)
                             .frame(maxWidth: .infinity, alignment: .leading)
@@ -114,37 +112,37 @@ struct MakeBoxDetailView: View {
         }
         // 음악 추가 바텀시트
         .bottomSheet(
-            isPresented: viewStore.$selectMusic.isMusicBottomSheetPresented,
-            currentDetent: .constant(viewStore.selectMusic.musicInput.musicBottomSheetMode.detent),
-            detents: viewStore.selectMusic.musicInput.musicSheetDetents,
-            showLeadingButton: viewStore.selectMusic.musicInput.musicBottomSheetMode != .choice,
-            leadingButtonAction: { viewStore.send(.selectMusic(.musicBottomSheetBackButtonTapped)) },
-            closeButtonAction: { viewStore.send(.selectMusic(.musicBottomSheetCloseButtonTapped)) },
+            isPresented: $store.selectMusic.isMusicBottomSheetPresented,
+            currentDetent: .constant(store.selectMusic.musicInput.musicBottomSheetMode.detent),
+            detents: store.selectMusic.musicInput.musicSheetDetents,
+            showLeadingButton: store.selectMusic.musicInput.musicBottomSheetMode != .choice,
+            leadingButtonAction: { store.send(.selectMusic(.musicBottomSheetBackButtonTapped)) },
+            closeButtonAction: { store.send(.selectMusic(.musicBottomSheetCloseButtonTapped)) },
             isDismissible: false
         )  {
             SelectMusicBottomSheet(store: store.scope(state: \.selectMusic, action: \.selectMusic))
         }
         // 사진 추가 바텀시트
         .bottomSheet(
-            isPresented: viewStore.$addPhoto.isPhotoBottomSheetPresented,
+            isPresented: $store.addPhoto.isPhotoBottomSheetPresented,
             detents: [.large],
-            closeButtonAction: { viewStore.send(.addPhoto(.photoBottomSheetCloseButtonTapped)) },
+            closeButtonAction: { store.send(.addPhoto(.photoBottomSheetCloseButtonTapped)) },
             isDismissible: false
         ) {
             AddPhotoBottomSheet(store: store.scope(state: \.addPhoto, action: \.addPhoto))
         }
         // 편지 쓰기 바텀시트
         .bottomSheet(
-            isPresented: viewStore.$writeLetter.isWriteLetterBottomSheetPresented,
+            isPresented: $store.writeLetter.isWriteLetterBottomSheetPresented,
             detents: [.large],
-            closeButtonAction: { viewStore.send(.writeLetter(.WriteLetterBottomSheetCloseButtonTapped)) },
+            closeButtonAction: { store.send(.writeLetter(.WriteLetterBottomSheetCloseButtonTapped)) },
             isDismissible: false
         ) {
             WriteLetterBottomSheet(store: store.scope(state: \.writeLetter, action: \.writeLetter))
         }
         // 스티커 추가 바텀 시트
         .bottomSheet(
-            isPresented: viewStore.$selectSticker.isStickerBottomSheetPresented,
+            isPresented: $store.selectSticker.isStickerBottomSheetPresented,
             detents: [.fraction(0.35)],
             isBackgroundBlack: false,
             hideTopButtons: true
@@ -153,19 +151,19 @@ struct MakeBoxDetailView: View {
         }
         // 박스 다시 고르기 바텀 시트
         .bottomSheet(
-            isPresented: viewStore.$isSelectBoxBottomSheetPresented,
+            isPresented: $store.isSelectBoxBottomSheetPresented,
             detents: [.fraction(0.3)],
             isBackgroundBlack: false,
             hideTopButtons: true
         ) {
-            SelectBoxBottomSheet(viewStore: viewStore)
+            SelectBoxBottomSheet(store: store)
         }
         // 선물 추가 바텀 시트
         .bottomSheet(
-            isPresented: viewStore.$addGift.isAddGiftBottomSheetPresented,
+            isPresented: $store.addGift.isAddGiftBottomSheetPresented,
             detents: [.large],
             closeButtonAction: {
-                viewStore.send(.addGift(.addGiftSheetCloseButtonTapped))
+                store.send(.addGift(.addGiftSheetCloseButtonTapped))
             },
             isDismissible: false
         ) {
@@ -175,7 +173,7 @@ struct MakeBoxDetailView: View {
         .navigationBarBackButtonHidden(true)
         .popGestureOnlyDisabled()
         .task {
-            await viewStore
+            await store
                 .send(._onTask)
                 .finish()
         }
@@ -205,82 +203,82 @@ private extension MakeBoxDetailView {
 
     @ViewBuilder
     func photoView(_ screenWidth: CGFloat) -> some View {
-        if let image = viewStore.addPhoto.savedPhoto.photoData?.image {
+        if let image = store.addPhoto.savedPhoto.photoData?.image {
             PhotoElementView(image: image, screenWidth: screenWidth) {
-                viewStore.send(.addPhoto(.photoSelectButtonTapped))
+                store.send(.addPhoto(.photoSelectButtonTapped))
             }
         } else {
             ElementGuideView(element: .photo, screenWidth: screenWidth) {
-                viewStore.send(.addPhoto(.photoSelectButtonTapped))
+                store.send(.addPhoto(.photoSelectButtonTapped))
             }
         }
     }
 
     @ViewBuilder
     func letterView(_ screenWidth: CGFloat) -> some View {
-        if viewStore.writeLetter.savedLetter.isCompleted {
+        if store.writeLetter.savedLetter.isCompleted {
             LetterElementView(
-                lettetContent: viewStore.writeLetter.savedLetter.letter,
-                letterImageUrl: viewStore.writeLetter.savedLetter.selectedLetterDesign?.imageUrl ?? "",
+                lettetContent: store.writeLetter.savedLetter.letter,
+                letterImageUrl: store.writeLetter.savedLetter.selectedLetterDesign?.imageUrl ?? "",
                 screenWidth: screenWidth
             ) {
-                viewStore.send(.writeLetter(.letterInputButtonTapped))
+                store.send(.writeLetter(.letterInputButtonTapped))
             }
         } else {
             ElementGuideView(element: .letter, screenWidth: screenWidth) {
-                viewStore.send(.writeLetter(.letterInputButtonTapped))
+                store.send(.writeLetter(.letterInputButtonTapped))
             }
         }
     }
 
     @ViewBuilder
     func musicView(_ screenWidth: CGFloat) -> some View {
-        if let musicUrl = viewStore.selectMusic.savedMusic.selectedMusicUrl {
+        if let musicUrl = store.selectMusic.savedMusic.selectedMusicUrl {
             MusicElementView(
                 youtubeUrl: musicUrl,
                 screenWidth: screenWidth,
                 deleteAction: {
-                    viewStore.send(.selectMusic(.musicLinkDeleteButtonTapped))
+                    store.send(.selectMusic(.musicLinkDeleteButtonTapped))
                 },
                 isPresentCloseButton: true
             )
         } else {
             ElementGuideView(element: .music, screenWidth: screenWidth) {
-                viewStore.send(.selectMusic(.musicSelectButtonTapped))
+                store.send(.selectMusic(.musicSelectButtonTapped))
             }
         }
     }
 
     @ViewBuilder
     func firstStickerView(_ screenWidth: CGFloat) -> some View {
-        if let firstSticker = viewStore.selectSticker.selectedStickers.first {
+        if let firstSticker = store.selectSticker.selectedStickers.first {
             StickerElementView(
                 stickerType: .sticker1,
                 stickerURL: firstSticker.imageUrl,
                 screenWidth: screenWidth
             ) {
-                viewStore.send(.selectSticker(.stickerInputButtonTapped))
+                store.send(.selectSticker(.stickerInputButtonTapped))
             }
         } else {
             ElementGuideView(element: .sticker1, screenWidth: screenWidth) {
-                viewStore.send(.selectSticker(.stickerInputButtonTapped))
+                store.send(.selectSticker(.stickerInputButtonTapped))
             }
         }
     }
 
     @ViewBuilder
     func secondStickerView(_ screenWidth: CGFloat) -> some View {
-        if let secondSticker = viewStore.selectSticker.selectedStickers[safe: 1] {
+        if let secondSticker = store.selectSticker.selectedStickers[safe: 1] {
             StickerElementView(
                 stickerType: .sticker2,
                 stickerURL: secondSticker.imageUrl,
                 screenWidth: screenWidth
             ) {
-                viewStore.send(.selectSticker(.stickerInputButtonTapped))
+                store.send(.selectSticker(.stickerInputButtonTapped))
             }
         } else {
             ElementGuideView(element: .sticker2, screenWidth: screenWidth) {
-                viewStore.send(.selectSticker(.stickerInputButtonTapped))
+                store.send(.selectSticker(.stickerInputButtonTapped))
             }
         }
     }
@@ -288,7 +286,7 @@ private extension MakeBoxDetailView {
     var bottomButtonsView: some View {
         HStack(spacing: 16) {
             Button {
-                viewStore.send(.binding(.set(\.$isSelectBoxBottomSheetPresented, true)))
+                store.send(.binding(.set(\.isSelectBoxBottomSheetPresented, true)))
             } label: {
                 Text("박스 다시 고르기")
                     .foregroundStyle(.white)
@@ -301,9 +299,9 @@ private extension MakeBoxDetailView {
                     }
             }
 
-            let isGiftAdded: Bool = viewStore.addGift.savedGift.photoData != nil
+            let isGiftAdded: Bool = store.addGift.savedGift.photoData != nil
             Button {
-                viewStore.send(.addGift(.addGiftButtonTapped))
+                store.send(.addGift(.addGiftButtonTapped))
             } label: {
                 HStack(spacing: 8) {
                     Image(isGiftAdded ? .check : .plus)

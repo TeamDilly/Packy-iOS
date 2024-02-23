@@ -9,10 +9,10 @@ import SwiftUI
 import ComposableArchitecture
 
 struct SelectBoxBottomSheet: View {
-    @ObservedObject var viewStore: ViewStoreOf<MakeBoxDetailFeature>
+    @Bindable var store: StoreOf<MakeBoxDetailFeature>
 
-    init(viewStore: ViewStoreOf<MakeBoxDetailFeature>) {
-        self.viewStore = viewStore
+    init(store: StoreOf<MakeBoxDetailFeature>) {
+        self.store = store
     }
 
     var body: some View {
@@ -32,7 +32,7 @@ struct SelectBoxBottomSheet: View {
                     }
                     
                     Button("확인") {
-                        viewStore.send(.binding(.set(\.$isSelectBoxBottomSheetPresented, false)))
+                        store.send(.binding(.set(\.isSelectBoxBottomSheetPresented, false)))
                     }
                     .buttonStyle(.text)
                 }
@@ -41,12 +41,12 @@ struct SelectBoxBottomSheet: View {
                 
                 ScrollView(.horizontal) {
                     HStack(spacing: 12) {
-                        ForEach(viewStore.boxDesigns, id: \.id) { boxDesign in
+                        ForEach(store.boxDesigns, id: \.id) { boxDesign in
                             NetworkImage(url: boxDesign.boxSmallUrl, contentMode: .fit)
                                 .clipShape(RoundedRectangle(cornerRadius: 8))
                                 .frame(width: 64, height: 64)
                                 .bouncyTapGesture {
-                                    viewStore.send(.selectBox(boxDesign), animation: .spring)
+                                    store.send(.selectBox(boxDesign), animation: .spring)
                                 }
                         }
                     }

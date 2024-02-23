@@ -13,25 +13,23 @@ import Lottie
 
 struct BoxChoiceView: View {
     private let store: StoreOf<BoxChoiceFeature>
-    @ObservedObject private var viewStore: ViewStoreOf<BoxChoiceFeature>
 
     init(store: StoreOf<BoxChoiceFeature>) {
         self.store = store
-        self.viewStore = ViewStore(store, observe: { $0 })
     }
 
     var body: some View {
         let isWiderThan375pt = UIScreen.main.isWiderThan375pt
         VStack(spacing: 0) {
-            if viewStore.isPresentingFinishedMotionView {
+            if store.isPresentingFinishedMotionView {
                 finishedBoxMotionView
             } else {
                 NavigationBar.backAndCloseButton(
                     backButtonAction: {
-                        viewStore.send(.backButtonTapped)
+                        store.send(.backButtonTapped)
                     },
                     closeButtonAction: {
-                        viewStore.send(.closeButtonTapped)
+                        store.send(.closeButtonTapped)
                     }
                 )
                 .padding(.top, 8)
@@ -43,28 +41,28 @@ struct BoxChoiceView: View {
                     .padding(.top, isWiderThan375pt ? 48 : 30)
 
                 VStack(spacing: isWiderThan375pt ? 64 : 40) {
-                    if let selectedBox = viewStore.selectedBox {
+                    if let selectedBox = store.selectedBox {
                         let boxWidth: CGFloat = isWiderThan375pt ? 232 : 200
                         let boxHeight: CGFloat = boxWidth * (260 / 232)
 
                         NetworkImage(url: selectedBox.boxSetUrl, contentMode: .fit)
                             .transition(.move(edge: .trailing))
-                            .animation(nil, value: viewStore.selectedBox)
+                            .animation(nil, value: store.selectedBox)
                             .frame(width: boxWidth, height: boxHeight)
 
                         ScrollView(.horizontal) {
                             HStack(spacing: 12) {
-                                ForEach(viewStore.boxDesigns, id: \.id) { boxDesign in
+                                ForEach(store.boxDesigns, id: \.id) { boxDesign in
                                     NetworkImage(url: boxDesign.boxSmallUrl, contentMode: .fit)
                                         .clipShape(RoundedRectangle(cornerRadius: 8))
                                         .frame(width: 64, height: 64)
                                         .bouncyTapGesture {
-                                            viewStore.send(.selectBox(boxDesign))
+                                            store.send(.selectBox(boxDesign))
                                         }
                                 }
                             }
                         }
-                        .animation(.spring, value: viewStore.boxDesigns)
+                        .animation(.spring, value: store.boxDesigns)
                         .transition(.move(edge: .trailing))
                         .scrollIndicators(.hidden)
                         .safeAreaPadding(.horizontal, 40)
@@ -75,18 +73,18 @@ struct BoxChoiceView: View {
                 Spacer()
 
                 PackyButton(title: "다음", colorType: .black) {
-                    viewStore.send(.nextButtonTapped)
+                    store.send(.nextButtonTapped)
                 }
-                .disabled(viewStore.selectedBox == nil)
+                .disabled(store.selectedBox == nil)
                 .padding(.horizontal, 24)
                 .padding(.bottom, 16)
             }
         }
-        .animation(.spring, value: viewStore.isPresentingFinishedMotionView)
-        .animation(.spring, value: viewStore.selectedBox)
+        .animation(.spring, value: store.isPresentingFinishedMotionView)
+        .animation(.spring, value: store.selectedBox)
         .navigationBarBackButtonHidden(true)
         .task {
-            await viewStore
+            await store
                 .send(._onTask)
                 .finish()
         }
@@ -110,7 +108,7 @@ private extension BoxChoiceView {
             }
 
             BoxMotionView(
-                motionType: .makeBox(boxDesignId: viewStore.selectedBox?.id ?? 0)
+                motionType: .makeBox(boxDesignId: store.selectedBox?.id ?? 0)
             )
         }
     }
