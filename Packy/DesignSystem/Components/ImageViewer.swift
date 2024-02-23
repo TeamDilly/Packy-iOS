@@ -53,7 +53,8 @@ private extension ImageViewer {
                 let delta = value / lastScale
                 lastScale = value
 
-                if abs(1 - delta) > 0.01 {
+                guard abs(1 - delta) > 0.01 else { return }
+                withAnimation(.spring(duration: 0.1)) {
                     scale *= delta
                 }
             }
@@ -76,7 +77,9 @@ private extension ImageViewer {
                     x: value.translation.width - lastTranslation.width,
                     y: value.translation.height - lastTranslation.height
                 )
-                offset = offset + translationChange
+                withAnimation(.spring(duration: 0.1)) {
+                    offset = offset + translationChange
+                }
                 lastTranslation = value.translation
             }
             .onEnded { value in
