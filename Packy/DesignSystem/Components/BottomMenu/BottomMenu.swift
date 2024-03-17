@@ -44,6 +44,7 @@ struct BottomMenu: View {
             .frame(height: 60)
             .padding(.bottom, 16)
         }
+        .safeAreaPadding(.bottom)
         .background(.white)
         .clipShape(
             .rect(topLeadingRadius: 16, topTrailingRadius: 16)
