@@ -18,33 +18,34 @@ struct PackyTextArea: View {
     @FocusState var isFocused: Bool
 
     var body: some View {
-        ZStack(alignment: .center) {
-            // 회색 위에 border 컬러가 겹쳐지지 않기위해 하얀색 border 깔아줌
-            RoundedRectangle(cornerRadius: 16)
-                .fill(.gray100)
-                .strokeBorder(.white, lineWidth: 4)
+        VStack(alignment: .trailing, spacing: 8) {
+            ZStack(alignment: .center) {
+                // 회색 위에 border 컬러가 겹쳐지지 않기위해 하얀색 border 깔아줌
+                RoundedRectangle(cornerRadius: 16)
+                    .fill(.gray100)
+                    .strokeBorder(.white, lineWidth: 4)
 
-            RoundedRectangle(cornerRadius: 16)
-                .strokeBorder(borderColor, lineWidth: 4)
+                RoundedRectangle(cornerRadius: 16)
+                    .strokeBorder(borderColor, lineWidth: 4)
 
-            Text(placeholder)
-                .foregroundStyle(.gray400)
-                .packyFont(.body5)
-                .multilineTextAlignment(.center)
-                .opacity(!isFocused && text.isEmpty ? 1 : 0)
+                Text(placeholder)
+                    .foregroundStyle(.gray400)
+                    .packyFont(.body5)
+                    .multilineTextAlignment(.center)
+                    .opacity(!isFocused && text.isEmpty ? 1 : 0)
 
-            TextField("", text: $text, axis: .vertical)
-                .tint(.black)
-                .packyFont(.body5)
-                .scrollContentBackground(.hidden)
-                .multilineTextAlignment(.center)
-                .disabled(isCompleted)
-                .focused($isFocused)
-                .zIndex(1)
-                .limitTextLength(text: $text, length: 200)
-                .padding(.horizontal, 20)
-        }
-        .overlay(alignment: .bottomTrailing) {
+                TextField("", text: $text, axis: .vertical)
+                    .tint(.black)
+                    .packyFont(.body5)
+                    .scrollContentBackground(.hidden)
+                    .multilineTextAlignment(.center)
+                    .disabled(isCompleted)
+                    .focused($isFocused)
+                    .zIndex(1)
+                    .limitTextLength(text: $text, length: 200)
+                    .padding(.horizontal, 20)
+            }
+
             HStack(spacing: 2) {
                 Text("\(text.count)")
                 Text("/")
@@ -53,7 +54,6 @@ struct PackyTextArea: View {
             .opacity(showTextLength ? 1 : 0)
             .packyFont(.body4)
             .foregroundStyle(.gray600)
-            .padding(16)
         }
         .onTapGesture {
             isFocused = true
