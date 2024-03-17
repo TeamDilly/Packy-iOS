@@ -128,7 +128,7 @@ private extension BoxDetailView {
 
         BoxDetailLetterView(
             text: store.letterContent,
-            borderColor: Color(hexString: store.envelope.borderColorCode)
+            borderColor: store.envelope.color
         )
         .padding(.horizontal, 24)
         .opacity(store.presentingState == .letter ? 1 : 0)
