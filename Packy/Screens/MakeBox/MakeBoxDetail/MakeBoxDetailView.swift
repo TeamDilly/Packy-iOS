@@ -345,7 +345,7 @@ private struct ElementGuideView: View {
             .frame(width: size.width, height: size.height)
             .rotationEffect(.degrees(element.rotationDegree))
             .overlay {
-                VStack(spacing: 8) {
+                VStack(spacing: element.iconTextSpacing) {
                     element.image
                         .renderingMode(.template)
                         .foregroundStyle(.white)
