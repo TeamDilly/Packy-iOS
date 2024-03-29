@@ -227,7 +227,7 @@ private struct MyBoxInfoCell: View {
         VStack(spacing: 0) {
             NetworkImage(url: boxUrl)
                 .mask(RoundedRectangle(cornerRadius: 8))
-                .frame(height: 138)
+                .aspectRatio(131 / 150, contentMode: .fit)
                 .padding(.bottom, 12)
 
             VStack(spacing: 4) {

@@ -40,6 +40,7 @@ struct EditProfileView: View {
             .padding(.horizontal, 24)
             .padding(.bottom, 16)
         }
+        .makeTapToHideKeyboard()
         .navigationDestination(
             item: $store.scope(state: \.editSelectProfile, action: \.editSelectProfile)
         ) { store in
