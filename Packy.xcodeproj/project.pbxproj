@@ -1264,11 +1264,11 @@
 		E5A7AA0A2B57F81400590EA6 /* App */ = {
 			isa = PBXGroup;
 			children = (
-				E5A7AA0B2B57F81400590EA6 /* PackyApp.swift */,
 				E5A7AA0C2B57F81400590EA6 /* APIKeys.xcconfig */,
 				E54485062B6F86BC003DFA1B /* AppConstants.swift */,
-				E55DAE832B76376000208878 /* Print+Override.swift */,
 				E520B7082BB93E53009D9610 /* AppDelegate.swift */,
+				E5A7AA0B2B57F81400590EA6 /* PackyApp.swift */,
+				E55DAE832B76376000208878 /* Print+Override.swift */,
 			);
 			name = App;
 			path = Packy/App;

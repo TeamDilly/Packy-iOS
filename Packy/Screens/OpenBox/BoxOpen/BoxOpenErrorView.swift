@@ -48,6 +48,7 @@ struct BoxOpenErrorView: View {
             }
             .padding(.horizontal, 24)
         }
+        .analyticsScreen(name: "box_open_error")
     }
 }
 
