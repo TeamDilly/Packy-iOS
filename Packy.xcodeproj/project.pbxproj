@@ -48,6 +48,7 @@
 		E520B7052BB93D09009D9610 /* FirebaseStorageCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = E520B7042BB93D09009D9610 /* FirebaseStorageCombine-Community */; };
 		E520B7072BB93E14009D9610 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E520B7062BB93E14009D9610 /* GoogleService-Info.plist */; };
 		E520B7092BB93E53009D9610 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E520B7082BB93E53009D9610 /* AppDelegate.swift */; };
+		E520B70B2BB943F2009D9610 /* Analytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = E520B70A2BB943F2009D9610 /* Analytics.swift */; };
 		E52470ED2B612DD3003D49DE /* TextButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52470EC2B612DD3003D49DE /* TextButtonStyle.swift */; };
 		E52470EF2B6134EE003D49DE /* Array+SafeIndex.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52470EE2B6134EE003D49DE /* Array+SafeIndex.swift */; };
 		E52470F22B6142EB003D49DE /* AddGiftBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52470F12B6142EB003D49DE /* AddGiftBottomSheet.swift */; };
@@ -329,6 +330,7 @@
 		E52037DC2B64213600721F76 /* AddGiftFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddGiftFeature.swift; sourceTree = "<group>"; };
 		E520B7062BB93E14009D9610 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E520B7082BB93E53009D9610 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		E520B70A2BB943F2009D9610 /* Analytics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Analytics.swift; sourceTree = "<group>"; };
 		E52470EC2B612DD3003D49DE /* TextButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextButtonStyle.swift; sourceTree = "<group>"; };
 		E52470EE2B6134EE003D49DE /* Array+SafeIndex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+SafeIndex.swift"; sourceTree = "<group>"; };
 		E52470F12B6142EB003D49DE /* AddGiftBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddGiftBottomSheet.swift; sourceTree = "<group>"; };
@@ -1229,6 +1231,7 @@
 				E5E06B2C2B651D2200F6FD01 /* Throttle.swift */,
 				E54484F32B6F4A17003DFA1B /* DateFormat.swift */,
 				E5C8557B2B8224BE0076A211 /* YoutubeThumbnailGenerator.swift */,
+				E520B70A2BB943F2009D9610 /* Analytics.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -1857,6 +1860,7 @@
 				E5001F8E2B5BE422004B65E6 /* UploadClient.swift in Sources */,
 				E5A7AA3D2B57F81400590EA6 /* PackyNavigationLink.swift in Sources */,
 				E5A7AA5D2B57F81400590EA6 /* IntroView.swift in Sources */,
+				E520B70B2BB943F2009D9610 /* Analytics.swift in Sources */,
 				E579485C2B81EB640058C733 /* MusicArchiveFeature.swift in Sources */,
 				E5A7AA3B2B57F81400590EA6 /* View+GetSize.swift in Sources */,
 				E5A7AA392B57F81400590EA6 /* View+If.swift in Sources */,

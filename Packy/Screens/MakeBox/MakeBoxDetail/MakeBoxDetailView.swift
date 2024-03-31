@@ -110,7 +110,7 @@ struct MakeBoxDetailView: View {
                 .background(.gray900)
             }
         }
-        .analyticsScreen(name: "box_detail")
+        .analyticsScreen(.boxDetail)
         // 음악 추가 바텀시트
         .bottomSheet(
             isPresented: $store.selectMusic.isMusicBottomSheetPresented,

@@ -129,6 +129,9 @@ struct MakeBoxDetailFeature: Reducer {
                 return .none
 
             case .completeButtonTapped:
+                
+
+                guard state.isCompletable else { return .none }
                 let giftBox = giftBoxFrom(state: state)
                 let boxDesign = state.selectedBox ?? .mock
                 return .send(.delegate(.moveToAddTitle(giftBox, boxDesign)))
