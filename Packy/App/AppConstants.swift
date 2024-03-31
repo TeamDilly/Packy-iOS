@@ -10,6 +10,7 @@ import Foundation
 enum Constants {
     static var mockImageUrl: String { "https://picsum.photos/\(Int.random(in: 150...250))" }
 
+    static let appStoreUrl: URL = URL(string: "itms-apps://itunes.apple.com/app/apple-store/6477327987")!
     static var appVersion: String {
         guard let infoDictionary: [String: Any] = Bundle.main.infoDictionary,
               let currentVersion: String = infoDictionary["CFBundleShortVersionString"] as? String else {

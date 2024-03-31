@@ -49,6 +49,7 @@
 		E520B7072BB93E14009D9610 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E520B7062BB93E14009D9610 /* GoogleService-Info.plist */; };
 		E520B7092BB93E53009D9610 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E520B7082BB93E53009D9610 /* AppDelegate.swift */; };
 		E520B70B2BB943F2009D9610 /* Analytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = E520B70A2BB943F2009D9610 /* Analytics.swift */; };
+		E520B70D2BB958D9009D9610 /* AppStatusResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = E520B70C2BB958D9009D9610 /* AppStatusResponse.swift */; };
 		E52470ED2B612DD3003D49DE /* TextButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52470EC2B612DD3003D49DE /* TextButtonStyle.swift */; };
 		E52470EF2B6134EE003D49DE /* Array+SafeIndex.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52470EE2B6134EE003D49DE /* Array+SafeIndex.swift */; };
 		E52470F22B6142EB003D49DE /* AddGiftBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52470F12B6142EB003D49DE /* AddGiftBottomSheet.swift */; };
@@ -331,6 +332,7 @@
 		E520B7062BB93E14009D9610 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E520B7082BB93E53009D9610 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E520B70A2BB943F2009D9610 /* Analytics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Analytics.swift; sourceTree = "<group>"; };
+		E520B70C2BB958D9009D9610 /* AppStatusResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStatusResponse.swift; sourceTree = "<group>"; };
 		E52470EC2B612DD3003D49DE /* TextButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextButtonStyle.swift; sourceTree = "<group>"; };
 		E52470EE2B6134EE003D49DE /* Array+SafeIndex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+SafeIndex.swift"; sourceTree = "<group>"; };
 		E52470F12B6142EB003D49DE /* AddGiftBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddGiftBottomSheet.swift; sourceTree = "<group>"; };
@@ -1304,6 +1306,7 @@
 			isa = PBXGroup;
 			children = (
 				E5A7AA152B57F81400590EA6 /* AuthClient.swift */,
+				E520B70C2BB958D9009D9610 /* AppStatusResponse.swift */,
 				E5A7AA162B57F81400590EA6 /* AuthEndpoint.swift */,
 				E5A7AA132B57F81400590EA6 /* SignInRequest.swift */,
 				E5A7AA102B57F81400590EA6 /* SignInResponse.swift */,
@@ -1832,6 +1835,7 @@
 				E5A7AA6E2B57F81400590EA6 /* ATTManager.swift in Sources */,
 				E54485072B6F86BC003DFA1B /* AppConstants.swift in Sources */,
 				E54485172B6F9116003DFA1B /* DeleteAccountFeature.swift in Sources */,
+				E520B70D2BB958D9009D9610 /* AppStatusResponse.swift in Sources */,
 				E52B954D2B80BCB100DB27FC /* BottomMenuModifier.swift in Sources */,
 				E5C8557E2B8246890076A211 /* DimmedFullScreenModifier.swift in Sources */,
 				E579485B2B81EB640058C733 /* MusicArchiveView.swift in Sources */,
