@@ -48,7 +48,7 @@ struct BoxOpenErrorView: View {
             }
             .padding(.horizontal, 24)
         }
-        .analyticsScreen(.boxOpenError, extraParameters: ["contentId": store.boxId])
+        .analyticsLog(.boxOpenError, parameters: ["contentId": store.boxId])
     }
 }
 

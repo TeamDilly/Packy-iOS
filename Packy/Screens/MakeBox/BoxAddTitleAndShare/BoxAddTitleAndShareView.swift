@@ -22,10 +22,10 @@ struct BoxAddTitleAndShareView: View {
         VStack(spacing: 0) {
             if let store = store.scope(state: \.boxShare, action: \.boxShare) {
                 BoxShareView(store: store)
-                    .analyticsScreen(.boxShare)
+                    .analyticsLog(.boxShare)
             } else {
                 boxAddTitleView
-                    .analyticsScreen(.boxAddTitle)
+                    .analyticsLog(.boxAddTitle)
             }
         }
         .animation(.spring, value: store.boxShare == nil)

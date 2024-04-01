@@ -56,7 +56,7 @@ struct BoxAddInfoView: View {
                 .disabled(!store.nextButtonEnabled)
                 .animation(.spring, value: store.nextButtonEnabled)
         }
-        .analyticsScreen(.boxAddInfo)
+        .analyticsLog(.boxAddInfo)
         .navigationBarBackButtonHidden(true)
         .task {
             await store

@@ -80,7 +80,7 @@ struct BoxChoiceView: View {
                 .padding(.bottom, 16)
             }
         }
-        .analyticsScreen(.boxChoiceBox)
+        .analyticsLog(.boxChoiceBox)
         .animation(.spring, value: store.isPresentingFinishedMotionView)
         .animation(.spring, value: store.selectedBox)
         .navigationBarBackButtonHidden(true)

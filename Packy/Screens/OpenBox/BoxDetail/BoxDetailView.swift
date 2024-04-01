@@ -81,7 +81,7 @@ struct BoxDetailView: View {
                 .animation(.spring, value: isOnNextPage)
             }
         }
-        .analyticsScreen(.boxDetailOpen, extraParameters: ["contentId": store.boxId])
+        .analyticsLog(.boxDetailOpen, parameters: ["contentId": store.boxId])
         .navigationBarBackButtonHidden()
         .background(.gray900)
         .animation(.easeInOut, value: store.presentingState)
