@@ -50,7 +50,7 @@ struct MakeBoxDetailView: View {
                         trailingAction: {
                             store.send(.completeButtonTapped)
                         },
-                        trailingDisabled: !store.isCompletable
+                        isTrailingDisabledStyle: !store.isCompletable
                     )
                     .zIndex(2)
                 }

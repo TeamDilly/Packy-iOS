@@ -21,14 +21,10 @@ enum AnalyticsParameterKey: String {
     case emptyItems     = "EmptyItems"
 }
 
-enum AnalyticsParameterValue: String {
-    case boxDetailDoneButton = "box_detail_done_button"
-}
-
 struct AnalyticsEventInfo {
     let name: AnalyticsEventName
     let screen: AnalyticsScreen
-    var parameters: [AnalyticsParameterKey: AnalyticsParameterValue]
+    var parameters: [AnalyticsParameterKey: Any]
 }
 
 enum AnalyticsManager {
@@ -41,8 +37,8 @@ enum AnalyticsManager {
     }
 
     static func logEvent(_ eventInfo: AnalyticsEventInfo) {
-        var parameters: [String: String] = eventInfo.parameters.reduce(into: [:]) { result, pair in
-            result[pair.key.rawValue] = pair.value.rawValue
+        var parameters: [String: Any] = eventInfo.parameters.reduce(into: [:]) { result, pair in
+            result[pair.key.rawValue] = pair.value
         }
         parameters[AnalyticsParameterKey.pageName.rawValue] = eventInfo.screen.rawValue
 

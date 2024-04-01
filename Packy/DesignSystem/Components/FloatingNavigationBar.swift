@@ -19,7 +19,7 @@ struct FloatingNavigationBar: View {
     var leadingAction: () -> Void
     var trailingType: TrailingButtonType
     let trailingAction: () -> Void
-    var trailingDisabled: Bool = false
+    var isTrailingDisabledStyle: Bool = false
 
     var body: some View {
         HStack {
@@ -39,7 +39,7 @@ struct FloatingNavigationBar: View {
             Spacer()
 
             Button {
-                if case .text = trailingType, !trailingDisabled {
+                if case .text = trailingType, !isTrailingDisabledStyle {
                     HapticManager.shared.fireFeedback(.medium)
                 }
                 trailingAction()
@@ -66,7 +66,7 @@ private extension FloatingNavigationBar {
                 .overlay {
                     Text(title)
                         .packyFont(.body2)
-                        .foregroundStyle(trailingDisabled ? .gray600 : .gray900)
+                        .foregroundStyle(isTrailingDisabledStyle ? .gray600 : .gray900)
                 }
 
         case .close:

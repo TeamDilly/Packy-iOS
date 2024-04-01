@@ -129,7 +129,7 @@ struct MakeBoxDetailFeature: Reducer {
                 return .none
 
             case .completeButtonTapped:
-                
+                logEvent(state)
 
                 guard state.isCompletable else { return .none }
                 let giftBox = giftBoxFrom(state: state)
@@ -146,6 +146,26 @@ struct MakeBoxDetailFeature: Reducer {
 // MARK: - Inner Functions
 
 private extension MakeBoxDetailFeature {
+    func logEvent(_ state: State) {
+        var emptyItems: [String] = []
+        if !state.selectMusic.savedMusic.isCompleted { emptyItems.append("MUSIC") }
+        if !state.addPhoto.savedPhoto.isCompleted { emptyItems.append("PHOTO") }
+        if !state.writeLetter.savedLetter.isCompleted { emptyItems.append("LETTER") }
+        if state.selectSticker.selectedStickers.count < 2 { emptyItems.append("STICKER1") }
+        if state.selectSticker.selectedStickers.count < 1 { emptyItems.append("STICKER2") }
+
+        AnalyticsManager.logEvent(
+            .init(
+                name: .click,
+                screen: .boxDetail,
+                parameters: [
+                    .componentName: "box_detail_done_button",
+                    .emptyItems: emptyItems
+                ]
+            )
+        )
+    }
+
     func showGuideTextIfNeeded() -> Effect<Action> {
         .concatenate(
             .run { send in
