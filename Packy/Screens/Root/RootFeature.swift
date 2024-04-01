@@ -67,6 +67,8 @@ struct RootFeature: Reducer {
                         await send(.intro(._moveToLoginOrOnboarding))
                     }
 
+                    setAnalyticsUserId()
+
                     await userDefaults.setBool(true, .isPopGestureEnabled)
                 }
 
@@ -136,5 +138,10 @@ private extension RootFeature {
         default:
             break
         }
+    }
+
+    func setAnalyticsUserId() {
+        let memberId = keychain.read(.memberId)
+        AnalyticsManager.setUserId(memberId)
     }
 }

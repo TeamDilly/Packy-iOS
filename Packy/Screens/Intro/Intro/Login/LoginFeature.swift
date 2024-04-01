@@ -94,6 +94,7 @@ private extension LoginFeature {
 
             keychain.save(.accessToken, accessToken)
             keychain.save(.refreshToken, refreshToken)
+            keychain.save(.memberId, String(tokenInfo.id))
 
             await send(.delegate(.completeLogin), animation: .spring)
         } catch let error as ErrorResponse {
