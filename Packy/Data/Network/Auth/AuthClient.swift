@@ -74,7 +74,7 @@ extension AuthClient: DependencyKey {
 
     static let previewValue: Self = {
         Self(
-            checkStatus: { .init(isAvailable: true, reason: nil) },
+            checkStatus: { .init(id: 0, isAvailable: true, reason: nil) },
             signUp: { _, _ in .mock },
             signIn: { _ in .mock },
             withdraw: { "" },

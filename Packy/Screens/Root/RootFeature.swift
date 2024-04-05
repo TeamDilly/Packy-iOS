@@ -51,6 +51,8 @@ struct RootFeature: Reducer {
                     do {
                         let appStatus = try await authClient.checkStatus()
 
+                        AnalyticsManager.setUserId(String(appStatus.id))
+
                         guard appStatus.isAvailable else {
                             await handleInvalidAppStatus(reason: appStatus.reason, send: send)
                             return
@@ -66,8 +68,6 @@ struct RootFeature: Reducer {
                     } else {
                         await send(.intro(._moveToLoginOrOnboarding))
                     }
-
-                    setAnalyticsUserId()
 
                     await userDefaults.setBool(true, .isPopGestureEnabled)
                 }
@@ -138,10 +138,5 @@ private extension RootFeature {
         default:
             break
         }
-    }
-
-    func setAnalyticsUserId() {
-        let memberId = keychain.read(.memberId)
-        AnalyticsManager.setUserId(memberId)
     }
 }
