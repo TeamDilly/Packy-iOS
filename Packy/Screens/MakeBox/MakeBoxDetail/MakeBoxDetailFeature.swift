@@ -160,7 +160,7 @@ private extension MakeBoxDetailFeature {
                 screen: .boxDetail,
                 parameters: [
                     .componentName: "box_detail_done_button",
-                    .emptyItems: emptyItems
+                    .emptyItems: emptyItems.joined(separator: ", ")
                 ]
             )
         )

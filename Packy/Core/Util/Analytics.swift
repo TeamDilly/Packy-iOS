@@ -9,9 +9,11 @@ import Foundation
 import SwiftUI
 import FirebaseAnalytics
 
+// MARK: - Constants
+
 enum AnalyticsEventName: String {
-    case view
-    case click
+    case view   = "View"
+    case click  = "Click"
 }
 
 enum AnalyticsParameterKey: String {
@@ -21,11 +23,25 @@ enum AnalyticsParameterKey: String {
     case emptyItems     = "EmptyItems"
 }
 
+enum AnalyticsScreen: String {
+    case boxAddInfo     = "box_add_info"
+    case boxChoiceBox   = "box_choice_box"
+    case boxDetail      = "box_detail"
+    case boxShare       = "box_share"
+    case boxAddTitle    = "box_add_title"
+    case boxOpenError   = "box_open_error"
+    case boxDetailOpen  = "box_detail_open"
+}
+
+// MARK: - AnalyticsEventInfo
+
 struct AnalyticsEventInfo {
     let name: AnalyticsEventName
     let screen: AnalyticsScreen
     var parameters: [AnalyticsParameterKey: Any]
 }
+
+// MARK: - AnalyticsManager
 
 enum AnalyticsManager {
     static func setUserId(_ userId: String?) {
@@ -46,28 +62,17 @@ enum AnalyticsManager {
     }
 }
 
-// MARK: - Screen Analytics
-
-enum AnalyticsScreen: String {
-    case boxAddInfo     = "box_add_info"
-    case boxChoiceBox   = "box_choice_box"
-    case boxDetail      = "box_detail"
-    case boxShare       = "box_share"
-    case boxAddTitle    = "box_add_title"
-    case boxOpenError   = "box_open_error"
-    case boxDetailOpen  = "box_detail_open"
-}
-
+// MARK: - View Analytics Log
 
 extension View {
-    func analyticsLog(_ screen: AnalyticsScreen, parameters: [String : Any] = [:]) -> some View {
+    func analyticsLog(_ screen: AnalyticsScreen,  parameters: [AnalyticsParameterKey: Any] = [:]) -> some View {
         onAppear {
-            var parameters = parameters
-            parameters["PageName"] = screen.rawValue
-
-            Analytics.logEvent(
-                AnalyticsEventName.view.rawValue,
-                parameters: parameters
+            AnalyticsManager.logEvent(
+                .init(
+                    name: .view,
+                    screen: screen,
+                    parameters: parameters
+                )
             )
         }
     }
