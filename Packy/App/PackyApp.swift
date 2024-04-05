@@ -10,6 +10,8 @@ import ComposableArchitecture
 
 @main
 struct PackyApp: App {
+
+    @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     @Dependency(\.socialLogin) var socialLogin
 
     init() {

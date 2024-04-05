@@ -9,6 +9,8 @@ import Foundation
 import Moya
 
 enum AuthEndpoint {
+    /// 앱 사용 가능 상태 확인
+    case checkStatus
     /// 회원가입
     case signUp(authorization: String, request: SignUpRequest)
     /// 로그인
@@ -32,7 +34,9 @@ extension AuthEndpoint: TargetType {
     
     var path: String {
         switch self {
-        case .signUp:          
+        case .checkStatus:
+            return "member/status"
+        case .signUp:
             return "auth/sign-up"
         case .reissueToken:          
             return "auth/reissue"
@@ -51,7 +55,7 @@ extension AuthEndpoint: TargetType {
         switch self {
         case .signUp, .reissueToken:
             return .post
-        case .signIn, .settings, .profile:
+        case .signIn, .settings, .profile, .checkStatus:
             return .get
         case .withdraw:
             return .delete
@@ -62,14 +66,19 @@ extension AuthEndpoint: TargetType {
     
     var task: Moya.Task {
         switch self {
+        case .checkStatus:
+            return .requestParameters(
+                parameters: ["app-version": Constants.appVersion],
+                encoding: URLEncoding.queryString
+            )
         case let .signUp(_, request):
             return .requestJSONEncodable(request)
         case let .reissueToken(request):
             return .requestJSONEncodable(request)
-        case .signIn, .withdraw, .settings, .profile:
-            return .requestPlain
         case let .editProfile(request):
             return .requestJSONEncodable(request)
+        default:
+            return .requestPlain
         }
     }
     

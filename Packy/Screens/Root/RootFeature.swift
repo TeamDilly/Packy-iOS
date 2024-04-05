@@ -35,8 +35,11 @@ struct RootFeature: Reducer {
     }
 
     @Dependency(\.socialLogin) var socialLogin
+    @Dependency(\.authClient) var authClient
     @Dependency(\.userDefaults) var userDefaults
     @Dependency(\.keychain) var keychain
+    @Dependency(\.packyAlert) var packyAlert
+    @Dependency(\.openURL) var openURL
 
     var body: some Reducer<State, Action> {
         Reduce<State, Action> { state, action in
@@ -44,13 +47,26 @@ struct RootFeature: Reducer {
             case ._onAppear:
                 socialLogin.initKakaoSDK()
 
-                // keychain.delete(.accessToken)
-                // keychain.delete(.refreshToken)
-
                 return .run { send in
+                    do {
+                        let appStatus = try await authClient.checkStatus()
+
+                        AnalyticsManager.setUserId(String(appStatus.id))
+
+                        guard appStatus.isAvailable else {
+                            await handleInvalidAppStatus(reason: appStatus.reason, send: send)
+                            return
+                        }
+                    } catch {
+                        await send(.intro(._moveToLoginOrOnboarding))
+                        return
+                    }
+
                     /// AccessToken 존재 시, mainTab 으로 이동
                     if keychain.read(.accessToken) != nil {
                         await send(._changeScreen(.mainTab()), animation: .spring)
+                    } else {
+                        await send(.intro(._moveToLoginOrOnboarding))
                     }
 
                     await userDefaults.setBool(true, .isPopGestureEnabled)
@@ -93,5 +109,34 @@ struct RootFeature: Reducer {
         }
         .ifCaseLet(\.intro, action: \.intro) { IntroFeature() }
         .ifCaseLet(\.mainTab, action: \.mainTab) { MainTabFeature() }
+    }
+}
+
+// MARK: - Inner Functions
+
+private extension RootFeature {
+    func handleInvalidAppStatus(reason: AppStatusInvalidReason?, send: Send<Action>) async -> Void {
+        switch reason {
+        case .needUpdate:
+            await packyAlert.show(
+                .init(
+                    title: "패키 업데이트 안내",
+                    description: "더 나은 서비스 이용을 위해\n최신 버전으로 업데이트해주세요",
+                    confirm: "업데이트 하기",
+                    isDismissible: false,
+                    confirmAction: {
+                        await openURL(Constants.appStoreUrl)
+                    }
+                )
+            )
+
+        case .invalidStatus:
+            keychain.delete(.accessToken)
+            keychain.delete(.refreshToken)
+            await send(.intro(._moveToLoginOrOnboarding))
+
+        default:
+            break
+        }
     }
 }

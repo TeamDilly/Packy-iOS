@@ -59,10 +59,14 @@ private struct PackyAlertRootView: View {
                 cancel: manager.configuration.cancel,
                 confirm: manager.configuration.confirm,
                 cancelAction: {
-                    manager.dismiss()
+                    if manager.configuration.isDismissible {
+                        manager.dismiss()
+                    }
                     await manager.configuration.cancelAction?()
                 }, confirmAction: {
-                    manager.dismiss()
+                    if manager.configuration.isDismissible {
+                        manager.dismiss()
+                    }
                     await manager.configuration.confirmAction()
                 }
             )

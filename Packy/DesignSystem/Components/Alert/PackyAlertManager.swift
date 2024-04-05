@@ -14,10 +14,11 @@ struct AlertConfiguration {
     var description: String? = nil
     var cancel: String? = nil
     var confirm: String = ""
+    var isDismissible: Bool = true
     var cancelAction: (() async -> Void)? = nil
     var confirmAction: (() async -> Void) = {}
 
-    init(title: String, description: String? = nil, cancel: String? = nil, confirm: String, cancelAction: (() async -> Void)? = nil, confirmAction: @escaping () async -> Void) {
+    init(title: String, description: String? = nil, cancel: String? = nil, confirm: String, isDismissible: Bool = true, cancelAction: (() async -> Void)? = nil, confirmAction: @escaping () async -> Void) {
         self.title = title
         self.description = description
         self.cancel = cancel

@@ -26,6 +26,7 @@ struct IntroFeature: Reducer {
 
         // MARK: Inner Business Action
         case _onAppear
+        case _moveToLoginOrOnboarding
 
         // MARK: Inner SetState Action
         case _changeScreen(State)
@@ -43,6 +44,9 @@ struct IntroFeature: Reducer {
         Reduce<State, Action> { state, action in
             switch action {
             case ._onAppear:
+                return .none
+
+            case ._moveToLoginOrOnboarding:
                 // 이미 온보딩 완료 시, 로그인으로 이동
                 if userDefaults.boolForKey(.hasOnboarded) {
                     return .run { send in await send(._changeScreen(.login()), animation: .spring) }
