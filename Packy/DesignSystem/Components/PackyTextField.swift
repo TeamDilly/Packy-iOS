@@ -38,7 +38,7 @@ struct PackyTextField: View {
 
                     Spacer()
 
-                    if !text.isEmpty && !isCompleted {
+                    if !text.isEmpty && !isCompleted && textFieldFocused {
                         Button {
                             text = ""
                             textFieldFocused = true
@@ -52,6 +52,7 @@ struct PackyTextField: View {
                     }
                 }
             }
+            .animation(.spring, value: textFieldFocused)
 
             if let errorMessage {
                 Text(errorMessage)

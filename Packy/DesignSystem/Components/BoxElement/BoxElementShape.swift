@@ -50,6 +50,15 @@ extension BoxElementShape {
         absoluteSize.height / absoluteSize.width
     }
 
+    var iconTextSpacing: CGFloat {
+        switch self {
+        case .photo:    return 12.6
+        case .letter:   return 9.91
+        case .music:    return 8
+        default:        return 0
+        }
+    }
+
     private var widthRatioForLargeScreen: CGFloat {
         switch self {
         case .photo:    return 0.41

@@ -5,13 +5,15 @@
 
 온라인 상에서 선물이 아니었던 것도, 패키와 함께라면 선물이 돼요!
 
-> 2월 말 MVP 런칭 예정
-
-</aside>
-
 <img width="600" alt="image" src="https://github.com/Central-MakeUs/Packy-iOS/assets/59835351/9548b43d-56b3-4219-a3f4-d2f70b464fb6">
+
+### 🔗 서비스 링크 
+- iOS : https://m.site.naver.com/1jrUo
+- AOS : https://m.site.naver.com/1jrUu
+- 피드백 구글폼 링크 : https://m.site.naver.com/1jrV5
+
 
 
 ## 🏗️ Stack & Architecture
 - SwiftUI
-- The Composable Architecture (TCA)
+- The Composable Architecture (TCA) (`ver 1.7`)

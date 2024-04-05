@@ -48,6 +48,7 @@ struct BoxOpenErrorView: View {
             }
             .padding(.horizontal, 24)
         }
+        .analyticsLog(.boxOpenError, parameters: [.contentId: store.boxId])
     }
 }
 

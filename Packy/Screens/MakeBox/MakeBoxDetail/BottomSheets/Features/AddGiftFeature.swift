@@ -89,9 +89,6 @@ struct AddGiftFeature: Reducer {
                         )
                     )
                 }
-
-            default:
-                return .none
             }
         }
     }

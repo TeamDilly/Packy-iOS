@@ -74,7 +74,7 @@ private extension BoxOpenView {
 
             NetworkImage(url: giftBox.box.boxNormalUrl)
                 .shakeRepeat(.veryWeak)
-                .frame(width: 240, height: 240)
+                .frame(width: 220, height: 253)
                 .padding(.bottom, 20)
                 .bouncyTapGesture {
                     throttle(.seconds(3)) {

@@ -50,7 +50,7 @@ struct MakeBoxDetailView: View {
                         trailingAction: {
                             store.send(.completeButtonTapped)
                         },
-                        trailingDisabled: !store.isCompletable
+                        isTrailingDisabledStyle: !store.isCompletable
                     )
                     .zIndex(2)
                 }
@@ -110,6 +110,7 @@ struct MakeBoxDetailView: View {
                 .background(.gray900)
             }
         }
+        .analyticsLog(.boxDetail)
         // 음악 추가 바텀시트
         .bottomSheet(
             isPresented: $store.selectMusic.isMusicBottomSheetPresented,
@@ -345,7 +346,7 @@ private struct ElementGuideView: View {
             .frame(width: size.width, height: size.height)
             .rotationEffect(.degrees(element.rotationDegree))
             .overlay {
-                VStack(spacing: 8) {
+                VStack(spacing: element.iconTextSpacing) {
                     element.image
                         .renderingMode(.template)
                         .foregroundStyle(.white)

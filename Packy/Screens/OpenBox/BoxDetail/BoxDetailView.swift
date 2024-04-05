@@ -81,6 +81,7 @@ struct BoxDetailView: View {
                 .animation(.spring, value: isOnNextPage)
             }
         }
+        .analyticsLog(.boxDetailOpen, parameters: [.contentId: store.boxId])
         .navigationBarBackButtonHidden()
         .background(.gray900)
         .animation(.easeInOut, value: store.presentingState)
@@ -128,7 +129,7 @@ private extension BoxDetailView {
 
         BoxDetailLetterView(
             text: store.letterContent,
-            borderColor: Color(hexString: store.envelope.borderColorCode)
+            borderColor: store.envelope.color
         )
         .padding(.horizontal, 24)
         .opacity(store.presentingState == .letter ? 1 : 0)

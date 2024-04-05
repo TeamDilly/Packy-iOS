@@ -8,6 +8,7 @@
 import Foundation
 
 struct TokenInfoResponse: Decodable {
+    let id: Int
     let grantType: String?
     let accessToken: String?
     let refreshToken: String?
@@ -15,5 +16,5 @@ struct TokenInfoResponse: Decodable {
 }
 
 extension TokenInfoResponse {
-    static let mock: TokenInfoResponse = .init(grantType: "", accessToken: "", refreshToken: "", accessTokenExpiresIn: 0)
+    static let mock: TokenInfoResponse = .init(id: 0, grantType: "", accessToken: "", refreshToken: "", accessTokenExpiresIn: 0)
 }

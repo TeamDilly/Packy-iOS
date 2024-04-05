@@ -76,7 +76,7 @@ private struct StickerCell: View {
                 .fill(.gray100)
                 .overlay {
                     NetworkImage(url: imageUrl, contentMode: .fit)
-                        .padding(20)
+                        .padding(13)
                 }
             
             if let selectedIndex {

@@ -46,6 +46,7 @@ private struct LoadingViewModifier: ViewModifier {
                     PackyProgress()
                 }
                 .allowsHitTesting(!manager.allowTouch)
+                .zIndex(1)
             }
         }
         .animation(.spring(duration: 0.3), value: manager.isLoading)

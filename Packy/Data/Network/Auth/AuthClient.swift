@@ -21,6 +21,8 @@ extension DependencyValues {
 // MARK: - AuthClient Client
 
 struct AuthClient {
+    /// 앱 사용 가능 상태 확인
+    var checkStatus: @Sendable () async throws -> AppStatusResponse
     /// 회원가입
     var signUp: @Sendable (_ authorization: String, SignUpRequest) async throws -> TokenInfoResponse
     /// 로그인
@@ -43,6 +45,9 @@ extension AuthClient: DependencyKey {
         let provider = MoyaProvider<AuthEndpoint>.build()
 
         return Self(
+            checkStatus: {
+                try await provider.request(.checkStatus)
+            },
             signUp: {
                 try await nonTokenProvider.request(.signUp(authorization: $0, request: $1))
             },
@@ -69,6 +74,7 @@ extension AuthClient: DependencyKey {
 
     static let previewValue: Self = {
         Self(
+            checkStatus: { .init(id: 0, isAvailable: true, reason: nil) },
             signUp: { _, _ in .mock },
             signIn: { _ in .mock },
             withdraw: { "" },
