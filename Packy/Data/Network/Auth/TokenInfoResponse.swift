@@ -8,7 +8,7 @@
 import Foundation
 
 struct TokenInfoResponse: Decodable {
-    let id: Int
+    let id: Int?
     let grantType: String?
     let accessToken: String?
     let refreshToken: String?

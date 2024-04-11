@@ -87,14 +87,15 @@ private extension LoginFeature {
             guard response.status == .registered,
                   let tokenInfo = response.tokenInfo,
                   let accessToken = tokenInfo.accessToken,
-                  let refreshToken = tokenInfo.refreshToken else {
+                  let refreshToken = tokenInfo.refreshToken,
+                  let id = tokenInfo.id else {
                 await send(.delegate(.moveToSignUp(info)), animation: .spring)
                 return
             }
 
             keychain.save(.accessToken, accessToken)
             keychain.save(.refreshToken, refreshToken)
-            keychain.save(.memberId, String(tokenInfo.id))
+            keychain.save(.memberId, String(id))
 
             await send(.delegate(.completeLogin), animation: .spring)
         } catch let error as ErrorResponse {
