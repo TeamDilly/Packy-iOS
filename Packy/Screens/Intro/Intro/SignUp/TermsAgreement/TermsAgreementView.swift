@@ -79,6 +79,7 @@ struct TermsAgreementView: View {
                 .send(._onAppear)
                 .finish()
         }
+        .analyticsLog(.signupTermsAgreement)
     }
 }
 

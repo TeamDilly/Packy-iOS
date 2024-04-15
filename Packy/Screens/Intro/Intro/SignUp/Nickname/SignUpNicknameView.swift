@@ -85,6 +85,7 @@ private extension SignUpNicknameView {
                 .finish()
             isFocused = true
         }
+        .analyticsLog(.signupNickname)
     }
 }
 
