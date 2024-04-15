@@ -57,6 +57,7 @@ struct HomeView: View {
                 .finish()
         }
         .showLoading(store.isShowDetailLoading)
+        .analyticsLog(.home)
     }
 }
 

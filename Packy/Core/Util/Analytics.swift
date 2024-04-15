@@ -19,6 +19,7 @@ enum AnalyticsEventName: String {
 enum AnalyticsParameterKey: String {
     case pageName       = "PageName"
     case componentName  = "ComponentName"
+    case contentName    = "ContentName"
     case contentId      = "ContentId"
     case emptyItems     = "EmptyItems"
 }
@@ -31,6 +32,14 @@ enum AnalyticsScreen: String {
     case boxAddTitle    = "box_add_title"
     case boxOpenError   = "box_open_error"
     case boxDetailOpen  = "box_detail_open"
+    case onboarding     = "onboarding"
+    case login          = "login"
+    case signupNickname = "signup_nickname"
+    case signupProfile  = "signup_profile"
+    case signupTermsAgreement = "signup_terms_agreement"
+    case home           = "home"
+    case myBox          = "my_box"
+    case archive        = "archive"
 }
 
 // MARK: - AnalyticsEventInfo

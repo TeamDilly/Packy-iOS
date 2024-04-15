@@ -70,6 +70,7 @@ struct SignUpProfileView: View {
                 .send(._onTask)
                 .finish()
         }
+        .analyticsLog(.signupProfile)
     }
 }
 

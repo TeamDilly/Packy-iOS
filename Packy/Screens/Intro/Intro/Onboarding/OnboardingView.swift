@@ -59,6 +59,7 @@ struct OnboardingView: View {
             }
 
         }
+        .analyticsLog(.onboarding)
         .animation(.spring, value: store.currentPage)
         .task {
             await store

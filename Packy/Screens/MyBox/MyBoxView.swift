@@ -56,6 +56,7 @@ struct MyBoxView: View {
             guard $1 == .active else { return }
             store.send(._didActiveScene)
         }
+        .analyticsLog(.myBox)
     }
 }
 

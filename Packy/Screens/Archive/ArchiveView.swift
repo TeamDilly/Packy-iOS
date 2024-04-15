@@ -60,6 +60,7 @@ struct ArchiveView: View {
                 .send(._onTask)
                 .finish()
         }
+        .analyticsLog(.archive)
     }
 }
 
