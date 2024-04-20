@@ -105,6 +105,10 @@
 		E55D16D12B6CF458005E71A4 /* KakaoShareMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55D16D02B6CF458005E71A4 /* KakaoShareMessage.swift */; };
 		E55DAE822B75E30F00208878 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55DAE812B75E30F00208878 /* LoadingView.swift */; };
 		E55DAE842B76376000208878 /* Print+Override.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55DAE832B76376000208878 /* Print+Override.swift */; };
+		E55EE4ED2BD390D3008A5543 /* SnackbarManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55EE4EC2BD390D3008A5543 /* SnackbarManager.swift */; };
+		E55EE4EF2BD390E4008A5543 /* GlobalSnackbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55EE4EE2BD390E4008A5543 /* GlobalSnackbar.swift */; };
+		E55EE4F12BD390F9008A5543 /* SnackbarConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55EE4F02BD390F9008A5543 /* SnackbarConfiguration.swift */; };
+		E55EE4F32BD39115008A5543 /* SnackbarClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55EE4F22BD39115008A5543 /* SnackbarClient.swift */; };
 		E56344162B79E09700AC411B /* SelectStickerFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56344152B79E09700AC411B /* SelectStickerFeature.swift */; };
 		E563441C2B7A383800AC411B /* ShowErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E563441B2B7A383800AC411B /* ShowErrorView.swift */; };
 		E57948402B80CD310058C733 /* MainTabFeature+Navigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E579483D2B80CD310058C733 /* MainTabFeature+Navigation.swift */; };
@@ -383,6 +387,10 @@
 		E55D16D02B6CF458005E71A4 /* KakaoShareMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoShareMessage.swift; sourceTree = "<group>"; };
 		E55DAE812B75E30F00208878 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		E55DAE832B76376000208878 /* Print+Override.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Print+Override.swift"; sourceTree = "<group>"; };
+		E55EE4EC2BD390D3008A5543 /* SnackbarManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnackbarManager.swift; sourceTree = "<group>"; };
+		E55EE4EE2BD390E4008A5543 /* GlobalSnackbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalSnackbar.swift; sourceTree = "<group>"; };
+		E55EE4F02BD390F9008A5543 /* SnackbarConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnackbarConfiguration.swift; sourceTree = "<group>"; };
+		E55EE4F22BD39115008A5543 /* SnackbarClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnackbarClient.swift; sourceTree = "<group>"; };
 		E56344152B79E09700AC411B /* SelectStickerFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectStickerFeature.swift; sourceTree = "<group>"; };
 		E563441B2B7A383800AC411B /* ShowErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowErrorView.swift; sourceTree = "<group>"; };
 		E579483D2B80CD310058C733 /* MainTabFeature+Navigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MainTabFeature+Navigation.swift"; sourceTree = "<group>"; };
@@ -827,6 +835,18 @@
 			path = Loading;
 			sourceTree = "<group>";
 		};
+		E55EE4EB2BD38F4F008A5543 /* Snackbar */ = {
+			isa = PBXGroup;
+			children = (
+				E55EE4EE2BD390E4008A5543 /* GlobalSnackbar.swift */,
+				E58048CA2B5C394700B974B3 /* Snackbar.swift */,
+				E55EE4F22BD39115008A5543 /* SnackbarClient.swift */,
+				E55EE4F02BD390F9008A5543 /* SnackbarConfiguration.swift */,
+				E55EE4EC2BD390D3008A5543 /* SnackbarManager.swift */,
+			);
+			path = Snackbar;
+			sourceTree = "<group>";
+		};
 		E56344122B79DF3E00AC411B /* BottomSheets */ = {
 			isa = PBXGroup;
 			children = (
@@ -1028,6 +1048,7 @@
 				E52B95472B80B9E000DB27FC /* BottomMenu */,
 				E54484F72B6F4C8D003DFA1B /* Button */,
 				E55DAE7E2B75E2E700208878 /* Loading */,
+				E55EE4EB2BD38F4F008A5543 /* Snackbar */,
 				E586DCDD2B73AA1A0052E8D7 /* BoxMotionView.swift */,
 				E5A7A9CE2B57F81400590EA6 /* CarouselView.swift */,
 				E5A7A9CC2B57F81400590EA6 /* Checkbox.swift */,
@@ -1048,7 +1069,6 @@
 				E5A7A9CD2B57F81400590EA6 /* Radio.swift */,
 				E5257CB12B6936CD000A091E /* ReadableScrollView.swift */,
 				E563441B2B7A383800AC411B /* ShowErrorView.swift */,
-				E58048CA2B5C394700B974B3 /* Snackbar.swift */,
 				E5A7A9C72B57F81400590EA6 /* SocialLoginButton.swift */,
 				E54484EF2B6F3E63003DFA1B /* TabSegmentedControl.swift */,
 				E5B22CF72B70FD36003DAC7B /* WebView.swift */,
@@ -1812,6 +1832,7 @@
 				E5001F892B5BC09A004B65E6 /* AlertButtonTint.swift in Sources */,
 				E5A7AA5A2B57F81400590EA6 /* BoxAddInfoFeature.swift in Sources */,
 				E5A7AA562B57F81400590EA6 /* BoxChoiceFeature.swift in Sources */,
+				E55EE4F32BD39115008A5543 /* SnackbarClient.swift in Sources */,
 				E5A59BE62B727DDD00D120CF /* GiftBoxType.swift in Sources */,
 				E57948572B81EB550058C733 /* LetterArchiveFeature.swift in Sources */,
 				E5A7AA852B57F81400590EA6 /* UserNotificationClient.swift in Sources */,
@@ -1919,6 +1940,7 @@
 				E5A7AA442B57F81400590EA6 /* SocialLoginButton.swift in Sources */,
 				E5A7AA4A2B57F81400590EA6 /* Radio.swift in Sources */,
 				E5B22CFC2B70FF85003DAC7B /* WebContentView.swift in Sources */,
+				E55EE4ED2BD390D3008A5543 /* SnackbarManager.swift in Sources */,
 				E58048C92B5C36DD00B974B3 /* CornerRadiusWithBorderModifier.swift in Sources */,
 				E5A59BEC2B729B0200D120CF /* BouncyTapGesture.swift in Sources */,
 				E5A7AA652B57F81400590EA6 /* LoginView.swift in Sources */,
@@ -1963,6 +1985,7 @@
 				E52037D72B64203E00721F76 /* SelectMusicFeature.swift in Sources */,
 				E5AC66EB2B62AB9900F3CBF0 /* PackyAlertClient.swift in Sources */,
 				E5A7AA502B57F81400590EA6 /* BottomSheetModifier.swift in Sources */,
+				E55EE4F12BD390F9008A5543 /* SnackbarConfiguration.swift in Sources */,
 				E5FDE0572B6BAC4900E00B00 /* ReceivedGiftBox.swift in Sources */,
 				E5A7AA572B57F81400590EA6 /* MakeBoxDetailView.swift in Sources */,
 				E5A7AA7B2B57F81400590EA6 /* TokenInfoResponse.swift in Sources */,
@@ -2009,6 +2032,7 @@
 				E5A7AA552B57F81400590EA6 /* BoxChoiceView.swift in Sources */,
 				E57948482B81C2A40058C733 /* BottomMenuClient.swift in Sources */,
 				E5A7AA6D2B57F81400590EA6 /* APIKey.swift in Sources */,
+				E55EE4EF2BD390E4008A5543 /* GlobalSnackbar.swift in Sources */,
 				E5A416AB2B5D215800313E5A /* ProfileImage.swift in Sources */,
 				E5E06B382B654D9A00F6FD01 /* Gift.swift in Sources */,
 				E5A7AA592B57F81400590EA6 /* MakeBoxDetailFeature.swift in Sources */,
