@@ -26,7 +26,7 @@ struct BoxDetailLetterView: View {
             }
             .scrollIndicators(.hidden)
             .frame(width: width, height: height - 20)
-            .padding(.vertical, 10)
+            .padding(.vertical, 4)
         }
         .background(
             RoundedRectangle(cornerRadius: 16)
