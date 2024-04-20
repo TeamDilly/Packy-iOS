@@ -74,7 +74,7 @@ struct ShakeModifier: ViewModifier {
                     rotationIntensity: configuration.rotationIntensity
                 )
             )
-            .onChange(of: isOn) { _ in
+            .onChange(of: isOn) { _, _ in
                 guard isOn else { return }
 
                 Task { @MainActor in
@@ -111,7 +111,7 @@ struct ShakeView<Content: View>: View {
                     rotationIntensity: configuration.rotationIntensity
                 )
             )
-            .onChange(of: isOn) { _ in
+            .onChange(of: isOn) { _, _ in
                 guard isOn else { return }
 
                 Task { @MainActor in
@@ -164,8 +164,8 @@ private struct ShakeAnimationModifier: ViewModifier, Animatable {
                     isOn = true
                 }
             }
-            .onChange(of: isOn) {
-                print($0)
+            .onChange(of: isOn) { _, _ in
+                print(isOn)
             }
         }
     }

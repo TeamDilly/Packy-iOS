@@ -165,7 +165,7 @@ extension PhotoElementInputView {
             text: .constant("")
         )
         .photoPickable { data in
-            print(data)
+            print(data.debugDescription)
         }
         
         PhotoElementInputView(

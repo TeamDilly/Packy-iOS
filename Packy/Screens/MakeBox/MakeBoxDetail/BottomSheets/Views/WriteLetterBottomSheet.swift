@@ -96,7 +96,7 @@ struct WriteLetterBottomSheet: View {
             }
         }
         .animation(.spring, value: store.letterInput.selectedLetterDesign)
-        // .animation(.spring, value: isLetterFieldFocused)
+        .snackbar(isShown: $store.showSnackbar, text: "최대 200자까지 작성할 수 있어요")
         .keyboardHideToolbar()
     }
 }
