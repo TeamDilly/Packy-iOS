@@ -30,6 +30,8 @@ struct WriteLetterFeature: Reducer {
         var letterContent: String {
             savedLetter.letter
         }
+
+        var showSnackbar: Bool = false
     }
 
     enum Action: BindableAction {
@@ -54,6 +56,13 @@ struct WriteLetterFeature: Reducer {
 
         Reduce { state, action in
             switch action {
+            case .binding(\.letterInput):
+                if state.letterInput.letter.count >= 200 {
+                    print("🐛 200자 걸림")
+                    state.showSnackbar = true
+                }
+
+                return .none
 
             case .letterInputButtonTapped:
                 state.letterInput = state.savedLetter

@@ -13,11 +13,6 @@ extension View {
     }
 }
 
-enum SnackbarLocation {
-    case top
-    case bottom
-}
-
 struct SnackbarModifier: ViewModifier {
     @Binding var isShown: Bool
     let text: String
@@ -33,8 +28,9 @@ struct SnackbarModifier: ViewModifier {
             content
 
             if isShown {
-                Snackbar(text: text, showFromBottom: isFromBottom)
+                Snackbar(text: text)
                     .padding(.top, 72)
+                    .padding(.horizontal, 24)
                     .zIndex(1)
                     .transition(.offset(y: isFromBottom ? 250 : -250))
                     .gesture(
@@ -60,46 +56,4 @@ struct SnackbarModifier: ViewModifier {
         guard isEnoughToClose else { return }
         isShown = false
     }
-}
-
-struct Snackbar: View {
-    let text: String
-    var showFromBottom = true
-
-    var body: some View {
-        Text(text)
-            .packyFont(.body4)
-            .foregroundStyle(.white)
-            .padding(16)
-            .frame(maxWidth: .infinity, alignment: .leading)
-            .background(
-                RoundedRectangle(cornerRadius: 12)
-                    .fill(.black.opacity(0.8))
-            )
-            .padding(.bottom, 8)
-    }
-}
-
-#Preview {
-    struct Sample: View {
-        @State private var isShown: Bool = false
-        var body: some View {
-            ZStack {
-                Color.blue.opacity(0.1).ignoresSafeArea()
-
-                VStack {
-                    Button("SHOW") {
-                        isShown = true
-                    }
-
-                    Spacer()
-                }
-                .snackbar(isShown: $isShown, text: "hello world!", location: .bottom)
-
-                .padding(.horizontal, 16)
-            }
-        }
-    }
-
-    return Sample()
 }
