@@ -15,12 +15,14 @@ struct SelectStickerFeature: Reducer {
     struct State: Equatable {
         var isStickerBottomSheetPresented: Bool = false
 
+        var selectingStickerType: StickerType = .first
         var stickerDesigns: [StickerDesignResponse] = []
-        var selectedStickers: [StickerDesign] = []
+        var selectedStickers: [StickerType: StickerDesign] = [:]
     }
 
     enum Action {
-        case stickerInputButtonTapped
+        case firstStickerInputButtonTapped
+        case secondStickerInputButtonTapped
         case stickerConfirmButtonTapped
         case stickerTapped(StickerDesign)
 
@@ -29,7 +31,11 @@ struct SelectStickerFeature: Reducer {
         case _setStickerDesigns(StickerDesignResponse)
     }
 
-    @Dependency(\.continuousClock) var clock
+    enum StickerType: Int {
+        case first
+        case second
+    }
+
     @Dependency(\.packyAlert) var packyAlert
     @Dependency(\.adminClient) var adminClient
 
@@ -38,7 +44,13 @@ struct SelectStickerFeature: Reducer {
     var body: some Reducer<State, Action> {
         Reduce { state, action in
             switch action {
-            case .stickerInputButtonTapped:
+            case .firstStickerInputButtonTapped:
+                state.selectingStickerType = .first
+                state.isStickerBottomSheetPresented = true
+                return .none
+
+            case .secondStickerInputButtonTapped:
+                state.selectingStickerType = .second
                 state.isStickerBottomSheetPresented = true
                 return .none
 
@@ -47,15 +59,13 @@ struct SelectStickerFeature: Reducer {
                 return .none
 
             case let .stickerTapped(sticker):
-                // 이미 해당 스티커가 존재하면 삭제
-                if let index = state.selectedStickers.firstIndex(of: sticker) {
-                    state.selectedStickers.remove(at: index)
+                let stickerType = state.selectingStickerType
+                guard state.selectedStickers[stickerType] != sticker else {
+                    state.selectedStickers.removeValue(forKey: stickerType)
                     return .none
                 }
-                
-                // 2개 까지만 선택
-                guard state.selectedStickers.count < 2 else { return .none }
-                state.selectedStickers.append(sticker)
+
+                state.selectedStickers[stickerType] = sticker
                 return .none
                 
             case let ._setStickerDesigns(response):

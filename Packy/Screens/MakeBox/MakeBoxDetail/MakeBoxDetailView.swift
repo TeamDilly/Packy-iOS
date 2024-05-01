@@ -252,34 +252,34 @@ private extension MakeBoxDetailView {
 
     @ViewBuilder
     func firstStickerView(_ screenWidth: CGFloat) -> some View {
-        if let firstSticker = store.selectSticker.selectedStickers.first {
+        if let firstSticker = store.selectSticker.selectedStickers[.first] {
             StickerElementView(
                 stickerType: .sticker1,
                 stickerURL: firstSticker.imageUrl,
                 screenWidth: screenWidth
             ) {
-                store.send(.selectSticker(.stickerInputButtonTapped))
+                store.send(.selectSticker(.firstStickerInputButtonTapped))
             }
         } else {
             ElementGuideView(element: .sticker1, screenWidth: screenWidth) {
-                store.send(.selectSticker(.stickerInputButtonTapped))
+                store.send(.selectSticker(.firstStickerInputButtonTapped))
             }
         }
     }
 
     @ViewBuilder
     func secondStickerView(_ screenWidth: CGFloat) -> some View {
-        if let secondSticker = store.selectSticker.selectedStickers[safe: 1] {
+        if let secondSticker = store.selectSticker.selectedStickers[.second] {
             StickerElementView(
                 stickerType: .sticker2,
                 stickerURL: secondSticker.imageUrl,
                 screenWidth: screenWidth
             ) {
-                store.send(.selectSticker(.stickerInputButtonTapped))
+                store.send(.selectSticker(.secondStickerInputButtonTapped))
             }
         } else {
             ElementGuideView(element: .sticker2, screenWidth: screenWidth) {
-                store.send(.selectSticker(.stickerInputButtonTapped))
+                store.send(.selectSticker(.secondStickerInputButtonTapped))
             }
         }
     }

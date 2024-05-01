@@ -200,8 +200,8 @@ private extension MakeBoxDetailFeature {
             gift = nil
         }
 
-        let stickers: [SendingSticker] = state.selectSticker.selectedStickers.enumerated().map { index, stickerDesign in
-            SendingSticker(id: stickerDesign.id, location: index)
+        let stickers: [SendingSticker] = state.selectSticker.selectedStickers.map { element in
+            SendingSticker(id: element.value.id, location: element.key.rawValue)
         }
 
         return SendingGiftBoxRawData(
