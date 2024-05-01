@@ -79,8 +79,8 @@ private struct StickerCell: View {
                 }
                 .cornerRadiusWithBorder(
                     radius: 12,
-                    borderColor: .black,
-                    lineWidth: isSelected ? 3 : 0
+                    borderColor: isSelected ? .black : .clear,
+                    lineWidth: 3
                 )
         }
         .animation(.spring, value: isSelected)
