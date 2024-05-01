@@ -19,32 +19,31 @@ struct SelectStickerBottomSheet: View {
         ScrollView {
             VStack(spacing: 0) {
                 HStack(alignment: .top) {
-                    VStack(spacing: 4) {
-                        Text("스티커 붙이기")
-                            .packyFont(.heading1)
-                            .foregroundStyle(.gray900)
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                        
-                        Text("최대 2개까지 붙일 수 있어요")
-                            .packyFont(.body4)
-                            .foregroundStyle(.gray600)
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                    }
-                    
-                    Button("확인") {
+                    Text("스티커 붙이기")
+                        .packyFont(.heading2)
+                        .foregroundStyle(.gray900)
+                        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
+
+                    Button {
                         store.send(.stickerConfirmButtonTapped)
+                    } label: {
+                        Image(.xmark)
                     }
-                    .buttonStyle(.text)
+                    .frame(width: 40, height: 40)
+                    .padding(4)
                 }
-                .padding(.horizontal, 24)
-                .padding(.vertical, 24)
+                .frame(height: 48)
+                .padding(.leading, 24)
+                .padding(.trailing, 16)
+                .padding(.top, 12)
+                .padding(.bottom, 8)
                 
                 let columns = [GridItem(spacing: 12), GridItem(spacing: 12), GridItem(spacing: 12)]
                 LazyVGrid(columns: columns, spacing: 12) {
                     ForEach(store.stickerDesigns.flatMap(\.contents), id: \.id) { stickerDesign in
-                        let index = store.selectedStickers.firstIndex(of: stickerDesign)
-                        
-                        StickerCell(imageUrl: stickerDesign.imageUrl, selectedIndex: index)
+                        let isSelected = store.selectedStickers[store.selectingStickerType] == stickerDesign
+
+                        StickerCell(imageUrl: stickerDesign.imageUrl, isSelected: isSelected)
                             .aspectRatio(1, contentMode: .fit)
                             .bouncyTapGesture {
                                 store.send(.stickerTapped(stickerDesign), animation: .easeInOut)
@@ -68,8 +67,8 @@ struct SelectStickerBottomSheet: View {
 
 private struct StickerCell: View {
     var imageUrl: String
-    var selectedIndex: Int?
-    
+    var isSelected: Bool
+
     var body: some View {
         ZStack(alignment: .topTrailing) {
             RoundedRectangle(cornerRadius: 12)
@@ -78,21 +77,13 @@ private struct StickerCell: View {
                     NetworkImage(url: imageUrl, contentMode: .fit)
                         .padding(13)
                 }
-            
-            if let selectedIndex {
-                Text("\(selectedIndex + 1)")
-                    .packyFont(.body1)
-                    .foregroundStyle(.white)
-                    .background(
-                        Circle()
-                            .fill(.black)
-                            .frame(width: 24, height: 24)
-                    )
-                    .padding(.top, 8)
-                    .padding(.trailing, 16)
-            }
+                .cornerRadiusWithBorder(
+                    radius: 12,
+                    borderColor: isSelected ? .black : .clear,
+                    lineWidth: 3
+                )
         }
-        .animation(.spring, value: selectedIndex)
+        .animation(.spring, value: isSelected)
     }
 }
 
@@ -101,7 +92,7 @@ private struct StickerCell: View {
 #Preview {
     MakeBoxDetailView(
         store: .init(
-            initialState: .init(senderInfo: .mock, boxDesigns: .mock, selectedBox: .mock),
+            initialState: .init(senderInfo: .mock, boxDesigns: .mock, selectedBox: .mock, selectSticker: .init(isStickerBottomSheetPresented: true)),
             reducer: {
                 MakeBoxDetailFeature()
                 // ._printChanges()
