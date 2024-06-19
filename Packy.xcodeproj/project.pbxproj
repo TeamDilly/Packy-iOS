@@ -139,6 +139,11 @@
 		E57948732B8207CF0058C733 /* LetterArchiveData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57948722B8207CF0058C733 /* LetterArchiveData.swift */; };
 		E57948752B8208E00058C733 /* MusicArchiveData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57948742B8208E00058C733 /* MusicArchiveData.swift */; };
 		E57948772B8209110058C733 /* GiftArchiveData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57948762B8209110058C733 /* GiftArchiveData.swift */; };
+		E57EF87F2C116F5900425E3A /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E57EF87E2C116F5900425E3A /* CoreServices.framework */; };
+		E57EF8812C116F6700425E3A /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E57EF8802C116F6700425E3A /* SystemConfiguration.framework */; };
+		E57EF8832C116F6D00425E3A /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E57EF8822C116F6D00425E3A /* WebKit.framework */; };
+		E57EF8852C116F7400425E3A /* CoreSpotlight.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E57EF8842C116F7400425E3A /* CoreSpotlight.framework */; };
+		E57EF8872C11700800425E3A /* BranchSDK in Frameworks */ = {isa = PBXBuildFile; productRef = E57EF8862C11700800425E3A /* BranchSDK */; };
 		E58048C12B5BF0D200B974B3 /* UIImage+Compression.swift in Sources */ = {isa = PBXBuildFile; fileRef = E58048C02B5BF0D200B974B3 /* UIImage+Compression.swift */; };
 		E58048C32B5BFF3800B974B3 /* WriteLetterBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = E58048C22B5BFF3800B974B3 /* WriteLetterBottomSheet.swift */; };
 		E58048C92B5C36DD00B974B3 /* CornerRadiusWithBorderModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = E58048C82B5C36DD00B974B3 /* CornerRadiusWithBorderModifier.swift */; };
@@ -423,6 +428,10 @@
 		E57948722B8207CF0058C733 /* LetterArchiveData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LetterArchiveData.swift; sourceTree = "<group>"; };
 		E57948742B8208E00058C733 /* MusicArchiveData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicArchiveData.swift; sourceTree = "<group>"; };
 		E57948762B8209110058C733 /* GiftArchiveData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GiftArchiveData.swift; sourceTree = "<group>"; };
+		E57EF87E2C116F5900425E3A /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = System/Library/Frameworks/CoreServices.framework; sourceTree = SDKROOT; };
+		E57EF8802C116F6700425E3A /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		E57EF8822C116F6D00425E3A /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
+		E57EF8842C116F7400425E3A /* CoreSpotlight.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreSpotlight.framework; path = System/Library/Frameworks/CoreSpotlight.framework; sourceTree = SDKROOT; };
 		E58048C02B5BF0D200B974B3 /* UIImage+Compression.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Compression.swift"; sourceTree = "<group>"; };
 		E58048C22B5BFF3800B974B3 /* WriteLetterBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteLetterBottomSheet.swift; sourceTree = "<group>"; };
 		E58048C82B5C36DD00B974B3 /* CornerRadiusWithBorderModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CornerRadiusWithBorderModifier.swift; sourceTree = "<group>"; };
@@ -605,6 +614,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E57EF8852C116F7400425E3A /* CoreSpotlight.framework in Frameworks */,
+				E57EF8832C116F6D00425E3A /* WebKit.framework in Frameworks */,
+				E57EF8812C116F6700425E3A /* SystemConfiguration.framework in Frameworks */,
+				E57EF87F2C116F5900425E3A /* CoreServices.framework in Frameworks */,
 				E520B6FB2BB93D09009D9610 /* FirebaseMessaging in Frameworks */,
 				E520B6D92BB93D09009D9610 /* FirebaseAppCheck in Frameworks */,
 				E5D7497C2B4A7C3300213F63 /* Kingfisher in Frameworks */,
@@ -616,6 +629,7 @@
 				E520B6E32BB93D09009D9610 /* FirebaseDatabase in Frameworks */,
 				E520B6F12BB93D09009D9610 /* FirebaseFunctionsCombine-Community in Frameworks */,
 				E5A7AA942B57F89C00590EA6 /* YouTubePlayerKit in Frameworks */,
+				E57EF8872C11700800425E3A /* BranchSDK in Frameworks */,
 				E520B6DB2BB93D09009D9610 /* FirebaseAppDistribution-Beta in Frameworks */,
 				E520B7012BB93D09009D9610 /* FirebaseRemoteConfigSwift in Frameworks */,
 				E520B7032BB93D09009D9610 /* FirebaseStorage in Frameworks */,
@@ -980,6 +994,10 @@
 		E58A7B052B57FA3F0059FBF3 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				E57EF8842C116F7400425E3A /* CoreSpotlight.framework */,
+				E57EF8822C116F6D00425E3A /* WebKit.framework */,
+				E57EF8802C116F6700425E3A /* SystemConfiguration.framework */,
+				E57EF87E2C116F5900425E3A /* CoreServices.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -1720,6 +1738,7 @@
 				E520B7002BB93D09009D9610 /* FirebaseRemoteConfigSwift */,
 				E520B7022BB93D09009D9610 /* FirebaseStorage */,
 				E520B7042BB93D09009D9610 /* FirebaseStorageCombine-Community */,
+				E57EF8862C11700800425E3A /* BranchSDK */,
 			);
 			productName = Packy;
 			productReference = E5D7495D2B4A72E100213F63 /* Packy.app */;
@@ -1758,6 +1777,7 @@
 				E5A7AA982B57F99700590EA6 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */,
 				E586DCCA2B73A01B0052E8D7 /* XCRemoteSwiftPackageReference "lottie-ios" */,
 				E520B6CF2BB93D09009D9610 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				E57EF87D2C116EE300425E3A /* XCRemoteSwiftPackageReference "ios-branch-sdk-spm" */,
 			);
 			productRefGroup = E5D7495E2B4A72E100213F63 /* Products */;
 			projectDirPath = "";
@@ -2320,6 +2340,14 @@
 				minimumVersion = 10.24.0;
 			};
 		};
+		E57EF87D2C116EE300425E3A /* XCRemoteSwiftPackageReference "ios-branch-sdk-spm" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/BranchMetrics/ios-branch-sdk-spm";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.4.3;
+			};
+		};
 		E586DCCA2B73A01B0052E8D7 /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/airbnb/lottie-ios";
@@ -2538,6 +2566,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = E5A7AA982B57F99700590EA6 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */;
 			productName = KakaoSDKUser;
+		};
+		E57EF8862C11700800425E3A /* BranchSDK */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E57EF87D2C116EE300425E3A /* XCRemoteSwiftPackageReference "ios-branch-sdk-spm" */;
+			productName = BranchSDK;
 		};
 		E586DCCB2B73A01B0052E8D7 /* Lottie */ = {
 			isa = XCSwiftPackageProductDependency;

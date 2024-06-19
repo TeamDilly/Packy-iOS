@@ -100,6 +100,15 @@
       }
     },
     {
+      "identity" : "ios-branch-sdk-spm",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/BranchMetrics/ios-branch-sdk-spm",
+      "state" : {
+        "revision" : "1c9ae2eb035a6c4df36a0c5eaaa9258fb5b4e94c",
+        "version" : "3.4.3"
+      }
+    },
+    {
       "identity" : "kakao-ios-sdk",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/kakao/kakao-ios-sdk",
