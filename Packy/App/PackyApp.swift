@@ -7,6 +7,7 @@
 
 import SwiftUI
 import ComposableArchitecture
+import BranchSDK
 
 @main
 struct PackyApp: App {
@@ -30,6 +31,8 @@ struct PackyApp: App {
                 .onOpenURL { url in
                     socialLogin.handleKakaoUrlIfNeeded(url)
                     store.send(._handleScheme(url.queryParameters))
+
+                    Branch.getInstance().handleDeepLink(url)
                 }
         }
     }
