@@ -10,12 +10,9 @@ import ComposableArchitecture
 
 // MARK: - View
 
+@ViewAction(for: MainTabFeature.self)
 struct MainTabView: View {
-    @Bindable private var store: StoreOf<MainTabFeature>
-
-    init(store: StoreOf<MainTabFeature>) {
-        self.store = store
-    }
+    @Bindable var store: StoreOf<MainTabFeature>
 
     var body: some View {
         NavigationStack(path: $store.scope(state: \.path, action: \.path)) {
@@ -103,9 +100,7 @@ private extension MainTabView {
         }
         .navigationBarBackButtonHidden()
         .didLoad {
-            await store
-                .send(._onTask)
-                .finish()
+            await send(.onTask).finish()
         }
     }
 
@@ -145,7 +140,7 @@ private extension MainTabView {
                     .frame(maxWidth: .infinity)
                     .contentShape(Rectangle())
                     .onTapGesture {
-                        store.send(.binding(.set(\.selectedTab, tab)))
+                        send(.binding(.set(\.selectedTab, tab)))
                     }
                 }
             }

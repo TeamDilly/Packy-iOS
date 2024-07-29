@@ -22,14 +22,8 @@ struct IntroFeature: Reducer {
     }
 
     enum Action {
-        // MARK: User Action
-
-        // MARK: Inner Business Action
-        case _onAppear
-        case _moveToLoginOrOnboarding
-
-        // MARK: Inner SetState Action
-        case _changeScreen(State)
+        case moveToLoginOrOnboarding
+        case changeScreen(State)
 
         // MARK: Child Action
         case splash(SplashFeature.Action)
@@ -43,28 +37,25 @@ struct IntroFeature: Reducer {
     var body: some Reducer<State, Action> {
         Reduce<State, Action> { state, action in
             switch action {
-            case ._onAppear:
-                return .none
-
-            case ._moveToLoginOrOnboarding:
+            case .moveToLoginOrOnboarding:
                 // 이미 온보딩 완료 시, 로그인으로 이동
                 if userDefaults.boolForKey(.hasOnboarded) {
-                    return .run { send in await send(._changeScreen(.login()), animation: .spring) }
+                    return .run { send in await send(.changeScreen(.login()), animation: .spring) }
                 } else {
-                    return .run { send in await send(._changeScreen(.onboarding()), animation: .spring) }
+                    return .run { send in await send(.changeScreen(.onboarding()), animation: .spring) }
                 }
 
-            case let ._changeScreen(newState):
+            case let .changeScreen(newState):
                 state = newState
                 return .none
 
             case .onboarding(.delegate(.completeOnboarding)):
                 return .run { send in
-                    await send(._changeScreen(.login()), animation: .spring)
+                    await send(.changeScreen(.login()), animation: .spring)
                 }
 
             case let .login(.delegate(.moveToSignUp(info))):
-                return .send(._changeScreen(.signUp(.init(socialLoginInfo: info))), animation: .spring)
+                return .send(.changeScreen(.signUp(.init(socialLoginInfo: info))), animation: .spring)
 
             default:
                 return .none

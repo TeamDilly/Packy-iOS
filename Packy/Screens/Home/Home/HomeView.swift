@@ -10,13 +10,10 @@ import ComposableArchitecture
 
 // MARK: - View
 
+@ViewAction(for: HomeFeature.self)
 struct HomeView: View {
-    @Bindable private var store: StoreOf<HomeFeature>
+    @Bindable var store: StoreOf<HomeFeature>
     @State private var easterEggShakeAnimation: Bool = false
-
-    init(store: StoreOf<HomeFeature>) {
-        self.store = store
-    }
 
     enum ThrottleId: String {
         case moveToBoxDetail
@@ -52,9 +49,7 @@ struct HomeView: View {
         .padding(.horizontal, 16)
         .background(.gray100)
         .task {
-            await store
-                .send(._onTask)
-                .finish()
+            await send(.onTask).finish()
         }
         .showLoading(store.isShowDetailLoading)
         .analyticsLog(.home)
@@ -122,7 +117,7 @@ private extension HomeView {
 
 
                 Button("더보기") {
-                    store.send(.viewMoreButtonTapped)
+                    send(.viewMoreButtonTapped)
                 }
                 .buttonStyle(.text)
             }
@@ -139,7 +134,7 @@ private extension HomeView {
                         )
                         .bouncyTapGesture {
                             throttle(identifier: ThrottleId.moveToBoxDetail.rawValue) {
-                                store.send(.tappedGiftBox(boxId: giftBox.id))
+                                send(.tappedGiftBox(boxId: giftBox.id))
                             }
                         }
                     }
@@ -170,11 +165,11 @@ private extension HomeView {
                     generatedDate: unsentBox.date,
                     menuAlignment: .center, 
                     menuAction: {
-                        store.send(.binding(.set(\.selectedBoxToDelete, unsentBox)))
+                        send(.binding(.set(\.selectedBoxToDelete, unsentBox)))
                     }
                 )
                 .bouncyTapGesture {
-                    store.send(.tappedUnsentBox(boxId: unsentBox.id))
+                    send(.tappedUnsentBox(boxId: unsentBox.id))
                 }
             }
         }

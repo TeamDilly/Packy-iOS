@@ -10,7 +10,7 @@ import ComposableArchitecture
 import Kingfisher
 
 struct WriteLetterBottomSheet: View {
-    @Bindable private var store: StoreOf<WriteLetterFeature>
+    @Bindable var store: StoreOf<WriteLetterFeature>
 
     @FocusState private var isLetterFieldFocused: Bool
     @State private var hideNonInputViews: Bool = false

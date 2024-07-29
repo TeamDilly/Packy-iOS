@@ -23,7 +23,7 @@ struct RootFeature: Reducer {
         // MARK: User Action
 
         // MARK: Inner Business Action
-        case _onAppear
+        case onTask
         case _changeScreen(State)
         case _handleScheme(QueryParameters)
 
@@ -44,7 +44,7 @@ struct RootFeature: Reducer {
     var body: some Reducer<State, Action> {
         Reduce<State, Action> { state, action in
             switch action {
-            case ._onAppear:
+            case .onTask:
                 socialLogin.initKakaoSDK()
 
                 return .run { send in
@@ -58,7 +58,7 @@ struct RootFeature: Reducer {
                             return
                         }
                     } catch {
-                        await send(.intro(._moveToLoginOrOnboarding))
+                        await send(.intro(.moveToLoginOrOnboarding))
                         return
                     }
 
@@ -66,7 +66,7 @@ struct RootFeature: Reducer {
                     if keychain.read(.accessToken) != nil {
                         await send(._changeScreen(.mainTab()), animation: .spring)
                     } else {
-                        await send(.intro(._moveToLoginOrOnboarding))
+                        await send(.intro(.moveToLoginOrOnboarding))
                     }
 
                     await userDefaults.setBool(true, .isPopGestureEnabled)
@@ -133,7 +133,7 @@ private extension RootFeature {
         case .invalidStatus:
             keychain.delete(.accessToken)
             keychain.delete(.refreshToken)
-            await send(.intro(._moveToLoginOrOnboarding))
+            await send(.intro(.moveToLoginOrOnboarding))
 
         default:
             break

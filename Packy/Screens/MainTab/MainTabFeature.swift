@@ -25,20 +25,20 @@ struct MainTabFeature: Reducer {
         var popupBox: PopupGiftBoxFeature.State = .init()
     }
 
-    enum Action: BindableAction {
-        // MARK: User Action
-        case binding(BindingAction<State>)
-
-        // MARK: Inner Business Action
-        case _onTask
+    enum Action: ViewAction {
+        case view(View)
 
         // MARK: Child Action
         case path(StackAction<MainTabNavigationPath.State, MainTabNavigationPath.Action>)
         case home(HomeFeature.Action)
         case myBox(MyBoxFeature.Action)
         case archive(ArchiveFeature.Action)
-
         case popupBox(PopupGiftBoxFeature.Action)
+
+        enum View: BindableAction {
+            case binding(BindingAction<State>)
+            case onTask
+        }
     }
 
     var body: some Reducer<State, Action> {
@@ -48,24 +48,22 @@ struct MainTabFeature: Reducer {
 
         Scope(state: \.popupBox, action: \.popupBox) { PopupGiftBoxFeature() }
 
-        BindingReducer()
+        BindingReducer(action: \.view)
         navigationReducer
 
         Reduce<State, Action> { state, action in
             switch action {
 
-            // MARK: User Action
-            case .binding:
-                return .none
+            case let .view(action):
+                switch action {
+                case .onTask:
+                    return .send(.popupBox(._fetchPopupGiftBox))
 
-            // MARK: Inner Business Action
-            case ._onTask:
-                return .send(.popupBox(._fetchPopupGiftBox))
+                case .binding:
+                    return .none
+                }
 
             // MARK: Child Action
-            case .path:
-                return .none
-
             case .home(.delegate(.moveToMyBox)):
                 state.selectedTab = .myBox
                 return .none

@@ -101,7 +101,7 @@ struct BoxShareView: View {
         .navigationBarHidden(true)
         .task {
             await store
-                .send(._onTask)
+                .send(.onTask)
                 .finish()
         }
     }

@@ -14,14 +14,14 @@ struct SplashFeature: Reducer {
     struct State: Equatable {}
 
     enum Action {
-        case _onTask
+        case onTask
     }
 
 
     var body: some Reducer<State, Action> {
         Reduce<State, Action> { state, action in
             switch action {
-            case ._onTask:
+            case .onTask:
                 return .none
             }
         }

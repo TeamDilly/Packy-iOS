@@ -32,7 +32,7 @@ struct WebContentView: View {
         .navigationBarBackButtonHidden()
         .task {
             await store
-                .send(._onTask)
+                .send(.onTask)
                 .finish()
         }
     }

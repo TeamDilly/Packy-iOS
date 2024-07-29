@@ -20,16 +20,15 @@ struct SignUpProfileFeature: Reducer {
         var profileImages: [ProfileImage] = []
     }
 
-    enum Action {
-        // MARK: User Action
-        case backButtonTapped
-        case selectProfile(ProfileImage)
+    enum Action: ViewAction {
+        case view(View)
+        case setProfileImages([ProfileImage])
 
-        // MARK: Inner Business Action
-        case _onTask
-
-        // MARK: Inner SetState Action
-        case _setProfileImages([ProfileImage])
+        enum View {
+            case onTask
+            case backButtonTapped
+            case selectProfile(ProfileImage)
+        }
     }
 
     @Dependency(\.dismiss) var dismiss
@@ -38,17 +37,20 @@ struct SignUpProfileFeature: Reducer {
     var body: some Reducer<State, Action> {
         Reduce<State, Action> { state, action in
             switch action {
-            case ._onTask:
-                return fetchProfileImages()
+            case let .view(action):
+                switch action {
+                case .onTask:
+                    return fetchProfileImages()
 
-            case .backButtonTapped:
-                return .run { _ in await dismiss() }
+                case .backButtonTapped:
+                    return .run { _ in await dismiss() }
 
-            case let .selectProfile(profileImage):
-                state.selectedProfileImage = profileImage
-                return .none
+                case let .selectProfile(profileImage):
+                    state.selectedProfileImage = profileImage
+                    return .none
+                }
 
-            case let ._setProfileImages(profileImages):
+            case let .setProfileImages(profileImages):
                 state.profileImages = profileImages
                 state.selectedProfileImage = profileImages.first
                 return .none
@@ -60,7 +62,7 @@ struct SignUpProfileFeature: Reducer {
         .run { send in
             do {
                 let profileImages = try await adminClient.fetchProfileImages()
-                await send(._setProfileImages(profileImages))
+                await send(.setProfileImages(profileImages))
             } catch {
                 print(error)
             }

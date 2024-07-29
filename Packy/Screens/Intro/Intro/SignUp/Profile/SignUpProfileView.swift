@@ -10,17 +10,14 @@ import ComposableArchitecture
 
 // MARK: - View
 
+@ViewAction(for: SignUpProfileFeature.self)
 struct SignUpProfileView: View {
-    private var store: StoreOf<SignUpProfileFeature>
-
-    init(store: StoreOf<SignUpProfileFeature>) {
-        self.store = store
-    }
+    var store: StoreOf<SignUpProfileFeature>
 
     var body: some View {
         VStack(spacing: 0) {
             NavigationBar.onlyBackButton {
-                store.send(.backButtonTapped)
+                send(.backButtonTapped)
             }
             .padding(.bottom, 8)
 
@@ -42,7 +39,7 @@ struct SignUpProfileView: View {
                         NetworkImage(url: profileImage.imageUrl)
                             .frame(width: 60, height: 60)
                             .bouncyTapGesture {
-                                store.send(.selectProfile(profileImage))
+                                send(.selectProfile(profileImage))
                             }
                     }
                 }
@@ -66,9 +63,7 @@ struct SignUpProfileView: View {
         }
         .navigationBarBackButtonHidden(true)
         .task {
-            await store
-                .send(._onTask)
-                .finish()
+            await send(.onTask).finish()
         }
         .analyticsLog(.signupProfile)
     }

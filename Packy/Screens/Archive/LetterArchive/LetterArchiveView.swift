@@ -62,7 +62,7 @@ struct LetterArchiveView: View {
         .background(.gray100)
         .task {
             await store
-                .send(._onTask)
+                .send(.onTask)
                 .finish()
         }
         .onChange(of: scenePhase) {

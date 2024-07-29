@@ -10,17 +10,14 @@ import ComposableArchitecture
 
 // MARK: - View
 
+@ViewAction(for: TermsAgreementFeature.self)
 struct TermsAgreementView: View {
-    @Bindable private var store: StoreOf<TermsAgreementFeature>
-
-    init(store: StoreOf<TermsAgreementFeature>) {
-        self.store = store
-    }
+    @Bindable var store: StoreOf<TermsAgreementFeature>
 
     var body: some View {
         VStack {
             NavigationBar.onlyBackButton {
-                store.send(.backButtonTapped)
+                send(.backButtonTapped)
             }
             .padding(.bottom, 8)
 
@@ -33,7 +30,7 @@ struct TermsAgreementView: View {
 
             VStack(alignment: .leading, spacing: 16) {
                 Button {
-                    store.send(.agreeAllTermsButtonTapped)
+                    send(.agreeAllTermsButtonTapped)
                 } label: {
                     allAgreedView(isChecked: store.isAllTermsAgreed)
                         .frame(maxWidth: .infinity)
@@ -43,7 +40,7 @@ struct TermsAgreementView: View {
                 Group {
                     ForEach(Terms.allCases, id: \.self) { terms in
                         Button {
-                            store.send(.agreeTermsButtonTapped(terms))
+                            send(.agreeTermsButtonTapped(terms))
                         } label: {
                             Checkbox(isChecked: store.termsStates[terms] ?? false, label: terms.title)
                                 .containerShape(Rectangle())
@@ -59,7 +56,7 @@ struct TermsAgreementView: View {
             Spacer()
 
             PackyButton(title: "확인") {
-                store.send(.confirmButtonTapped)
+                send(.confirmButtonTapped)
             }
             .disabled(!store.isAllRequiredTermsAgreed)
             .animation(.spring, value: store.isAllRequiredTermsAgreed)
@@ -75,9 +72,7 @@ struct TermsAgreementView: View {
         }
         .navigationBarBackButtonHidden(true)
         .task {
-            await store
-                .send(._onAppear)
-                .finish()
+            await send(.onTask).finish()
         }
         .analyticsLog(.signupTermsAgreement)
     }
@@ -132,7 +127,7 @@ private extension TermsAgreementView {
             Spacer()
 
             PackyButton(title: "허용하기") {
-                store.send(.allowNotificationButtonTapped)
+                send(.allowNotificationButtonTapped)
             }
             .padding(.bottom, 16)
         }

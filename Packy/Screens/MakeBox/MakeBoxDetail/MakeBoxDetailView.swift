@@ -12,7 +12,7 @@ import Kingfisher
 // MARK: - View
 
 struct MakeBoxDetailView: View {
-    @Bindable private var store: StoreOf<MakeBoxDetailFeature>
+    @Bindable var store: StoreOf<MakeBoxDetailFeature>
 
     @State private var isShowingGuideText: Bool = false
 
@@ -175,7 +175,7 @@ struct MakeBoxDetailView: View {
         .popGestureOnlyDisabled()
         .task {
             await store
-                .send(._onTask)
+                .send(.onTask)
                 .finish()
         }
     }

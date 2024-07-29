@@ -9,7 +9,7 @@ import SwiftUI
 import ComposableArchitecture
 
 struct SelectMusicBottomSheet: View {
-    @Bindable private var store: StoreOf<SelectMusicFeature>
+    @Bindable var store: StoreOf<SelectMusicFeature>
 
     init(store: StoreOf<SelectMusicFeature>) {
         self.store = store

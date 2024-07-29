@@ -19,28 +19,27 @@ struct SettingFeature: Reducer {
         @Presents var editProfile: EditProfileFeature.State?
     }
 
-    enum Action {
-        // MARK: User Action
-        case backButtonTapped
-        case logoutButtonTapped
-        case logoutConfirmButtonTapped
-        case editProfileButtonTapped
+    enum Action: ViewAction {
+        case view(View)
+        case delegate(Delegate)
 
-        // MARK: Inner Business Action
-        case _onTask
-
-        // MARK: Inner SetState Action
-        case _setSettingMenus([SettingMenu])
-        case _setProfile(Profile)
+        case setSettingMenus([SettingMenu])
+        case setProfile(Profile)
 
         // MARK: Child Action
         case editProfile(PresentationAction<EditProfileFeature.Action>)
 
-        // MARK: Delegate Action
+        enum View {
+            case onTask
+            case backButtonTapped
+            case logoutButtonTapped
+            case logoutConfirmButtonTapped
+            case editProfileButtonTapped
+        }
+
         enum Delegate {
             case completeSignOut
         }
-        case delegate(Delegate)
     }
 
     @Dependency(\.dismiss) var dismiss
@@ -51,43 +50,47 @@ struct SettingFeature: Reducer {
     var body: some Reducer<State, Action> {
         Reduce<State, Action> { state, action in
             switch action {
-            case ._onTask:
-                return .merge(
-                    fetchProfileIfNeeded(state.profile),
-                    fetchSettingMenus()
-                )
-
-            case .editProfileButtonTapped:
-                guard let profile = state.profile else { return .none }
-                state.editProfile = .init(fetchedProfile: profile)
-                return .none
-
-            case .logoutButtonTapped:
-                return .run { send in
-                    await packyAlert.show(
-                        .init(
-                            title: "로그아웃 하시겠어요?",
-                            cancel: "취소",
-                            confirm: "로그아웃",
-                            confirmAction: {
-                                await send(.logoutConfirmButtonTapped) }
-                        )
+            case let .view(action):
+                switch action {
+                case .onTask:
+                    return .merge(
+                        fetchProfileIfNeeded(state.profile),
+                        fetchSettingMenus()
                     )
+
+                case .editProfileButtonTapped:
+                    guard let profile = state.profile else { return .none }
+                    state.editProfile = .init(fetchedProfile: profile)
+                    return .none
+
+                case .logoutButtonTapped:
+                    return .run { send in
+                        await packyAlert.show(
+                            .init(
+                                title: "로그아웃 하시겠어요?",
+                                cancel: "취소",
+                                confirm: "로그아웃",
+                                confirmAction: {
+                                    await send(.view(.logoutConfirmButtonTapped))
+                                }
+                            )
+                        )
+                    }
+
+                case .logoutConfirmButtonTapped:
+                    keychain.delete(.accessToken)
+                    keychain.delete(.refreshToken)
+                    return .send(.delegate(.completeSignOut))
+
+                case .backButtonTapped:
+                    return .run { _ in await dismiss() }
                 }
 
-            case .logoutConfirmButtonTapped:
-                keychain.delete(.accessToken)
-                keychain.delete(.refreshToken)
-                return .send(.delegate(.completeSignOut))
-
-            case .backButtonTapped:
-                return .run { _ in await dismiss() }
-
-            case let ._setSettingMenus(menus):
+            case let .setSettingMenus(menus):
                 state.settingMenus = menus
                 return .none
 
-            case let ._setProfile(profile):
+            case let .setProfile(profile):
                 state.profile = profile
                 return .none
 
@@ -110,7 +113,7 @@ private extension SettingFeature {
         .run { send in
             do {
                 let settingMenus = try await authClient.fetchSettingMenus()
-                await send(._setSettingMenus(settingMenus))
+                await send(.setSettingMenus(settingMenus))
             } catch {
                 print("🐛 \(error)")
             }
@@ -123,7 +126,7 @@ private extension SettingFeature {
         return .run { send in
             do {
                 let profile = try await authClient.fetchProfile()
-                await send(._setProfile(profile))
+                await send(.setProfile(profile))
             } catch {
                 print("🐛 \(error)")
             }

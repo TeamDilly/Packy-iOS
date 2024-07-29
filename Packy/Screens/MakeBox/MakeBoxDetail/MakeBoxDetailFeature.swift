@@ -51,7 +51,7 @@ struct MakeBoxDetailFeature: Reducer {
         case selectBox(BoxDesign)
 
         // MARK: Inner Business Action
-        case _onTask
+        case onTask
 
         // MARK: Inner SetState Action
         case _setIsShowingGuideText(Bool)
@@ -110,7 +110,7 @@ struct MakeBoxDetailFeature: Reducer {
                     )
                 }
 
-            case ._onTask:
+            case .onTask:
                 return .merge(
                     showGuideTextIfNeeded(),
                     // 디자인들 조회...

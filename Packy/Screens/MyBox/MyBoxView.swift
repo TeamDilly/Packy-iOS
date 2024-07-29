@@ -11,7 +11,7 @@ import ComposableArchitecture
 // MARK: - View
 
 struct MyBoxView: View {
-    @Bindable private var store: StoreOf<MyBoxFeature>
+    @Bindable var store: StoreOf<MyBoxFeature>
     @Environment(\.scenePhase) private var scenePhase
 
     init(store: StoreOf<MyBoxFeature>) {
@@ -49,7 +49,7 @@ struct MyBoxView: View {
         .ignoresSafeArea(edges: .bottom)
         .task {
             await store
-                .send(._onTask)
+                .send(.onTask)
                 .finish()
         }
         .onChange(of: scenePhase) {

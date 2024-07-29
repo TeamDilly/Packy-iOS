@@ -30,7 +30,7 @@ struct PhotoArchiveFeature: Reducer {
         case didRefresh
 
         // MARK: Inner Business Action
-        case _onTask
+        case onTask
         case _fetchMorePhotos
         case _didActiveScene
 
@@ -49,7 +49,7 @@ struct PhotoArchiveFeature: Reducer {
                 state.selectedPhoto = photo
                 return .none
                 
-            case ._onTask:
+            case .onTask:
                 return fetchPhotos(lastPhotoId: nil)
 
             case .didRefresh, ._didActiveScene:

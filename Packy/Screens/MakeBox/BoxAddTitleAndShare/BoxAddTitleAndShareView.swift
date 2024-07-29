@@ -11,7 +11,7 @@ import ComposableArchitecture
 // MARK: - View
 
 struct BoxAddTitleAndShareView: View {
-    @Bindable private var store: StoreOf<BoxAddTitleAndShareFeature>
+    @Bindable var store: StoreOf<BoxAddTitleAndShareFeature>
     @FocusState private var isFocused: Bool
 
     init(store: StoreOf<BoxAddTitleAndShareFeature>) {
@@ -35,7 +35,7 @@ struct BoxAddTitleAndShareView: View {
         .navigationBarBackButtonHidden(true)
         .task {
             await store
-                .send(._onTask)
+                .send(.onTask)
                 .finish()
 
             isFocused = true

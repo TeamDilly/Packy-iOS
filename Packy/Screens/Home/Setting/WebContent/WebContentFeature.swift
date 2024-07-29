@@ -23,7 +23,7 @@ struct WebContentFeature: Reducer {
     }
 
     enum Action {
-        case _onTask
+        case onTask
         case backButtonTapped
     }
 
@@ -32,7 +32,7 @@ struct WebContentFeature: Reducer {
     var body: some Reducer<State, Action> {
         Reduce<State, Action> { state, action in
             switch action {
-            case ._onTask:
+            case .onTask:
                 return .none
             case .backButtonTapped:
                 return .run { _ in

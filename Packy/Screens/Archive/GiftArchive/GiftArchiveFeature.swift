@@ -30,7 +30,7 @@ struct GiftArchiveFeature: Reducer {
         case didRefresh
 
         // MARK: Inner Business Action
-        case _onTask
+        case onTask
         case _fetchMoreGifts
         case _didActiveScene
 
@@ -49,7 +49,7 @@ struct GiftArchiveFeature: Reducer {
                 state.selectedGift = gift
                 return .none
                 
-            case ._onTask:
+            case .onTask:
                 return fetchGifts(lastGiftId: nil)
 
             case .didRefresh, ._didActiveScene:

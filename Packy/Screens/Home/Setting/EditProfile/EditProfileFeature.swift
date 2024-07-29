@@ -39,7 +39,7 @@ struct EditProfileFeature: Reducer {
         case profileButtonTapped
 
         // MARK: Inner Business Action
-        case _onTask
+        case onTask
 
         // MARK: Child Action
         case editSelectProfile(PresentationAction<EditSelectProfileFeature.Action>)

@@ -9,7 +9,7 @@ import SwiftUI
 import ComposableArchitecture
 
 struct BoxOpenErrorView: View {
-    private var store: StoreOf<BoxOpenFeature>
+    var store: StoreOf<BoxOpenFeature>
 
     init(store: StoreOf<BoxOpenFeature>) {
         self.store = store

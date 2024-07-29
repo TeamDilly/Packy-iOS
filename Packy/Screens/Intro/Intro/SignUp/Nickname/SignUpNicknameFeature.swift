@@ -24,41 +24,31 @@ struct SignUpNicknameFeature: Reducer {
         }
     }
 
-    enum Action: BindableAction {
-        // MARK: User Action
-        case binding(BindingAction<State>)
-
-        // MARK: Inner Business Action
-        case _onAppear
+    enum Action: ViewAction {
+        case view(View)
+        case delegate(Delegate)
 
         // MARK: Child Action
         case path(StackAction<SignUpNavigationPath.State, SignUpNavigationPath.Action>)
 
+        enum View: BindableAction {
+            case onTask
+            case binding(BindingAction<State>)
+        }
+
         enum Delegate {
             case completeSignUp
         }
-        case delegate(Delegate)
     }
 
 
     var body: some Reducer<State, Action> {
-        BindingReducer()
+        BindingReducer(action: \.view)
 
-        Reduce<State, Action> { state, action in
-            switch action {
-            case .binding:
-                return .none
-
-            case ._onAppear:
-                return .none
-
-            default:
-                return .none
+        EmptyReducer()
+            .forEach(\.path, action: /Action.path) {
+                SignUpNavigationPath()
             }
-        }
-        .forEach(\.path, action: /Action.path) {
-            SignUpNavigationPath()
-        }
 
         navigationReducer
     }

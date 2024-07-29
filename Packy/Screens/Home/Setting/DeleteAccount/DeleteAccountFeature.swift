@@ -29,7 +29,7 @@ struct DeleteAccountFeature: Reducer {
         case completedConfirmButtonTapped
 
         // MARK: Inner Business Action
-        case _onTask
+        case onTask
 
         // MARK: Inner SetState Action
         case _setShowingState(ShowingState)
@@ -49,7 +49,7 @@ struct DeleteAccountFeature: Reducer {
     var body: some Reducer<State, Action> {
         Reduce<State, Action> { state, action in
             switch action {
-            case ._onTask:
+            case .onTask:
                 return .none
 
             case .backButtonTapped:

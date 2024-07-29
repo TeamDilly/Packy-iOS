@@ -45,7 +45,7 @@ struct BoxChoiceFeature: Reducer {
         case closeButtonTapped
 
         // MARK: Inner Business Action
-        case _onTask
+        case onTask
 
         // MARK: Inner SetState Action
         case _setIsPresentingFinishedMotionView(Bool)
@@ -73,7 +73,7 @@ struct BoxChoiceFeature: Reducer {
             case .binding:
                 return .none
 
-            case ._onTask:
+            case .onTask:
                 return .run { send in
                     do {
                         let boxDesigns = try await adminClient.fetchBoxDesigns()

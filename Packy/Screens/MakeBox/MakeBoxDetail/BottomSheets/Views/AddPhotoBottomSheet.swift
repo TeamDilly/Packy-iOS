@@ -9,7 +9,7 @@ import SwiftUI
 import ComposableArchitecture
 
 struct AddPhotoBottomSheet: View {
-    @Bindable private var store: StoreOf<AddPhotoFeature>
+    @Bindable var store: StoreOf<AddPhotoFeature>
     @FocusState private var textFieldFocused: Bool
 
     init(store: StoreOf<AddPhotoFeature>) {

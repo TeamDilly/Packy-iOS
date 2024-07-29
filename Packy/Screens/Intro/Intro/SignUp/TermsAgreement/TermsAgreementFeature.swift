@@ -36,30 +36,28 @@ struct TermsAgreementFeature: Reducer {
         var isAllowNotificationBottomSheetPresented: Bool = false
     }
 
-    enum Action: BindableAction {
-        // MARK: User Action
-        case binding(BindingAction<State>)
-        case backButtonTapped
-        case agreeTermsButtonTapped(Terms)
-        case agreeAllTermsButtonTapped
-        case confirmButtonTapped
+    enum Action: ViewAction {
+        case view(View)
+        case delegate(Delegate)
 
-        case allowNotificationButtonTapped
+        case signUp
+        case setATTCompleted
+        case setATTAuthorized(Bool)
+        case setNotificationAllowed(Bool)
 
-        // MARK: Inner Business Action
-        case _onAppear
-        case _signUp
+        enum View: BindableAction {
+            case onTask
+            case binding(BindingAction<State>)
+            case backButtonTapped
+            case agreeTermsButtonTapped(Terms)
+            case agreeAllTermsButtonTapped
+            case confirmButtonTapped
+            case allowNotificationButtonTapped
+        }
 
-        // MARK: Inner SetState Action
-        case _setATTCompleted
-        case _setATTAuthorized(Bool)
-        case _setNotificationAllowed(Bool)
-
-        // MARK: Delegate Action
         enum Delegate {
             case completedSignUp
         }
-        case delegate(Delegate)
     }
 
     @Dependency(\.continuousClock) var clock
@@ -69,51 +67,57 @@ struct TermsAgreementFeature: Reducer {
     @Dependency(\.dismiss) var dismiss
 
     var body: some Reducer<State, Action> {
-        BindingReducer()
-        
+        BindingReducer(action: \.view)
+
         Reduce<State, Action> { state, action in
             switch action {
-            case ._onAppear:
-                return .run { send in
-                    try await clock.sleep(for: .seconds(1))
-                }
+            case let .view(action):
+                switch action {
+                case .onTask:
+                    return .run { send in
+                        try await clock.sleep(for: .seconds(1))
+                    }
 
-            case .backButtonTapped:
-                return .run { _ in await dismiss() }
+                case .binding:
+                    return .none
 
-            case .confirmButtonTapped:
-                return .run { send in
-                    await ATTManager.requestAuthorization()
+                case .backButtonTapped:
+                    return .run { _ in await dismiss() }
 
-                    let isATTAuthorized = ATTManager.isAuthorized
-                    await send(._setATTAuthorized(isATTAuthorized))
-                    await send(._setATTCompleted)
-                }
+                case .confirmButtonTapped:
+                    return .run { send in
+                        await ATTManager.requestAuthorization()
 
-            case let .agreeTermsButtonTapped(terms):
-                state.termsStates[terms]?.toggle()
-                return .none
+                        let isATTAuthorized = ATTManager.isAuthorized
+                        await send(.setATTAuthorized(isATTAuthorized))
+                        await send(.setATTCompleted)
+                    }
 
-            case .agreeAllTermsButtonTapped:
-                let isAllTermsAgreed = state.isAllTermsAgreed
-                Terms.allCases.forEach {
-                    state.termsStates[$0] = !isAllTermsAgreed
-                }
-                return .none
+                case let .agreeTermsButtonTapped(terms):
+                    state.termsStates[terms]?.toggle()
+                    return .none
 
-            case .allowNotificationButtonTapped:
-                return .run { send in
-                    let isGranted = try await userNotification.requestAuthorization([.alert, .badge, .sound])
-                    await send(.binding(.set(\.isAllowNotificationBottomSheetPresented, false)))
-                    await send(._setNotificationAllowed(isGranted))
-                    print("🔔 UserNotification isGranted: \(isGranted)")
+                case .agreeAllTermsButtonTapped:
+                    let isAllTermsAgreed = state.isAllTermsAgreed
+                    Terms.allCases.forEach {
+                        state.termsStates[$0] = !isAllTermsAgreed
+                    }
+                    return .none
 
-                    await send(._signUp)
+                case .allowNotificationButtonTapped:
+                    return .run { send in
+                        let isGranted = try await userNotification.requestAuthorization([.alert, .badge, .sound])
+                        await send(.view(.binding(.set(\.isAllowNotificationBottomSheetPresented, false))))
+                        await send(.setNotificationAllowed(isGranted))
+                        print("🔔 UserNotification isGranted: \(isGranted)")
+
+                        await send(.signUp)
+                    }
                 }
 
 
             // TODO: ATT, Push Noti 이미 해제했을 땐 안띄우게 로직 구현 필요
-            case ._setATTCompleted:
+            case .setATTCompleted:
                 /// 알림 권한 부여 하는 릴리즈라면 해당 코드 사용
                 // state.isATTCompleted = true
                 // state.isAllowNotificationBottomSheetPresented = true
@@ -122,19 +126,19 @@ struct TermsAgreementFeature: Reducer {
                 /// 1차 릴리즈 범위에서는 알림 기능 제거
                 state.isATTCompleted = true
                 return .run { send in
-                    await send(._signUp)
+                    await send(.signUp)
                 }
 
 
-            case let ._setATTAuthorized(isATTAuthorized):
+            case let .setATTAuthorized(isATTAuthorized):
                 state.isATTAuthorized = isATTAuthorized
                 return .none
 
-            case let ._setNotificationAllowed(isAllowed):
+            case let .setNotificationAllowed(isAllowed):
                 state.isNotificationAllowed = isAllowed
                 return .none
 
-            case ._signUp:
+            case .signUp:
                 return .run { [state] send in
                     let request = buildSignUpRequest(from: state)
 

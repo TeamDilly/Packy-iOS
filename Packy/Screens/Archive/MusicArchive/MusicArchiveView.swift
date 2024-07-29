@@ -60,7 +60,7 @@ struct MusicArchiveView: View {
         }
         .task {
             await store
-                .send(._onTask)
+                .send(.onTask)
                 .finish()
         }
         .onChange(of: scenePhase) {

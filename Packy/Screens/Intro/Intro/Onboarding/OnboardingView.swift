@@ -10,12 +10,9 @@ import ComposableArchitecture
 
 // MARK: - View
 
+@ViewAction(for: OnboardingFeature.self)
 struct OnboardingView: View {
-    @Bindable private var store: StoreOf<OnboardingFeature>
-
-    init(store: StoreOf<OnboardingFeature>) {
-        self.store = store
-    }
+    @Bindable var store: StoreOf<OnboardingFeature>
 
     var body: some View {
         GeometryReader { geometry in
@@ -24,7 +21,7 @@ struct OnboardingView: View {
 
             VStack(spacing: 0) {
                 Button("건너뛰기") {
-                    store.send(.skipButtonTapped)
+                    send(.skipButtonTapped)
                 }
                 .buttonStyle(TextButtonStyle(colorType: .gray))
                 .frame(width: 65, height: 48)
@@ -52,7 +49,7 @@ struct OnboardingView: View {
                 Spacer()
 
                 PackyButton(title: store.currentPage.buttonTitle) {
-                    store.send(.bottomButtonTapped)
+                    send(.bottomButtonTapped)
                 }
                 .padding(.horizontal, 24)
                 .padding(.bottom, 16)
@@ -62,9 +59,7 @@ struct OnboardingView: View {
         .analyticsLog(.onboarding)
         .animation(.spring, value: store.currentPage)
         .task {
-            await store
-                .send(._onAppear)
-                .finish()
+            await send(.onTask).finish()
         }
     }
 }

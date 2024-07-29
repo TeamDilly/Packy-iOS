@@ -29,7 +29,7 @@ struct BoxAddInfoFeature: Reducer {
         case backButtonTapped
 
         // MARK: Inner Business Action
-        case _onTask
+        case onTask
         case _setUsername(String)
     }
 
@@ -67,7 +67,7 @@ struct BoxAddInfoFeature: Reducer {
                 state.boxSendFrom = username
                 return .none
 
-            case ._onTask:
+            case .onTask:
                 return .run { send in
                     await userDefaults.setBool(false, .didEnteredBoxGuide)
 

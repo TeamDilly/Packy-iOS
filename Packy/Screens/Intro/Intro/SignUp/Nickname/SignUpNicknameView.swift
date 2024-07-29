@@ -10,13 +10,10 @@ import ComposableArchitecture
 
 // MARK: - View
 
+@ViewAction(for: SignUpNicknameFeature.self)
 struct SignUpNicknameView: View {
-    @Bindable private var store: StoreOf<SignUpNicknameFeature>
+    @Bindable var store: StoreOf<SignUpNicknameFeature>
     @FocusState private var isFocused: Bool
-
-    init(store: StoreOf<SignUpNicknameFeature>) {
-        self.store = store
-    }
 
     var body: some View {
         NavigationStack(path: $store.scope(state: \.path, action: \.path)) {
@@ -40,6 +37,7 @@ struct SignUpNicknameView: View {
 // MARK: - Inner Views
 
 private extension SignUpNicknameView {
+    @MainActor
     var content: some View {
         VStack(spacing: 0) {
             Text("패키에서 사용할\n닉네임을 입력해주세요")
@@ -80,9 +78,7 @@ private extension SignUpNicknameView {
         .padding(.horizontal, 24)
         .makeTapToHideKeyboard()
         .task {
-            await store
-                .send(._onAppear)
-                .finish()
+            await send(.onTask).finish()
             isFocused = true
         }
         .analyticsLog(.signupNickname)

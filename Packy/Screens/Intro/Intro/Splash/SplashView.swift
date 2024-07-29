@@ -11,13 +11,7 @@ import ComposableArchitecture
 // MARK: - View
 
 struct SplashView: View {
-    private let store: StoreOf<SplashFeature>
-    @ObservedObject private var viewStore: ViewStoreOf<SplashFeature>
-
-    init(store: StoreOf<SplashFeature>) {
-        self.store = store
-        self.viewStore = ViewStore(store, observe: { $0 })
-    }
+    let store: StoreOf<SplashFeature>
 
     var body: some View {
         VStack {
@@ -26,11 +20,6 @@ struct SplashView: View {
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(.purple500)
-        .task {
-            await viewStore
-                .send(._onTask)
-                .finish()
-        }
     }
 }
 

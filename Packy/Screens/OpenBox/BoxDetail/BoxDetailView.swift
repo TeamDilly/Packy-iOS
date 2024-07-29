@@ -92,7 +92,7 @@ struct BoxDetailView: View {
         }
         .task {
             await store
-                .send(._onTask)
+                .send(.onTask)
                 .finish()
         }
     }

@@ -30,7 +30,7 @@ struct LetterArchiveFeature: Reducer {
         case didRefresh
 
         // MARK: Inner Business Action
-        case _onTask
+        case onTask
         case _fetchMoreLetters
         case _didActiveScene
 
@@ -49,7 +49,7 @@ struct LetterArchiveFeature: Reducer {
                 state.selectedLetter = letter
                 return .none
                 
-            case ._onTask:
+            case .onTask:
                 return fetchLetters(lastLetterId: nil)
 
             case .didRefresh, ._didActiveScene:

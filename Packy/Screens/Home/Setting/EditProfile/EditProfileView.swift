@@ -11,7 +11,7 @@ import ComposableArchitecture
 // MARK: - View
 
 struct EditProfileView: View {
-    @Bindable private var store: StoreOf<EditProfileFeature>
+    @Bindable var store: StoreOf<EditProfileFeature>
 
     init(store: StoreOf<EditProfileFeature>) {
         self.store = store
@@ -49,7 +49,7 @@ struct EditProfileView: View {
         .navigationBarBackButtonHidden(true)
         .task {
             await store
-                .send(._onTask)
+                .send(.onTask)
                 .finish()
         }
     }

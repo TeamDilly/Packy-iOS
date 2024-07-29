@@ -10,17 +10,14 @@ import ComposableArchitecture
 
 // MARK: - View
 
+@ViewAction(for: SettingFeature.self)
 struct SettingView: View {
-    @Bindable private var store: StoreOf<SettingFeature>
-
-    init(store: StoreOf<SettingFeature>) {
-        self.store = store
-    }
+    @Bindable var store: StoreOf<SettingFeature>
 
     var body: some View {
         VStack(spacing: 0) {
             NavigationBar.onlyBackButton {
-                store.send(.backButtonTapped)
+                send(.backButtonTapped)
             }
             .padding(.top, 8)
 
@@ -56,23 +53,19 @@ struct SettingView: View {
                     PackyDivider()
 
                     Button {
-                        store.send(.logoutButtonTapped)
+                        send(.logoutButtonTapped)
                     } label: {
                         SettingListCell(title: "로그아웃", showRightIcon: false)
                     }
                 }
                 .padding(24)
-
             }
-
 
             Spacer()
         }
         .navigationBarBackButtonHidden(true)
         .task {
-            await store
-                .send(._onTask)
-                .finish()
+            await send(.onTask).finish()
         }
     }
 }
@@ -94,7 +87,7 @@ private extension SettingView {
 
             if store.profile != nil {
                 Button("프로필 수정") {
-                    store.send(.editProfileButtonTapped)
+                    send(.editProfileButtonTapped)
                 }
                 .buttonStyle(.box(color: .tertiary, size: .roundSmall))
             }

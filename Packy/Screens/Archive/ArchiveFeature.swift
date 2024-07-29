@@ -26,7 +26,7 @@ struct ArchiveFeature: Reducer {
         case binding(BindingAction<State>)
 
         // MARK: Inner Business Action
-        case _onTask
+        case onTask
 
         // MARK: Inner SetState Action
 

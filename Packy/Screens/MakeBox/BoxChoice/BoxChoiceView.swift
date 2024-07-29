@@ -86,7 +86,7 @@ struct BoxChoiceView: View {
         .navigationBarBackButtonHidden(true)
         .task {
             await store
-                .send(._onTask)
+                .send(.onTask)
                 .finish()
         }
     }

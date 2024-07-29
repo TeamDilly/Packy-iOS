@@ -40,7 +40,7 @@ struct BoxDetailFeature: Reducer {
         case navigationBarTrailingButtonTapped
 
         // MARK: Inner Business Action
-        case _onTask
+        case onTask
 
         // MARK: Inner SetState Action
 

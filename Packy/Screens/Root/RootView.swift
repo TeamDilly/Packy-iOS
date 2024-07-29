@@ -11,11 +11,7 @@ import ComposableArchitecture
 // MARK: - View
 
 struct RootView: View {
-    private let store: StoreOf<RootFeature>
-
-    init(store: StoreOf<RootFeature>) {
-        self.store = store
-    }
+    let store: StoreOf<RootFeature>
 
     var body: some View {
         Group {
@@ -34,7 +30,7 @@ struct RootView: View {
         .animation(.spring, value: store.state)
         .task {
             await store
-                .send(._onAppear)
+                .send(.onTask)
                 .finish()
         }
     }

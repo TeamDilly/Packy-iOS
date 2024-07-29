@@ -30,7 +30,7 @@ struct MusicArchiveFeature: Reducer {
         case didRefresh
 
         // MARK: Inner Business Action
-        case _onTask
+        case onTask
         case _fetchMoreMusics
         case _didActiveScene
 
@@ -49,7 +49,7 @@ struct MusicArchiveFeature: Reducer {
                 state.selectedMusic = music
                 return .none
 
-            case ._onTask:
+            case .onTask:
                 return fetchMusics(lastMusicId: nil)
 
             case .didRefresh, ._didActiveScene:

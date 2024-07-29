@@ -11,7 +11,7 @@ import ComposableArchitecture
 // MARK: - View
 
 struct BoxAddInfoView: View {
-    @Bindable private var store: StoreOf<BoxAddInfoFeature>
+    @Bindable var store: StoreOf<BoxAddInfoFeature>
 
     init(store: StoreOf<BoxAddInfoFeature>) {
         self.store = store
@@ -60,7 +60,7 @@ struct BoxAddInfoView: View {
         .navigationBarBackButtonHidden(true)
         .task {
             await store
-                .send(._onTask)
+                .send(.onTask)
                 .finish()
         }
     }

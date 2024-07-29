@@ -10,12 +10,9 @@ import ComposableArchitecture
 
 // MARK: - View
 
+@ViewAction(for: LoginFeature.self)
 struct LoginView: View {
-    private let store: StoreOf<LoginFeature>
-
-    init(store: StoreOf<LoginFeature>) {
-        self.store = store
-    }
+    let store: StoreOf<LoginFeature>
 
     var body: some View {
         VStack(spacing: 0) {
@@ -31,11 +28,11 @@ struct LoginView: View {
 
             VStack(spacing: 8) {
                 SocialLoginButton(loginType: .kakao) {
-                    store.send(.kakaoLoginButtonTapped)
+                    send(.kakaoLoginButtonTapped)
                 }
 
                 SocialLoginButton(loginType: .apple) {
-                    store.send(.appleLoginButtonTapped)
+                    send(.appleLoginButtonTapped)
                 }
             }
             .padding(.horizontal, 24)

@@ -44,7 +44,7 @@ struct BoxShareFeature: Reducer {
         case sendLaterButtonTapped
 
         // MARK: Inner Business Action
-        case _onTask
+        case onTask
 
         // MARK: Inner SetState Action
         case _setShowCompleteAnimation(Bool)
@@ -84,7 +84,7 @@ struct BoxShareFeature: Reducer {
                 }
 
             // MARK: Inner Business Action
-            case ._onTask:
+            case .onTask:
                 return .merge(
                     fetchKakaoImage(boxId: state.boxId),
                     showAnimationIfNeeded(showCompleteAnimation: state.showCompleteAnimation)

@@ -38,7 +38,7 @@ struct MyBoxFeature: Reducer {
         case deleteBottomMenuConfirmButtonTapped
 
         // MARK: Inner Business Action
-        case _onTask
+        case onTask
         case _didActiveScene
         case _fetchMoreSentGiftBoxes
         case _fetchMoreReceivedGiftBoxes
@@ -68,7 +68,7 @@ struct MyBoxFeature: Reducer {
 
         Reduce<State, Action> { state, action in
             switch action {
-            case ._onTask:
+            case .onTask:
                 return .merge(
                     fetchAllInitialGiftBoxes(state),
                     fetchUnsentBoxes()

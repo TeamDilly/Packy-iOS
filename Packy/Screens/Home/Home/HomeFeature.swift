@@ -20,30 +20,29 @@ struct HomeFeature: Reducer {
         var selectedBoxToDelete: UnsentBox?
     }
 
-    enum Action: BindableAction {
-        // MARK: User Action
-        case binding(BindingAction<State>)
-        case tappedGiftBox(boxId: Int)
-        case tappedUnsentBox(boxId: Int)
-        case viewMoreButtonTapped
-        case deleteBottomMenuConfirmButtonTapped
+    enum Action: ViewAction {
+        case view(View)
+        case delegate(Delegate)
 
-        // MARK: Inner Business Action
-        case _onTask
-        case _deleteBox(Int)
+        case deleteBox(Int)
+        case setGiftBoxes([SentReceivedGiftBox])
+        case setUnsentBoxes([UnsentBox])
+        case setShowDetailLoading(Bool)
+        case setDeletedBox(Int)
 
-        // MARK: Inner SetState Action
-        case _setGiftBoxes([SentReceivedGiftBox])
-        case _setUnsentBoxes([UnsentBox])
-        case _setShowDetailLoading(Bool)
-        case _setDeletedBox(Int)
+        enum View: BindableAction {
+            case onTask
+            case binding(BindingAction<State>)
+            case tappedGiftBox(boxId: Int)
+            case tappedUnsentBox(boxId: Int)
+            case viewMoreButtonTapped
+            case deleteBottomMenuConfirmButtonTapped
+        }
 
-        // MARK: Delegate Action
         enum Delegate {
             case moveToBoxDetail(boxId: Int, ReceivedGiftBox, isForSend: Bool)
             case moveToMyBox
         }
-        case delegate(Delegate)
     }
 
     @Dependency(\.authClient) var authClient
@@ -52,80 +51,84 @@ struct HomeFeature: Reducer {
     @Dependency(\.bottomMenu) var bottomMenu
 
     var body: some Reducer<State, Action> {
-        BindingReducer()
+        BindingReducer(action: \.view)
 
         Reduce<State, Action> { state, action in
             switch action {
-            // MARK: User Action
-            case .binding(\.selectedBoxToDelete):
-                return .run { send in
-                    await bottomMenu.show(
-                        .init(
-                            confirmTitle: "삭제하기",
-                            confirmAction: {
-                                await send(.deleteBottomMenuConfirmButtonTapped)
-                            }
-                        )
+            case let .view(action):
+                switch action {
+                case .onTask:
+                    return .merge(
+                        fetchGiftBoxes(),
+                        fetchUnsentBoxes()
                     )
-                }
 
-            case let .tappedGiftBox(boxId):
-                state.isShowDetailLoading = true
-                return .run { send in
-                    do {
-                        let giftBox = try await boxClient.openGiftBox(boxId)
-                        await send(.delegate(.moveToBoxDetail(boxId: boxId, giftBox, isForSend: false)))
-                        await send(._setShowDetailLoading(false))
-                    } catch {
-                        print("🐛 \(error)")
-                        await send(._setShowDetailLoading(false))
-                    }
-                }
-
-            case let .tappedUnsentBox(boxId):
-                state.isShowDetailLoading = true
-                return .run { send in
-                    do {
-                        let giftBox = try await boxClient.openGiftBox(boxId)
-                        await send(.delegate(.moveToBoxDetail(boxId: boxId, giftBox, isForSend: true)))
-                        await send(._setShowDetailLoading(false))
-                    } catch {
-                        print("🐛 \(error)")
-                        await send(._setShowDetailLoading(false))
-                    }
-                }
-
-            case .viewMoreButtonTapped:
-                return .send(.delegate(.moveToMyBox))
-
-            case .deleteBottomMenuConfirmButtonTapped:
-                guard let selectedBoxIdToDelete = state.selectedBoxToDelete?.id else { return .none }
-                return .run { send in
-                    await packyAlert.show(
-                        .init(
-                            title: "선물박스를 삭제할까요?",
-                            description: "선물박스에 들어있는 모든 선물들이 사라져요\n삭제한 선물박스는 다시 볼 수 없어요",
-                            cancel: "취소",
-                            confirm: "삭제",
-                            confirmAction: {
-                                await send(._deleteBox(selectedBoxIdToDelete))
-                            }
+                case .binding(\.selectedBoxToDelete):
+                    return .run { send in
+                        await bottomMenu.show(
+                            .init(
+                                confirmTitle: "삭제하기",
+                                confirmAction: {
+                                    await send(.view(.deleteBottomMenuConfirmButtonTapped))
+                                }
+                            )
                         )
-                    )
+                    }
+
+                case let .tappedGiftBox(boxId):
+                    state.isShowDetailLoading = true
+                    return .run { send in
+                        do {
+                            let giftBox = try await boxClient.openGiftBox(boxId)
+                            await send(.delegate(.moveToBoxDetail(boxId: boxId, giftBox, isForSend: false)))
+                            await send(.setShowDetailLoading(false))
+                        } catch {
+                            print("🐛 \(error)")
+                            await send(.setShowDetailLoading(false))
+                        }
+                    }
+
+                case let .tappedUnsentBox(boxId):
+                    state.isShowDetailLoading = true
+                    return .run { send in
+                        do {
+                            let giftBox = try await boxClient.openGiftBox(boxId)
+                            await send(.delegate(.moveToBoxDetail(boxId: boxId, giftBox, isForSend: true)))
+                            await send(.setShowDetailLoading(false))
+                        } catch {
+                            print("🐛 \(error)")
+                            await send(.setShowDetailLoading(false))
+                        }
+                    }
+
+                case .viewMoreButtonTapped:
+                    return .send(.delegate(.moveToMyBox))
+
+                case .deleteBottomMenuConfirmButtonTapped:
+                    guard let selectedBoxIdToDelete = state.selectedBoxToDelete?.id else { return .none }
+                    return .run { send in
+                        await packyAlert.show(
+                            .init(
+                                title: "선물박스를 삭제할까요?",
+                                description: "선물박스에 들어있는 모든 선물들이 사라져요\n삭제한 선물박스는 다시 볼 수 없어요",
+                                cancel: "취소",
+                                confirm: "삭제",
+                                confirmAction: {
+                                    await send(.deleteBox(selectedBoxIdToDelete))
+                                }
+                            )
+                        )
+                    }
+
+                default:
+                    return .none
                 }
 
-            // MARK: Inner Business Action
-            case ._onTask:
-                return .merge(
-                    fetchGiftBoxes(),
-                    fetchUnsentBoxes()
-                )
-
-            case let ._deleteBox(boxId):
+            case let .deleteBox(boxId):
                 return .run { send in
                     do {
                         try await boxClient.deleteGiftBox(boxId)
-                        await send(._setDeletedBox(boxId), animation: .spring)
+                        await send(.setDeletedBox(boxId), animation: .spring)
                     } catch {
                         print("🐛 \(error)")
                     }
@@ -133,24 +136,24 @@ struct HomeFeature: Reducer {
 
             // MARK: Inner SetState Action
             // 낙관적 업데이트 방식으로 성공 시 화면에 반영
-            case let ._setDeletedBox(boxId):
+            case let .setDeletedBox(boxId):
                 state.unsentBoxes.remove(id: boxId)
                 return .none
 
-            case let ._setGiftBoxes(giftBoxes):
+            case let .setGiftBoxes(giftBoxes):
                 state.giftBoxes = giftBoxes
                 return .none
 
-            case let ._setUnsentBoxes(unsentBoxes):
+            case let .setUnsentBoxes(unsentBoxes):
                 state.unsentBoxes = .init(uniqueElements: unsentBoxes)
                 return .none
 
-            case let ._setShowDetailLoading(isLoading):
+            case let .setShowDetailLoading(isLoading):
                 state.isShowDetailLoading = isLoading
                 return .none
 
             // MARK: Child Action
-            case .delegate, .binding:
+            case .delegate:
                 return .none
             }
         }
@@ -164,7 +167,7 @@ private extension HomeFeature {
         .run { send in
             do {
                 let giftBoxesData = try await boxClient.fetchGiftBoxes(.init())
-                await send(._setGiftBoxes(giftBoxesData.giftBoxes), animation: .spring)
+                await send(.setGiftBoxes(giftBoxesData.giftBoxes), animation: .spring)
             } catch {
                 print("🐛 \(error)")
             }
@@ -175,7 +178,7 @@ private extension HomeFeature {
         .run { send in
             do {
                 let unsentBoxes = try await boxClient.fetchUnsentBoxes()
-                await send(._setUnsentBoxes(unsentBoxes), animation: .spring)
+                await send(.setUnsentBoxes(unsentBoxes), animation: .spring)
             } catch {
                 print("🐛 \(error)")
             }

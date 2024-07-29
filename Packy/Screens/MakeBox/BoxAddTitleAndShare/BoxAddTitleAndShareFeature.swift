@@ -39,7 +39,7 @@ struct BoxAddTitleAndShareFeature: Reducer {
         case nextButtonTapped
 
         // MARK: Inner Business Action
-        case _onTask
+        case onTask
         case _saveGiftBox
         case _setUploadedGiftUrl(String)
         case _setUploadedPhotoUrl(String)
@@ -144,7 +144,7 @@ struct BoxAddTitleAndShareFeature: Reducer {
                 state.isLoading = isLoading
                 return .none
 
-            case .binding, ._onTask, .delegate, .boxShare:
+            case .binding, .onTask, .delegate, .boxShare:
                 return .none
             }
         }

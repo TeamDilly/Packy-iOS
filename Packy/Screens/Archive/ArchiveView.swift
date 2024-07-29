@@ -11,7 +11,7 @@ import ComposableArchitecture
 // MARK: - View
 
 struct ArchiveView: View {
-    @Bindable private var store: StoreOf<ArchiveFeature>
+    @Bindable var store: StoreOf<ArchiveFeature>
 
     init(store: StoreOf<ArchiveFeature>) {
         self.store = store
@@ -57,7 +57,7 @@ struct ArchiveView: View {
         .background(.gray100)
         .task {
             await store
-                .send(._onTask)
+                .send(.onTask)
                 .finish()
         }
         .analyticsLog(.archive)

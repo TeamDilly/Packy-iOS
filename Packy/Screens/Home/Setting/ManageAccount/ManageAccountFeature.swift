@@ -21,7 +21,7 @@ struct ManageAccountFeature: Reducer {
         case backButtonTapped
 
         // MARK: Inner Business Action
-        case _onTask
+        case onTask
 
         // MARK: Inner SetState Action
 
@@ -33,7 +33,7 @@ struct ManageAccountFeature: Reducer {
     var body: some Reducer<State, Action> {
         Reduce<State, Action> { state, action in
             switch action {
-            case ._onTask:
+            case .onTask:
                 return .none
 
             case .backButtonTapped:

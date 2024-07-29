@@ -11,11 +11,7 @@ import ComposableArchitecture
 // MARK: - View
 
 struct IntroView: View {
-    private let store: StoreOf<IntroFeature>
-
-    init(store: StoreOf<IntroFeature>) {
-        self.store = store
-    }
+    let store: StoreOf<IntroFeature>
 
     var body: some View {
         Group {
@@ -40,11 +36,6 @@ struct IntroView: View {
                     SignUpNicknameView(store: store)
                 }
             }
-        }
-        .task {
-            await store
-                .send(._onAppear)
-                .finish()
         }
     }
 }
