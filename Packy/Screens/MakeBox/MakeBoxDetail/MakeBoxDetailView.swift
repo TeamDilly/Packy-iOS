@@ -15,12 +15,7 @@ struct MakeBoxDetailView: View {
     @Bindable var store: StoreOf<MakeBoxDetailFeature>
 
     @State private var isShowingGuideText: Bool = false
-
     private let strokeStyle: StrokeStyle = .init(lineWidth: 1.5, dash: [5])
-
-    init(store: StoreOf<MakeBoxDetailFeature>) {
-        self.store = store
-    }
 
     var body: some View {
         GeometryReader { proxy in

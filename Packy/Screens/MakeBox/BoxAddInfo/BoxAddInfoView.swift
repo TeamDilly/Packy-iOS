@@ -10,17 +10,14 @@ import ComposableArchitecture
 
 // MARK: - View
 
+@ViewAction(for: BoxAddInfoFeature.self)
 struct BoxAddInfoView: View {
     @Bindable var store: StoreOf<BoxAddInfoFeature>
-
-    init(store: StoreOf<BoxAddInfoFeature>) {
-        self.store = store
-    }
 
     var body: some View {
         VStack(spacing: 0) {
             NavigationBar.onlyBackButton {
-                store.send(.backButtonTapped)
+                send(.backButtonTapped)
             }
             .padding(.bottom, 66)
 
@@ -59,9 +56,7 @@ struct BoxAddInfoView: View {
         .analyticsLog(.boxAddInfo)
         .navigationBarBackButtonHidden(true)
         .task {
-            await store
-                .send(.onTask)
-                .finish()
+            await send(.onTask).finish()
         }
     }
 }

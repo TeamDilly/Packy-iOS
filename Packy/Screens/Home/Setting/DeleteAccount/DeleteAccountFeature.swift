@@ -21,24 +21,23 @@ struct DeleteAccountFeature: Reducer {
         var showingState: ShowingState = .signOut
     }
 
-    enum Action {
-        // MARK: User Action
-        case backButtonTapped
-        case signOutButtonTapped
-        case signOutConfirmButtonTapped
-        case completedConfirmButtonTapped
+    enum Action: ViewAction {
+        case view(View)
+        case delegate(Delegate)
 
-        // MARK: Inner Business Action
-        case onTask
+        case setShowingState(ShowingState)
 
-        // MARK: Inner SetState Action
-        case _setShowingState(ShowingState)
+        enum View {
+            case onTask
+            case backButtonTapped
+            case signOutButtonTapped
+            case signOutConfirmButtonTapped
+            case completedConfirmButtonTapped
+        }
 
-        // MARK: Child Action
         enum Delegate {
             case completedSignOut
         }
-        case delegate(Delegate)
     }
 
     @Dependency(\.dismiss) var dismiss
@@ -49,45 +48,48 @@ struct DeleteAccountFeature: Reducer {
     var body: some Reducer<State, Action> {
         Reduce<State, Action> { state, action in
             switch action {
-            case .onTask:
-                return .none
-
-            case .backButtonTapped:
-                return .run { _ in await dismiss() }
-
-            case .signOutButtonTapped:
-                return .run { send in
-                    await packyAlert.show(
-                        .init(
-                            title: "패키 서비스를 탈퇴하시겠어요?",
-                            cancel: "취소",
-                            confirm: "확인",
-                            cancelAction: { await dismiss() },
-                            confirmAction: { await send(.signOutConfirmButtonTapped) }
+            case let .view(action):
+                switch action {
+                case .onTask:
+                    return .none
+                    
+                case .backButtonTapped:
+                    return .run { _ in await dismiss() }
+                    
+                case .signOutButtonTapped:
+                    return .run { send in
+                        await packyAlert.show(
+                            .init(
+                                title: "패키 서비스를 탈퇴하시겠어요?",
+                                cancel: "취소",
+                                confirm: "확인",
+                                cancelAction: { await dismiss() },
+                                confirmAction: { await send(.view(.signOutConfirmButtonTapped)) }
+                            )
                         )
-                    )
-                }
-
-            case .signOutConfirmButtonTapped:
-                return .run { send in
-                    do {
-                        _ = try await authClient.withdraw()
-
-                        keychain.delete(.accessToken)
-                        keychain.delete(.refreshToken)
-
-                        await send(._setShowingState(.completed), animation: .spring)
-                    } catch {
-                        print("🐛 \(error)")
+                    }
+                    
+                case .signOutConfirmButtonTapped:
+                    return .run { send in
+                        do {
+                            _ = try await authClient.withdraw()
+                            
+                            keychain.delete(.accessToken)
+                            keychain.delete(.refreshToken)
+                            
+                            await send(.setShowingState(.completed), animation: .spring)
+                        } catch {
+                            print("🐛 \(error)")
+                        }
+                    }
+                    
+                case .completedConfirmButtonTapped:
+                    return .run { send in
+                        await send(.delegate(.completedSignOut), animation: .spring)
                     }
                 }
 
-            case .completedConfirmButtonTapped:
-                return .run { send in
-                    await send(.delegate(.completedSignOut), animation: .spring)
-                }
-
-            case let ._setShowingState(showingState):
+            case let .setShowingState(showingState):
                 state.showingState = showingState
                 return .none
 

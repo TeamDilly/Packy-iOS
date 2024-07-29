@@ -24,19 +24,19 @@ struct PhotoArchiveFeature: Reducer {
         var isLoading: Bool = true
     }
 
-    enum Action {
-        // MARK: User Action
-        case photoTapped(PhotoArchiveData)
-        case didRefresh
+    enum Action: ViewAction {
+        case view(View)
 
-        // MARK: Inner Business Action
-        case onTask
-        case _fetchMorePhotos
-        case _didActiveScene
+        case setPhotoPageData(PhotoArchivePageData)
+        case setLoading(Bool)
 
-        // MARK: Inner SetState Action
-        case _setPhotoPageData(PhotoArchivePageData)
-        case _setLoading(Bool)
+        enum View {
+            case onTask
+            case didActiveScene
+            case didRefresh
+            case photoTapped(PhotoArchiveData)
+            case fetchMorePhotos
+        }
     }
 
     @Dependency(\.archiveClient) var archiveClient
@@ -45,28 +45,31 @@ struct PhotoArchiveFeature: Reducer {
     var body: some Reducer<State, Action> {
         Reduce<State, Action> { state, action in
             switch action {
-            case let .photoTapped(photo):
-                state.selectedPhoto = photo
-                return .none
-                
-            case .onTask:
-                return fetchPhotos(lastPhotoId: nil)
+            case let .view(action):
+                switch action {
+                case let .photoTapped(photo):
+                    state.selectedPhoto = photo
+                    return .none
 
-            case .didRefresh, ._didActiveScene:
-                state.photoArchivePageData = []
-                state.photos = []
-                state.isLoading = true
-                return fetchPhotos(lastPhotoId: nil)
+                case .onTask:
+                    return fetchPhotos(lastPhotoId: nil)
 
-            case let ._setPhotoPageData(pageData):
+                case .didRefresh, .didActiveScene:
+                    state.photoArchivePageData = []
+                    state.photos = []
+                    state.isLoading = true
+                    return fetchPhotos(lastPhotoId: nil)
+
+                case .fetchMorePhotos:
+                    return fetchPhotos(lastPhotoId: state.photos.last?.id)
+                }
+
+            case let .setPhotoPageData(pageData):
                 state.photoArchivePageData.append(pageData)
                 state.photos.append(contentsOf: pageData.content)
                 return .none
 
-            case ._fetchMorePhotos:
-                return fetchPhotos(lastPhotoId: state.photos.last?.id)
-
-            case let ._setLoading(isLoading):
+            case let .setLoading(isLoading):
                 state.isLoading = isLoading
                 return .none
             }
@@ -79,13 +82,13 @@ private extension PhotoArchiveFeature {
         .run { send in
             do {
                 let response = try await archiveClient.fetchPhotos(lastPhotoId)
-                await send(._setPhotoPageData(response), animation: .spring)
+                await send(.setPhotoPageData(response), animation: .spring)
 
                 try? await clock.sleep(for: .seconds(0.3))
-                await send(._setLoading(false))
+                await send(.setLoading(false))
             } catch {
                 print("🐛 \(error)")
-                await send(._setLoading(false))
+                await send(.setLoading(false))
             }
         }
     }

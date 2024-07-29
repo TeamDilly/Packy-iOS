@@ -31,12 +31,12 @@ struct GiftArchiveFeature: Reducer {
 
         // MARK: Inner Business Action
         case onTask
-        case _fetchMoreGifts
-        case _didActiveScene
+        case fetchMoreGifts
+        case didActiveScene
 
         // MARK: Inner SetState Action
-        case _setGiftPageData(GiftArchivePageData)
-        case _setLoading(Bool)
+        case setGiftPageData(GiftArchivePageData)
+        case setLoading(Bool)
     }
 
     @Dependency(\.archiveClient) var archiveClient
@@ -52,21 +52,21 @@ struct GiftArchiveFeature: Reducer {
             case .onTask:
                 return fetchGifts(lastGiftId: nil)
 
-            case .didRefresh, ._didActiveScene:
+            case .didRefresh, .didActiveScene:
                 state.giftArchivePageData = []
                 state.gifts = []
                 state.isLoading = true
                 return fetchGifts(lastGiftId: nil)
 
-            case let ._setGiftPageData(pageData):
+            case let .setGiftPageData(pageData):
                 state.giftArchivePageData.append(pageData)
                 state.gifts.append(contentsOf: pageData.content)
                 return .none
 
-            case ._fetchMoreGifts:
+            case .fetchMoreGifts:
                 return fetchGifts(lastGiftId: state.gifts.last?.id)
 
-            case let ._setLoading(isLoading):
+            case let .setLoading(isLoading):
                 state.isLoading = isLoading
                 return .none
             }
@@ -79,13 +79,13 @@ private extension GiftArchiveFeature {
         .run { send in
             do {
                 let response = try await archiveClient.fetchGifts(lastGiftId)
-                await send(._setGiftPageData(response), animation: .spring)
+                await send(.setGiftPageData(response), animation: .spring)
 
                 try? await clock.sleep(for: .seconds(0.3))
-                await send(._setLoading(false))
+                await send(.setLoading(false))
             } catch {
                 print("🐛 \(error)")
-                await send(._setLoading(false))
+                await send(.setLoading(false))
             }
         }
     }

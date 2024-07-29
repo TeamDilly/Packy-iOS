@@ -24,19 +24,19 @@ struct LetterArchiveFeature: Reducer {
         var isLoading: Bool = true
     }
 
-    enum Action {
-        // MARK: User Action
-        case letterTapped(LetterArchiveData)
-        case didRefresh
+    enum Action: ViewAction {
+        case view(View)
 
-        // MARK: Inner Business Action
-        case onTask
-        case _fetchMoreLetters
-        case _didActiveScene
+        case setLetterPageData(LetterArchivePageData)
+        case setLoading(Bool)
 
-        // MARK: Inner SetState Action
-        case _setLetterPageData(LetterArchivePageData)
-        case _setLoading(Bool)
+        enum View {
+            case onTask
+            case fetchMoreLetters
+            case didActiveScene
+            case letterTapped(LetterArchiveData)
+            case didRefresh
+        }
     }
 
     @Dependency(\.archiveClient) var archiveClient
@@ -45,28 +45,31 @@ struct LetterArchiveFeature: Reducer {
     var body: some Reducer<State, Action> {
         Reduce<State, Action> { state, action in
             switch action {
-            case let .letterTapped(letter):
-                state.selectedLetter = letter
-                return .none
-                
-            case .onTask:
-                return fetchLetters(lastLetterId: nil)
+            case let .view(action):
+                switch action {
+                case let .letterTapped(letter):
+                    state.selectedLetter = letter
+                    return .none
+                    
+                case .onTask:
+                    return fetchLetters(lastLetterId: nil)
+                    
+                case .didRefresh, .didActiveScene:
+                    state.letterArchivePageData = []
+                    state.letters = []
+                    state.isLoading = true
+                    return fetchLetters(lastLetterId: nil)
 
-            case .didRefresh, ._didActiveScene:
-                state.letterArchivePageData = []
-                state.letters = []
-                state.isLoading = true
-                return fetchLetters(lastLetterId: nil)
+                case .fetchMoreLetters:
+                    return fetchLetters(lastLetterId: state.letters.last?.id)
+                }
 
-            case let ._setLetterPageData(pageData):
+            case let .setLetterPageData(pageData):
                 state.letterArchivePageData.append(pageData)
                 state.letters.append(contentsOf: pageData.content)
                 return .none
 
-            case ._fetchMoreLetters:
-                return fetchLetters(lastLetterId: state.letters.last?.id)
-
-            case let ._setLoading(isLoading):
+            case let .setLoading(isLoading):
                 state.isLoading = isLoading
                 return .none
             }
@@ -79,13 +82,13 @@ private extension LetterArchiveFeature {
         .run { send in
             do {
                 let response = try await archiveClient.fetchLetters(lastLetterId)
-                await send(._setLetterPageData(response), animation: .spring)
+                await send(.setLetterPageData(response), animation: .spring)
 
                 try? await clock.sleep(for: .seconds(0.3))
-                await send(._setLoading(false))
+                await send(.setLoading(false))
             } catch {
                 print("🐛 \(error)")
-                await send(._setLoading(false))
+                await send(.setLoading(false))
             }
         }
     }

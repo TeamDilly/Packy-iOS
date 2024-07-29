@@ -47,11 +47,11 @@ struct SelectMusicFeature: Reducer {
         case musicBottomSheetCloseButtonTapped
         case closeMusicSheetAlertConfirmTapped
 
-        case _fetchRecommendedMusics
-        case _setDetents(Set<PresentationDetent>)
-        case _setRecommendedMusics([RecommendedMusic])
-        case _setShowInvalidMusicUrlError(Bool)
-        case _setSelectedMusicUrl(String)
+        case fetchRecommendedMusics
+        case setDetents(Set<PresentationDetent>)
+        case setRecommendedMusics([RecommendedMusic])
+        case setShowInvalidMusicUrlError(Bool)
+        case setSelectedMusicUrl(String)
     }
 
     @Dependency(\.continuousClock) var clock
@@ -65,7 +65,7 @@ struct SelectMusicFeature: Reducer {
 
         Reduce { state, action in
             switch action {
-            case ._fetchRecommendedMusics:
+            case .fetchRecommendedMusics:
                 return fetchRecommendedMusics()
 
             case .musicSelectButtonTapped:
@@ -97,12 +97,12 @@ struct SelectMusicFeature: Reducer {
                 return .run { send in
                     do {
                         let isValidLink = try await adminClient.validateYoutubeUrl(youtubeLinkUrl)
-                        await send(._setShowInvalidMusicUrlError(!isValidLink))
+                        await send(.setShowInvalidMusicUrlError(!isValidLink))
 
                         guard isValidLink else { return }
-                        await send(._setSelectedMusicUrl(youtubeLinkUrl))
+                        await send(.setSelectedMusicUrl(youtubeLinkUrl))
                     } catch {
-                        await send(._setShowInvalidMusicUrlError(false))
+                        await send(.setShowInvalidMusicUrlError(false))
                     }
                 }
 
@@ -130,19 +130,19 @@ struct SelectMusicFeature: Reducer {
                 state.musicInput.selectedMusicUrl = nil
                 return .none
 
-            case let ._setRecommendedMusics(recommendedMusics):
+            case let .setRecommendedMusics(recommendedMusics):
                 state.recommendedMusics = recommendedMusics
                 return .none
 
-            case let ._setDetents(detents):
+            case let .setDetents(detents):
                 state.musicInput.musicSheetDetents = detents
                 return .none
 
-            case let ._setShowInvalidMusicUrlError(isError):
+            case let .setShowInvalidMusicUrlError(isError):
                 state.musicInput.showInvalidMusicUrlError = isError
                 return .none
 
-            case let ._setSelectedMusicUrl(url):
+            case let .setSelectedMusicUrl(url):
                 state.musicInput.selectedMusicUrl = url
                 return .none
 
@@ -184,9 +184,9 @@ private extension SelectMusicFeature {
     /// 하지만, 모두 주면 아예 detent 를 변경할 수 있는 형태가 되기에, 0.1 초 후에 detents 변경
     func changeDetentsForSmoothAnimation(for mode: MusicBottomSheetMode) -> Effect<Action> {
         .run { send in
-            await send(._setDetents(MusicBottomSheetMode.allDetents))
+            await send(.setDetents(MusicBottomSheetMode.allDetents))
             try? await clock.sleep(for: .seconds(0.1))
-            await send(._setDetents([mode.detent]))
+            await send(.setDetents([mode.detent]))
         }
     }
 
@@ -194,7 +194,7 @@ private extension SelectMusicFeature {
         .run { send in
             do {
                 let recommendedMusics = try await adminClient.fetchRecommendedMusics()
-                await send(._setRecommendedMusics(recommendedMusics))
+                await send(.setRecommendedMusics(recommendedMusics))
             } catch {
                 print(error)
             }

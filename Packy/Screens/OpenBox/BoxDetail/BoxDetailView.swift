@@ -11,8 +11,9 @@ import Kingfisher
 
 // MARK: - View
 
+@ViewAction(for: BoxDetailFeature.self)
 struct BoxDetailView: View {
-    private let store: StoreOf<BoxDetailFeature>
+    let store: StoreOf<BoxDetailFeature>
 
     @Namespace private var mainPage
     @Namespace private var giftPage
@@ -20,10 +21,6 @@ struct BoxDetailView: View {
     @State private var isOnNextPage: Bool = false
     @State private var scrollProxy: ScrollViewProxy?
     @State private var isBoxPartPresented: Bool = false
-
-    init(store: StoreOf<BoxDetailFeature>) {
-        self.store = store
-    }
 
     var body: some View {
         GeometryReader { proxy in
@@ -91,9 +88,7 @@ struct BoxDetailView: View {
             }
         }
         .task {
-            await store
-                .send(.onTask)
-                .finish()
+            await send(.onTask).finish()
         }
     }
 
@@ -113,7 +108,7 @@ private extension BoxDetailView {
             .opacity(store.presentingState == .detail ? 0 : 0.6)
             .ignoresSafeArea()
             .onTapGesture {
-                store.send(.binding(.set(\.presentingState, .detail)))
+                send(.binding(.set(\.presentingState, .detail)))
             }
     }
 
@@ -138,7 +133,7 @@ private extension BoxDetailView {
             ImageViewer {
                 NetworkImage(url: store.gift?.url ?? "", contentMode: .fit)
             } dismissedImage: {
-                store.send(.binding(.set(\.presentingState, .detail)))
+                send(.binding(.set(\.presentingState, .detail)))
             }
             .padding(30)
         }
@@ -166,7 +161,7 @@ private extension BoxDetailView {
                         photoUrl: store.photos.first?.photoUrl ?? "",
                         screenWidth: screenWidth
                     ) {
-                        store.send(.binding(.set(\.presentingState, .photo)))
+                        send(.binding(.set(\.presentingState, .photo)))
                     }
 
                     Spacer()
@@ -205,7 +200,7 @@ private extension BoxDetailView {
                         letterImageUrl: store.envelope.imageUrl,
                         screenWidth: screenWidth
                     ) {
-                        store.send(.binding(.set(\.presentingState, .letter)))
+                        send(.binding(.set(\.presentingState, .letter)))
                     }
                 }
                 .padding(.leading, 36)
@@ -260,7 +255,7 @@ private extension BoxDetailView {
                 .padding(35)
                 .overlay(alignment: .bottom) {
                     Button{
-                        store.send(.binding(.set(\.presentingState, .gift)))
+                        send(.binding(.set(\.presentingState, .gift)))
                     } label: {
                         Text("이미지 전체보기")
                             .packyFont(.body6)
@@ -285,12 +280,12 @@ private extension BoxDetailView {
                         scrollProxy?.scrollTo(mainPage)
                     }
                 } else {
-                    store.send(.navigationBarLeadingButtonTapped)
+                    send(.navigationBarLeadingButtonTapped)
                 }
             },
             trailingType: trailingNavigationButtonType,
             trailingAction: {
-                store.send(.navigationBarTrailingButtonTapped)
+                send(.navigationBarTrailingButtonTapped)
             }
         )
         .animation(.easeInOut, value: isOnNextPage)

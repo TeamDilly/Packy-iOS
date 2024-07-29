@@ -47,9 +47,9 @@ struct BoxShareFeature: Reducer {
         case onTask
 
         // MARK: Inner SetState Action
-        case _setShowCompleteAnimation(Bool)
-        case _setKakaoImageUrl(String)
-        case _setDidSendToKakao(Bool)
+        case setShowCompleteAnimation(Bool)
+        case setKakaoImageUrl(String)
+        case setDidSendToKakao(Bool)
 
         // MARK: Delegate Action
         enum Delegate {
@@ -77,7 +77,7 @@ struct BoxShareFeature: Reducer {
                     do {
                         try await kakaoShare.share(kakaoMessage)
                         try await boxClient.changeBoxStatus(boxId, .delivered)
-                        await send(._setDidSendToKakao(true))
+                        await send(.setDidSendToKakao(true))
                     } catch {
                         print("🐛 \(error)")
                     }
@@ -91,15 +91,15 @@ struct BoxShareFeature: Reducer {
                 )
 
             // MARK: Inner SetState Action
-            case let ._setShowCompleteAnimation(showCompleteAnimation):
+            case let .setShowCompleteAnimation(showCompleteAnimation):
                 state.showCompleteAnimation = showCompleteAnimation
                 return .none
 
-            case let ._setKakaoImageUrl(imageUrl):
+            case let .setKakaoImageUrl(imageUrl):
                 state.data.kakaoMessageImgUrl = imageUrl
                 return .none
 
-            case let ._setDidSendToKakao(didSendToKakao):
+            case let .setDidSendToKakao(didSendToKakao):
                 state.didSendToKakao = didSendToKakao
                 return .none
 
@@ -115,7 +115,7 @@ private extension BoxShareFeature {
         .run { send in
             do {
                 let imageUrl = try await boxClient.fetchKakaoImageUrl(boxId)
-                await send(._setKakaoImageUrl(imageUrl))
+                await send(.setKakaoImageUrl(imageUrl))
             } catch {
                 print("🐛 \(error)")
             }
@@ -126,7 +126,7 @@ private extension BoxShareFeature {
         guard showCompleteAnimation else { return .none }
         return .run { send in
             try? await clock.sleep(for: .seconds(2.6))
-            await send(._setShowCompleteAnimation(false), animation: .spring(duration: 1))
+            await send(.setShowCompleteAnimation(false), animation: .spring(duration: 1))
         }
     }
 

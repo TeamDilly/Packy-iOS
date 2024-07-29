@@ -44,17 +44,15 @@ struct MakeBoxDetailFeature: Reducer {
     }
 
     enum Action: BindableAction {
-        // MARK: User Action
+        case delegate(Delegate)
+
+        case onTask
         case binding(BindingAction<State>)
         case backButtonTapped
         case completeButtonTapped
         case selectBox(BoxDesign)
 
-        // MARK: Inner Business Action
-        case onTask
-
-        // MARK: Inner SetState Action
-        case _setIsShowingGuideText(Bool)
+        case setIsShowingGuideText(Bool)
 
         // MARK: Child Action
         case addPhoto(AddPhotoFeature.Action)
@@ -63,11 +61,9 @@ struct MakeBoxDetailFeature: Reducer {
         case addGift(AddGiftFeature.Action)
         case selectSticker(SelectStickerFeature.Action)
 
-        // MARK: Delegate Action
         enum Delegate {
             case moveToAddTitle(SendingGiftBoxRawData, BoxDesign)
         }
-        case delegate(Delegate)
     }
 
     @Dependency(\.continuousClock) var clock
@@ -114,12 +110,12 @@ struct MakeBoxDetailFeature: Reducer {
                 return .merge(
                     showGuideTextIfNeeded(),
                     // 디자인들 조회...
-                    .send(.writeLetter(._fetchLetterDesigns)),
-                    .send(.selectMusic(._fetchRecommendedMusics)),
-                    .send(.selectSticker(._fetchStickerDesigns))
+                    .send(.writeLetter(.fetchLetterDesigns)),
+                    .send(.selectMusic(.fetchRecommendedMusics)),
+                    .send(.selectSticker(.fetchStickerDesigns))
                 )
 
-            case let ._setIsShowingGuideText(isShowing):
+            case let .setIsShowingGuideText(isShowing):
                 state.isShowingGuideText = isShowing
                 return .none
 
@@ -170,9 +166,9 @@ private extension MakeBoxDetailFeature {
         .concatenate(
             .run { send in
                 guard !userDefaults.boolForKey(.didEnteredBoxGuide) else { return }
-                await send(._setIsShowingGuideText(true))
+                await send(.setIsShowingGuideText(true))
                 try? await clock.sleep(for: .seconds(Constants.textInteractionDuration))
-                await send(._setIsShowingGuideText(false), animation: .spring(duration: 1))
+                await send(.setIsShowingGuideText(false), animation: .spring(duration: 1))
             },
             .run { _ in
                 await userDefaults.setBool(true, .didEnteredBoxGuide)

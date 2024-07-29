@@ -9,7 +9,7 @@ import SwiftUI
 import ComposableArchitecture
 
 struct SelectStickerBottomSheet: View {
-    private let store: StoreOf<SelectStickerFeature>
+    let store: StoreOf<SelectStickerFeature>
 
     init(store: StoreOf<SelectStickerFeature>) {
         self.store = store

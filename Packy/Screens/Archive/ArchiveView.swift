@@ -10,12 +10,9 @@ import ComposableArchitecture
 
 // MARK: - View
 
+@ViewAction(for: ArchiveFeature.self)
 struct ArchiveView: View {
     @Bindable var store: StoreOf<ArchiveFeature>
-
-    init(store: StoreOf<ArchiveFeature>) {
-        self.store = store
-    }
 
     var body: some View {
         VStack(spacing: 0) {
@@ -56,9 +53,7 @@ struct ArchiveView: View {
         .frame(maxHeight: .infinity, alignment: .top)
         .background(.gray100)
         .task {
-            await store
-                .send(.onTask)
-                .finish()
+            await send(.onTask).finish()
         }
         .analyticsLog(.archive)
     }
@@ -90,7 +85,7 @@ private extension ArchiveView {
                             .fill(isSelected ? .gray900 : .white)
                     )
                     .onTapGesture {
-                        store.send(
+                        send(
                             .binding(.set(\.selectedTab, tab)),
                             animation: .spring(duration: 0.4)
                         )
@@ -153,7 +148,7 @@ private extension ArchiveView {
             get: { store.photoArchive.selectedPhoto != nil },
             set: {
                 guard $0 == false else { return }
-                store.send(.binding(.set(\.photoArchive.selectedPhoto, nil)))
+                send(.binding(.set(\.photoArchive.selectedPhoto, nil)))
             }
         )
     }
@@ -163,7 +158,7 @@ private extension ArchiveView {
             get: { store.letterArchive.selectedLetter != nil },
             set: {
                 guard $0 == false else { return }
-                store.send(.binding(.set(\.letterArchive.selectedLetter, nil)))
+                send(.binding(.set(\.letterArchive.selectedLetter, nil)))
             }
         )
     }
@@ -173,7 +168,7 @@ private extension ArchiveView {
             get: { store.musicArchive.selectedMusic != nil },
             set: {
                 guard $0 == false else { return }
-                store.send(.binding(.set(\.musicArchive.selectedMusic, nil)))
+                send(.binding(.set(\.musicArchive.selectedMusic, nil)))
             }
         )
     }
@@ -183,7 +178,7 @@ private extension ArchiveView {
             get: { store.giftArchive.selectedGift != nil },
             set: {
                 guard $0 == false else { return }
-                store.send(.binding(.set(\.giftArchive.selectedGift, nil)))
+                send(.binding(.set(\.giftArchive.selectedGift, nil)))
             }
         )
     }

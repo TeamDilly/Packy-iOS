@@ -36,27 +36,26 @@ struct BoxChoiceFeature: Reducer {
         }
     }
 
-    enum Action: BindableAction {
-        // MARK: User Action
-        case binding(BindingAction<State>)
-        case selectBox(BoxDesign)
-        case backButtonTapped
-        case nextButtonTapped
-        case closeButtonTapped
+    enum Action: ViewAction {
+        case view(View)
+        case delegate(Delegate)
 
-        // MARK: Inner Business Action
-        case onTask
+        case setIsPresentingFinishedMotionView(Bool)
+        case setBoxDesigns([BoxDesign])
 
-        // MARK: Inner SetState Action
-        case _setIsPresentingFinishedMotionView(Bool)
-        case _setBoxDesigns([BoxDesign])
+        enum View: BindableAction {
+            case onTask
+            case binding(BindingAction<State>)
+            case selectBox(BoxDesign)
+            case backButtonTapped
+            case nextButtonTapped
+            case closeButtonTapped
+        }
 
-        // MARK: Delegate Action
         enum Delegate {
             case moveToMakeBoxDetail(PassingData)
             case closeMakeBox
         }
-        case delegate(Delegate)
     }
 
     @Dependency(\.continuousClock) var clock
@@ -66,59 +65,62 @@ struct BoxChoiceFeature: Reducer {
     @Dependency(\.dismiss) var dismiss
 
     var body: some Reducer<State, Action> {
-        BindingReducer()
+        BindingReducer(action: \.view)
 
         Reduce<State, Action> { state, action in
             switch action {
-            case .binding:
-                return .none
+            case let .view(action):
+                switch action {
+                case .binding:
+                    return .none
 
-            case .onTask:
-                return .run { send in
-                    do {
-                        let boxDesigns = try await adminClient.fetchBoxDesigns()
-                        await send(._setBoxDesigns(boxDesigns), animation: .spring)
-                        if let firstBox = boxDesigns.first {
-                            await send(.selectBox(firstBox), animation: .spring)
+                case .onTask:
+                    return .run { send in
+                        do {
+                            let boxDesigns = try await adminClient.fetchBoxDesigns()
+                            await send(.setBoxDesigns(boxDesigns), animation: .spring)
+                            if let firstBox = boxDesigns.first {
+                                await send(.view(.selectBox(firstBox)), animation: .spring)
+                            }
+                        } catch {
+                            print(error)
                         }
-                    } catch {
-                        print(error)
+                    }
+
+                case let .selectBox(boxDesign):
+                    state.selectedBox = boxDesign
+                    return .none
+
+                case .backButtonTapped:
+                    return .run { _ in await dismiss() }
+
+                case .nextButtonTapped:
+                    guard !state.didShowBoxMotion else {
+                        return .send(.delegate(.moveToMakeBoxDetail(state.passingData)))
+                    }
+                    state.didShowBoxMotion = true
+                    return showBoxMotion(state.passingData)
+
+                case .closeButtonTapped:
+                    return .run { send in
+                        await packyAlert.show(
+                            .init(
+                                title: "선물박스 만들기를 종료할까요?",
+                                cancel: "취소",
+                                confirm: "확인",
+                                confirmAction: {
+                                    await send(.delegate(.closeMakeBox))
+                                }
+                            )
+                        )
                     }
                 }
 
-            case let .selectBox(boxDesign):
-                state.selectedBox = boxDesign
-                return .none
-
-            case .backButtonTapped:
-                return .run { _ in await dismiss() }
-
-            case .nextButtonTapped:
-                guard !state.didShowBoxMotion else {
-                    return .send(.delegate(.moveToMakeBoxDetail(state.passingData)))
-                }
-                state.didShowBoxMotion = true
-                return showBoxMotion(state.passingData)
-
-            case .closeButtonTapped:
-                return .run { send in
-                    await packyAlert.show(
-                        .init(
-                            title: "선물박스 만들기를 종료할까요?",
-                            cancel: "취소",
-                            confirm: "확인",
-                            confirmAction: {
-                                await send(.delegate(.closeMakeBox))
-                            }
-                        )
-                    )
-                }
-
-            case let ._setIsPresentingFinishedMotionView(isPresented):
+            case let .setIsPresentingFinishedMotionView(isPresented):
                 state.isPresentingFinishedMotionView = isPresented
                 return .none
 
-            case let ._setBoxDesigns(boxDesigns):
+            case let .setBoxDesigns(boxDesigns):
                 state.boxDesigns = boxDesigns
                 return .none
 
@@ -134,13 +136,13 @@ struct BoxChoiceFeature: Reducer {
 private extension BoxChoiceFeature {
     func showBoxMotion(_ passingData: PassingData) -> Effect<Action> {
         .run { send in
-            await send(._setIsPresentingFinishedMotionView(true))
+            await send(.setIsPresentingFinishedMotionView(true))
             try? await clock.sleep(for: .seconds(Constants.makeBoxAnimationDuration))
 
             await send(.delegate(.moveToMakeBoxDetail(passingData)))
 
             try? await clock.sleep(for: .seconds(0.1))
-            await send(._setIsPresentingFinishedMotionView(false))
+            await send(.setIsPresentingFinishedMotionView(false))
         }
     }
 }

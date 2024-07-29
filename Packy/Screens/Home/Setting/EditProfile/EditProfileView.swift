@@ -10,23 +10,20 @@ import ComposableArchitecture
 
 // MARK: - View
 
+@ViewAction(for: EditProfileFeature.self)
 struct EditProfileView: View {
     @Bindable var store: StoreOf<EditProfileFeature>
 
-    init(store: StoreOf<EditProfileFeature>) {
-        self.store = store
-    }
-    
     var body: some View {
         VStack(spacing: 40) {
             NavigationBar(title: "프로필 수정", leftIcon: Image(.arrowLeft), leftIconAction: {
-                store.send(.backButtonTapped)
+                send(.backButtonTapped)
             })
             .padding(.top, 8)
             
             profileImageView
                 .bouncyTapGesture {
-                    store.send(.profileButtonTapped)
+                    send(.profileButtonTapped)
                 }
             
             nicknameTextField
@@ -35,7 +32,7 @@ struct EditProfileView: View {
             Spacer()
             
             PackyButton(title: "저장", sizeType: .large, colorType: .black) {
-                store.send(.saveButtonTapped)
+                send(.saveButtonTapped)
             }
             .padding(.horizontal, 24)
             .padding(.bottom, 16)
@@ -48,9 +45,7 @@ struct EditProfileView: View {
         }
         .navigationBarBackButtonHidden(true)
         .task {
-            await store
-                .send(.onTask)
-                .finish()
+            await send(.onTask).finish()
         }
     }
 }

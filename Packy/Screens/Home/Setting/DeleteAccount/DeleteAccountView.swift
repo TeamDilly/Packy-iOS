@@ -10,12 +10,9 @@ import ComposableArchitecture
 
 // MARK: - View
 
+@ViewAction(for: DeleteAccountFeature.self)
 struct DeleteAccountView: View {
-    private let store: StoreOf<DeleteAccountFeature>
-
-    init(store: StoreOf<DeleteAccountFeature>) {
-        self.store = store
-    }
+    let store: StoreOf<DeleteAccountFeature>
 
     var body: some View {
         Group {
@@ -28,9 +25,7 @@ struct DeleteAccountView: View {
         }
         .navigationBarBackButtonHidden(true)
         .task {
-            await store
-                .send(.onTask)
-                .finish()
+            await send(.onTask).finish()
         }
     }
 }
@@ -41,7 +36,7 @@ private extension DeleteAccountView {
     var signOutContentView: some View {
         VStack(spacing: 0) {
             NavigationBar(title: "회원 탈퇴", leftIcon: Image(.arrowLeft), leftIconAction: {
-                store.send(.backButtonTapped)
+                send(.backButtonTapped)
             })
             .padding(.top, 8)
 
@@ -64,7 +59,7 @@ private extension DeleteAccountView {
             Spacer()
 
             PackyButton(title: "탈퇴하기", colorType: .black) {
-                store.send(.signOutButtonTapped)
+                send(.signOutButtonTapped)
             }
             .padding(.horizontal, 24)
             .padding(.bottom, 16)
@@ -102,7 +97,7 @@ private extension DeleteAccountView {
             Spacer()
 
             PackyButton(title: "확인", colorType: .black) {
-                store.send(.completedConfirmButtonTapped)
+                send(.completedConfirmButtonTapped)
             }
 
             .padding(.bottom, 16)

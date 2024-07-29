@@ -16,16 +16,13 @@ struct ManageAccountFeature: Reducer {
         let socialLoginProvider: SocialLoginProvider?
     }
 
-    enum Action {
-        // MARK: User Action
-        case backButtonTapped
+    enum Action: ViewAction {
+        case view(View)
 
-        // MARK: Inner Business Action
-        case onTask
-
-        // MARK: Inner SetState Action
-
-        // MARK: Child Action
+        enum View {
+            case onTask
+            case backButtonTapped
+        }
     }
 
     @Dependency(\.dismiss) var dismiss
@@ -33,11 +30,14 @@ struct ManageAccountFeature: Reducer {
     var body: some Reducer<State, Action> {
         Reduce<State, Action> { state, action in
             switch action {
-            case .onTask:
-                return .none
-
-            case .backButtonTapped:
-                return .run { _ in await dismiss() }
+            case let .view(action):
+                switch action {
+                case .onTask:
+                    return .none
+                    
+                case .backButtonTapped:
+                    return .run { _ in await dismiss() }
+                }
             }
         }
     }

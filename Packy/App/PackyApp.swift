@@ -30,7 +30,7 @@ struct PackyApp: App {
                 .globalSnackbar()
                 .onOpenURL { url in
                     socialLogin.handleKakaoUrlIfNeeded(url)
-                    store.send(._handleScheme(url.queryParameters))
+                    store.send(.handleScheme(url.queryParameters))
 
                     Branch.getInstance().handleDeepLink(url)
                 }

@@ -10,14 +10,11 @@ import ComposableArchitecture
 
 // MARK: - View
 
+@ViewAction(for: PhotoArchiveFeature.self)
 struct PhotoArchiveView: View {
-    private let store: StoreOf<PhotoArchiveFeature>
+    let store: StoreOf<PhotoArchiveFeature>
     @Environment(\.scenePhase) private var scenePhase
     @State private var columns: Int = 2
-
-    init(store: StoreOf<PhotoArchiveFeature>) {
-        self.store = store
-    }
 
     var body: some View {
         VStack {
@@ -33,7 +30,7 @@ struct PhotoArchiveView: View {
                         .contentShape(Rectangle())
                         .onTapGesture {
                             HapticManager.shared.fireFeedback(.soft)
-                            store.send(.photoTapped(photo))
+                            send(.photoTapped(photo))
                         }
                         .onAppear {
                             // Pagination
@@ -42,7 +39,7 @@ struct PhotoArchiveView: View {
 
                             let isNearEndForNextPageLoad = index == store.photos.endIndex - 3
                             guard isNearEndForNextPageLoad else { return }
-                            store.send(._fetchMorePhotos)
+                            send(.fetchMorePhotos)
                         }
                 }
                 .zigzagPadding(80)
@@ -54,18 +51,14 @@ struct PhotoArchiveView: View {
         .padding(.horizontal, 24)
         .background(.gray100)
         .refreshable {
-            await store
-                .send(.didRefresh)
-                .finish()
+            await send(.didRefresh).finish()
         }
         .task {
-            await store
-                .send(.onTask)
-                .finish()
+            await send(.onTask).finish()
         }
         .onChange(of: scenePhase) {
             guard $1 == .active else { return }
-            store.send(._didActiveScene)
+            send(.didActiveScene)
         }
     }
 }

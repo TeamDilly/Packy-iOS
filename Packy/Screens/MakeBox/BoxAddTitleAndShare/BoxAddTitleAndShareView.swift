@@ -10,13 +10,10 @@ import ComposableArchitecture
 
 // MARK: - View
 
+@ViewAction(for: BoxAddTitleAndShareFeature.self)
 struct BoxAddTitleAndShareView: View {
     @Bindable var store: StoreOf<BoxAddTitleAndShareFeature>
     @FocusState private var isFocused: Bool
-
-    init(store: StoreOf<BoxAddTitleAndShareFeature>) {
-        self.store = store
-    }
 
     var body: some View {
         VStack(spacing: 0) {
@@ -34,9 +31,7 @@ struct BoxAddTitleAndShareView: View {
         .makeTapToHideKeyboard()
         .navigationBarBackButtonHidden(true)
         .task {
-            await store
-                .send(.onTask)
-                .finish()
+            await send(.onTask).finish()
 
             isFocused = true
         }
@@ -52,7 +47,7 @@ private extension BoxAddTitleAndShareView {
     @ViewBuilder
     var boxAddTitleView: some View {
         NavigationBar.onlyBackButton {
-            store.send(.backButtonTapped)
+            send(.backButtonTapped)
         }
 
         Text("마지막으로 선물박스에\n이름을 붙여주세요")
@@ -78,7 +73,7 @@ private extension BoxAddTitleAndShareView {
         Button("다음") {
             throttle {
                 isFocused = false
-                store.send(.nextButtonTapped)
+                send(.nextButtonTapped)
             }
         }
         .buttonStyle(PackyButtonStyle(colorType: .black))

@@ -10,13 +10,10 @@ import ComposableArchitecture
 
 // MARK: - View
 
+@ViewAction(for: MyBoxFeature.self)
 struct MyBoxView: View {
     @Bindable var store: StoreOf<MyBoxFeature>
     @Environment(\.scenePhase) private var scenePhase
-
-    init(store: StoreOf<MyBoxFeature>) {
-        self.store = store
-    }
 
     enum ThrottleId: String {
         case moveToBoxDetail
@@ -48,13 +45,11 @@ struct MyBoxView: View {
         .navigationBarBackButtonHidden(true)
         .ignoresSafeArea(edges: .bottom)
         .task {
-            await store
-                .send(.onTask)
-                .finish()
+            await send(.onTask).finish()
         }
         .onChange(of: scenePhase) {
             guard $1 == .active else { return }
-            store.send(._didActiveScene)
+            send(.didActiveScene)
         }
         .analyticsLog(.myBox)
     }
@@ -90,11 +85,11 @@ private extension MyBoxView {
                             title: unsentBox.name,
                             generatedDate: unsentBox.date,
                             menuAction: {
-                                store.send(.binding(.set(\.selectedBoxIdToDelete, unsentBox.id)))
+                                send(.binding(.set(\.selectedBoxIdToDelete, unsentBox.id)))
                             }
                         )
                         .bouncyTapGesture {
-                            store.send(.tappedGiftBox(boxId: unsentBox.id, isUnsent: true))
+                            send(.tappedGiftBox(boxId: unsentBox.id, isUnsent: true))
                         }
                         .padding(16)
                         .background(.gray100)
@@ -148,12 +143,12 @@ private extension MyBoxView {
                             boxTitle: giftBox.name,
                             date: giftBox.giftBoxDate,
                             menuAction: {
-                                store.send(.binding(.set(\.selectedBoxIdToDelete, giftBox.id)))
+                                send(.binding(.set(\.selectedBoxIdToDelete, giftBox.id)))
                             }
                         )
                         .bouncyTapGesture {
                             throttle(identifier: ThrottleId.moveToBoxDetail.rawValue) {
-                                store.send(.tappedGiftBox(boxId: giftBox.id, isUnsent: false))
+                                send(.tappedGiftBox(boxId: giftBox.id, isUnsent: false))
                             }
                         }
                         .onAppear {
@@ -166,9 +161,9 @@ private extension MyBoxView {
 
                             switch tab {
                             case .sentBox:
-                                store.send(._fetchMoreSentGiftBoxes)
+                                send(.fetchMoreSentGiftBoxes)
                             case .receivedBox:
-                                store.send(._fetchMoreReceivedGiftBoxes)
+                                send(.fetchMoreReceivedGiftBoxes)
                             }
                         }
                     }

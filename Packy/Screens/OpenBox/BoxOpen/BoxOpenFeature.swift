@@ -34,9 +34,9 @@ struct BoxOpenFeature: Reducer {
         case onTask
 
         // MARK: Inner SetState Action
-        case _setReceivedGiftBox(ReceivedGiftBox)
-        case _setShowingState(ShowingState)
-        case _showAnimationAndGoToDetail(boxId: Int, ReceivedGiftBox)
+        case setReceivedGiftBox(ReceivedGiftBox)
+        case setShowingState(ShowingState)
+        case showAnimationAndGoToDetail(boxId: Int, ReceivedGiftBox)
 
         // MARK: Delegate Action
         enum Delegate {
@@ -59,9 +59,9 @@ struct BoxOpenFeature: Reducer {
                 return .run { send in
                     do {
                         let giftBox = try await boxClient.openGiftBox(boxId)
-                        await send(._setReceivedGiftBox(giftBox))
+                        await send(.setReceivedGiftBox(giftBox))
                     } catch {
-                        await send(._setShowingState(.openError), animation: .spring)
+                        await send(.setShowingState(.openError), animation: .spring)
                     }
                 }
 
@@ -69,25 +69,25 @@ struct BoxOpenFeature: Reducer {
                 guard let giftBox = state.giftBox else { return .none }
                 let boxId = state.boxId
                 state.showingState = .openMotion
-                return .send(._showAnimationAndGoToDetail(boxId: boxId, giftBox))
+                return .send(.showAnimationAndGoToDetail(boxId: boxId, giftBox))
                 
             case .closeButtonTapped, .errorConfirmButtonTapped:
                 return .send(.delegate(.moveToHome), animation: .spring)
 
-            case let ._setReceivedGiftBox(giftBox):
+            case let .setReceivedGiftBox(giftBox):
                 state.giftBox = giftBox
                 return .none
 
-            case let ._setShowingState(showingState):
+            case let .setShowingState(showingState):
                 state.showingState = showingState
                 return .none
 
-            case let ._showAnimationAndGoToDetail(boxId, giftBox):
+            case let .showAnimationAndGoToDetail(boxId, giftBox):
                 return .run { send in
                     try? await clock.sleep(for: .seconds(Constants.openBoxAnimationDuration))
                     await send(.delegate(.moveToBoxDetail(boxId: boxId, giftBox)))
                     try? await clock.sleep(for: .seconds(0.5))
-                    await send(._setShowingState(.openBox))
+                    await send(.setShowingState(.openBox))
                 }
 
             default:

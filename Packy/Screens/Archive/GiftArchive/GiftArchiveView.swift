@@ -11,7 +11,7 @@ import ComposableArchitecture
 // MARK: - View
 
 struct GiftArchiveView: View {
-    private let store: StoreOf<GiftArchiveFeature>
+    let store: StoreOf<GiftArchiveFeature>
     @Environment(\.scenePhase) private var scenePhase
 
     init(store: StoreOf<GiftArchiveFeature>) {
@@ -41,7 +41,7 @@ struct GiftArchiveView: View {
 
                             let isNearEndForNextPageLoad = index == store.gifts.endIndex - 3
                             guard isNearEndForNextPageLoad else { return }
-                            store.send(._fetchMoreGifts)
+                            store.send(.fetchMoreGifts)
                         }
                 }
                 .zigzagPadding(80)
@@ -64,7 +64,7 @@ struct GiftArchiveView: View {
         }
         .onChange(of: scenePhase) {
             guard $1 == .active else { return }
-            store.send(._didActiveScene)
+            store.send(.didActiveScene)
         }
     }
 }

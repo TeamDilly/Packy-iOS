@@ -10,13 +10,10 @@ import ComposableArchitecture
 
 // MARK: - View
 
+@ViewAction(for: LetterArchiveFeature.self)
 struct LetterArchiveView: View {
-    private let store: StoreOf<LetterArchiveFeature>
+    let store: StoreOf<LetterArchiveFeature>
     @Environment(\.scenePhase) private var scenePhase
-
-    init(store: StoreOf<LetterArchiveFeature>) {
-        self.store = store
-    }
 
     var body: some View {
         VStack {
@@ -35,7 +32,7 @@ struct LetterArchiveView: View {
                     .contentShape(Rectangle())
                     .onTapGesture {
                         HapticManager.shared.fireFeedback(.soft)
-                        store.send(.letterTapped(letter))
+                        send(.letterTapped(letter))
                     }
                     .onAppear {
                         // Pagination
@@ -44,7 +41,7 @@ struct LetterArchiveView: View {
 
                         let isNearEndForNextPageLoad = index == store.letters.endIndex - 3
                         guard isNearEndForNextPageLoad else { return }
-                        store.send(._fetchMoreLetters)
+                        send(.fetchMoreLetters)
                     }
                 }
                 .zigzagPadding(80)
@@ -54,20 +51,16 @@ struct LetterArchiveView: View {
             }
         }
         .refreshable {
-            await store
-                .send(.didRefresh)
-                .finish()
+            await send(.didRefresh).finish()
         }
         .padding(.horizontal, 24)
         .background(.gray100)
         .task {
-            await store
-                .send(.onTask)
-                .finish()
+            await send(.onTask).finish()
         }
         .onChange(of: scenePhase) {
             guard $1 == .active else { return }
-            store.send(._didActiveScene)
+            send(.didActiveScene)
         }
     }
 }

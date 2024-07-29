@@ -10,13 +10,10 @@ import ComposableArchitecture
 
 // MARK: - View
 
+@ViewAction(for: MusicArchiveFeature.self)
 struct MusicArchiveView: View {
-    private let store: StoreOf<MusicArchiveFeature>
+    let store: StoreOf<MusicArchiveFeature>
     @Environment(\.scenePhase) private var scenePhase
-
-    init(store: StoreOf<MusicArchiveFeature>) {
-        self.store = store
-    }
 
     var body: some View {
         VStack {
@@ -32,7 +29,7 @@ struct MusicArchiveView: View {
                         .contentShape(Rectangle())
                         .onTapGesture {
                             HapticManager.shared.fireFeedback(.soft)
-                            store.send(.musicTapped(music))
+                            send(.musicTapped(music))
                         }
                         .onAppear {
                             // Pagination
@@ -42,7 +39,7 @@ struct MusicArchiveView: View {
                             let isNearEndForNextPageLoad = index == store.musics.endIndex - 3
                             guard isNearEndForNextPageLoad else { return }
                             print("🐛 fetch more musics")
-                            store.send(._fetchMoreMusics)
+                            send(.fetchMoreMusics)
                         }
                 }
                 .zigzagPadding(80)
@@ -54,18 +51,14 @@ struct MusicArchiveView: View {
         .padding(.horizontal, 24)
         .background(.gray100)
         .refreshable {
-            await store
-                .send(.didRefresh)
-                .finish()
+            await send(.didRefresh).finish()
         }
         .task {
-            await store
-                .send(.onTask)
-                .finish()
+            await send(.onTask).finish()
         }
         .onChange(of: scenePhase) {
             guard $1 == .active else { return }
-            store.send(._didActiveScene)
+            send(.didActiveScene)
         }
     }
 }

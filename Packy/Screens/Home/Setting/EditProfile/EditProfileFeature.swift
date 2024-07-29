@@ -31,51 +31,58 @@ struct EditProfileFeature: Reducer {
         }
     }
 
-    enum Action: BindableAction {
-        // MARK: User Action
-        case binding(BindingAction<State>)
-        case backButtonTapped
-        case saveButtonTapped
-        case profileButtonTapped
-
-        // MARK: Inner Business Action
-        case onTask
+    enum Action: ViewAction {
+        case view(View)
+        case delegate(Delegate)
 
         // MARK: Child Action
         case editSelectProfile(PresentationAction<EditSelectProfileFeature.Action>)
 
-        // MARK: Delegate Action
+        enum View: BindableAction {
+            case onTask
+            case binding(BindingAction<State>)
+            case backButtonTapped
+            case saveButtonTapped
+            case profileButtonTapped
+        }
+
         enum Delegate {
             case didUpdateProfile(Profile)
         }
-        case delegate(Delegate)
+
     }
 
     @Dependency(\.dismiss) var dismiss
     @Dependency(\.authClient) var authClient
 
     var body: some Reducer<State, Action> {
-        BindingReducer()
+        BindingReducer(action: \.view)
 
         Reduce<State, Action> { state, action in
             switch action {
-            case .backButtonTapped:
-                return .run { _ in
-                    await dismiss()
+            case let .view(action):
+                switch action {
+                case .backButtonTapped:
+                    return .run { _ in
+                        await dismiss()
+                    }
+
+                case .saveButtonTapped:
+                    guard state.hasProfileChanges else {
+                        return .run { _ in await dismiss() }
+                    }
+                    return updateProfile(state: state)
+
+
+                case .profileButtonTapped:
+                    state.editSelectProfile = .init(initialImageUrl: state.fetchedProfile.imageUrl)
+                    return .none
+
+                default:
+                    return .none
                 }
 
-            case .saveButtonTapped:
-                guard state.hasProfileChanges else {
-                    return .run { _ in await dismiss() }
-                }
-                return updateProfile(state: state)
-
-
-            case .profileButtonTapped:
-                state.editSelectProfile = .init(initialImageUrl: state.fetchedProfile.imageUrl)
-                return .none
-
-            case .editSelectProfile(.presented(.confirmButtonTapped)):
+            case .editSelectProfile(.presented(.view(.confirmButtonTapped))):
                 guard let selectedProfile = state.editSelectProfile?.selectedProfile else { return .none }
                 state.selectedProfile = selectedProfile
                 return .none

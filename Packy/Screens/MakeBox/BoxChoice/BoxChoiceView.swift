@@ -11,12 +11,9 @@ import Lottie
 
 // MARK: - View
 
+@ViewAction(for: BoxChoiceFeature.self)
 struct BoxChoiceView: View {
-    private let store: StoreOf<BoxChoiceFeature>
-
-    init(store: StoreOf<BoxChoiceFeature>) {
-        self.store = store
-    }
+    let store: StoreOf<BoxChoiceFeature>
 
     var body: some View {
         let isWiderThan375pt = UIScreen.main.isWiderThan375pt
@@ -26,10 +23,10 @@ struct BoxChoiceView: View {
             } else {
                 NavigationBar.backAndCloseButton(
                     backButtonAction: {
-                        store.send(.backButtonTapped)
+                        send(.backButtonTapped)
                     },
                     closeButtonAction: {
-                        store.send(.closeButtonTapped)
+                        send(.closeButtonTapped)
                     }
                 )
                 .padding(.top, 8)
@@ -57,7 +54,7 @@ struct BoxChoiceView: View {
                                         .clipShape(RoundedRectangle(cornerRadius: 8))
                                         .frame(width: 64, height: 64)
                                         .bouncyTapGesture {
-                                            store.send(.selectBox(boxDesign))
+                                            send(.selectBox(boxDesign))
                                         }
                                 }
                             }
@@ -73,7 +70,7 @@ struct BoxChoiceView: View {
                 Spacer()
 
                 PackyButton(title: "다음", colorType: .black) {
-                    store.send(.nextButtonTapped)
+                    send(.nextButtonTapped)
                 }
                 .disabled(store.selectedBox == nil)
                 .padding(.horizontal, 24)
@@ -85,9 +82,7 @@ struct BoxChoiceView: View {
         .animation(.spring, value: store.selectedBox)
         .navigationBarBackButtonHidden(true)
         .task {
-            await store
-                .send(.onTask)
-                .finish()
+            await send(.onTask).finish()
         }
     }
 }

@@ -10,17 +10,14 @@ import ComposableArchitecture
 
 // MARK: - View
 
+@ViewAction(for: ManageAccountFeature.self)
 struct ManageAccountView: View {
-    private let store: StoreOf<ManageAccountFeature>
-
-    init(store: StoreOf<ManageAccountFeature>) {
-        self.store = store
-    }
+    let store: StoreOf<ManageAccountFeature>
 
     var body: some View {
         VStack(spacing: 0) {
             NavigationBar(title: "계정 관리", leftIcon: Image(.arrowLeft), leftIconAction: {
-                store.send(.backButtonTapped)
+                send(.backButtonTapped)
             })
             .padding(.top, 8)
 
@@ -37,9 +34,7 @@ struct ManageAccountView: View {
         }
         .navigationBarBackButtonHidden(true)
         .task {
-            await store
-                .send(.onTask)
-                .finish()
+            await send(.onTask).finish()
         }
     }
 }

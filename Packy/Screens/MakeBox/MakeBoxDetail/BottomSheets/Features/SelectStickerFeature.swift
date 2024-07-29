@@ -27,8 +27,8 @@ struct SelectStickerFeature: Reducer {
         case stickerTapped(StickerDesign)
 
         case fetchMoreStickers
-        case _fetchStickerDesigns
-        case _setStickerDesigns(StickerDesignResponse)
+        case fetchStickerDesigns
+        case setStickerDesigns(StickerDesignResponse)
     }
 
     enum StickerType: Int {
@@ -68,7 +68,7 @@ struct SelectStickerFeature: Reducer {
                 state.selectedStickers[stickerType] = sticker
                 return .none
                 
-            case let ._setStickerDesigns(response):
+            case let .setStickerDesigns(response):
                 state.stickerDesigns.append(response)
                 return .none
                 
@@ -76,7 +76,7 @@ struct SelectStickerFeature: Reducer {
                 let lastStickerId = state.stickerDesigns.last?.contents.last?.id ?? 0
                 return fetchStickerDesigns(lastStickerId: lastStickerId)
                 
-            case ._fetchStickerDesigns:
+            case .fetchStickerDesigns:
                 return fetchStickerDesigns()
             }
         }
@@ -91,7 +91,7 @@ private extension SelectStickerFeature {
         .run { send in
             do {
                 let response = try await adminClient.fetchStickerDesigns(lastStickerId)
-                await send(._setStickerDesigns(response))
+                await send(.setStickerDesigns(response))
             } catch {
                 print(error)
             }

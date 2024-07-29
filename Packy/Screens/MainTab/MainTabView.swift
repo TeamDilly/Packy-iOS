@@ -91,7 +91,7 @@ private extension MainTabView {
                 get: { store.popupBox.popupBox != nil },
                 set: {
                     guard $0 == false else { return }
-                    store.send(.popupBox(._hideBottomSheet))
+                    store.send(.popupBox(.hideBottomSheet))
                 }
             ),
             detents: [.height(525)]

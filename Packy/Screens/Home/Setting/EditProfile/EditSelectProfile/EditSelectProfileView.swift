@@ -10,17 +10,14 @@ import ComposableArchitecture
 
 // MARK: - View
 
+@ViewAction(for: EditSelectProfileFeature.self)
 struct EditSelectProfileView: View {
-    private let store: StoreOf<EditSelectProfileFeature>
-
-    init(store: StoreOf<EditSelectProfileFeature>) {
-        self.store = store
-    }
+    let store: StoreOf<EditSelectProfileFeature>
 
     var body: some View {
         VStack(spacing: 0) {
             NavigationBar.onlyBackButton {
-                store.send(.backButtonTapped)
+                send(.backButtonTapped)
             }
             .padding(.top, 8)
 
@@ -35,7 +32,7 @@ struct EditSelectProfileView: View {
                     NetworkImage(url: profileImage.imageUrl)
                         .frame(width: 60, height: 60)
                         .bouncyTapGesture {
-                            store.send(.selectProfile(profileImage))
+                            send(.selectProfile(profileImage))
                         }
                 }
             }
@@ -44,16 +41,14 @@ struct EditSelectProfileView: View {
             Spacer()
 
             PackyButton(title: "확인", sizeType: .large, colorType: .black) {
-                store.send(.confirmButtonTapped)
+                send(.confirmButtonTapped)
             }
             .padding(.horizontal, 24)
             .padding(.bottom, 16)
         }
         .navigationBarBackButtonHidden(true)
         .task {
-            await store
-                .send(.onTask)
-                .finish()
+            await send(.onTask).finish()
         }
     }
 }

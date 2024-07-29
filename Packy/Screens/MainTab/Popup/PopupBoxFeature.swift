@@ -11,27 +11,27 @@ import ComposableArchitecture
 @Reducer
 struct PopupGiftBoxFeature: Reducer {
 
+    @ObservableState
     struct State: Equatable {
         /// 패키가 준비한 선물박스
         var popupBox: PopupGiftBox?
     }
 
-    enum Action {
-        // MARK: User Action
-        case openButtonTapped
+    enum Action: ViewAction {
+        case view(View)
+        case delegate(Delegate)
 
-        // MARK: Inner Business Action
-        case _fetchPopupGiftBox
-        case _hideBottomSheet
+        case fetchPopupGiftBox
+        case hideBottomSheet
+        case setPopupGiftBox(PopupGiftBox)
 
-        // MARK: Inner SetState Action
-        case _setPopupGiftBox(PopupGiftBox)
+        enum View {
+            case openButtonTapped
+        }
 
-        // MARK: Delegate Action
         enum Delegate {
             case moveToOpenBox(boxId: Int, ReceivedGiftBox)
         }
-        case delegate(Delegate)
     }
 
     @Dependency(\.continuousClock) var clock
@@ -40,29 +40,31 @@ struct PopupGiftBoxFeature: Reducer {
     var body: some Reducer<State, Action> {
         Reduce<State, Action> { state, action in
             switch action {
-            // MARK: User Action
-            case .openButtonTapped:
-                guard let boxId = state.popupBox?.giftBoxId else { return .none }
-                return .run { send in
-                    do {
-                        let giftBox = try await boxClient.openGiftBox(boxId)
-                        await send(._hideBottomSheet)
-                        await send(.delegate(.moveToOpenBox(boxId: boxId, giftBox)))
-                    } catch {
-                        print("🐛 \(error)")
+            case let .view(action):
+                switch action {
+                case .openButtonTapped:
+                    guard let boxId = state.popupBox?.giftBoxId else { return .none }
+                    return .run { send in
+                        do {
+                            let giftBox = try await boxClient.openGiftBox(boxId)
+                            await send(.hideBottomSheet)
+                            await send(.delegate(.moveToOpenBox(boxId: boxId, giftBox)))
+                        } catch {
+                            print("🐛 \(error)")
+                        }
                     }
                 }
 
             // MARK: Inner Business Action
-            case ._fetchPopupGiftBox:
+            case .fetchPopupGiftBox:
                 return fetchPopupGiftBox()
 
-            case ._hideBottomSheet:
+            case .hideBottomSheet:
                 state.popupBox = nil
                 return .none
 
             // MARK: Inner SetState Action
-            case let ._setPopupGiftBox(popupBox):
+            case let .setPopupGiftBox(popupBox):
                 state.popupBox = popupBox
                 return .none
 
@@ -82,7 +84,7 @@ private extension PopupGiftBoxFeature {
                     print("🎁 보여줄 팝업 박스가 존재하지 않습니다.")
                     return
                 }
-                await send(._setPopupGiftBox(popupBox))
+                await send(.setPopupGiftBox(popupBox))
             } catch {
                 print("🐛 \(error)")
             }

@@ -21,25 +21,24 @@ struct ArchiveFeature: Reducer {
         var giftArchive: GiftArchiveFeature.State = .init()
     }
 
-    enum Action: BindableAction {
-        // MARK: User Action
-        case binding(BindingAction<State>)
-
-        // MARK: Inner Business Action
-        case onTask
-
-        // MARK: Inner SetState Action
+    enum Action: ViewAction {
+        case view(View)
 
         // MARK: Child Action
         case photoArchive(PhotoArchiveFeature.Action)
         case letterArchive(LetterArchiveFeature.Action)
         case musicArchive(MusicArchiveFeature.Action)
         case giftArchive(GiftArchiveFeature.Action)
+
+        enum View: BindableAction {
+            case onTask
+            case binding(BindingAction<State>)
+        }
     }
 
 
     var body: some Reducer<State, Action> {
-        BindingReducer()
+        BindingReducer(action: \.view)
 
         Scope(state: \.photoArchive, action: \.photoArchive) { PhotoArchiveFeature() }
         Scope(state: \.letterArchive, action: \.letterArchive) { LetterArchiveFeature() }

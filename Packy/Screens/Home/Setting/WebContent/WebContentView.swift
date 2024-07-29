@@ -11,7 +11,7 @@ import ComposableArchitecture
 // MARK: - View
 
 struct WebContentView: View {
-    private let store: StoreOf<WebContentFeature>
+    let store: StoreOf<WebContentFeature>
 
     init(store: StoreOf<WebContentFeature>) {
         self.store = store

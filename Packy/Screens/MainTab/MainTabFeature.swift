@@ -36,8 +36,8 @@ struct MainTabFeature: Reducer {
         case popupBox(PopupGiftBoxFeature.Action)
 
         enum View: BindableAction {
-            case binding(BindingAction<State>)
             case onTask
+            case binding(BindingAction<State>)
         }
     }
 
@@ -45,7 +45,6 @@ struct MainTabFeature: Reducer {
         Scope(state: \.home, action: \.home) { HomeFeature() }
         Scope(state: \.myBox, action: \.myBox) { MyBoxFeature() }
         Scope(state: \.archive, action: \.archive) { ArchiveFeature() }
-
         Scope(state: \.popupBox, action: \.popupBox) { PopupGiftBoxFeature() }
 
         BindingReducer(action: \.view)
@@ -53,11 +52,10 @@ struct MainTabFeature: Reducer {
 
         Reduce<State, Action> { state, action in
             switch action {
-
             case let .view(action):
                 switch action {
                 case .onTask:
-                    return .send(.popupBox(._fetchPopupGiftBox))
+                    return .send(.popupBox(.fetchPopupGiftBox))
 
                 case .binding:
                     return .none
@@ -71,7 +69,7 @@ struct MainTabFeature: Reducer {
             case let .popupBox(.delegate(.moveToOpenBox(boxId, giftBox))):
                 state.path.append(.boxOpen(.init(boxId: boxId, showingState: .openMotion, giftBox: giftBox)))
                 let boxOpenId = state.path.ids.last ?? 0
-                return .send(.path(.element(id: boxOpenId, action: .boxOpen(._showAnimationAndGoToDetail(boxId: boxId, giftBox)))))
+                return .send(.path(.element(id: boxOpenId, action: .boxOpen(.showAnimationAndGoToDetail(boxId: boxId, giftBox)))))
 
             default:
                 return .none

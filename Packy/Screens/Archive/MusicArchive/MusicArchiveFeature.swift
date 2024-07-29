@@ -24,19 +24,19 @@ struct MusicArchiveFeature: Reducer {
         var isLoading: Bool = true
     }
 
-    enum Action {
-        // MARK: User Action
-        case musicTapped(MusicArchiveData)
-        case didRefresh
+    enum Action: ViewAction {
+        case view(View)
 
-        // MARK: Inner Business Action
-        case onTask
-        case _fetchMoreMusics
-        case _didActiveScene
+        case setMusicPageData(MusicArchivePageData)
+        case setLoading(Bool)
 
-        // MARK: Inner SetState Action
-        case _setMusicPageData(MusicArchivePageData)
-        case _setLoading(Bool)
+        enum View {
+            case onTask
+            case didActiveScene
+            case fetchMoreMusics
+            case musicTapped(MusicArchiveData)
+            case didRefresh
+        }
     }
 
     @Dependency(\.archiveClient) var archiveClient
@@ -45,28 +45,31 @@ struct MusicArchiveFeature: Reducer {
     var body: some Reducer<State, Action> {
         Reduce<State, Action> { state, action in
             switch action {
-            case let .musicTapped(music):
-                state.selectedMusic = music
-                return .none
+            case let .view(action):
+                switch action {
+                case let .musicTapped(music):
+                    state.selectedMusic = music
+                    return .none
 
-            case .onTask:
-                return fetchMusics(lastMusicId: nil)
+                case .onTask:
+                    return fetchMusics(lastMusicId: nil)
 
-            case .didRefresh, ._didActiveScene:
-                state.musicArchivePageData = []
-                state.musics = []
-                state.isLoading = true
-                return fetchMusics(lastMusicId: nil)
+                case .didRefresh, .didActiveScene:
+                    state.musicArchivePageData = []
+                    state.musics = []
+                    state.isLoading = true
+                    return fetchMusics(lastMusicId: nil)
 
-            case let ._setMusicPageData(pageData):
+                case .fetchMoreMusics:
+                    return fetchMusics(lastMusicId: state.musics.last?.id)
+                }
+
+            case let .setMusicPageData(pageData):
                 state.musicArchivePageData.append(pageData)
                 state.musics.append(contentsOf: pageData.content)
                 return .none
 
-            case ._fetchMoreMusics:
-                return fetchMusics(lastMusicId: state.musics.last?.id)
-
-            case let ._setLoading(isLoading):
+            case let .setLoading(isLoading):
                 state.isLoading = isLoading
                 return .none
             }
@@ -79,13 +82,13 @@ private extension MusicArchiveFeature {
         .run { send in
             do {
                 let response = try await archiveClient.fetchMusics(lastMusicId)
-                await send(._setMusicPageData(response), animation: .spring)
+                await send(.setMusicPageData(response), animation: .spring)
 
                 try? await clock.sleep(for: .seconds(0.3))
-                await send(._setLoading(false))
+                await send(.setLoading(false))
             } catch {
                 print("🐛 \(error)")
-                await send(._setLoading(false))
+                await send(.setLoading(false))
             }
         }
     }

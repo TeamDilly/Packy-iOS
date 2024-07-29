@@ -42,8 +42,8 @@ struct WriteLetterFeature: Reducer {
         case WriteLetterBottomSheetCloseButtonTapped
         case closeLetterSheetAlertConfirmTapped
 
-        case _fetchLetterDesigns
-        case _setLetterDesigns([LetterDesign])
+        case fetchLetterDesigns
+        case setLetterDesigns([LetterDesign])
     }
 
     @Dependency(\.packyAlert) var packyAlert
@@ -103,10 +103,10 @@ struct WriteLetterFeature: Reducer {
                 state.isWriteLetterBottomSheetPresented = false
                 return .none
 
-            case ._fetchLetterDesigns:
+            case .fetchLetterDesigns:
                 return fetchLetterDesigns()
 
-            case let ._setLetterDesigns(letterDesigns):
+            case let .setLetterDesigns(letterDesigns):
                 state.letterDesigns = letterDesigns
                 return .none
 
@@ -124,7 +124,7 @@ private extension WriteLetterFeature {
         .run { send in
             do {
                 let letterDesigns = try await adminClient.fetchLetterDesigns()
-                await send(._setLetterDesigns(letterDesigns))
+                await send(.setLetterDesigns(letterDesigns))
             } catch {
                 print(error)
             }

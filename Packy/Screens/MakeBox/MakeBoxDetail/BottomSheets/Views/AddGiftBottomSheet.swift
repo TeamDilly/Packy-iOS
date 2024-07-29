@@ -9,11 +9,7 @@ import SwiftUI
 import ComposableArchitecture
 
 struct AddGiftBottomSheet: View {
-    private let store: StoreOf<AddGiftFeature>
-
-    init(store: StoreOf<AddGiftFeature>) {
-        self.store = store
-    }
+    let store: StoreOf<AddGiftFeature>
 
     var body: some View {
         VStack(spacing: 0) {

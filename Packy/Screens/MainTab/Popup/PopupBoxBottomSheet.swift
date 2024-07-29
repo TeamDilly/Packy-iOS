@@ -8,17 +8,12 @@
 import SwiftUI
 import ComposableArchitecture
 
+@ViewAction(for: PopupGiftBoxFeature.self)
 struct PopupBoxBottomSheet: View {
-    private let store: StoreOf<PopupGiftBoxFeature>
-    @ObservedObject private var viewStore: ViewStoreOf<PopupGiftBoxFeature>
-
-    init(store: StoreOf<PopupGiftBoxFeature>) {
-        self.store = store
-        self.viewStore = ViewStore(store, observe: { $0 })
-    }
+    let store: StoreOf<PopupGiftBoxFeature>
 
     var body: some View {
-        if let popupBox = viewStore.popupBox {
+        if let popupBox = store.popupBox {
             VStack(spacing: 0) {
                 Text("패키가 보낸\n선물박스가 도착했어요!")
                     .packyFont(.heading1)
@@ -44,13 +39,13 @@ struct PopupBoxBottomSheet: View {
                     .padding(.bottom, 48)
                     .bouncyTapGesture {
                         throttle(.seconds(3)) {
-                            viewStore.send(.openButtonTapped)
+                            send(.openButtonTapped)
                         }
                     }
 
                 PackyButton(title: "열어보기", colorType: .black) {
                     throttle(.seconds(3)) {
-                        viewStore.send(.openButtonTapped)
+                        send(.openButtonTapped)
                     }
                 }
                 .padding(.horizontal, 24)

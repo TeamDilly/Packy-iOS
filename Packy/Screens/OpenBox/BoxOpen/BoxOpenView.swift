@@ -11,7 +11,7 @@ import ComposableArchitecture
 // MARK: - View
 
 struct BoxOpenView: View {
-    private let store: StoreOf<BoxOpenFeature>
+    let store: StoreOf<BoxOpenFeature>
 
     init(store: StoreOf<BoxOpenFeature>) {
         self.store = store

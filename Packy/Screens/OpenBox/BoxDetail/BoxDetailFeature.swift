@@ -31,53 +31,57 @@ struct BoxDetailFeature: Reducer {
         }
     }
 
-    enum Action: BindableAction {
-        // MARK: User Action
-        case binding(BindingAction<State>)
-        case closeButtonTapped
-        case backButtonTapped
-        case navigationBarLeadingButtonTapped
-        case navigationBarTrailingButtonTapped
+    enum Action: ViewAction {
+        case view(View)
+        case delegate(Delegate)
 
-        // MARK: Inner Business Action
-        case onTask
+        enum View: BindableAction {
+            case onTask
+            case binding(BindingAction<State>)
+            case closeButtonTapped
+            case backButtonTapped
+            case navigationBarLeadingButtonTapped
+            case navigationBarTrailingButtonTapped
+        }
 
-        // MARK: Inner SetState Action
-
-        // MARK: Delegate Action
         enum Delegate {
             case closeBoxOpen
             case moveToBoxShare(BoxShareFeature.BoxShareData)
         }
-        case delegate(Delegate)
     }
 
     @Dependency(\.boxClient) var boxClient
     @Dependency(\.dismiss) var dismiss
 
     var body: some Reducer<State, Action> {
-        BindingReducer()
+        BindingReducer(action: \.view)
         
         Reduce<State, Action> { state, action in
             switch action {
-            case .navigationBarLeadingButtonTapped:
-                return .run { _ in
-                    await dismiss()
-                }
+            case let .view(action):
+                switch action {
+                case .navigationBarLeadingButtonTapped:
+                    return .run { _ in
+                        await dismiss()
+                    }
 
-            case .navigationBarTrailingButtonTapped:
-                if state.isToSend {
-                    let boxShareData = BoxShareFeature.BoxShareData(
-                        senderName: state.senderName,
-                        receiverName: state.receiverName,
-                        boxName: state.name,
-                        boxNormalUrl: state.box.boxNormalUrl,
-                        kakaoMessageImgUrl: nil,
-                        boxId: state.boxId
-                    )
-                    return .send(.delegate(.moveToBoxShare(boxShareData)))
-                } else {
-                    return .send(.delegate(.closeBoxOpen))
+                case .navigationBarTrailingButtonTapped:
+                    if state.isToSend {
+                        let boxShareData = BoxShareFeature.BoxShareData(
+                            senderName: state.senderName,
+                            receiverName: state.receiverName,
+                            boxName: state.name,
+                            boxNormalUrl: state.box.boxNormalUrl,
+                            kakaoMessageImgUrl: nil,
+                            boxId: state.boxId
+                        )
+                        return .send(.delegate(.moveToBoxShare(boxShareData)))
+                    } else {
+                        return .send(.delegate(.closeBoxOpen))
+                    }
+
+                default:
+                    return .none
                 }
 
             default:

@@ -32,32 +32,31 @@ struct BoxAddTitleAndShareFeature: Reducer {
         }
     }
 
-    enum Action: BindableAction {
-        // MARK: User Action
-        case binding(BindingAction<State>)
-        case backButtonTapped
-        case nextButtonTapped
+    enum Action: ViewAction {
+        case view(View)
+        case delegate(Delegate)
 
-        // MARK: Inner Business Action
-        case onTask
-        case _saveGiftBox
-        case _setUploadedGiftUrl(String)
-        case _setUploadedPhotoUrl(String)
-        case _changeScreenToShare
-
-        // MARK: Inner SetState Action
-        case _setSentGiftBoxInfo(SentGiftBoxInfo)
-        case _showErrorMessage(String)
-        case _showIsLoading(Bool)
+        case saveGiftBox
+        case setUploadedGiftUrl(String)
+        case setUploadedPhotoUrl(String)
+        case changeScreenToShare
+        case setSentGiftBoxInfo(SentGiftBoxInfo)
+        case showErrorMessage(String)
+        case showIsLoading(Bool)
 
         // MARK: Child Action
         case boxShare(BoxShareFeature.Action)
 
-        // MARK: Delegate Action
+        enum View: BindableAction {
+            case onTask
+            case binding(BindingAction<State>)
+            case backButtonTapped
+            case nextButtonTapped
+        }
+
         enum Delegate {
             case moveToHome
         }
-        case delegate(Delegate)
     }
 
     @Dependency(\.continuousClock) var clock
@@ -67,52 +66,54 @@ struct BoxAddTitleAndShareFeature: Reducer {
     @Dependency(\.packyAlert) var packyAlert
 
     var body: some Reducer<State, Action> {
-        BindingReducer()
+        BindingReducer(action: \.view)
         
         Reduce<State, Action> { state, action in
             switch action {
-            case .backButtonTapped:
-                return .run { _ in await dismiss() }
+            case let .view(action):
+                switch action {
+                case .backButtonTapped:
+                    return .run { _ in await dismiss() }
 
-            case .boxShare(.closeButtonTapped),
-                 .boxShare(.sendLaterButtonTapped):
-                return .send(.delegate(.moveToHome))
+                case .nextButtonTapped:
+                    guard state.isLoading == false else { return .none }
+                    state.isLoading = true
+                    guard let photoData = state.giftBoxData.photos.first?.photoData else { return .none }
+                    let giftData = state.giftBoxData.gift?.data
 
-            case .nextButtonTapped:
-                guard state.isLoading == false else { return .none }
-                state.isLoading = true
-                guard let photoData = state.giftBoxData.photos.first?.photoData else { return .none }
-                let giftData = state.giftBoxData.gift?.data
+                    state.giftBox = generateGiftBoxFromData(state.giftBoxData)
+                    let boxName = state.boxNameInput
+                    state.giftBox?.name = boxName
 
-                state.giftBox = generateGiftBoxFromData(state.giftBoxData)
-                let boxName = state.boxNameInput
-                state.giftBox?.name = boxName
+                    return .concatenate(
+                        .merge(
+                            uploadPhotoImage(data: photoData),
+                            uploadGiftImageIfNeeded(data: giftData)
+                        ),
+                        .send(.saveGiftBox)
+                    )
 
-                return .concatenate(
-                    .merge(
-                        uploadPhotoImage(data: photoData),
-                        uploadGiftImageIfNeeded(data: giftData)
-                    ),
-                    .send(._saveGiftBox)
-                )
+                default:
+                    return .none
+                }
 
-            case ._saveGiftBox:
+            case .saveGiftBox:
                 return saveGiftBox(state)
                     .throttle(id: "saveGiftBox", for: .seconds(3), scheduler: DispatchQueue.main, latest: false)
 
-            case let ._setUploadedPhotoUrl(url):
+            case let .setUploadedPhotoUrl(url):
                 state.giftBox?.photos[0].photoUrl = url
                 return .none
 
-            case let ._setUploadedGiftUrl(url):
+            case let .setUploadedGiftUrl(url):
                 state.giftBox?.gift?.url = url
                 return .none
 
-            case let ._setSentGiftBoxInfo(sentGiftBoxInfo):
+            case let .setSentGiftBoxInfo(sentGiftBoxInfo):
                 state.sentGiftBoxInfo = sentGiftBoxInfo
-                return .send(._changeScreenToShare)
+                return .send(.changeScreenToShare)
 
-            case ._changeScreenToShare:
+            case .changeScreenToShare:
                 state.isLoading = false
                 state.boxShare = .init(
                     data: .init(
@@ -127,7 +128,7 @@ struct BoxAddTitleAndShareFeature: Reducer {
                 )
                 return .none
 
-            case let ._showErrorMessage(errorMessage):
+            case let .showErrorMessage(errorMessage):
                 state.isLoading = false
                 return .run { send in
                     await packyAlert.show(
@@ -140,11 +141,15 @@ struct BoxAddTitleAndShareFeature: Reducer {
                     )
                 }
 
-            case let ._showIsLoading(isLoading):
+            case let .showIsLoading(isLoading):
                 state.isLoading = isLoading
                 return .none
 
-            case .binding, .onTask, .delegate, .boxShare:
+            case .boxShare(.closeButtonTapped),
+                    .boxShare(.sendLaterButtonTapped):
+                return .send(.delegate(.moveToHome))
+
+            default:
                 return .none
             }
         }
@@ -161,7 +166,7 @@ private extension BoxAddTitleAndShareFeature {
     func uploadPhotoImage(data: Data) -> Effect<Action> {
         return .run { send in
             let response = try await uploadClient.upload(.init(fileName: "\(UUID()).png", data: data))
-            await send(._setUploadedPhotoUrl(response.uploadedFileUrl))
+            await send(.setUploadedPhotoUrl(response.uploadedFileUrl))
         }
     }
 
@@ -169,7 +174,7 @@ private extension BoxAddTitleAndShareFeature {
         guard let data else { return .none }
         return .run { send in
             let response = try await uploadClient.upload(.init(fileName: "\(UUID()).png", data: data))
-            await send(._setUploadedGiftUrl(response.uploadedFileUrl))
+            await send(.setUploadedGiftUrl(response.uploadedFileUrl))
         }
     }
 
@@ -202,11 +207,11 @@ private extension BoxAddTitleAndShareFeature {
         return .run { send in
             do {
                 let sentGiftBoxInfo = try await boxClient.makeGiftBox(giftBox)
-                await send(._setSentGiftBoxInfo(sentGiftBoxInfo))
+                await send(.setSentGiftBoxInfo(sentGiftBoxInfo))
             } catch let error as ErrorResponse {
-                await send(._showErrorMessage(error.message))
+                await send(.showErrorMessage(error.message))
             } catch {
-                await send(._showErrorMessage(error.localizedDescription))
+                await send(.showErrorMessage(error.localizedDescription))
             }
         }
     }

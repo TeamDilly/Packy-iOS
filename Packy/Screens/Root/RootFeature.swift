@@ -24,8 +24,8 @@ struct RootFeature: Reducer {
 
         // MARK: Inner Business Action
         case onTask
-        case _changeScreen(State)
-        case _handleScheme(QueryParameters)
+        case changeScreen(State)
+        case handleScheme(QueryParameters)
 
         // MARK: Inner SetState Action
 
@@ -64,7 +64,7 @@ struct RootFeature: Reducer {
 
                     /// AccessToken 존재 시, mainTab 으로 이동
                     if keychain.read(.accessToken) != nil {
-                        await send(._changeScreen(.mainTab()), animation: .spring)
+                        await send(.changeScreen(.mainTab()), animation: .spring)
                     } else {
                         await send(.intro(.moveToLoginOrOnboarding))
                     }
@@ -72,11 +72,11 @@ struct RootFeature: Reducer {
                     await userDefaults.setBool(true, .isPopGestureEnabled)
                 }
 
-            case let ._changeScreen(newState):
+            case let .changeScreen(newState):
                 state = newState
                 return .none
 
-            case let ._handleScheme(queryParameters):
+            case let .handleScheme(queryParameters):
                 guard let boxIdString = queryParameters["boxId"],
                       let boxId = Int(boxIdString),
                       keychain.read(.accessToken) != nil else {
@@ -84,7 +84,7 @@ struct RootFeature: Reducer {
                 }
 
                 return .run { send in
-                    await send(._changeScreen(.mainTab(.init(path: .init([.boxOpen(BoxOpenFeature.State(boxId: boxId))])))))
+                    await send(.changeScreen(.mainTab(.init(path: .init([.boxOpen(BoxOpenFeature.State(boxId: boxId))])))))
                 }
 
             case let .intro(action):
@@ -92,7 +92,7 @@ struct RootFeature: Reducer {
                     // 로그인 완료, 회원가입 완료 시 홈으로 이동
                 case .login(.delegate(.completeLogin)),
                      .signUp(.delegate(.completeSignUp)):
-                    return .send(._changeScreen(.mainTab()), animation: .spring)
+                    return .send(.changeScreen(.mainTab()), animation: .spring)
 
                 default:
                     return .none
@@ -101,7 +101,7 @@ struct RootFeature: Reducer {
             // 회원탈퇴, 로그아웃 완료 시 로그인 화면으로 이동
             case .mainTab(.path(.element(id: _, action: .deleteAccount(.delegate(.completedSignOut))))),
                  .mainTab(.path(.element(id: _, action: .setting(.delegate(.completeSignOut))))):
-                return .send(._changeScreen(.intro(.login())), animation: .spring)
+                return .send(.changeScreen(.intro(.login())), animation: .spring)
 
             default:
                 return .none

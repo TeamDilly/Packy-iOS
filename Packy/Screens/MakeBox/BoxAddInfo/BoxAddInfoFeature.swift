@@ -23,14 +23,16 @@ struct BoxAddInfoFeature: Reducer {
         }
     }
 
-    enum Action: BindableAction {
-        // MARK: User Action
-        case binding(BindingAction<State>)
-        case backButtonTapped
+    enum Action: ViewAction {
+        case view(View)
 
-        // MARK: Inner Business Action
-        case onTask
-        case _setUsername(String)
+        case setUsername(String)
+
+        enum View: BindableAction {
+            case onTask
+            case binding(BindingAction<State>)
+            case backButtonTapped
+        }
     }
 
     @Dependency(\.dismiss) var dismiss
@@ -39,47 +41,50 @@ struct BoxAddInfoFeature: Reducer {
     @Dependency(\.authClient) var authClient
 
     var body: some Reducer<State, Action> {
-        BindingReducer()
+        BindingReducer(action: \.view)
 
         Reduce<State, Action> { state, action in
             switch action {
-            case .backButtonTapped:
-                if state.hasAnyTextInput == false {
-                    return .run { _ in
-                        await dismiss()
+            case let .view(action):
+                switch action {
+                case .backButtonTapped:
+                    if state.hasAnyTextInput == false {
+                        return .run { _ in
+                            await dismiss()
+                        }
                     }
-                }
 
-                return .run { send in
-                    await packyAlert.show(
-                        .init(
-                            title: "선물박스 만들기를 종료할까요?",
-                            cancel: "취소",
-                            confirm: "확인",
-                            confirmAction: {
-                                await dismiss()
-                            }
+                    return .run { send in
+                        await packyAlert.show(
+                            .init(
+                                title: "선물박스 만들기를 종료할까요?",
+                                cancel: "취소",
+                                confirm: "확인",
+                                confirmAction: {
+                                    await dismiss()
+                                }
+                            )
                         )
-                    )
-                }
-
-            case let ._setUsername(username):
-                state.boxSendFrom = username
-                return .none
-
-            case .onTask:
-                return .run { send in
-                    await userDefaults.setBool(false, .didEnteredBoxGuide)
-
-                    do {
-                        let profile = try await authClient.fetchProfile()
-                        await send(._setUsername(profile.nickname))
-                    } catch {
-                        print("🐛 \(error)")
                     }
+
+                case .onTask:
+                    return .run { send in
+                        await userDefaults.setBool(false, .didEnteredBoxGuide)
+
+                        do {
+                            let profile = try await authClient.fetchProfile()
+                            await send(.setUsername(profile.nickname))
+                        } catch {
+                            print("🐛 \(error)")
+                        }
+                    }
+
+                case .binding:
+                    return .none
                 }
 
-            default:
+            case let .setUsername(username):
+                state.boxSendFrom = username
                 return .none
             }
         }
