@@ -13,13 +13,13 @@ import BranchSDK
 struct PackyApp: App {
 
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
+    private var store: StoreOf<RootFeature> { delegate.store }
+
     @Dependency(\.socialLogin) var socialLogin
 
     init() {
         socialLogin.initKakaoSDK()
     }
-
-    let store = Store(initialState: RootFeature.State()) { RootFeature() }
 
     var body: some Scene {
         WindowGroup {

@@ -8,8 +8,11 @@
 import SwiftUI
 import Firebase
 import BranchSDK
+import ComposableArchitecture
 
 final class AppDelegate: NSObject, UIApplicationDelegate {
+    let store = Store(initialState: RootFeature.State()) { RootFeature() }
+
     func application(
         _ application: UIApplication,
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil
@@ -20,7 +23,8 @@ final class AppDelegate: NSObject, UIApplicationDelegate {
 
         Branch.getInstance().initSession(launchOptions: launchOptions) { (params, error) in
             // TODO: Access and use Branch Deep Link data here (nav to page, display content, etc.)
-            print(params as? [String: AnyObject] ?? [:])
+            print("✨Parameters!: ", params as? [String: AnyObject] ?? [:], error)
+            // store.send(.handleScheme(params)) // TODO: 파라미터 send 
         }
 
         return true
