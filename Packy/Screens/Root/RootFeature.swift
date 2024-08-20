@@ -103,9 +103,8 @@ struct RootFeature: Reducer {
                 }
 
                 // 토큰 미존재 시, 로그인 이후에 핸들링하도록 boxId 저장
-                @Shared(.appStorage("boxIdToHandle")) var boxIdToHandle: Int?
+                @Shared(.appStorage(.boxIdToHandle)) var boxIdToHandle: Int
                 boxIdToHandle = boxId
-                print(boxIdToHandle)
                 return .none
 
             case let .intro(action):
@@ -165,10 +164,10 @@ private extension RootFeature {
     }
 
     func openBoxIfNeeded() -> Effect<Action> {
-        @Shared(.appStorage("boxIdToHandle")) var boxIdToHandle: Int?
-        guard let boxId = boxIdToHandle else { return .none }
+        @Shared(.appStorage(.boxIdToHandle)) var boxIdToHandle: Int
+        guard boxIdToHandle != 0 else { return .none }
 
-        return .run { _ in
+        return .run { [boxId = boxIdToHandle] _ in
             _ = try await boxClient.openGiftBox(boxId)
         }
     }

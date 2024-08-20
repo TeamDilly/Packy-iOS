@@ -97,6 +97,7 @@
 		E5551B7F2B6001CC00DB81F3 /* SelectBoxBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5551B7E2B6001CC00DB81F3 /* SelectBoxBottomSheet.swift */; };
 		E55558282B6E10AC00461352 /* YoutubeLinkValidationResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55558272B6E10AC00461352 /* YoutubeLinkValidationResponse.swift */; };
 		E555582A2B6E248300461352 /* View+TextInteraction.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55558292B6E248300461352 /* View+TextInteraction.swift */; };
+		E5564A6F2C74CE3A00466F8E /* PersistentKey+UserDefaultsKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5564A6E2C74CE3A00466F8E /* PersistentKey+UserDefaultsKey.swift */; };
 		E55D16C42B6CF12F005E71A4 /* KakaoShareClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55D16C32B6CF12F005E71A4 /* KakaoShareClient.swift */; };
 		E55D16C62B6CF25D005E71A4 /* KakaoSDKAuth in Frameworks */ = {isa = PBXBuildFile; productRef = E55D16C52B6CF25D005E71A4 /* KakaoSDKAuth */; };
 		E55D16C82B6CF25D005E71A4 /* KakaoSDKCommon in Frameworks */ = {isa = PBXBuildFile; productRef = E55D16C72B6CF25D005E71A4 /* KakaoSDKCommon */; };
@@ -403,6 +404,7 @@
 		E5551B7E2B6001CC00DB81F3 /* SelectBoxBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectBoxBottomSheet.swift; sourceTree = "<group>"; };
 		E55558272B6E10AC00461352 /* YoutubeLinkValidationResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YoutubeLinkValidationResponse.swift; sourceTree = "<group>"; };
 		E55558292B6E248300461352 /* View+TextInteraction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+TextInteraction.swift"; sourceTree = "<group>"; };
+		E5564A6E2C74CE3A00466F8E /* PersistentKey+UserDefaultsKey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PersistentKey+UserDefaultsKey.swift"; sourceTree = "<group>"; };
 		E55D16C32B6CF12F005E71A4 /* KakaoShareClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoShareClient.swift; sourceTree = "<group>"; };
 		E55D16D02B6CF458005E71A4 /* KakaoShareMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoShareMessage.swift; sourceTree = "<group>"; };
 		E55DAE812B75E30F00208878 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
@@ -1428,6 +1430,7 @@
 		E5A7AA1A2B57F81400590EA6 /* UserDefatults */ = {
 			isa = PBXGroup;
 			children = (
+				E5564A6E2C74CE3A00466F8E /* PersistentKey+UserDefaultsKey.swift */,
 				E5A7AA1B2B57F81400590EA6 /* UserDefaultsKey.swift */,
 				E5A7AA1C2B57F81400590EA6 /* UserDefaultsClient.swift */,
 			);
@@ -2171,6 +2174,7 @@
 				E5E06B342B654D7700F6FD01 /* SendingGiftBox.swift in Sources */,
 				E5993D5D2B876FC300F4C76C /* PopupBoxBottomSheet.swift in Sources */,
 				E55DAE842B76376000208878 /* Print+Override.swift in Sources */,
+				E5564A6F2C74CE3A00466F8E /* PersistentKey+UserDefaultsKey.swift in Sources */,
 				E5A7AA772B57F81400590EA6 /* SignInResponse.swift in Sources */,
 				E579484C2B81EB330058C733 /* ArchiveView.swift in Sources */,
 				E5A7AA672B57F81400590EA6 /* OnboardingPage.swift in Sources */,

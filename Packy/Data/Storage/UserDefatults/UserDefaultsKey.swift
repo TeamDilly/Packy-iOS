@@ -19,4 +19,16 @@ enum UserDefaultsKey {
     enum StringKey: String {
         case none
     }
+
+    enum DataKey: String, CaseIterable {
+        case none
+    }
+
+    enum IntegerKey: String {
+        case boxIdToHandle
+    }
+
+    enum DoubleKey: String {
+        case none
+    }
 }
