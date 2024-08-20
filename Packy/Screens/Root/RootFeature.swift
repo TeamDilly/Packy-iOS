@@ -26,6 +26,7 @@ struct RootFeature: Reducer {
         case onTask
         case changeScreen(State)
         case handleScheme(QueryParameters)
+        case handleDeepLink(DeepLinkParameters)
 
         // MARK: Inner SetState Action
 
@@ -40,6 +41,7 @@ struct RootFeature: Reducer {
     @Dependency(\.keychain) var keychain
     @Dependency(\.packyAlert) var packyAlert
     @Dependency(\.openURL) var openURL
+    @Dependency(\.boxClient) var boxClient
 
     var body: some Reducer<State, Action> {
         Reduce<State, Action> { state, action in
@@ -87,12 +89,34 @@ struct RootFeature: Reducer {
                     await send(.changeScreen(.mainTab(.init(path: .init([.boxOpen(BoxOpenFeature.State(boxId: boxId))])))))
                 }
 
+            case let .handleDeepLink(parameters):
+                guard let boxIdString = parameters["boxId"] as? String,
+                      let boxId = Int(boxIdString) else {
+                    return .none
+                }
+
+                // 토큰 이미 존재 시, 박스 열기 처리만 수행
+                if keychain.read(.accessToken) != nil {
+                    return .run { _ in
+                        _ = try await boxClient.openGiftBox(boxId)
+                    }
+                }
+
+                // 토큰 미존재 시, 로그인 이후에 핸들링하도록 boxId 저장
+                @Shared(.appStorage("boxIdToHandle")) var boxIdToHandle: Int?
+                boxIdToHandle = boxId
+                print(boxIdToHandle)
+                return .none
+
             case let .intro(action):
                 switch action {
                     // 로그인 완료, 회원가입 완료 시 홈으로 이동
                 case .login(.delegate(.completeLogin)),
                      .signUp(.delegate(.completeSignUp)):
-                    return .send(.changeScreen(.mainTab()), animation: .spring)
+                    return .concatenate(
+                        openBoxIfNeeded(),
+                        .send(.changeScreen(.mainTab()), animation: .spring)
+                    )
 
                 default:
                     return .none
@@ -137,6 +161,15 @@ private extension RootFeature {
 
         default:
             break
+        }
+    }
+
+    func openBoxIfNeeded() -> Effect<Action> {
+        @Shared(.appStorage("boxIdToHandle")) var boxIdToHandle: Int?
+        guard let boxId = boxIdToHandle else { return .none }
+
+        return .run { _ in
+            _ = try await boxClient.openGiftBox(boxId)
         }
     }
 }

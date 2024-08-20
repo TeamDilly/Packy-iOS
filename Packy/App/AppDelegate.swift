@@ -10,6 +10,8 @@ import Firebase
 import BranchSDK
 import ComposableArchitecture
 
+typealias DeepLinkParameters = [String: AnyObject]
+
 final class AppDelegate: NSObject, UIApplicationDelegate {
     let store = Store(initialState: RootFeature.State()) { RootFeature() }
 
@@ -19,12 +21,16 @@ final class AppDelegate: NSObject, UIApplicationDelegate {
     ) -> Bool {
         FirebaseApp.configure()
 
-        Branch.getInstance().checkPasteboardOnInstall()
+        #if DEBUG
+        Branch.setUseTestBranchKey(true)
+        Branch.enableLogging()
+        #endif
 
-        Branch.getInstance().initSession(launchOptions: launchOptions) { (params, error) in
-            // TODO: Access and use Branch Deep Link data here (nav to page, display content, etc.)
-            print("✨Parameters!: ", params as? [String: AnyObject] ?? [:], error)
-            // store.send(.handleScheme(params)) // TODO: 파라미터 send 
+        let branch = Branch.getInstance()
+        branch.checkPasteboardOnInstall()
+        branch.initSession(launchOptions: launchOptions) { (params, error) in
+            guard let params = params as? [String: AnyObject] else { return }
+            self.store.send(.handleDeepLink(params))
         }
 
         return true
