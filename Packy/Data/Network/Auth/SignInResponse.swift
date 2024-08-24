@@ -15,6 +15,8 @@ struct SignInResponse: Decodable {
 enum SignInStatus: String, Decodable {
     case registered     = "REGISTERED"
     case notRegistered  = "NOT_REGISTERED"
+    case withdrawal     = "WITHDRAWAL"
+    case blacklist      = "BLACKLIST"
 }
 
 extension SignInResponse {
