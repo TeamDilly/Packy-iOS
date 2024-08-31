@@ -75,4 +75,6 @@ extension AdminClient: DependencyKey {
             validateYoutubeUrl: { _ in return true }
         )
     }()
+
+    static var testValue: AdminClient = previewValue
 }

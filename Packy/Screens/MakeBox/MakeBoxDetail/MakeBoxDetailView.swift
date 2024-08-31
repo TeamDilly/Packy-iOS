@@ -104,6 +104,7 @@ struct MakeBoxDetailView: View {
                 }
                 .background(.gray900)
             }
+            .animation(.spring, value: store.isShowingGuideText)
         }
         .analyticsLog(.boxDetail)
         // 음악 추가 바텀시트
@@ -193,6 +194,10 @@ private extension MakeBoxDetailView {
         }
         .onAppear {
             isShowingGuideText = true
+        }
+        .onTapGesture {
+            store.send(.guideOverlayViewTapped)
+            Task { await HapticManager.shared.fireFeedback(.soft) }
         }
         .zIndex(1)
     }

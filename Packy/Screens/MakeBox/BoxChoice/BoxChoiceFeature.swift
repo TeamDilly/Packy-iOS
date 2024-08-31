@@ -50,12 +50,17 @@ struct BoxChoiceFeature: Reducer {
             case backButtonTapped
             case nextButtonTapped
             case closeButtonTapped
+            case boxMotionViewTapped
         }
 
         enum Delegate {
             case moveToMakeBoxDetail(PassingData)
             case closeMakeBox
         }
+    }
+
+    enum CancelID {
+        case showBoxMotion
     }
 
     @Dependency(\.continuousClock) var clock
@@ -114,6 +119,13 @@ struct BoxChoiceFeature: Reducer {
                             )
                         )
                     }
+
+                case .boxMotionViewTapped:
+                    return .concatenate(
+                        .cancel(id: CancelID.showBoxMotion),
+                        .send(.delegate(.moveToMakeBoxDetail(state.passingData))),
+                        .send(.setIsPresentingFinishedMotionView(false))
+                    )
                 }
 
             case let .setIsPresentingFinishedMotionView(isPresented):
@@ -144,5 +156,6 @@ private extension BoxChoiceFeature {
             try? await clock.sleep(for: .seconds(0.1))
             await send(.setIsPresentingFinishedMotionView(false))
         }
+        .cancellable(id: CancelID.showBoxMotion)
     }
 }

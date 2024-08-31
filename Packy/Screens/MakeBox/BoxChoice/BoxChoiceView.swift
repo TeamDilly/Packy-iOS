@@ -106,6 +106,10 @@ private extension BoxChoiceView {
             BoxMotionView(
                 motionType: .makeBox(boxDesignId: store.selectedBox?.id ?? 0)
             )
+            .onTapGesture {
+                send(.boxMotionViewTapped)
+                Task { await HapticManager.shared.fireFeedback(.soft) }
+            }
         }
     }
 }

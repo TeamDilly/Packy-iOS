@@ -51,6 +51,7 @@ struct MakeBoxDetailFeature: Reducer {
         case backButtonTapped
         case completeButtonTapped
         case selectBox(BoxDesign)
+        case guideOverlayViewTapped
 
         case setIsShowingGuideText(Bool)
 
@@ -64,6 +65,10 @@ struct MakeBoxDetailFeature: Reducer {
         enum Delegate {
             case moveToAddTitle(SendingGiftBoxRawData, BoxDesign)
         }
+    }
+
+    enum CancelID {
+        case showGuideText
     }
 
     @Dependency(\.continuousClock) var clock
@@ -124,6 +129,13 @@ struct MakeBoxDetailFeature: Reducer {
                 state.selectedBox = boxDesign
                 return .none
 
+            case .guideOverlayViewTapped:
+                return .concatenate(
+                    .cancel(id: CancelID.showGuideText),
+                    .send(.setIsShowingGuideText(false), animation: .spring(duration: 1)),
+                    .run { _ in await userDefaults.setBool(true, .didEnteredBoxGuide) }
+                )
+
             case .completeButtonTapped:
                 logEvent(state)
 
@@ -163,17 +175,15 @@ private extension MakeBoxDetailFeature {
     }
 
     func showGuideTextIfNeeded() -> Effect<Action> {
-        .concatenate(
-            .run { send in
-                guard !userDefaults.boolForKey(.didEnteredBoxGuide) else { return }
-                await send(.setIsShowingGuideText(true))
-                try? await clock.sleep(for: .seconds(Constants.textInteractionDuration))
-                await send(.setIsShowingGuideText(false), animation: .spring(duration: 1))
-            },
-            .run { _ in
-                await userDefaults.setBool(true, .didEnteredBoxGuide)
-            }
-        )
+        .run { send in
+            guard !userDefaults.boolForKey(.didEnteredBoxGuide) else { return }
+            await send(.setIsShowingGuideText(true))
+            try? await clock.sleep(for: .seconds(Constants.textInteractionDuration))
+            await send(.setIsShowingGuideText(false), animation: .spring(duration: 1))
+
+            await userDefaults.setBool(true, .didEnteredBoxGuide)
+        }
+        .cancellable(id: CancelID.showGuideText)
     }
 
     func giftBoxFrom(state: State) -> SendingGiftBoxRawData {
