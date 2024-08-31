@@ -2,39 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>branch_key</key>
-	<dict>
-		<key>live</key>
-		<string>key_live_etbNDpvfRHSzJOBuel5xmknpCDoKJKxs</string>
-		<key>test</key>
-		<string>key_test_kEgGqaBjQTGvSMAubj4EqjgcCukGPSDU</string>
-	</dict>
-	<key>branch_universal_link_domains</key>
-	<string>3bs72.app.link</string>
-	<key>UILaunchScreen</key>
-	<dict>
-		<key>UIColorName</key>
-		<string>Purple 500</string>
-		<key>UIImageName</key>
-		<string>logo_large</string>
-	</dict>
-	<key>UIUserInterfaceStyle</key>
-	<string>Light</string>
-	<key>NSAppTransportSecurity</key>
-	<dict>
-		<key>NSAllowsArbitraryLoads</key>
-		<true/>
-	</dict>
-	<key>NSUserTrackingUsageDescription</key>
-	<string>맞춤형 광고 및 정보 제공을 위해 허용해 주세요.
-허용하지 않아도 패키를 이용할 수 있습니다.</string>
-	<key>LSApplicationQueriesSchemes</key>
-	<array>
-		<string>kakaokompassauth</string>
-		<string>kakaolink</string>
-	</array>
-	<key>KAKAO_API_KEY</key>
-	<string>$(KAKAO_API_KEY)</string>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
@@ -56,6 +23,18 @@
 			</array>
 		</dict>
 	</array>
+	<key>KAKAO_API_KEY</key>
+	<string>$(KAKAO_API_KEY)</string>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>kakaokompassauth</string>
+		<string>kakaolink</string>
+	</array>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
+	</dict>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Pretendard-Black.otf</string>
@@ -69,5 +48,21 @@
 		<string>Pretendard-SemiBold.otf</string>
 		<string>Pretendard-Thin.otf</string>
 	</array>
+	<key>UILaunchScreen</key>
+	<dict>
+		<key>UIColorName</key>
+		<string>Purple 500</string>
+		<key>UIImageName</key>
+		<string>logo_large</string>
+	</dict>
+	<key>branch_key</key>
+	<dict>
+		<key>live</key>
+		<string>key_live_etbNDpvfRHSzJOBuel5xmknpCDoKJKxs</string>
+		<key>test</key>
+		<string>key_test_kEgGqaBjQTGvSMAubj4EqjgcCukGPSDU</string>
+	</dict>
+	<key>branch_universal_link_domains</key>
+	<string>3bs72.app.link</string>
 </dict>
 </plist>
