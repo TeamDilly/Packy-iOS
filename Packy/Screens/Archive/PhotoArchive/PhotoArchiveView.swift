@@ -51,7 +51,7 @@ struct PhotoArchiveView: View {
         .padding(.horizontal, 24)
         .background(.gray100)
         .refreshable {
-            await send(.didRefresh).finish()
+            send(.didRefresh)
         }
         .task {
             await send(.onTask).finish()

@@ -53,9 +53,7 @@ struct GiftArchiveView: View {
         .padding(.horizontal, 24)
         .background(.gray100)
         .refreshable {
-            await store
-                .send(.didRefresh)
-                .finish()
+            store.send(.didRefresh)
         }
         .task {
             await store

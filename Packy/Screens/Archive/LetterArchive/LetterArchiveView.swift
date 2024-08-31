@@ -51,7 +51,7 @@ struct LetterArchiveView: View {
             }
         }
         .refreshable {
-            await send(.didRefresh).finish()
+            send(.didRefresh)
         }
         .padding(.horizontal, 24)
         .background(.gray100)
