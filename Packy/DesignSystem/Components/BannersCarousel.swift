@@ -8,7 +8,7 @@
 import SwiftUI
 import Combine
 
-struct BannersCarousel<Item, Content: View>: View {
+struct BannersCarousel<Item, Content: View>: View where Item: Equatable {
     private let items: [Item]
     @State private var indexedItems: [IndexedItem<Item>] = []
     private let contentBuilder: (Item) -> Content
@@ -56,12 +56,14 @@ struct BannersCarousel<Item, Content: View>: View {
             currentIndexOverlayView
                 .padding(12)
         }
-        .padding(.horizontal, 16)
         .onAppear {
-            indexedItems = items.indexedItems(repeatCount: 100)
-            self.centeredItemID = indexedItems.count / 2
+            initializeIndexedItems()
+            centeredItemID = indexedItems.count / 2
 
             instantiateTimer()
+        }
+        .onChange(of: items) { _, _ in
+            initializeIndexedItems()
         }
         .onDisappear {
             cancelTimer()
@@ -115,7 +117,14 @@ private extension BannersCarousel {
 // MARK: - Inner Functions
 
 private extension BannersCarousel {
+    func initializeIndexedItems() {
+        indexedItems = items.indexedItems(
+            repeatCount: items.count > 1 ? 100 : 1
+        )
+    }
+
     func moveToNextBannerIndex() {
+        guard indexedItems.count != 0 else { return }
         withAnimation {
             centeredItemID = ((centeredItemID ?? 0) + 1) % indexedItems.count
         }
@@ -149,7 +158,7 @@ extension BannersCarousel {
 // MARK: - Preview
 
 #Preview {
-    struct SampleItem {
+    struct SampleItem: Equatable {
         var title: String
         var color: Color
     }
@@ -161,8 +170,8 @@ extension BannersCarousel {
         SampleItem(title: "gray", color: .gray)
     ]) { item in
         Text("\(item.title)")
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .background(item.color.gradient)
+            // .frame(maxWidth: .infinity, maxHeight: .infinity)
+            // .background(item.color.gradient)
     }
     .onTapAction { item in
         print(item.title)

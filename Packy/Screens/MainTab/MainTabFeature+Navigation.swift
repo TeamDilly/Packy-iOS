@@ -72,6 +72,10 @@ extension MainTabFeature {
         Reduce { state, action in
             switch action {
 
+            case let .home(.delegate(.moveToWebView(url: url))):
+                state.path.append(.webContent(.init(urlString: url, navigationTitle: nil)))
+                return .none
+
             case let .myBox(.delegate(.moveToBoxDetail(boxId, giftBox, isToSend))),
                  let .home(.delegate(.moveToBoxDetail(boxId, giftBox, isToSend))):
                 state.path.append(.boxDetail(.init(boxId: boxId, giftBox: giftBox, isToSend: isToSend)))

@@ -93,6 +93,7 @@
 		E54485162B6F9116003DFA1B /* DeleteAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54485142B6F9116003DFA1B /* DeleteAccountView.swift */; };
 		E54485172B6F9116003DFA1B /* DeleteAccountFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54485152B6F9116003DFA1B /* DeleteAccountFeature.swift */; };
 		E5499F742BECE4930025017C /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = E5499F732BECE4930025017C /* PrivacyInfo.xcprivacy */; };
+		E551D9D12C89DEB0002AE5D1 /* Notice.swift in Sources */ = {isa = PBXBuildFile; fileRef = E551D9D02C89DEB0002AE5D1 /* Notice.swift */; };
 		E5551B792B5FE8E300DB81F3 /* TokenInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5551B782B5FE8E300DB81F3 /* TokenInterceptor.swift */; };
 		E5551B7B2B5FF2AF00DB81F3 /* HTTPSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5551B7A2B5FF2AF00DB81F3 /* HTTPSession.swift */; };
 		E5551B7D2B5FF5AD00DB81F3 /* MoyaProvider+Build.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5551B7C2B5FF5AD00DB81F3 /* MoyaProvider+Build.swift */; };
@@ -402,6 +403,7 @@
 		E54485142B6F9116003DFA1B /* DeleteAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteAccountView.swift; sourceTree = "<group>"; };
 		E54485152B6F9116003DFA1B /* DeleteAccountFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteAccountFeature.swift; sourceTree = "<group>"; };
 		E5499F732BECE4930025017C /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		E551D9D02C89DEB0002AE5D1 /* Notice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notice.swift; sourceTree = "<group>"; };
 		E5551B782B5FE8E300DB81F3 /* TokenInterceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenInterceptor.swift; sourceTree = "<group>"; };
 		E5551B7A2B5FF2AF00DB81F3 /* HTTPSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPSession.swift; sourceTree = "<group>"; };
 		E5551B7C2B5FF5AD00DB81F3 /* MoyaProvider+Build.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MoyaProvider+Build.swift"; sourceTree = "<group>"; };
@@ -861,6 +863,14 @@
 				E54485152B6F9116003DFA1B /* DeleteAccountFeature.swift */,
 			);
 			path = DeleteAccount;
+			sourceTree = "<group>";
+		};
+		E551D9CF2C89DEA4002AE5D1 /* Notice */ = {
+			isa = PBXGroup;
+			children = (
+				E551D9D02C89DEB0002AE5D1 /* Notice.swift */,
+			);
+			path = Notice;
 			sourceTree = "<group>";
 		};
 		E55D16C22B6CF11F005E71A4 /* KakaoShare */ = {
@@ -1356,8 +1366,9 @@
 				E57948662B81F1650058C733 /* Archive */,
 				E5E06B3B2B654DBE00F6FD01 /* Auth */,
 				E5E06B3D2B654DD800F6FD01 /* Box */,
-				E5E06B3C2B654DCE00F6FD01 /* Design */,
 				E5993D592B876DA100F4C76C /* Common */,
+				E5E06B3C2B654DCE00F6FD01 /* Design */,
+				E551D9CF2C89DEA4002AE5D1 /* Notice */,
 				E5B22CF22B70F80F003DAC7B /* Setting */,
 			);
 			name = Model;
@@ -2023,6 +2034,7 @@
 				E5A7AA382B57F81400590EA6 /* Image+ScaleToFillFrame.swift in Sources */,
 				E52D10222B86F7AE00A3AFBF /* KakaoMessageImageResponse.swift in Sources */,
 				E5A7AA6A2B57F81400590EA6 /* RootView.swift in Sources */,
+				E551D9D12C89DEB0002AE5D1 /* Notice.swift in Sources */,
 				E5A7AA7D2B57F81400590EA6 /* AuthEndpoint.swift in Sources */,
 				E5A7AA7F2B57F81400590EA6 /* UserDefaultsKey.swift in Sources */,
 				E5A7AA6F2B57F81400590EA6 /* MoyaLoggerPlugin.swift in Sources */,

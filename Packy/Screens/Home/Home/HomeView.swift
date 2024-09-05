@@ -20,11 +20,14 @@ struct HomeView: View {
     }
 
     var body: some View {
-        VStack {
+        VStack(spacing: 0) {
             navigationBar
                 .padding(.top, 8)
+
             ScrollView {
-                VStack(spacing: 16) {
+                VStack(spacing: 12) {
+                    noticeBannersView
+
                     NavigationLink(
                         state: MainTabNavigationPath.State.boxAddInfo()
                     ) {
@@ -76,6 +79,16 @@ private extension HomeView {
             .frame(width: 40, height: 40)
         }
         .frame(height: 48)
+    }
+
+    var noticeBannersView: some View {
+        BannersCarousel(items: store.notices) { notice in
+            NetworkImage(url: notice.imgUrl ?? "", contentMode: .fill)
+        }
+        .onTapAction { notice in
+            print(notice)
+            send(.noticeBannerTapped(notice))
+        }
     }
 
     var topBanner: some View {

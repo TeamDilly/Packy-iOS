@@ -18,6 +18,7 @@ struct HomeFeature: Reducer {
         var isShowDetailLoading: Bool = false
 
         var selectedBoxToDelete: UnsentBox?
+        var notices: [Notice] = []
     }
 
     enum Action: ViewAction {
@@ -29,6 +30,7 @@ struct HomeFeature: Reducer {
         case setUnsentBoxes([UnsentBox])
         case setShowDetailLoading(Bool)
         case setDeletedBox(Int)
+        case setNotices([Notice])
 
         enum View: BindableAction {
             case onTask
@@ -37,16 +39,19 @@ struct HomeFeature: Reducer {
             case tappedUnsentBox(boxId: Int)
             case viewMoreButtonTapped
             case deleteBottomMenuConfirmButtonTapped
+            case noticeBannerTapped(Notice)
         }
 
         enum Delegate {
             case moveToBoxDetail(boxId: Int, ReceivedGiftBox, isForSend: Bool)
             case moveToMyBox
+            case moveToWebView(url: String)
         }
     }
 
     @Dependency(\.authClient) var authClient
     @Dependency(\.boxClient) var boxClient
+    @Dependency(\.adminClient) var adminClient
     @Dependency(\.packyAlert) var packyAlert
     @Dependency(\.bottomMenu) var bottomMenu
 
@@ -60,7 +65,8 @@ struct HomeFeature: Reducer {
                 case .onTask:
                     return .merge(
                         fetchGiftBoxes(),
-                        fetchUnsentBoxes()
+                        fetchUnsentBoxes(),
+                        fetchNotices()
                     )
 
                 case .binding(\.selectedBoxToDelete):
@@ -120,6 +126,10 @@ struct HomeFeature: Reducer {
                         )
                     }
 
+                case let .noticeBannerTapped(notice):
+                    guard let noticeUrl = notice.noticeUrl else { return .none }
+                    return .send(.delegate(.moveToWebView(url: noticeUrl)))
+
                 default:
                     return .none
                 }
@@ -152,6 +162,10 @@ struct HomeFeature: Reducer {
                 state.isShowDetailLoading = isLoading
                 return .none
 
+            case let .setNotices(notices):
+                state.notices = notices
+                return .none
+
             // MARK: Child Action
             case .delegate:
                 return .none
@@ -181,6 +195,17 @@ private extension HomeFeature {
                 await send(.setUnsentBoxes(unsentBoxes), animation: .spring)
             } catch {
                 print("🐛 \(error)")
+            }
+        }
+    }
+
+    func fetchNotices() -> Effect<Action> {
+        .run { send in
+            do {
+                let notices = try await adminClient.fetchNotices()
+                await send(.setNotices(notices), animation: .spring)
+            } catch {
+                print("🐛 \(#function) \(error)")
             }
         }
     }
