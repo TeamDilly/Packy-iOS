@@ -10,9 +10,10 @@ import SwiftUI
 extension View {
     func bouncyTapGesture(
         pressedScale: CGFloat = 0.95,
-        action: @escaping () -> Void
+        action: @escaping () -> Void,
+        onPressing: ((Bool) -> Void)? = nil
     ) -> some View {
-        modifier(BouncyTapGestureModifier(action: action))
+        modifier(BouncyTapGestureModifier(action: action, onPressing: onPressing))
     }
 }
 
@@ -20,6 +21,7 @@ private struct BouncyTapGestureModifier: ViewModifier {
     var pressedScale: CGFloat = 0.95
     var bounceAnimation: Animation = .spring(duration: 0.3)
     var action: () -> Void
+    var onPressing: ((Bool) -> Void)?
 
     @State private var isPressing: Bool = false
 
@@ -33,6 +35,7 @@ private struct BouncyTapGestureModifier: ViewModifier {
             }
             .onLongPressGesture(perform: {}) {
                 isPressing = $0
+                onPressing?(isPressing)
             }
     }
 }
@@ -45,6 +48,8 @@ private struct BouncyTapGestureModifier: ViewModifier {
                 .foregroundColor(.blue)
                 .bouncyTapGesture {
                     print("taptap")
+                } onPressing: { isPressing in
+                    print(isPressing)
                 }
         }
     }

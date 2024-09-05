@@ -1094,7 +1094,6 @@
 				E5A7A9BE2B57F81400590EA6 /* Components */,
 				E5A7A9CF2B57F81400590EA6 /* Font */,
 				E5A7A9D42B57F81400590EA6 /* ViewModifiers */,
-				E51DD17C2C82F59400348098 /* BannersCarousel.swift */,
 			);
 			name = DesignSystem;
 			path = Packy/DesignSystem;
@@ -1120,12 +1119,7 @@
 		E5A7A9BE2B57F81400590EA6 /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				E5AC66E62B62A01400F3CBF0 /* Alert */,
-				E5A7A9C32B57F81400590EA6 /* BoxElement */,
-				E52B95472B80B9E000DB27FC /* BottomMenu */,
-				E54484F72B6F4C8D003DFA1B /* Button */,
-				E55DAE7E2B75E2E700208878 /* Loading */,
-				E55EE4EB2BD38F4F008A5543 /* Snackbar */,
+				E51DD17C2C82F59400348098 /* BannersCarousel.swift */,
 				E586DCDD2B73AA1A0052E8D7 /* BoxMotionView.swift */,
 				E5A7A9CE2B57F81400590EA6 /* CarouselView.swift */,
 				E5A7A9CC2B57F81400590EA6 /* Checkbox.swift */,
@@ -1147,10 +1141,16 @@
 				E5257CB12B6936CD000A091E /* ReadableScrollView.swift */,
 				E563441B2B7A383800AC411B /* ShowErrorView.swift */,
 				E5A7A9C72B57F81400590EA6 /* SocialLoginButton.swift */,
-				E54484EF2B6F3E63003DFA1B /* TabSegmentedControl.swift */,
-				E5B22CF72B70FD36003DAC7B /* WebView.swift */,
 				E57948642B81EFEC0058C733 /* StaggeredGrid.swift */,
+				E54484EF2B6F3E63003DFA1B /* TabSegmentedControl.swift */,
 				E5FDF27C2B84CAC800A5EE18 /* UnsentBoxCell.swift */,
+				E5B22CF72B70FD36003DAC7B /* WebView.swift */,
+				E5AC66E62B62A01400F3CBF0 /* Alert */,
+				E52B95472B80B9E000DB27FC /* BottomMenu */,
+				E5A7A9C32B57F81400590EA6 /* BoxElement */,
+				E54484F72B6F4C8D003DFA1B /* Button */,
+				E55DAE7E2B75E2E700208878 /* Loading */,
+				E55EE4EB2BD38F4F008A5543 /* Snackbar */,
 			);
 			path = Components;
 			sourceTree = "<group>";
