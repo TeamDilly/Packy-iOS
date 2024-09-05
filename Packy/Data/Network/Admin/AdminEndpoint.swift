@@ -21,6 +21,8 @@ enum AdminEndpoint {
     case getStickerDesigns(lastStickerId: Int?, size: Int = 10)
     /// 유튜브 링크 유효성 검사
     case getValidateYoutubeLink(url: String)
+    /// 공지사항 목록 조회
+    case getNotices
 }
 
 extension AdminEndpoint: TargetType {
@@ -42,6 +44,8 @@ extension AdminEndpoint: TargetType {
             return "admin/design/stickers"
         case .getValidateYoutubeLink:
             return "admin/youtube"
+        case .getNotices:
+            return "admin/notices"
         }
     }
 
