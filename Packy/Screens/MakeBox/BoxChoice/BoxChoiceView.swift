@@ -108,7 +108,7 @@ private extension BoxChoiceView {
             )
             .onTapGesture {
                 send(.boxMotionViewTapped)
-                Task { await HapticManager.shared.fireFeedback(.soft) }
+                HapticManager.shared.fireFeedback(.soft)
             }
         }
     }

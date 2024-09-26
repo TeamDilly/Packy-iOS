@@ -197,7 +197,7 @@ private extension MakeBoxDetailView {
         }
         .onTapGesture {
             store.send(.guideOverlayViewTapped)
-            Task { await HapticManager.shared.fireFeedback(.soft) }
+            HapticManager.shared.fireFeedback(.soft)
         }
         .zIndex(1)
     }

@@ -19,8 +19,6 @@ enum AuthEndpoint {
     case withdraw
     /// 토큰 재발급
     case reissueToken(request: TokenRequest)
-    /// 설정 링크 조회
-    case settings
     /// 나의 프로필 조회
     case profile
     /// 나의 프로필 수정
@@ -35,19 +33,17 @@ extension AuthEndpoint: TargetType {
     var path: String {
         switch self {
         case .checkStatus:
-            return "member/status"
+            return "v1/member/status"
         case .signUp:
-            return "auth/sign-up"
-        case .reissueToken:          
-            return "auth/reissue"
+            return "v1/auth/sign-up"
+        case .reissueToken:
+            return "v1/auth/reissue"
         case .signIn(let request):
-            return "auth/sign-in/\(request.provider)"
+            return "v1/auth/sign-in/\(request.provider)"
         case .withdraw:
-            return "auth/withdraw"
-        case .settings:
-            return "admin/settings"
+            return "v1/auth/withdraw"
         case .profile, .editProfile:
-            return "my-page/profile"
+            return "v1/my-page/profile"
         }
     }
     
@@ -55,7 +51,7 @@ extension AuthEndpoint: TargetType {
         switch self {
         case .signUp, .reissueToken:
             return .post
-        case .signIn, .settings, .profile, .checkStatus:
+        case .signIn, .profile, .checkStatus:
             return .get
         case .withdraw:
             return .delete

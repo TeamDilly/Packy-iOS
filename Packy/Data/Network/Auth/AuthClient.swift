@@ -31,8 +31,6 @@ struct AuthClient {
     var withdraw: @Sendable () async throws -> String
     /// 토큰 재발급
     var reissueToken: @Sendable (TokenRequest) async throws -> TokenInfoResponse
-    /// 설정 메뉴 링크들 조회
-    var fetchSettingMenus: @Sendable () async throws -> SettingMenuResponse
     /// 나의 프로필 조회
     var fetchProfile: @Sendable () async throws -> Profile
     /// 프로필 업데이트
@@ -60,9 +58,6 @@ extension AuthClient: DependencyKey {
             reissueToken: {
                 try await nonTokenProvider.request(.reissueToken(request: $0))
             },
-            fetchSettingMenus: {
-                try await provider.request(.settings)
-            },
             fetchProfile: {
                 try await provider.request(.profile)
             },
@@ -79,7 +74,6 @@ extension AuthClient: DependencyKey {
             signIn: { _ in .mock },
             withdraw: { "" },
             reissueToken: { _ in .mock },
-            fetchSettingMenus: { .mock },
             fetchProfile: { .mock },
             updateProfile: { _ in .mock }
         )

@@ -21,6 +21,8 @@ enum AdminEndpoint {
     case getStickerDesigns(lastStickerId: Int?, size: Int = 10)
     /// 유튜브 링크 유효성 검사
     case getValidateYoutubeLink(url: String)
+    /// 설정 링크 조회
+    case settings
     /// 공지사항 목록 조회
     case getNotices
 }
@@ -33,19 +35,21 @@ extension AdminEndpoint: TargetType {
     var path: String {
         switch self {
         case .getRecommendedMusics:
-            return "admin/music"
+            return "v1/admin/music"
         case .getProfileImageDesigns:
-            return "admin/design/profiles"
+            return "v1/admin/design/profiles"
         case .getEnvelopeDesigns:
-            return "admin/design/envelopes"
+            return "v1/admin/design/envelopes"
         case .getBoxDesigns:
-            return "admin/design/boxes"
+            return "v1/admin/design/boxes"
         case .getStickerDesigns:
-            return "admin/design/stickers"
+            return "v1/admin/design/stickers"
         case .getValidateYoutubeLink:
-            return "admin/youtube"
+            return "v1/admin/youtube"
+        case .settings:
+            return "v2/admin/settings"
         case .getNotices:
-            return "admin/notices"
+            return "v1/admin/notices"
         }
     }
 

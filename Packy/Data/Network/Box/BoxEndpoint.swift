@@ -35,19 +35,19 @@ extension BoxEndpoint: TargetType {
     var path: String {
         switch self {
         case .getGiftBoxes, .postGiftbox:
-            return "giftboxes"
+            return "v1/giftboxes"
         case let .getOpenGiftbox(boxId):
-            return "giftboxes/\(boxId)"
+            return "v1/giftboxes/\(boxId)"
         case let .deleteBox(boxId):
-            return "giftboxes/\(boxId)"
+            return "v1/giftboxes/\(boxId)"
         case .getUnsentBoxes:
-            return "giftboxes/waiting"
+            return "v1/giftboxes/waiting"
         case let .changeBoxStats(boxId, _):
-            return "giftboxes/\(boxId)"
+            return "v1/giftboxes/\(boxId)"
         case let .getKakaoImage(boxId):
-            return "giftboxes/\(boxId)/kakao-image"
+            return "v1/giftboxes/\(boxId)/kakao-image"
         case let .getPopupGiftbox(screenType):
-            return "giftboxes/\(screenType.rawValue)"
+            return "v1/giftboxes/\(screenType.rawValue)"
         }
     }
 

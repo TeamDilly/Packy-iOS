@@ -46,6 +46,7 @@ struct SettingFeature: Reducer {
     @Dependency(\.packyAlert) var packyAlert
     @Dependency(\.keychain) var keychain
     @Dependency(\.authClient) var authClient
+    @Dependency(\.adminClient) var adminClient
 
     var body: some Reducer<State, Action> {
         Reduce<State, Action> { state, action in
@@ -55,7 +56,7 @@ struct SettingFeature: Reducer {
                 case .onTask:
                     return .merge(
                         fetchProfileIfNeeded(state.profile),
-                        fetchSettingMenus()
+                        fetchSettingMenus(when: state.settingMenus.isEmpty)
                     )
 
                 case .editProfileButtonTapped:
@@ -109,10 +110,11 @@ struct SettingFeature: Reducer {
 }
 
 private extension SettingFeature {
-    func fetchSettingMenus() -> Effect<Action> {
-        .run { send in
+    func fetchSettingMenus(when menuIsEmpty: Bool) -> Effect<Action> {
+        guard menuIsEmpty else { return .none }
+        return .run { send in
             do {
-                let settingMenus = try await authClient.fetchSettingMenus()
+                let settingMenus = try await adminClient.fetchSettingMenus()
                 await send(.setSettingMenus(settingMenus))
             } catch {
                 print("🐛 \(error)")

@@ -35,16 +35,13 @@ struct SettingView: View {
                     PackyDivider()
 
                     // 서버에서 받아온 설정 링크들
-                    ForEach(SettingMenuType.allCases, id: \.self) { menuType in
-                        let urlString = store.settingMenus.first { $0.type == menuType }?.url ?? ""
-
-                        let destinationState = MainTabNavigationPath.State.webContent(.init(urlString: urlString, navigationTitle: menuType.title))
-                        NavigationLink(state: destinationState) {
-                            SettingListCell(title: menuType.title)
-                        }
-
-                        if case .sendComment = menuType {
-                            PackyDivider()
+                    ForEach(store.settingMenus, id: \.name) { settingMenu in
+                        NavigationLink(
+                            state: MainTabNavigationPath.State.webContent(
+                                .init(urlString: settingMenu.url, navigationTitle: settingMenu.name)
+                            )
+                        ) {
+                            SettingListCell(title: settingMenu.name)
                         }
                     }
 

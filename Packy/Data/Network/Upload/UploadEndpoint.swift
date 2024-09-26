@@ -29,7 +29,7 @@ extension UploadEndpoint: TargetType {
     var path: String {
         switch self {
         case let .getPreSignedUrl(fileName):
-            return "file/presigned-url/\(fileName)"
+            return "v1/file/presigned-url/\(fileName)"
         case .upload:
             return ""
         }

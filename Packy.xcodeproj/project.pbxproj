@@ -284,7 +284,6 @@
 		E5AC66F32B62BC8400F3CBF0 /* Sequence+SortByKeypath.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5AC66F22B62BC8400F3CBF0 /* Sequence+SortByKeypath.swift */; };
 		E5B22CE32B6FC774003DAC7B /* URL+QueryParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B22CE22B6FC774003DAC7B /* URL+QueryParameter.swift */; };
 		E5B22CF42B70F834003DAC7B /* SettingMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B22CF32B70F834003DAC7B /* SettingMenu.swift */; };
-		E5B22CF62B70F8F2003DAC7B /* SettingMenuType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B22CF52B70F8F2003DAC7B /* SettingMenuType.swift */; };
 		E5B22CF82B70FD36003DAC7B /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B22CF72B70FD36003DAC7B /* WebView.swift */; };
 		E5B22CFC2B70FF85003DAC7B /* WebContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B22CFA2B70FF85003DAC7B /* WebContentView.swift */; };
 		E5B22CFD2B70FF85003DAC7B /* WebContentFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B22CFB2B70FF85003DAC7B /* WebContentFeature.swift */; };
@@ -585,7 +584,6 @@
 		E5AC66F22B62BC8400F3CBF0 /* Sequence+SortByKeypath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sequence+SortByKeypath.swift"; sourceTree = "<group>"; };
 		E5B22CE22B6FC774003DAC7B /* URL+QueryParameter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+QueryParameter.swift"; sourceTree = "<group>"; };
 		E5B22CF32B70F834003DAC7B /* SettingMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingMenu.swift; sourceTree = "<group>"; };
-		E5B22CF52B70F8F2003DAC7B /* SettingMenuType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingMenuType.swift; sourceTree = "<group>"; };
 		E5B22CF72B70FD36003DAC7B /* WebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
 		E5B22CFA2B70FF85003DAC7B /* WebContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebContentView.swift; sourceTree = "<group>"; };
 		E5B22CFB2B70FF85003DAC7B /* WebContentFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebContentFeature.swift; sourceTree = "<group>"; };
@@ -1551,7 +1549,6 @@
 			isa = PBXGroup;
 			children = (
 				E5B22CF32B70F834003DAC7B /* SettingMenu.swift */,
-				E5B22CF52B70F8F2003DAC7B /* SettingMenuType.swift */,
 			);
 			path = Setting;
 			sourceTree = "<group>";
@@ -1975,7 +1972,6 @@
 				E5A7AA532B57F81400590EA6 /* HomeView.swift in Sources */,
 				E57948402B80CD310058C733 /* MainTabFeature+Navigation.swift in Sources */,
 				E5E5110F2B69212900CE86AF /* BoxDetailLetterView.swift in Sources */,
-				E5B22CF62B70F8F2003DAC7B /* SettingMenuType.swift in Sources */,
 				E57948522B81EB410058C733 /* PhotoArchiveFeature.swift in Sources */,
 				E57948652B81EFEC0058C733 /* StaggeredGrid.swift in Sources */,
 				E57948732B8207CF0058C733 /* LetterArchiveData.swift in Sources */,

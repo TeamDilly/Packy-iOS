@@ -24,13 +24,13 @@ extension ArchiveEndpoint: TargetType {
     var path: String {
         switch self {
         case .getPhotos:
-            return "gifts/photos"
+            return "v1/gifts/photos"
         case .getMusics:
-            return "gifts/musics"
+            return "v1/gifts/musics"
         case .getLetters:
-            return "gifts/letters"
+            return "v1/gifts/letters"
         case .getItems:
-            return "gifts/items"
+            return "v1/gifts/items"
         }
     }
 

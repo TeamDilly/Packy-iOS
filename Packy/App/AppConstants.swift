@@ -35,7 +35,6 @@ extension Constants {
         #endif
     }
 
-    static private let devServerUrl = URL(string: "https://dev.packyforyou.shop/api/v1/")!
-    static private let releaseServerUrl = URL(string: "https://prod.packyforyou.shop/api/v1/")!
-
+    static private let devServerUrl = URL(string: "https://dev.packyforyou.shop/api/")!
+    static private let releaseServerUrl = URL(string: "https://prod.packyforyou.shop/api/")!
 }

@@ -27,6 +27,7 @@ struct AdminClient {
     var fetchBoxDesigns: @Sendable () async throws -> BoxDesignResponse
     var fetchStickerDesigns: @Sendable (_ lastStickerId: Int?) async throws -> StickerDesignResponse
     var validateYoutubeUrl: @Sendable (_ url: String) async throws -> Bool
+    var fetchSettingMenus: @Sendable () async throws -> SettingMenuResponse
     var fetchNotices: @Sendable () async throws -> [Notice]
 }
 
@@ -60,6 +61,9 @@ extension AdminClient: DependencyKey {
                 let response: YoutubeLinkValidationResponse = try await provider.request(.getValidateYoutubeLink(url: $0))
                 return response.status
             },
+            fetchSettingMenus: {
+                try await provider.request(.settings)
+            },
             fetchNotices: {
                 let response: NoticeResponse = try await provider.request(.getNotices)
                 return response
@@ -78,6 +82,7 @@ extension AdminClient: DependencyKey {
                 return .mock
             },
             validateYoutubeUrl: { _ in return true },
+            fetchSettingMenus: { .mock },
             fetchNotices: { .mock }
         )
     }()

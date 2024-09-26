@@ -10,19 +10,14 @@ import Foundation
 typealias SettingMenuResponse = [SettingMenu]
 
 struct SettingMenu: Decodable, Equatable {
-    let type: SettingMenuType
+    let name: String
     let url: String
-
-    enum CodingKeys: String, CodingKey {
-        case type = "tag"
-        case url
-    }
 }
 
 // MARK: - Mock Data
 
 extension [SettingMenu] {
-    static let mock: [SettingMenu] = SettingMenuType.allCases.map {
-        .init(type: $0, url: "https://www.naver.com/")
+    static let mock: [SettingMenu] = (0...10).map {
+        .init(name: "Menu \($0)", url: "https://www.naver.com/")
     }
 }
