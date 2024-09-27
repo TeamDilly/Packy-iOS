@@ -27,7 +27,7 @@ private struct PackyAlertPresentationWindowContext: ViewModifier {
                 .first { $0.windows.contains(where: \.isKeyWindow) }
             guard let windowScene else { return assertionFailure("Could not get a UIWindowScene") }
 
-            let alertWindow = PassThroughWindow(windowScene: windowScene)
+            let alertWindow = PassthroughWindow(windowScene: windowScene)
             let alertViewController = UIHostingController(
                 rootView: PackyAlertRootView()
             )
