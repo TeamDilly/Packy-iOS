@@ -97,6 +97,7 @@ private extension HomeView {
                 .packyFont(.heading3)
                 .multilineTextAlignment(.center)
                 .foregroundStyle(.white)
+                .fixedSize()
                 .padding(.top, 34)
 
             Image(.homeBanner)
